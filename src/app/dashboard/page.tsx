@@ -151,13 +151,19 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex">
+      <div className="min-h-screen bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
-        <main className="flex-1 pl-60">
-          <div className="p-6 max-w-7xl mx-auto">
-            <Skeleton className="h-10 w-64 mb-8" />
+        <main className="pl-60">
+          <div className="p-8 max-w-7xl mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <Skeleton className="h-10 w-64 mb-2" />
+                <Skeleton className="h-4 w-48" />
+              </div>
+              <Skeleton className="h-10 w-32" />
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-32" />)}
+              {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-28 rounded-xl" />)}
             </div>
           </div>
         </main>
@@ -172,17 +178,18 @@ export default function DashboardPage() {
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
-        <div className="p-6 max-w-7xl mx-auto">
+        <div className="p-8 max-w-7xl mx-auto">
+          {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl font-semibold">
+              <h1 className="text-3xl font-bold mb-1">
                 {getGreeting()}{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''}
               </h1>
               <p className="text-muted-foreground">
                 {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
               </p>
             </div>
-            <Button asChild>
+            <Button asChild className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 shadow-lg shadow-violet-500/25">
               <Link href="/chat">
                 <Plus className="h-4 w-4 mr-2" />
                 New Chat
@@ -190,63 +197,69 @@ export default function DashboardPage() {
             </Button>
           </div>
 
+          {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <Card>
-              <CardContent className="p-4">
+            <Card className="overflow-hidden">
+              <div className="h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500" />
+              <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-muted-foreground">Memory Items</span>
+                  <span className="text-sm font-medium text-muted-foreground">Memory Items</span>
                   <div className="p-2 rounded-lg bg-blue-500/10">
                     <Brain className="h-4 w-4 text-blue-500" />
                   </div>
                 </div>
-                <p className="text-2xl font-bold">{stats?.memoryCount || 0}</p>
+                <p className="text-3xl font-bold">{stats?.memoryCount || 0}</p>
                 <p className="text-xs text-muted-foreground mt-1">Stored memories</p>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="overflow-hidden">
+              <div className="h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500" />
+              <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-muted-foreground">Active Goals</span>
-                  <div className="p-2 rounded-lg bg-green-500/10">
-                    <Target className="h-4 w-4 text-green-500" />
+                  <span className="text-sm font-medium text-muted-foreground">Active Goals</span>
+                  <div className="p-2 rounded-lg bg-emerald-500/10">
+                    <Target className="h-4 w-4 text-emerald-500" />
                   </div>
                 </div>
-                <p className="text-2xl font-bold">{stats?.activeGoals || 0}</p>
+                <p className="text-3xl font-bold">{stats?.activeGoals || 0}</p>
                 <p className="text-xs text-muted-foreground mt-1">In progress</p>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="overflow-hidden">
+              <div className={`h-1.5 ${(stats?.dueToday || 0) > 0 ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-violet-500 to-purple-500'}`} />
+              <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-muted-foreground">Due Today</span>
-                  <div className="p-2 rounded-lg bg-red-500/10">
-                    <Clock className="h-4 w-4 text-red-500" />
+                  <span className="text-sm font-medium text-muted-foreground">Due Today</span>
+                  <div className={`p-2 rounded-lg ${(stats?.dueToday || 0) > 0 ? 'bg-red-500/10' : 'bg-violet-500/10'}`}>
+                    <Clock className={`h-4 w-4 ${(stats?.dueToday || 0) > 0 ? 'text-red-500' : 'text-violet-500'}`} />
                   </div>
                 </div>
-                <p className="text-2xl font-bold">{stats?.dueToday || 0}</p>
-                <p className="text-xs text-red-500 mt-1">
+                <p className="text-3xl font-bold">{stats?.dueToday || 0}</p>
+                <p className={`text-xs mt-1 ${stats?.overdueCount ? 'text-red-500' : 'text-emerald-500'}`}>
                   {stats?.overdueCount ? `${stats.overdueCount} overdue` : 'On track'}
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="overflow-hidden">
+              <div className="h-1.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+              <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-muted-foreground">Conversations</span>
-                  <div className="p-2 rounded-lg bg-purple-500/10">
-                    <MessageSquare className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm font-medium text-muted-foreground">Conversations</span>
+                  <div className="p-2 rounded-lg bg-violet-500/10">
+                    <MessageSquare className="h-4 w-4 text-violet-500" />
                   </div>
                 </div>
-                <p className="text-2xl font-bold">{stats?.recentConversations.length || 0}</p>
-                <p className="text-xs text-muted-foreground mt-1">Recent chats</p>
+                <p className="text-3xl font-bold">{stats?.recentConversations.length || 0}</p>
+                <p className="text-xs text-muted-foreground mt-1">Total chats</p>
               </CardContent>
             </Card>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
+          {/* Content Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -289,121 +302,138 @@ export default function DashboardPage() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5" />
+                  <CheckCircle className="h-5 w-5 text-emerald-500" />
                   Upcoming Commitments
                 </h2>
                 <Button variant="ghost" size="sm" asChild>
                   <Link href="/goals">View All <ArrowRight className="h-4 w-4 ml-1" /></Link>
                 </Button>
               </div>
-              <Card>
-                <CardContent className="p-4">
-                  {stats?.upcomingGoals && stats.upcomingGoals.length > 0 ? (
-                    <div className="space-y-3">
-                      {stats.upcomingGoals.map((goal) => {
-                        const deadline = getTimeUntilDeadline(goal.deadline)
-                        return (
-                          <div key={goal.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                            <div className="flex items-center gap-3">
-                              <div className={`h-5 w-5 rounded-full border-2 ${deadline?.urgent ? 'border-red-500' : 'border-muted-foreground'}`} />
-                              <span className="font-medium">{goal.title}</span>
-                            </div>
-                            <Badge variant={deadline?.urgent ? "destructive" : "secondary"}>
-                              {deadline?.text}
-                            </Badge>
+              <Card className="overflow-hidden">
+                {stats?.upcomingGoals && stats.upcomingGoals.length > 0 ? (
+                  <div className="divide-y">
+                    {stats.upcomingGoals.map((goal) => {
+                      const deadline = getTimeUntilDeadline(goal.deadline)
+                      return (
+                        <div key={goal.id} className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
+                          <div className="flex items-center gap-3">
+                            <div className={`h-5 w-5 rounded-full border-2 ${deadline?.urgent ? 'border-red-500 bg-red-500/10' : 'border-violet-500 bg-violet-500/10'}`} />
+                            <span className="font-medium">{goal.title}</span>
                           </div>
-                        )
-                      })}
-                    </div>
-                  ) : (
-                    <div className="p-8 text-center text-muted-foreground">
-                      <Target className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                      <p>No active goals</p>
-                      <Button variant="link" asChild className="mt-2">
-                        <Link href="/goals">Create a goal</Link>
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
+                          <Badge variant={deadline?.urgent ? "destructive" : "secondary"}>
+                            {deadline?.text}
+                          </Badge>
+                        </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <div className="p-8 text-center text-muted-foreground">
+                    <Target className="h-10 w-10 mx-auto mb-3 text-muted-foreground/30" />
+                    <p className="font-medium mb-1">No active goals</p>
+                    <p className="text-sm mb-4">Create your first goal to get started</p>
+                    <Button asChild size="sm">
+                      <Link href="/goals">Create a goal</Link>
+                    </Button>
+                  </div>
+                )}
               </Card>
             </div>
           </div>
 
+          {/* Decisions Section */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+                <FileText className="h-5 w-5 text-violet-500" />
                 Key Decisions
               </h2>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/memory">View All <ArrowRight className="h-4 w-4 ml-1" /></Link>
               </Button>
             </div>
-            <Card>
-              <CardContent className="p-4">
-                {stats?.recentDecisions && stats.recentDecisions.length > 0 ? (
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {stats.recentDecisions.map((decision) => (
-                      <div key={decision.id} className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <FileText className="h-4 w-4 text-muted-foreground" />
-                          <div>
-                            <p className="font-medium">{decision.title}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(decision.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                            </p>
-                          </div>
+            <Card className="overflow-hidden">
+              {stats?.recentDecisions && stats.recentDecisions.length > 0 ? (
+                <div className="grid md:grid-cols-2 gap-4 p-4">
+                  {stats.recentDecisions.map((decision) => (
+                    <div key={decision.id} className="p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors cursor-pointer">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 rounded-lg bg-violet-500/10">
+                          <FileText className="h-4 w-4 text-violet-500" />
+                        </div>
+                        <div>
+                          <p className="font-medium">{decision.title}</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {new Date(decision.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="p-8 text-center text-muted-foreground">
-                    <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                    <p>No decisions logged yet</p>
-                    <Button variant="link" asChild className="mt-2">
-                      <Link href="/memory">Log your first decision</Link>
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-8 text-center text-muted-foreground">
+                  <FileText className="h-10 w-10 mx-auto mb-3 text-muted-foreground/30" />
+                  <p className="font-medium mb-1">No decisions logged yet</p>
+                  <p className="text-sm mb-4">Log your first decision to build memory</p>
+                  <Button asChild size="sm">
+                    <Link href="/memory">Log a decision</Link>
+                  </Button>
+                </div>
+              )}
             </Card>
           </div>
 
+          {/* Quick Actions */}
           <div>
             <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Link href="/chat">
-                <Card className="hover:bg-muted/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <MessageSquare className="h-8 w-8 mb-2 text-primary" />
+                <Card className="group hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10 transition-all cursor-pointer h-full">
+                  <CardContent className="p-5 flex flex-col items-center justify-center text-center">
+                    <div className="p-3 rounded-xl bg-violet-500/10 group-hover:bg-violet-500/20 transition-colors mb-3">
+                      <MessageSquare className="h-6 w-6 text-violet-500" />
+                    </div>
                     <p className="font-medium">New Chat</p>
                     <p className="text-xs text-muted-foreground">Start conversation</p>
                   </CardContent>
                 </Card>
               </Link>
               <Link href="/memory">
-                <Card className="hover:bg-muted/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <FileText className="h-8 w-8 mb-2 text-primary" />
+                <Card className="group hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all cursor-pointer h-full">
+                  <CardContent className="p-5 flex flex-col items-center justify-center text-center">
+                    <div className="p-3 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors mb-3">
+                      <FileText className="h-6 w-6 text-blue-500" />
+                    </div>
                     <p className="font-medium">Add Decision</p>
                     <p className="text-xs text-muted-foreground">Log a decision</p>
                   </CardContent>
                 </Card>
               </Link>
               <Link href="/goals">
-                <Card className="hover:bg-muted/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <Target className="h-8 w-8 mb-2 text-primary" />
+                <Card className="group hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-pointer h-full">
+                  <CardContent className="p-5 flex flex-col items-center justify-center text-center">
+                    <div className="p-3 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors mb-3">
+                      <Target className="h-6 w-6 text-emerald-500" />
+                    </div>
                     <p className="font-medium">Set Goal</p>
                     <p className="text-xs text-muted-foreground">Create new goal</p>
                   </CardContent>
                 </Card>
               </Link>
               <Link href="/settings/api-keys">
-                <Card className="hover:bg-muted/50 transition-colors cursor-pointer h-full">
-                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <Brain className="h-8 w-8 mb-2 text-primary" />
+                <Card className="group hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 transition-all cursor-pointer h-full">
+                  <CardContent className="p-5 flex flex-col items-center justify-center text-center">
+                    <div className="p-3 rounded-xl bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors mb-3">
+                      <Brain className="h-6 w-6 text-amber-500" />
+                    </div>
+                    <p className="font-medium">Configure AI</p>
+                    <p className="text-xs text-muted-foreground">Manage API keys</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
+          </div>
                     <p className="font-medium">Configure AI</p>
                     <p className="text-xs text-muted-foreground">Manage API keys</p>
                   </CardContent>
