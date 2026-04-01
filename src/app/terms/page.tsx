@@ -24,7 +24,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">1. Acceptance of Terms</h2>
               <p>
-                By accessing or using Startup Agent ("we," "us," or "our"), you agree to
+                By accessing or using TaskLyne ("we," "us," or "our"), you agree to
                 be bound by these Terms of Service. If you do not agree, do not use
                 our service.
               </p>
@@ -33,7 +33,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">2. Description of Service</h2>
               <p>
-                Startup Agent provides an AI-powered memory and accountability platform
+                TaskLyne provides an AI-powered memory and accountability platform
                 for startup founders. Our service helps you track decisions,
                 commitments, goals, and provides AI-assisted conversations with
                 persistent context.
@@ -98,7 +98,7 @@ export default function TermsPage() {
               <h2 className="text-xl font-semibold mb-4">7. Intellectual Property</h2>
               <p>
                 The service, including all software, designs, and content, is owned by
-                Startup Agent and protected by intellectual property laws. You may not
+                TaskLyne and protected by intellectual property laws. You may not
                 copy, modify, or distribute our intellectual property without permission.
               </p>
             </section>

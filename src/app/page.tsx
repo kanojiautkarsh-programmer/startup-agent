@@ -375,7 +375,7 @@ export default function Home() {
           </div>
           
           <div className="pt-8 border-t text-center text-sm text-muted-foreground">
-            © 2026 All rights reserved.
+            © 2026 TaskLyne. All rights reserved.
           </div>
         </div>
       </footer>

@@ -143,7 +143,7 @@ export default function CookiesPage() {
               Cookie Policy
             </Link>
           </div>
-          © 2026 All rights reserved.
+          © 2026 TaskLyne. All rights reserved.
         </div>
       </footer>
     </div>
