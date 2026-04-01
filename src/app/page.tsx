@@ -25,8 +25,8 @@ const features = [
   },
   {
     icon: MessageSquare,
-    title: "Contextual AI",
-    description: "Chat with AI that remembers your entire startup journey. No more repeating yourself.",
+    title: "Contextual Memory",
+    description: "Chat with an assistant that remembers your entire startup journey. No more repeating yourself.",
     color: "from-blue-500 to-cyan-500"
   },
   {
@@ -38,7 +38,7 @@ const features = [
   {
     icon: Shield,
     title: "Your Data, Your Keys",
-    description: "Bring your own AI keys. We never see your data or touch your API usage.",
+    description: "Bring your own API keys. We never see your data or touch your usage.",
     color: "from-orange-500 to-amber-500"
   }
 ]
@@ -117,7 +117,7 @@ export default function Home() {
           {/* Headline */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-in-up">
             <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-              The AI That Never Forgets
+              Your Startup's Memory
             </span>
             <br />
             <span className="text-foreground">Your Startup</span>
@@ -264,8 +264,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: "01", title: "Add Your Context", description: "Import your startup's history, or let the AI learn as you chat." },
-              { step: "02", title: "Chat Naturally", description: "Talk to AI that remembers everything. No need to re-explain." },
+               { step: "01", title: "Add Your Context", description: "Import your startup's history, or let the assistant learn as you chat." },
+               { step: "02", title: "Chat Naturally", description: "Talk to a memory that remembers everything. No need to re-explain." },
               { step: "03", title: "Stay Accountable", description: "Track goals and commitments with smart reminders." }
             ].map((item, i) => (
               <div key={i} className="relative">
@@ -342,7 +342,7 @@ export default function Home() {
                 <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
               </Link>
               <p className="text-sm text-muted-foreground">
-                The AI that never forgets your startup.
+                 Your startup's memory, decisions, and commitments — always remembered.
               </p>
             </div>
             

@@ -191,7 +191,7 @@ export default function SettingsPage() {
                       Current Plan
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Free tier • Configure your AI in API Keys
+                      Free tier • Configure your keys in API Keys
                     </p>
                   </div>
                   <Button variant="outline" asChild className="rounded-lg">

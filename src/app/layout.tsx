@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TaskLyne - The AI That Never Forgets Your Startup",
+  title: "TaskLyne - Your Startup's Memory",
   description:
     "Your startup's memory, decisions, and commitments — always remembered, always tracked.",
 };

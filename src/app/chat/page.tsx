@@ -137,13 +137,13 @@ export default function ChatPage() {
             <div>
               <h1 className="text-2xl font-bold">Chat</h1>
               <p className="text-sm text-muted-foreground">
-                Chat with AI that knows your startup
+                Chat with your startup's memory
               </p>
             </div>
             <Button variant="outline" size="sm" asChild className="hover:border-violet-500/50">
               <a href="/settings/api-keys">
                 <Settings className="h-4 w-4 mr-2" />
-                Configure AI
+                Configure Keys
               </a>
             </Button>
           </div>

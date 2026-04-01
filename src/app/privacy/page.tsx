@@ -39,9 +39,9 @@ export default function PrivacyPage() {
               </p>
               <h3 className="font-medium mb-2">API Keys</h3>
               <p className="mb-4">
-                When you connect AI providers, your API key is encrypted and stored
+                When you connect providers, your API key is encrypted and stored
                 securely. We never access or use your API key except to facilitate
-                your AI requests.
+                your requests.
               </p>
               <h3 className="font-medium mb-2">Usage Data</h3>
               <p>

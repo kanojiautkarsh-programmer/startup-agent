@@ -33,9 +33,9 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">2. Description of Service</h2>
               <p>
-                TaskLyne provides an AI-powered memory and accountability platform
+                TaskLyne provides a memory and accountability platform
                 for startup founders. Our service helps you track decisions,
-                commitments, goals, and provides AI-assisted conversations with
+                commitments, goals, and provides intelligent conversations with
                 persistent context.
               </p>
             </section>
@@ -56,7 +56,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-xl font-semibold mb-4">4. API Keys and User Content</h2>
               <p className="mb-4">
-                <strong>API Keys:</strong> When you connect AI providers, you retain
+                <strong>API Keys:</strong> When you connect providers, you retain
                 full ownership of your API keys. We encrypt and store keys securely
                 but assume no liability for unauthorized use.
               </p>
@@ -68,16 +68,15 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">5. AI Service Limitations</h2>
+              <h2 className="text-xl font-semibold mb-4">5. Service Limitations</h2>
               <p className="mb-4">
-                <strong>Important:</strong> Our AI features are provided "as is" with
+                <strong>Important:</strong> Our features are provided "as is" with
                 the following limitations:
               </p>
               <ul className="list-disc pl-6 mb-4">
-                <li>AI responses are generated automatically and may be inaccurate</li>
-                <li>We do not guarantee accuracy, completeness, or reliability</li>
-                <li>You are responsible for validating AI outputs</li>
-                <li>AI responses do not constitute professional advice</li>
+                <li>Responses are generated automatically and may be inaccurate</li>
+                <li>You are responsible for validating outputs</li>
+                <li>Responses do not constitute professional advice</li>
               </ul>
             </section>
 

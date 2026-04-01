@@ -420,7 +420,7 @@ export default function DashboardPage() {
                     <div className="p-3 rounded-xl bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors mb-3">
                       <Brain className="h-6 w-6 text-amber-500" />
                     </div>
-                    <p className="font-medium">Configure AI</p>
+                    <p className="font-medium">Configure Keys</p>
                     <p className="text-xs text-muted-foreground">Manage API keys</p>
                   </CardContent>
                 </Card>

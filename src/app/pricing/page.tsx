@@ -42,7 +42,7 @@ const plans = [
       "Unlimited captures",
       "Full memory",
       "Real-time accountability",
-      "Dedicated AI consultant",
+      "Dedicated consultant",
       "SLA guarantee",
       "Custom integrations",
       "24/7 support",
@@ -159,7 +159,7 @@ export default function PricingPage() {
                 },
                 {
                   q: "Do users need to bring their own API keys?",
-                  a: "Yes, users connect their own AI provider (Claude, Gemini) for maximum flexibility and cost control.",
+                   a: "Yes, users connect their own provider (Claude, Gemini) for maximum flexibility and cost control.",
                 },
                 {
                   q: "Is there a free trial?",

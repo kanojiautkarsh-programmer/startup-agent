@@ -204,7 +204,7 @@ export default function APIKeysPage() {
           <div className="flex-1 p-6 max-w-3xl">
             <h1 className="text-2xl font-semibold mb-2">API Keys</h1>
             <p className="text-muted-foreground mb-6">
-              Connect your AI providers. Add your own keys to use the app.
+              Connect your providers. Add your own keys to use the app.
             </p>
 
             {message && (
@@ -306,7 +306,7 @@ export default function APIKeysPage() {
                 <li>• Encrypted at rest with AES-256</li>
                 <li>• Never logged or shared with third parties</li>
                 <li>• You can delete keys anytime</li>
-                <li>• We only use keys to facilitate your AI requests</li>
+                 <li>• We only use keys to facilitate your requests</li>
               </ul>
             </div>
           </div>
