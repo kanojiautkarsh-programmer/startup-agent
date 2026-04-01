@@ -76,9 +76,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 shadow-lg shadow-violet-500/25 group-hover:scale-105 transition-transform">
-              <Zap className="h-5 w-5 text-white" />
-            </div>
+            <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-9 w-9 rounded-xl object-contain group-hover:scale-105 transition-transform" />
             <span className="font-bold text-lg">Startup Agent</span>
           </Link>
 
@@ -173,9 +171,7 @@ export default function Home() {
               {/* Content */}
               <div className="p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center shrink-0 shadow-lg shadow-violet-500/25">
-                    <Zap className="h-5 w-5 text-white" />
-                  </div>
+                  <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="w-10 h-10 rounded-xl object-contain shrink-0" />
                   <div className="flex-1">
                     <div className="bg-muted/50 rounded-xl p-4 mb-3">
                       <p className="text-sm">
@@ -344,9 +340,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
             <div>
               <Link href="/" className="flex items-center gap-2 mb-4">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                  <Zap className="h-4 w-4 text-primary-foreground" />
-                </div>
+                <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-8 w-8 rounded-lg object-contain" />
                 <span className="font-semibold">Startup Agent</span>
               </Link>
               <p className="text-sm text-muted-foreground">

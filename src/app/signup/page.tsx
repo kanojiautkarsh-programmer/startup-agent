@@ -63,11 +63,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex flex-col">
       <header className="p-6">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <svg className="h-4 w-4 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
+          <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-8 w-8 rounded-lg object-contain" />
           <span className="font-semibold">Startup Agent</span>
         </Link>
       </header>
