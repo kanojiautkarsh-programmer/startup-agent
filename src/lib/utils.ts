@@ -44,3 +44,72 @@ export function getDayOfWeek(): string {
     year: "numeric",
   });
 }
+
+export function truncate(str: string, length: number): string {
+  if (str.length <= length) return str;
+  return str.slice(0, length) + "...";
+}
+
+export function capitalizeFirst(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function debounce<T extends (...args: unknown[]) => unknown>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout | null = null;
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+export function generateId(prefix?: string): string {
+  const id = Math.random().toString(36).substring(2, 9);
+  return prefix ? `${prefix}-${id}` : id;
+}
+
+export function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+export function pluralize(count: number, singular: string, plural?: string): string {
+  return count === 1 ? singular : (plural || `${singular}s`);
+}
+
+export function formatNumber(num: number): string {
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  }
+  return num.toString();
+}
+
+export function formatCurrency(amount: number, currency = "USD"): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export function classNames(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(" ");
+}
