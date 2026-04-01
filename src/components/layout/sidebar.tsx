@@ -1,0 +1,127 @@
+"use client"
+
+import * as React from "react"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import {
+  Home,
+  MessageSquare,
+  Brain,
+  Target,
+  Settings,
+  ChevronLeft,
+  LogOut,
+  Zap,
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { createClient } from "@/lib/supabase/client"
+
+const navItems = [
+  { title: "Dashboard", href: "/dashboard", icon: Home },
+  { title: "Chat", href: "/chat", icon: MessageSquare },
+  { title: "Memory", href: "/memory", icon: Brain },
+  { title: "Goals", href: "/goals", icon: Target },
+]
+
+interface SidebarProps {
+  collapsed: boolean
+  onToggle: () => void
+  user?: { email?: string; full_name?: string } | null
+}
+
+export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const supabase = createClient()
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push('/login')
+    router.refresh()
+  }
+
+  const initials = user?.full_name
+    ? user.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : user?.email?.[0]?.toUpperCase() || 'U'
+
+  return (
+    <TooltipProvider delayDuration={0}>
+      <aside className={cn("fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300", collapsed ? "w-16" : "w-60")}>
+        <div className="flex h-full flex-col">
+          <div className="flex h-14 items-center border-b px-4">
+            <Link href="/dashboard" className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <Zap className="h-4 w-4 text-primary-foreground" />
+              </div>
+              {!collapsed && <span className="font-semibold">Startup Agent</span>}
+            </Link>
+          </div>
+
+          <nav className="flex-1 space-y-1 p-2">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href
+              const NavIcon = item.icon
+              return collapsed ? (
+                <Tooltip key={item.href}>
+                  <TooltipTrigger asChild>
+                    <Link href={item.href} className={cn("flex h-10 w-10 items-center justify-center rounded-lg transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+                      <NavIcon className="h-5 w-5" />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">{item.title}</TooltipContent>
+                </Tooltip>
+              ) : (
+                <Link key={item.href} href={item.href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+                  <NavIcon className="h-5 w-5" />
+                  {item.title}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div className="border-t p-2 space-y-1">
+            <Link href="/settings" className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors", pathname === "/settings" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+              <Settings className="h-5 w-5" />
+              {!collapsed && "Settings"}
+            </Link>
+
+            {!collapsed && user && (
+              <div className="flex items-center gap-3 px-3 py-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="text-xs">{initials}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{user.full_name || 'User'}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                </div>
+              </div>
+            )}
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" onClick={handleLogout} className={cn("w-full", !collapsed && "justify-start px-3")}>
+                  <LogOut className="h-4 w-4" />
+                  {!collapsed && <span className="ml-2">Logout</span>}
+                </Button>
+              </TooltipTrigger>
+              {collapsed && <TooltipContent side="right">Logout</TooltipContent>}
+            </Tooltip>
+
+            <Button variant="ghost" size="sm" onClick={onToggle} className={cn("w-full justify-center", !collapsed && "justify-start px-3")}>
+              <ChevronLeft className={cn("h-4 w-4 transition-transform", collapsed && "rotate-180")} />
+              {!collapsed && <span className="ml-2">Collapse</span>}
+            </Button>
+          </div>
+        </div>
+      </aside>
+    </TooltipProvider>
+  )
+}
