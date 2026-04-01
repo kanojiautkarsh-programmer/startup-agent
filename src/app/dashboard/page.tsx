@@ -7,7 +7,7 @@ import { Sidebar } from "@/components/layout/sidebar"
 import { Header } from "@/components/layout/header"
 import { CommandPalette } from "@/components/command/command-palette"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
@@ -18,9 +18,7 @@ import {
   Plus,
   ArrowRight,
   FileText,
-  TrendingUp,
   Clock,
-  AlertCircle,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
@@ -179,7 +177,6 @@ export default function DashboardPage() {
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
         <div className="p-8 max-w-7xl mx-auto">
-          {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
               <h1 className="text-3xl font-bold mb-1">
@@ -197,7 +194,6 @@ export default function DashboardPage() {
             </Button>
           </div>
 
-          {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <Card className="overflow-hidden">
               <div className="h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500" />
@@ -258,7 +254,6 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          {/* Content Grid */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -341,7 +336,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Decisions Section */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -384,7 +378,6 @@ export default function DashboardPage() {
             </Card>
           </div>
 
-          {/* Quick Actions */}
           <div>
             <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -427,13 +420,6 @@ export default function DashboardPage() {
                     <div className="p-3 rounded-xl bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors mb-3">
                       <Brain className="h-6 w-6 text-amber-500" />
                     </div>
-                    <p className="font-medium">Configure AI</p>
-                    <p className="text-xs text-muted-foreground">Manage API keys</p>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
-          </div>
                     <p className="font-medium">Configure AI</p>
                     <p className="text-xs text-muted-foreground">Manage API keys</p>
                   </CardContent>

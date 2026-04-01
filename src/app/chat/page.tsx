@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Send, Brain, BarChart3, Settings, Loader2, Copy, RefreshCw, Check } from "lucide-react";
+import { Send, Brain, BarChart3, Settings, RefreshCw, Check, Copy } from "lucide-react";
 
 interface Message {
   id: string;
@@ -16,53 +16,6 @@ interface Message {
   content: string;
   timestamp: Date;
 }
-
-const memoryContext = {
-  startupName: "TechStart",
-  pivotDate: "November 2024",
-  pivotFrom: "B2C to B2B",
-  targetMarkets: ["US", "EU"],
-  currentMRR: "$2,400",
-  teamSize: 5,
-  goals: ["Launch MVP", "Get 10 paying customers"],
-  recentDecisions: [
-    "Pivot to B2B from B2C",
-    "Launch with $49/$149/$399 pricing tiers",
-    "Target US + EU markets first"
-  ]
-};
-
-const aiResponses = [
-  `Based on your startup's memory, I recall several key points:
-
-• You pivoted to B2B in ${memoryContext.pivotDate}
-• Target markets: ${memoryContext.targetMarkets.join(" and ")}
-• Current MRR: ${memoryContext.currentMRR}
-• Team size: ${memoryContext.teamSize} members
-
-Let me help you work through this. Would you like me to draft something based on this context?`,
-
-  `I remember we discussed this recently. Here are the relevant decisions from your memory:
-
-• ${memoryContext.recentDecisions[0]} (${memoryContext.pivotDate})
-• ${memoryContext.recentDecisions[1]}
-• ${memoryContext.recentDecisions[2]}
-
-Shall I elaborate on any of these points?`,
-
-  `Great question! Based on ${memoryContext.startupName}'s history:
-
-📊 Key Metrics:
-• MRR: ${memoryContext.currentMRR}
-• Team: ${memoryContext.teamSize} members
-• Focus: ${memoryContext.targetMarkets.join(", ")} markets
-
-🎯 Active Goals:
-• ${memoryContext.goals[0]}
-• ${memoryContext.goals[1]}
-
-Want me to dive deeper into any specific area?`
-];
 
 const quickActions = [
   "Draft investor update",
@@ -180,7 +133,6 @@ export default function ChatPage() {
         }`}
       >
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-6">
-          {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-2xl font-bold">Chat</h1>
@@ -196,9 +148,7 @@ export default function ChatPage() {
             </Button>
           </div>
 
-          {/* Messages */}
           <Card className="flex-1 overflow-hidden flex flex-col border-violet-500/20 shadow-xl shadow-violet-500/5">
-            {/* Context Bar */}
             <div className="px-4 py-3 border-b bg-gradient-to-r from-violet-500/5 to-purple-500/5 flex items-center gap-4">
               <Badge variant="secondary" className="gap-1.5 bg-violet-500/10 text-violet-600 border-violet-500/20">
                 <Brain className="h-3 w-3" />
@@ -286,47 +236,29 @@ export default function ChatPage() {
                   </div>
                 </div>
               )}
-            </div>
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="rounded-lg px-4 py-3 bg-muted">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Thinking...
-                    </div>
-                  </div>
-                </div>
-              )}
 
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Actions */}
             {messages.length === 1 && !isLoading && (
-              {messages.length === 1 && !isLoading && (
-                <div className="px-4 pb-4">
-                  <p className="text-xs text-muted-foreground mb-3">Quick actions:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {quickActions.map((action) => (
-                      <Button
-                        key={action}
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleQuickAction(action)}
-                        className="text-xs h-8 border-violet-500/20 hover:border-violet-500/50 hover:bg-violet-500/5"
-                      >
-                        {action}
-                      </Button>
-                    ))}
-                  </div>
+              <div className="px-4 pb-4">
+                <p className="text-xs text-muted-foreground mb-3">Quick actions:</p>
+                <div className="flex flex-wrap gap-2">
+                  {quickActions.map((action) => (
+                    <Button
+                      key={action}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleQuickAction(action)}
+                      className="text-xs h-8 border-violet-500/20 hover:border-violet-500/50 hover:bg-violet-500/5"
+                    >
+                      {action}
+                    </Button>
+                  ))}
                 </div>
-              )}
+              </div>
+            )}
 
-            {/* Input */}
             <div className="border-t p-4 bg-gradient-to-t from-background to-transparent">
               <div className="flex gap-3">
                 <Textarea
