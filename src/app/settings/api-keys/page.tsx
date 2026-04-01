@@ -204,7 +204,7 @@ export default function APIKeysPage() {
           <div className="flex-1 p-6 max-w-3xl">
             <h1 className="text-2xl font-semibold mb-2">API Keys</h1>
             <p className="text-muted-foreground mb-6">
-              Connect your AI providers. Add your own keys to use with Startup Agent.
+              Connect your AI providers. Add your own keys to use the app.
             </p>
 
             {message && (

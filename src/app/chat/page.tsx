@@ -29,7 +29,7 @@ const quickActions = [
 const getWelcomeMessage = (): Message => ({
   id: "welcome",
   role: "assistant",
-  content: `Hi! I'm your Startup Agent. I'll help you remember decisions, track goals, and stay accountable.
+  content: `Hi! I'll help you remember decisions, track goals, and stay accountable.
 
 What would you like to work on today?`,
   timestamp: new Date(),

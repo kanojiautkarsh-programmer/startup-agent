@@ -62,9 +62,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="p-6">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-8 w-8 rounded-lg object-contain" />
-          <span className="font-semibold">Startup Agent</span>
+        <Link href="/" className="flex items-center">
+          <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
         </Link>
       </header>
 

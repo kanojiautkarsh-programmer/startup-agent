@@ -57,9 +57,8 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
       <aside className={cn("fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300", collapsed ? "w-16" : "w-60")}>
         <div className="flex h-full flex-col">
           <div className="flex h-14 items-center border-b px-4">
-            <Link href="/dashboard" className="flex items-center gap-2">
-              <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-8 w-8 rounded-lg object-contain" />
-              {!collapsed && <span className="font-semibold">Startup Agent</span>}
+            <Link href="/dashboard" className="flex items-center justify-center w-full">
+              <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
             </Link>
           </div>
 

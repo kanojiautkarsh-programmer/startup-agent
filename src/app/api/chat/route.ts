@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     if (!messages.find(m => m.role === 'system')) {
       enrichedMessages.unshift({
         role: 'system',
-        content: `You are Startup Agent, an AI assistant that helps startup founders stay organized and accountable.${memoryContext}${goalsContext}\n\nAlways be concise, actionable, and focused on helping the founder achieve their goals.`
+        content: `You are an AI assistant that helps startup founders stay organized and accountable.${memoryContext}${goalsContext}\n\nAlways be concise, actionable, and focused on helping the founder achieve their goals.`
       })
     }
 

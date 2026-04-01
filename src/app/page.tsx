@@ -51,7 +51,7 @@ const benefits = [
 
 const testimonials = [
   {
-    quote: "Startup Agent has become my second brain. I finally stopped losing track of important decisions.",
+    quote: "This has become my second brain. I finally stopped losing track of important decisions.",
     author: "Sarah Chen",
     role: "Founder, TechStart"
   },
@@ -75,9 +75,8 @@ export default function Home() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 group">
-            <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-9 w-9 rounded-xl object-contain group-hover:scale-105 transition-transform" />
-            <span className="font-bold text-lg">Startup Agent</span>
+          <Link href="/" className="flex items-center group">
+            <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-9 w-9 rounded-xl object-contain group-hover:scale-105 transition-transform" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -171,7 +170,7 @@ export default function Home() {
               {/* Content */}
               <div className="p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="w-10 h-10 rounded-xl object-contain shrink-0" />
+                  <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="w-10 h-10 rounded-xl object-contain shrink-0" />
                   <div className="flex-1">
                     <div className="bg-muted/50 rounded-xl p-4 mb-3">
                       <p className="text-sm">
@@ -339,9 +338,8 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
             <div>
-              <Link href="/" className="flex items-center gap-2 mb-4">
-                <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Startup Agent" className="h-8 w-8 rounded-lg object-contain" />
-                <span className="font-semibold">Startup Agent</span>
+              <Link href="/" className="flex items-center mb-4">
+                <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
               </Link>
               <p className="text-sm text-muted-foreground">
                 The AI that never forgets your startup.
@@ -377,7 +375,7 @@ export default function Home() {
           </div>
           
           <div className="pt-8 border-t text-center text-sm text-muted-foreground">
-            © 2026 Startup Agent. All rights reserved.
+            © 2026 All rights reserved.
           </div>
         </div>
       </footer>

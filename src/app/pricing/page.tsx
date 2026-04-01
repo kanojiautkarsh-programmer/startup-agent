@@ -57,23 +57,8 @@ export default function PricingPage() {
       {/* Header */}
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <svg
-                className="h-4 w-4 text-primary-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-            </div>
-            <span className="font-semibold">Startup Agent</span>
+          <Link href="/" className="flex items-center">
+            <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
           </Link>
 
           <div className="flex items-center gap-4">
@@ -209,7 +194,7 @@ export default function PricingPage() {
               Cookie Policy
             </Link>
           </div>
-          © 2026 Startup Agent. All rights reserved.
+          © 2026 All rights reserved.
         </div>
       </footer>
     </div>
