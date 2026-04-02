@@ -1,9 +1,17 @@
 import mailjet from 'node-mailjet';
 
-const mailjetClient = mailjet.apiConnect(
-  process.env.MAILJET_API_KEY || '',
-  process.env.MAILJET_API_SECRET || ''
-);
+function getMailjetClient() {
+  const apiKey = process.env.MAILJET_API_KEY;
+  const apiSecret = process.env.MAILJET_API_SECRET;
+  
+  if (!apiKey || !apiSecret) {
+    return null;
+  }
+  
+  return mailjet.apiConnect(apiKey, apiSecret);
+}
+
+let mailjetClient: ReturnType<typeof mailjet.apiConnect> | null = null;
 
 const FROM_EMAIL = process.env.EMAIL_FROM || 'TaskLyne <noreply@tasklyne.com>';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
@@ -16,6 +24,14 @@ interface EmailOptions {
 }
 
 async function sendEmail(options: EmailOptions): Promise<{ success: boolean; error?: string }> {
+  if (!mailjetClient) {
+    mailjetClient = getMailjetClient();
+  }
+  
+  if (!mailjetClient) {
+    return { success: false, error: 'Email service not configured. Please set MAILJET_API_KEY and MAILJET_API_SECRET.' };
+  }
+  
   try {
     const result = await mailjetClient.post('send', { version: 'v3.1' }).request({
       Messages: [
