@@ -18,14 +18,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user's API key from profile
+    const keyField = provider === 'openai' ? 'openai_key_encrypted' : 
+                      provider === 'anthropic' ? 'anthropic_key_encrypted' : 
+                      provider === 'github' ? 'github_key_encrypted' : 'gemini_key_encrypted'
+
     const { data: profile } = await supabase
       .from('profiles')
-      .select(provider === 'openai' ? 'openai_key_encrypted' : provider === 'anthropic' ? 'anthropic_key_encrypted' : 'gemini_key_encrypted')
+      .select(keyField)
       .eq('id', user.id)
       .single()
-
-    const keyField = provider === 'openai' ? 'openai_key_encrypted' : 
-                      provider === 'anthropic' ? 'anthropic_key_encrypted' : 'gemini_key_encrypted'
 
     const apiKey = (profile?.[keyField as keyof typeof profile] as string | null | undefined) ?? null
 

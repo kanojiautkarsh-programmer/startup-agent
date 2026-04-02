@@ -132,7 +132,7 @@ export default function SettingsPage() {
               const Icon = item.icon
               const isActive = pathname === item.href
               return (
-                <Link key={item.href} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${isActive ? "bg-violet-500/10 text-violet-600" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Link key={item.href} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${isActive ? "bg-accent text-accent-foreground font-medium" : "text-muted-foreground hover:bg-muted hover:text-foreground font-medium"}`}>
                   <Icon className="h-4 w-4" />
                   {item.title}
                 </Link>
@@ -144,12 +144,11 @@ export default function SettingsPage() {
             <h1 className="text-2xl font-bold mb-2">Profile</h1>
             <p className="text-muted-foreground mb-8">Manage your personal information</p>
 
-            <Card className="overflow-hidden mb-6">
-              <div className="h-1.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+            <Card className="mb-6 shadow-none rounded-xl">
               <CardContent className="p-6">
                 <div className="flex items-center gap-5 mb-6">
                   <Avatar className="h-20 w-20">
-                    <AvatarFallback className="text-lg bg-gradient-to-br from-violet-600 to-purple-600 text-white">{initials}</AvatarFallback>
+                    <AvatarFallback className="text-lg bg-muted text-foreground font-medium">{initials}</AvatarFallback>
                   </Avatar>
                   <div>
                     <h2 className="text-xl font-semibold">{user?.full_name || 'User'}</h2>
@@ -174,20 +173,19 @@ export default function SettingsPage() {
                     <Input value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} placeholder="Your startup name" className="rounded-lg" />
                   </div>
 
-                  <Button onClick={handleSave} disabled={saving} className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 shadow-lg shadow-violet-500/25">
+                  <Button onClick={handleSave} disabled={saving}>
                     {saving ? "Saving..." : "Save Changes"}
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="overflow-hidden">
-              <div className="h-1.5 bg-gradient-to-r from-amber-500 to-orange-500" />
+            <Card className="shadow-none rounded-xl">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-semibold flex items-center gap-2">
-                      <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-600">Starter</span>
+                    <h3 className="font-semibold flex items-center gap-2 tracking-tight">
+                      <span className="inline-flex items-center rounded bg-muted px-2 py-0.5 text-xs font-semibold text-foreground uppercase tracking-wide">Starter</span>
                       Current Plan
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">

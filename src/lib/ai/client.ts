@@ -19,6 +19,7 @@ export class AIService {
           'anthropic-version': '2023-06-01'
         }
       case 'openai':
+      case 'github':
         return {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.config.apiKey}`
@@ -36,6 +37,8 @@ export class AIService {
         return 'https://api.anthropic.com/v1/messages'
       case 'openai':
         return 'https://api.openai.com/v1/chat/completions'
+      case 'github':
+        return 'https://models.github.ai/inference/chat/completions'
       case 'gemini':
         return `https://generativelanguage.googleapis.com/v1beta/models/${this.config.model}:generateContent?key=${this.config.apiKey}`
     }
@@ -46,6 +49,7 @@ export class AIService {
       case 'anthropic':
         return this.anthropicChat(messages)
       case 'openai':
+      case 'github':
         return this.openaiChat(messages)
       case 'gemini':
         return this.geminiChat(messages)

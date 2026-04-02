@@ -57,8 +57,8 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
       <aside className={cn("fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300", collapsed ? "w-16" : "w-60")}>
         <div className="flex h-full flex-col">
           <div className="flex h-14 items-center border-b px-4">
-            <Link href="/dashboard" className="flex items-center justify-center w-full">
-              <img src="https://i.ibb.co/nMYxk7XT/logo.png" alt="Logo" className="h-8 w-8 rounded-lg object-contain" />
+            <Link href="/dashboard" className="flex items-center justify-center w-full font-bold text-xl">
+              {collapsed ? "T" : "TaskLyne"}
             </Link>
           </div>
 
@@ -69,14 +69,14 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               return collapsed ? (
                 <Tooltip key={item.href}>
                   <TooltipTrigger asChild>
-                    <Link href={item.href} className={cn("flex h-10 w-10 items-center justify-center rounded-lg transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+                    <Link href={item.href} className={cn("flex h-10 w-10 items-center justify-center rounded-lg transition-colors", isActive ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground")}>
                       <NavIcon className="h-5 w-5" />
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent side="right">{item.title}</TooltipContent>
                 </Tooltip>
               ) : (
-                <Link key={item.href} href={item.href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+                <Link key={item.href} href={item.href} className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors", isActive ? "bg-accent text-accent-foreground font-medium" : "text-muted-foreground font-medium hover:bg-accent/50 hover:text-accent-foreground")}>
                   <NavIcon className="h-5 w-5" />
                   {item.title}
                 </Link>
@@ -85,7 +85,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
           </nav>
 
           <div className="border-t p-2 space-y-1">
-            <Link href="/settings" className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors", pathname === "/settings" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground")}>
+            <Link href="/settings" className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors", pathname === "/settings" ? "bg-accent text-accent-foreground font-medium" : "text-muted-foreground font-medium hover:bg-accent/50 hover:text-accent-foreground")}>
               <Settings className="h-5 w-5" />
               {!collapsed && "Settings"}
             </Link>

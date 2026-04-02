@@ -29,9 +29,7 @@ const quickActions = [
 const getWelcomeMessage = (): Message => ({
   id: "welcome",
   role: "assistant",
-  content: `Hi! I'll help you remember decisions, track goals, and stay accountable.
-
-What would you like to work on today?`,
+  content: `Hi! I'll help you remember decisions, track goals, and stay accountable.\n\nWhat would you like to work on today?`,
   timestamp: new Date(),
 });
 
@@ -135,12 +133,12 @@ export default function ChatPage() {
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-2xl font-bold">Chat</h1>
+              <h1 className="text-2xl font-semibold tracking-tight">Chat</h1>
               <p className="text-sm text-muted-foreground">
                 Chat with your startup's memory
               </p>
             </div>
-            <Button variant="outline" size="sm" asChild className="hover:border-violet-500/50">
+            <Button variant="outline" size="sm" asChild>
               <a href="/settings/api-keys">
                 <Settings className="h-4 w-4 mr-2" />
                 Configure Keys
@@ -148,13 +146,13 @@ export default function ChatPage() {
             </Button>
           </div>
 
-          <Card className="flex-1 overflow-hidden flex flex-col border-violet-500/20 shadow-xl shadow-violet-500/5">
-            <div className="px-4 py-3 border-b bg-gradient-to-r from-violet-500/5 to-purple-500/5 flex items-center gap-4">
-              <Badge variant="secondary" className="gap-1.5 bg-violet-500/10 text-violet-600 border-violet-500/20">
+          <Card className="flex-1 overflow-hidden flex flex-col shadow-none rounded-xl">
+            <div className="px-4 py-3 border-b bg-muted/30 flex items-center gap-4">
+              <Badge variant="secondary" className="gap-1.5 shadow-none rounded px-2 text-xs">
                 <Brain className="h-3 w-3" />
                 Memory: Active
               </Badge>
-              <Badge variant="secondary" className="gap-1.5 bg-blue-500/10 text-blue-600 border-blue-500/20">
+              <Badge variant="secondary" className="gap-1.5 shadow-none rounded px-2 text-xs">
                 <BarChart3 className="h-3 w-3" />
                 Context: Loaded
               </Badge>
@@ -170,31 +168,29 @@ export default function ChatPage() {
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                    className={`w-8 h-8 rounded-md flex items-center justify-center shrink-0 ${
                       message.role === "assistant"
-                        ? "bg-gradient-to-br from-violet-600 to-purple-600 shadow-lg shadow-violet-500/25"
-                        : "bg-gradient-to-br from-blue-600 to-cyan-600 shadow-lg shadow-blue-500/25"
+                        ? "bg-foreground text-background"
+                        : "bg-muted text-foreground"
                     }`}
                   >
                     {message.role === "assistant" ? (
-                      <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                      <Brain className="h-4 w-4" />
                     ) : (
-                      <span className="text-xs font-bold text-white">You</span>
+                      <span className="text-xs font-semibold">U</span>
                     )}
                   </div>
                   <div className="flex-1 max-w-[80%]">
                     <div
-                      className={`rounded-2xl px-5 py-4 ${
+                      className={`rounded-xl px-4 py-3 ${
                         message.role === "assistant"
-                          ? "bg-muted/80 backdrop-blur-sm"
-                          : "bg-gradient-to-br from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-500/25"
+                          ? "bg-muted/80"
+                          : "bg-primary text-primary-foreground"
                       }`}
                     >
                       <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                     </div>
-                    <div className="flex items-center gap-3 mt-2">
+                    <div className={`flex items-center gap-3 mt-2 ${message.role === "user" ? "justify-end" : ""}`}>
                       <span className="text-xs text-muted-foreground">
                         {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                       </span>
@@ -217,20 +213,18 @@ export default function ChatPage() {
 
               {isLoading && (
                 <div className="flex gap-4 animate-fade-in">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 shadow-lg shadow-violet-500/25 flex items-center justify-center">
-                    <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+                  <div className="w-8 h-8 rounded-md bg-foreground text-background flex items-center justify-center">
+                    <Brain className="h-4 w-4" />
                   </div>
                   <div className="flex-1 max-w-[80%]">
-                    <div className="rounded-2xl px-5 py-4 bg-muted/80 backdrop-blur-sm">
+                    <div className="rounded-xl px-4 py-3 bg-muted/80">
                       <div className="flex items-center gap-3">
                         <div className="flex gap-1">
-                          <span className="w-2 h-2 rounded-full bg-violet-500 animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <span className="w-2 h-2 rounded-full bg-violet-500 animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <span className="w-2 h-2 rounded-full bg-violet-500 animate-bounce" style={{ animationDelay: "300ms" }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/50 animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/50 animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/50 animate-bounce" style={{ animationDelay: "300ms" }} />
                         </div>
-                        <span className="text-sm text-muted-foreground">Thinking...</span>
+                        <span className="text-xs font-medium text-muted-foreground">Generating...</span>
                       </div>
                     </div>
                   </div>
@@ -241,8 +235,8 @@ export default function ChatPage() {
             </div>
 
             {messages.length === 1 && !isLoading && (
-              <div className="px-4 pb-4">
-                <p className="text-xs text-muted-foreground mb-3">Quick actions:</p>
+              <div className="px-6 pb-4">
+                <p className="text-xs font-medium text-muted-foreground mb-3">Suggested actions:</p>
                 <div className="flex flex-wrap gap-2">
                   {quickActions.map((action) => (
                     <Button
@@ -250,7 +244,7 @@ export default function ChatPage() {
                       variant="outline"
                       size="sm"
                       onClick={() => handleQuickAction(action)}
-                      className="text-xs h-8 border-violet-500/20 hover:border-violet-500/50 hover:bg-violet-500/5"
+                      className="text-xs h-8 border-border hover:bg-muted"
                     >
                       {action}
                     </Button>
@@ -259,18 +253,18 @@ export default function ChatPage() {
               </div>
             )}
 
-            <div className="border-t p-4 bg-gradient-to-t from-background to-transparent">
+            <div className="border-t p-4 bg-background">
               <div className="flex gap-3">
                 <Textarea
-                  placeholder="Ask me anything about your startup..."
+                  placeholder="Ask me anything..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="min-h-[60px] max-h-[200px] resize-none rounded-xl border-violet-500/20 focus:border-violet-500/50 focus:ring-violet-500/20"
+                  className="min-h-[60px] max-h-[200px] resize-none rounded-lg focus-visible:ring-1 focus-visible:ring-ring"
                 />
                 <Button
                   size="icon"
-                  className="h-[60px] w-[60px] rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 shadow-lg shadow-violet-500/25"
+                  className="h-[60px] w-[60px] rounded-lg shrink-0"
                   onClick={handleSend}
                   disabled={!input.trim() || isLoading}
                 >
@@ -281,8 +275,8 @@ export default function ChatPage() {
                   )}
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-3 text-center">
-                Press Enter to send, Shift+Enter for new line
+              <p className="text-[10px] text-muted-foreground mt-3 text-center uppercase tracking-wide font-medium">
+                Enter to send, Shift+Enter for new line
               </p>
             </div>
           </Card>

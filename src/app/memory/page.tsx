@@ -50,10 +50,10 @@ const typeIcons = {
 }
 
 const typeColors = {
-  decision: "bg-blue-500/10 text-blue-500",
-  commitment: "bg-red-500/10 text-red-500",
-  context: "bg-yellow-500/10 text-yellow-500",
-  note: "bg-purple-500/10 text-purple-500",
+  decision: "bg-muted text-foreground/80",
+  commitment: "bg-muted text-foreground/80",
+  context: "bg-muted text-foreground/80",
+  note: "bg-muted text-foreground/80",
 }
 
 function Section({ title, icon: Icon, children, defaultOpen = true }: {
@@ -65,11 +65,11 @@ function Section({ title, icon: Icon, children, defaultOpen = true }: {
   const [isOpen, setIsOpen] = React.useState(defaultOpen)
 
   return (
-    <Card className="p-4">
-      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-between w-full text-left">
+    <Card className="p-4 shadow-none rounded-xl">
+      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-between w-full text-left focus:outline-none">
         <div className="flex items-center gap-2">
           <Icon className="h-4 w-4" />
-          <h3 className="font-semibold">{title}</h3>
+          <h3 className="font-semibold tracking-tight">{title}</h3>
         </div>
         {isOpen ? <ChevronDown className="h-4 w-4 text-muted-foreground" /> : <ChevronRight className="h-4 w-4 text-muted-foreground" />}
       </button>
@@ -192,8 +192,8 @@ export default function MemoryPage() {
         <div className="p-6 max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-semibold">Memory & Context</h1>
-              <p className="text-muted-foreground">Your startup&apos;s history, always accessible</p>
+              <h1 className="text-2xl font-semibold tracking-tight">Memory & Context</h1>
+              <p className="text-sm font-medium text-muted-foreground">Your startup&apos;s history, always accessible</p>
             </div>
             <Button onClick={() => { setEditingMemory(null); setFormData({ type: 'decision', title: '', content: '' }); setAddModalOpen(true) }}>
               <Plus className="h-4 w-4 mr-2" />

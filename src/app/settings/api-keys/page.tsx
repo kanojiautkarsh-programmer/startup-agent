@@ -51,6 +51,15 @@ const providers = [
     keyField: 'openai_key_encrypted'
   },
   {
+    id: 'github',
+    name: 'GitHub Models',
+    provider: 'GitHub',
+    description: 'Free LLM API with GPT-4o, Llama, DeepSeek & more',
+    docsUrl: 'https://github.com/marketplace/models',
+    color: 'bg-gray-500/10 text-gray-500',
+    keyField: 'github_key_encrypted'
+  },
+  {
     id: 'gemini',
     name: 'Gemini Pro',
     provider: 'Google',
@@ -92,7 +101,7 @@ export default function APIKeysPage() {
 
       const { data: profile } = await supabase
         .from('profiles')
-        .select('anthropic_key_encrypted, openai_key_encrypted, gemini_key_encrypted')
+        .select('anthropic_key_encrypted, openai_key_encrypted, gemini_key_encrypted, github_key_encrypted')
         .eq('id', user.id)
         .single()
 
@@ -101,6 +110,7 @@ export default function APIKeysPage() {
         if (profile.anthropic_key_encrypted) keys.anthropic = profile.anthropic_key_encrypted
         if (profile.openai_key_encrypted) keys.openai = profile.openai_key_encrypted
         if (profile.gemini_key_encrypted) keys.gemini = profile.gemini_key_encrypted
+        if (profile.github_key_encrypted) keys.github = profile.github_key_encrypted
         setApiKeys(keys)
       }
 

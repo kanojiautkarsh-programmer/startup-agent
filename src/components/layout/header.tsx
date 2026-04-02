@@ -84,7 +84,7 @@ export function Header({ onOpenCommand, sidebarCollapsed }: HeaderProps) {
             >
               <Avatar className="h-8 w-8">
                 <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
-                <AvatarFallback className="bg-primary/10 text-primary text-xs">
+                <AvatarFallback className="bg-muted text-foreground font-medium text-xs">
                   SC
                 </AvatarFallback>
               </Avatar>

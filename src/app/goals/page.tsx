@@ -241,7 +241,7 @@ export default function GoalsPage() {
                 {activeGoals.map(goal => {
                   const daysLeft = getDaysLeft(goal.deadline)
                   return (
-                    <Card key={goal.id} className="p-6 group">
+                    <Card key={goal.id} className="p-6 group shadow-none rounded-xl hover:border-border/80 transition-all">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -318,7 +318,7 @@ export default function GoalsPage() {
                 })}
               </div>
             ) : (
-              <Card className="p-8 text-center">
+              <Card className="p-8 text-center shadow-none rounded-xl border-dashed">
                 <Target className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
                 <h3 className="text-lg font-medium mb-2">No active goals</h3>
                 <p className="text-muted-foreground mb-4">Set your first goal and start tracking your progress.</p>
@@ -335,7 +335,7 @@ export default function GoalsPage() {
               <h2 className="text-lg font-semibold mb-4">Completed Goals ({completedGoals.length})</h2>
               <div className="space-y-2">
                 {completedGoals.map(goal => (
-                  <Card key={goal.id} className="p-4 group">
+                  <Card key={goal.id} className="p-4 group shadow-none rounded-xl">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="h-5 w-5 text-green-500" />
