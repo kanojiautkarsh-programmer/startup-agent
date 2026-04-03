@@ -53,38 +53,25 @@ export default function ClientsPage() {
         return
       }
 
-      // Mocking clients data for now as we haven't established the table schema yet
-      const mockClients: Client[] = [
-        {
-          id: '1',
-          name: 'Sarah Chen',
-          company: 'Acme Corp',
-          status: 'active',
-          value: 12000,
-          email: 'sarah@acme.com',
-          created_at: new Date().toISOString()
-        },
-        {
-          id: '2',
-          name: 'Marcus Johnson',
-          company: 'GrowthLabs',
-          status: 'onboarding',
-          value: 5000,
-          email: 'marcus@growthlabs.io',
-          created_at: new Date().toISOString()
-        },
-        {
-          id: '3',
-          name: 'Elena Rodriguez',
-          company: 'Solaris Systems',
-          status: 'at_risk',
-          value: 25000,
-          email: 'elena@solaris.com',
-          created_at: new Date().toISOString()
-        }
-      ]
+      // Fetch real conversations as client interactions
+      const { data: conversations } = await supabase
+        .from('conversations')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
 
-      setClients(mockClients)
+      // Map conversations to client format
+      const realClients: Client[] = (conversations || []).map((conv, index) => ({
+        id: conv.id,
+        name: conv.title || `Chat ${index + 1}`,
+        company: conv.title || 'TaskLyne Chat',
+        status: 'active' as const,
+        value: 0,
+        email: user.email || '',
+        created_at: conv.created_at
+      }))
+
+      setClients(realClients)
       setLoading(false)
     }
 
