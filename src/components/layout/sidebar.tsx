@@ -44,23 +44,27 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-dvh border-r border-white/5 bg-[#2D211B] text-white transition-all duration-200",
+          "fixed left-0 top-0 z-40 h-dvh border-r transition-all duration-200",
+          "sidebar-bg",
           collapsed ? "w-16" : "w-60"
         )}
         aria-label="Sidebar navigation"
       >
         <div className="flex h-full flex-col">
-          <div className="flex h-14 items-center border-b border-white/5 px-4 mb-4">
+          {/* Logo */}
+          <div className="flex h-14 items-center border-b px-4 mb-2" style={{ borderColor: 'hsl(var(--sidebar-border))' }}>
             <Link
               href="/"
-              className="flex items-center gap-2 px-1 font-serif font-bold text-2xl tracking-tighter transition-opacity hover:opacity-80"
+              className="flex items-center gap-2 px-1 font-serif font-bold text-2xl tracking-tighter transition-opacity hover:opacity-70"
+              style={{ color: 'hsl(var(--sidebar-fg))' }}
               aria-label="TaskLyne home"
             >
               {collapsed ? "T" : "TaskLyne"}
             </Link>
           </div>
 
-          <nav className="flex-1 space-y-1 p-3" aria-label="Main navigation">
+          {/* Nav items */}
+          <nav className="flex-1 space-y-0.5 p-2" aria-label="Main navigation">
             {navItems.map((item) => {
               const isActive = pathname === item.href
               const NavIcon = item.icon
@@ -72,14 +76,14 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                       aria-label={item.title}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "flex size-10 items-center justify-center rounded-xl transition-colors duration-150",
-                        isActive ? "bg-white text-[#2D211B] shadow-sm" : "text-white/60 hover:bg-white/5 hover:text-white"
+                        "flex size-10 items-center justify-center rounded-xl transition-colors duration-150 mx-auto",
+                        isActive ? "sidebar-item-active shadow-sm" : "sidebar-item"
                       )}
                     >
-                      <NavIcon className="size-5" aria-hidden="true" />
+                      <NavIcon className="size-4" aria-hidden="true" />
                     </Link>
                   </TooltipTrigger>
-                  <TooltipContent side="right" className="bg-white text-black font-semibold border-none">
+                  <TooltipContent side="right" className="font-semibold">
                     {item.title}
                   </TooltipContent>
                 </Tooltip>
@@ -89,56 +93,61 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm transition-colors duration-150",
-                    isActive ? "bg-white text-[#2D211B] font-bold shadow-sm" : "text-white/60 font-medium hover:bg-white/5 hover:text-white"
+                    "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150",
+                    isActive ? "sidebar-item-active font-semibold shadow-sm" : "sidebar-item font-medium"
                   )}
                 >
-                  <NavIcon
-                    className={cn("size-5", isActive ? "text-[#2D211B]" : "text-white/40")}
-                    aria-hidden="true"
-                  />
+                  <NavIcon className="size-4 shrink-0" aria-hidden="true" />
                   {item.title}
                 </Link>
               )
             })}
           </nav>
 
-          <div className="border-t border-white/5 p-3 space-y-1 pb-6">
+          {/* Bottom section */}
+          <div className="p-2 space-y-0.5 pb-4" style={{ borderTop: '1px solid hsl(var(--sidebar-border))' }}>
             <Link
               href="/settings"
               aria-current={pathname.startsWith("/settings") ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm transition-colors duration-150",
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150 mt-2",
                 pathname.startsWith("/settings")
-                  ? "bg-white text-[#2D211B] font-bold shadow-sm"
-                  : "text-white/60 font-medium hover:bg-white/5 hover:text-white"
+                  ? "sidebar-item-active font-semibold shadow-sm"
+                  : "sidebar-item font-medium"
               )}
             >
-              <Settings
-                className={cn(
-                  "size-5 transition-transform duration-200",
-                  pathname.startsWith("/settings") ? "text-[#2D211B]" : "text-white/40"
-                )}
-                aria-hidden="true"
-              />
+              <Settings className="size-4 shrink-0" aria-hidden="true" />
               {!collapsed && "Settings"}
             </Link>
 
             {!collapsed && user && (
-              <div className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-2xl border border-white/5 mb-2 mt-3">
-                <Avatar className="size-8 ring-2 ring-white/10">
-                  <AvatarFallback className="bg-white text-[#2D211B] font-bold text-xs">
+              <div
+                className="flex items-center gap-3 px-3 py-3 rounded-2xl mt-2 mb-1"
+                style={{ background: 'hsl(var(--sidebar-item-hover-bg))' }}
+              >
+                <Avatar className="size-8 ring-1" style={{ '--tw-ring-color': 'hsl(var(--sidebar-border))' } as React.CSSProperties}>
+                  <AvatarFallback
+                    className="font-bold text-xs"
+                    style={{
+                      background: 'hsl(var(--sidebar-item-active-bg))',
+                      color: 'hsl(var(--sidebar-item-active-fg))'
+                    }}
+                  >
                     {initials}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold tracking-tight truncate text-white">{user.full_name || 'User'}</p>
-                  <p className="text-[10px] font-medium text-white/40 truncate">{user.email}</p>
+                  <p className="text-xs font-bold tracking-tight truncate" style={{ color: 'hsl(var(--sidebar-fg))' }}>
+                    {user.full_name || 'User'}
+                  </p>
+                  <p className="text-[10px] font-medium truncate" style={{ color: 'hsl(var(--sidebar-item-fg))' }}>
+                    {user.email}
+                  </p>
                 </div>
               </div>
             )}
 
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-1 mt-1">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -147,17 +156,18 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                     onClick={handleLogout}
                     aria-label="Log out"
                     className={cn(
-                      "flex-1 rounded-xl h-10 hover:bg-red-500/10 hover:text-red-400 text-white/40 transition-colors duration-150",
-                      !collapsed && "justify-start px-4"
+                      "flex-1 rounded-xl h-9 sidebar-item hover:text-red-500 transition-colors duration-150",
+                      !collapsed && "justify-start px-3"
                     )}
+                    style={{ color: 'hsl(var(--sidebar-item-fg))' }}
                   >
-                    <LogOut className="size-4" aria-hidden="true" />
-                    {!collapsed && <span className="ml-3 font-semibold text-xs">Logout</span>}
+                    <LogOut className="size-4 shrink-0" aria-hidden="true" />
+                    {!collapsed && <span className="ml-2 text-xs font-medium">Log out</span>}
                   </Button>
                 </TooltipTrigger>
                 {collapsed && (
-                  <TooltipContent side="right" className="bg-red-500 text-white font-bold border-none">
-                    Logout
+                  <TooltipContent side="right" className="font-semibold text-red-500">
+                    Log out
                   </TooltipContent>
                 )}
               </Tooltip>
@@ -168,7 +178,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                   size="sm"
                   onClick={onToggle}
                   aria-label="Expand sidebar"
-                  className="size-10 p-0 flex items-center justify-center rounded-xl hover:bg-white/5 text-white/40"
+                  className="size-9 p-0 flex items-center justify-center rounded-xl sidebar-item"
                 >
                   <ChevronLeft className="size-4 rotate-180" aria-hidden="true" />
                 </Button>
@@ -181,10 +191,10 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                 size="sm"
                 onClick={onToggle}
                 aria-label="Collapse sidebar"
-                className="w-full justify-start px-4 h-10 rounded-xl text-white/40 hover:bg-white/5 hover:text-white mt-1 transition-colors duration-150"
+                className="w-full justify-start px-3 h-9 rounded-xl sidebar-item transition-colors duration-150"
               >
                 <ChevronLeft className="size-4" aria-hidden="true" />
-                <span className="ml-3 font-medium text-xs">Collapse</span>
+                <span className="ml-2 text-xs font-medium">Collapse</span>
               </Button>
             )}
           </div>
