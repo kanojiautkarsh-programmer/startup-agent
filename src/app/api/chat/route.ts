@@ -3,6 +3,7 @@ import { createAIService, AIProvider } from '@/lib/ai'
 import { NextRequest, NextResponse } from 'next/server'
 import { Message } from '@/lib/ai/types'
 import { checkChatRateLimit, sanitizeError } from '@/lib/security-utils'
+import { buildContextFromDocuments } from '@/lib/rag'
 
 const VALID_PROVIDERS: AIProvider[] = ['anthropic', 'openai', 'gemini', 'github'];
 const MAX_MESSAGE_LENGTH = 10000;
@@ -101,11 +102,22 @@ export async function POST(request: NextRequest) {
       ? `\n\nYour active goals:\n${goals.map(g => `- [${g.priority.toUpperCase()}] ${g.title}${g.deadline ? ` (Due: ${new Date(g.deadline).toLocaleDateString()})` : ''}`).join('\n')}`
       : ''
 
+    let ragContext = '';
+    try {
+      ragContext = await buildContextFromDocuments(user.id, lastMessage.content, 2000);
+    } catch (ragError) {
+      console.error('RAG context error:', ragError);
+    }
+
+    const ragContextSection = ragContext
+      ? `\n\nRelevant documents from your knowledge base:\n${ragContext}`
+      : ''
+
     const enrichedMessages: Message[] = messages.map((msg, i) => {
       if (i === 0 && msg.role === 'system') {
         return {
           ...msg,
-          content: msg.content.slice(0, 5000) + memoryContext + goalsContext
+          content: msg.content.slice(0, 4000) + memoryContext + goalsContext + ragContextSection
         }
       }
       return msg
@@ -114,7 +126,7 @@ export async function POST(request: NextRequest) {
     if (!messages.find(m => m.role === 'system')) {
       enrichedMessages.unshift({
         role: 'system',
-        content: `You are a startup assistant that helps founders stay organized and accountable.${memoryContext}${goalsContext}\n\nAlways be concise, actionable, and focused on helping the founder achieve their goals.`
+        content: `You are a startup assistant that helps founders stay organized and accountable.${memoryContext}${goalsContext}${ragContextSection}\n\nAlways be concise, actionable, and focused on helping the founder achieve their goals.`
       })
     }
 

@@ -4,6 +4,144 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Enable pgvector extension for RAG
+CREATE EXTENSION IF NOT EXISTS "vector";
+
+-- =====================================================
+-- RAG (Retrieval-Augmented Generation) Tables
+-- =====================================================
+
+-- Documents table (source files/knowledge)
+CREATE TABLE IF NOT EXISTS public.documents (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  title TEXT NOT NULL,
+  source_type TEXT NOT NULL CHECK (source_type IN ('file', 'webpage', 'text', 'url', 'notion', 'slack', 'email')),
+  source_url TEXT,
+  file_name TEXT,
+  file_type TEXT,
+  file_size INTEGER,
+  content_text TEXT,
+  metadata JSONB DEFAULT '{}',
+  is_indexed BOOLEAN DEFAULT false,
+  indexed_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Document chunks (embedded pieces)
+CREATE TABLE IF NOT EXISTS public.document_chunks (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  document_id UUID REFERENCES public.documents(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  chunk_index INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  content_hash TEXT NOT NULL,
+  metadata JSONB DEFAULT '{}',
+  token_count INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Chunk embeddings (stored vectors)
+CREATE TABLE IF NOT EXISTS public.chunk_embeddings (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  chunk_id UUID REFERENCES public.document_chunks(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  embedding vector(1536),
+  model TEXT NOT NULL DEFAULT 'text-embedding-3-small',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(chunk_id)
+);
+
+-- =====================================================
+-- Knowledge Graph Tables
+-- =====================================================
+
+-- Entities (nouns, concepts, objects)
+CREATE TABLE IF NOT EXISTS public.kg_entities (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  name TEXT NOT NULL,
+  entity_type TEXT NOT NULL CHECK (entity_type IN (
+    'person', 'company', 'product', 'feature', 'technology',
+    'concept', 'goal', 'metric', 'event', 'document', 'other'
+  )),
+  description TEXT,
+  properties JSONB DEFAULT '{}',
+  source_chunk_ids UUID[],
+  confidence FLOAT DEFAULT 1.0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, name)
+);
+
+-- Relationships (edges between entities)
+CREATE TABLE IF NOT EXISTS public.kg_relationships (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  source_entity_id UUID REFERENCES public.kg_entities(id) ON DELETE CASCADE NOT NULL,
+  target_entity_id UUID REFERENCES public.kg_entities(id) ON DELETE CASCADE NOT NULL,
+  relationship_type TEXT NOT NULL CHECK (relationship_type IN (
+    'owns', 'uses', 'depends_on', 'part_of', 'related_to',
+    'created_by', 'mentioned_in', 'implements', 'competes_with', 'founded_by', 'invested_by'
+  )),
+  strength FLOAT DEFAULT 1.0 CHECK (strength >= 0 AND strength <= 1),
+  bidirectional BOOLEAN DEFAULT false,
+  properties JSONB DEFAULT '{}',
+  source_chunk_ids UUID[],
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(source_entity_id, target_entity_id, relationship_type)
+);
+
+-- =====================================================
+-- RLS for RAG and Knowledge Graph Tables
+-- =====================================================
+
+ALTER TABLE public.documents ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.document_chunks ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.chunk_embeddings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.kg_entities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.kg_relationships ENABLE ROW LEVEL SECURITY;
+
+-- Documents: Users can manage their own
+CREATE POLICY "Users manage own documents" ON public.documents
+  FOR ALL USING (auth.uid() = user_id);
+
+-- Document chunks: Users can manage their own
+CREATE POLICY "Users manage own chunks" ON public.document_chunks
+  FOR ALL USING (auth.uid() = user_id);
+
+-- Chunk embeddings: Users can manage their own
+CREATE POLICY "Users manage own embeddings" ON public.chunk_embeddings
+  FOR ALL USING (auth.uid() = user_id);
+
+-- KG entities: Users can manage their own
+CREATE POLICY "Users manage own entities" ON public.kg_entities
+  FOR ALL USING (auth.uid() = user_id);
+
+-- KG relationships: Users can manage their own
+CREATE POLICY "Users manage own relationships" ON public.kg_relationships
+  FOR ALL USING (auth.uid() = user_id);
+
+-- =====================================================
+-- Indexes for RAG Performance
+-- =====================================================
+
+CREATE INDEX IF NOT EXISTS idx_documents_user_id ON public.documents(user_id);
+CREATE INDEX IF NOT EXISTS idx_documents_indexed ON public.documents(is_indexed);
+CREATE INDEX IF NOT EXISTS idx_chunks_document_id ON public.document_chunks(document_id);
+CREATE INDEX IF NOT EXISTS idx_chunks_user_id ON public.document_chunks(user_id);
+CREATE INDEX IF NOT EXISTS idx_embeddings_chunk_id ON public.chunk_embeddings(chunk_id);
+CREATE INDEX IF NOT EXISTS idx_entities_user_id ON public.kg_entities(user_id);
+CREATE INDEX IF NOT EXISTS idx_entities_type ON public.kg_entities(entity_type);
+CREATE INDEX IF NOT EXISTS idx_relationships_source ON public.kg_relationships(source_entity_id);
+CREATE INDEX IF NOT EXISTS idx_relationships_target ON public.kg_relationships(target_entity_id);
+
+-- Vector similarity index (approximate nearest neighbor)
+CREATE INDEX IF NOT EXISTS idx_embeddings_cosine 
+  ON public.chunk_embeddings USING ivfflat (embedding vector_cosine_ops)
+  WITH (lists = 100);
+
 -- Waitlist table
 CREATE TABLE IF NOT EXISTS public.waitlist (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

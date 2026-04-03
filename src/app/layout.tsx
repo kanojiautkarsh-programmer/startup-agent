@@ -22,27 +22,27 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tasklyne.com'),
+  metadataBase: new URL('https://startupagent.ai'),
   title: {
-    default: "TaskLyne | The command center for your startup",
-    template: "%s | TaskLyne"
+    default: "StartupAgent | The command center for your startup",
+    template: "%s | StartupAgent"
   },
-  description: "The AI platform that unites decisions, goals, and intelligent workflows in one place.",
-  alternates: {
-    canonical: '/',
-  },
+  description: "The AI-powered command center for high-growth startups. Unifying goals, decisions, and knowledge.",
+  applicationName: "StartupAgent",
+  authors: [{ name: "StartupAgent Team" }],
+  keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals"],
   openGraph: {
-    title: "TaskLyne | The command center for your startup",
-    description: "The AI platform that unites decisions, goals, and intelligent workflows in one place.",
-    url: 'https://tasklyne.com',
-    siteName: 'TaskLyne',
-    locale: 'en_US',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://startupagent.ai',
+    title: "StartupAgent | The command center for your startup",
+    description: "The AI-powered command center for high-growth startups.",
+    siteName: 'StartupAgent',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "TaskLyne | The command center for your startup",
-    description: "The AI platform that unites decisions, goals, and intelligent workflows in one place.",
+    title: "StartupAgent | The command center for your startup",
+    description: "The AI-powered command center for high-growth startups.",
   },
   robots: {
     index: true,

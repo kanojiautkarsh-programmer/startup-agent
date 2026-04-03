@@ -8,10 +8,6 @@ import Link from "next/link"
 import { Sidebar } from "@/components/layout/sidebar"
 import { Header } from "@/components/layout/header"
 import { CommandPalette } from "@/components/command/command-palette"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   User,
@@ -31,6 +27,7 @@ const navItems = [
   { title: "Profile", href: "/settings", icon: User },
   { title: "API Keys", href: "/settings/api-keys", icon: Key },
   { title: "Billing", href: "/settings/billing", icon: CreditCard },
+  { title: "Security", href: "/settings/security", icon: Shield },
 ]
 
 const providers = [
@@ -40,7 +37,7 @@ const providers = [
     provider: 'Anthropic',
     description: 'Best for complex reasoning and long conversations',
     docsUrl: 'https://console.anthropic.com/settings/keys',
-    color: 'bg-orange-500/10 text-orange-500',
+    color: 'bg-orange-500/10 text-orange-600 border-orange-500/20',
     keyField: 'anthropic_key_encrypted'
   },
   {
@@ -49,7 +46,7 @@ const providers = [
     provider: 'OpenAI',
     description: 'Fast responses and wide model availability',
     docsUrl: 'https://platform.openai.com/api-keys',
-    color: 'bg-green-500/10 text-green-500',
+    color: 'bg-green-500/10 text-green-600 border-green-500/20',
     keyField: 'openai_key_encrypted'
   },
   {
@@ -58,7 +55,7 @@ const providers = [
     provider: 'GitHub',
     description: 'Free LLM API with GPT-4o, Llama, DeepSeek & more',
     docsUrl: 'https://github.com/marketplace/models',
-    color: 'bg-gray-500/10 text-gray-500',
+    color: 'bg-neutral-500/10 text-neutral-600 border-neutral-500/20',
     keyField: 'github_key_encrypted'
   },
   {
@@ -67,7 +64,7 @@ const providers = [
     provider: 'Google',
     description: 'Native multimodal capabilities',
     docsUrl: 'https://makersuite.google.com/app/apikey',
-    color: 'bg-blue-500/10 text-blue-500',
+    color: 'bg-blue-500/10 text-blue-600 border-blue-500/20',
     keyField: 'gemini_key_encrypted'
   }
 ]
@@ -165,25 +162,19 @@ export default function APIKeysPage() {
     setTimeout(() => setMessage(null), 3000)
   }
 
-  const maskKey = (key: string) => {
-    if (key.length < 10) return '•'.repeat(key.length)
-    return key.slice(0, 4) + '•'.repeat(key.length - 8) + key.slice(-4)
-  }
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex">
+      <div className="min-h-screen bg-background flex font-sans">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="flex-1 pl-60">
           <div className="flex">
-            <div className="w-64 border-r bg-card h-[calc(100vh-3.5rem)] sticky top-14 p-4">
-              <Skeleton className="h-4 w-16 mb-4 ml-3" />
-              {[1, 2, 3].map(i => <Skeleton key={i} className="h-10 w-full mb-2" />)}
+            <div className="w-64 border-r border-border/50 bg-background/50 h-[calc(100vh-3.5rem)] sticky top-14 p-6">
+              <Skeleton className="h-4 w-16 mb-6" />
+              {[1, 2, 3].map(i => <Skeleton key={i} className="h-10 w-full mb-2 rounded-full" />)}
             </div>
-            <div className="flex-1 p-6 max-w-3xl">
-              <Skeleton className="h-8 w-32 mb-2" />
-              <Skeleton className="h-4 w-64 mb-6" />
-              {[1, 2, 3].map(i => <Skeleton key={i} className="h-40 w-full mb-4" />)}
+            <div className="flex-1 p-8 md:p-12 max-w-4xl">
+              <Skeleton className="h-10 w-48 mb-8" />
+              {[1, 2, 3].map(i => <Skeleton key={i} className="h-48 w-full mb-6 rounded-[2rem]" />)}
             </div>
           </div>
         </main>
@@ -192,134 +183,185 @@ export default function APIKeysPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background font-sans">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={user} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
-        <div className="flex">
-          <div className="w-64 border-r bg-card h-[calc(100vh-3.5rem)] sticky top-14 p-4 space-y-1">
-            <h2 className="text-sm font-semibold text-muted-foreground mb-4 px-3">Settings</h2>
-            {navItems.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-              return (
-                <Link key={item.href} href={item.href} className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}>
-                  <Icon className="h-4 w-4" />
-                  {item.title}
-                </Link>
-              )
-            })}
+        <div className="flex min-h-[calc(100vh-3.5rem)]">
+          {/* Settings Navigation */}
+          <div className="w-64 border-r border-border/50 bg-background/50 h-[calc(100vh-3.5rem)] sticky top-14 p-6">
+            <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-6 px-4">Settings</h2>
+            <div className="space-y-1">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const isActive = pathname === item.href
+                return (
+                  <Link 
+                    key={item.href} 
+                    href={item.href} 
+                    className={`flex items-center gap-4 rounded-full px-4 py-3 text-sm transition-all font-medium ${
+                      isActive 
+                        ? "bg-foreground text-background shadow-sm" 
+                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.title}
+                  </Link>
+                )
+              })}
+            </div>
           </div>
 
-          <div className="flex-1 p-6 max-w-3xl">
-            <h1 className="text-2xl font-semibold mb-2">API Keys</h1>
-            <p className="text-muted-foreground mb-6">
-              Connect your providers. Add your own keys to use the app.
-            </p>
+          <div className="flex-1 p-8 md:p-12 max-w-4xl">
+            <div className="mb-10">
+              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
+                API <span className="italic font-normal">Keys</span>
+              </h1>
+              <p className="text-sm font-medium text-muted-foreground tracking-wide">Connect your providers. Add your own keys securely.</p>
+            </div>
 
             {message && (
-              <div className={`mb-6 p-4 rounded-lg flex items-center gap-2 ${message.type === 'success' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+              <div className={`mb-8 p-4 rounded-xl flex items-center justify-center gap-2 text-sm font-medium border shadow-sm ${message.type === 'success' ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                 {message.type === 'success' ? <Check className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
                 {message.text}
               </div>
             )}
 
-            {providers.map(provider => {
-              const hasKey = !!apiKeys[provider.id]
-              const isEditing = editingKey === provider.id
+            <div className="space-y-6">
+              {providers.map(provider => {
+                const hasKey = !!apiKeys[provider.id]
+                const isEditing = editingKey === provider.id
 
-              return (
-                <Card key={provider.id} className="p-6 mb-4">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${provider.color}`}>
-                        <Key className="h-5 w-5" />
+                return (
+                  <div key={provider.id} className="bg-background border border-border/60 rounded-[2rem] p-6 md:p-8 hover:border-foreground/20 transition-colors shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center border ${provider.color}`}>
+                          <Key className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold tracking-tight text-lg">{provider.name}</h3>
+                          <p className="text-xs text-muted-foreground font-medium">{provider.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold">{provider.name}</h3>
-                        <p className="text-sm text-muted-foreground">{provider.description}</p>
+                      
+                      <div className="flex shrink-0">
+                        {hasKey && !isEditing && (
+                          <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-bold uppercase tracking-widest text-green-600">
+                            <Check className="h-3 w-3" />
+                            Connected
+                          </span>
+                        )}
+                        {!hasKey && !isEditing && (
+                          <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                            Not Connected
+                          </span>
+                        )}
                       </div>
                     </div>
-                    {hasKey && !isEditing && (
-                      <Badge variant="success" className="gap-1">
-                        <Check className="h-3 w-3" />
-                        Connected
-                      </Badge>
-                    )}
-                    {!hasKey && !isEditing && (
-                      <Badge variant="secondary">Not Connected</Badge>
+
+                    {isEditing ? (
+                      <div className="space-y-4 pt-4 border-t border-border/40">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block">Enter Secret Key</label>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <input
+                            type="password"
+                            value={keyInput}
+                            onChange={(e) => setKeyInput(e.target.value)}
+                            placeholder="sk-..."
+                            className="flex-1 h-11 px-5 rounded-full border border-border bg-background text-sm font-mono focus:outline-none focus:border-foreground/50 transition-colors"
+                            autoFocus
+                          />
+                          <div className="flex gap-2">
+                            <button 
+                              onClick={() => { setEditingKey(null); setKeyInput('') }}
+                              className="rounded-full px-6 h-11 border border-border hover:bg-muted font-medium text-sm transition-colors"
+                            >
+                              Cancel
+                            </button>
+                            <button 
+                              onClick={() => handleSaveKey(provider.id, provider.keyField)} 
+                              disabled={saving || !keyInput.trim()}
+                              className="rounded-full px-6 h-11 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium text-sm transition-colors disabled:opacity-50"
+                            >
+                              {saving ? 'Saving...' : 'Save'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : hasKey ? (
+                      <div className="pt-4 border-t border-border/40 flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div className="flex-1 flex gap-2">
+                           <input
+                             type={showKeys[provider.id] ? 'text' : 'password'}
+                             value={apiKeys[provider.id]}
+                             disabled
+                             className="flex-1 h-11 px-5 rounded-full border border-transparent bg-muted/30 text-sm font-mono text-muted-foreground transition-colors cursor-text"
+                           />
+                           <button 
+                             onClick={() => setShowKeys(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
+                             className="w-11 h-11 rounded-full border border-border bg-background flex items-center justify-center hover:bg-muted transition-colors text-muted-foreground hover:text-foreground shrink-0"
+                             title={showKeys[provider.id] ? "Hide key" : "Reveal key"}
+                           >
+                             {showKeys[provider.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                           </button>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button 
+                            onClick={() => { setEditingKey(provider.id); setKeyInput(apiKeys[provider.id]); }}
+                            className="rounded-full px-5 h-11 border border-border hover:bg-muted font-medium text-xs uppercase tracking-wider transition-colors"
+                          >
+                            Update
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteKey(provider.id, provider.keyField)}
+                            className="w-11 h-11 rounded-full border border-border bg-background flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn"
+                            title="Remove Key"
+                          >
+                            <Trash2 className="h-4 w-4 text-muted-foreground group-hover/btn:text-red-500 transition-colors" />
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="pt-4 border-t border-border/40 flex flex-col sm:flex-row gap-3">
+                        <button 
+                          onClick={() => setEditingKey(provider.id)} 
+                          className="flex-1 rounded-full px-6 h-11 bg-foreground text-background hover:bg-foreground/90 font-medium text-sm transition-colors text-center"
+                        >
+                          Add Key
+                        </button>
+                        <a 
+                          href={provider.docsUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 rounded-full px-6 h-11 border border-border bg-background hover:bg-muted font-medium text-sm transition-colors flex items-center justify-center"
+                        >
+                          Get API Key
+                          <ExternalLink className="h-3.5 w-3.5 ml-2 text-muted-foreground" />
+                        </a>
+                      </div>
                     )}
                   </div>
+                )
+              })}
+            </div>
 
-                  {isEditing ? (
-                    <div className="space-y-3">
-                      <div className="flex gap-2">
-                        <Input
-                          type="password"
-                          value={keyInput}
-                          onChange={(e) => setKeyInput(e.target.value)}
-                          placeholder="Enter API key..."
-                          className="font-mono"
-                          autoFocus
-                        />
-                        <Button onClick={() => handleSaveKey(provider.id, provider.keyField)} disabled={saving || !keyInput.trim()}>
-                          {saving ? 'Saving...' : 'Save'}
-                        </Button>
-                        <Button variant="outline" onClick={() => { setEditingKey(null); setKeyInput('') }}>
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  ) : hasKey ? (
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type={showKeys[provider.id] ? 'text' : 'password'}
-                          value={apiKeys[provider.id]}
-                          disabled
-                          className="font-mono"
-                        />
-                        <Button variant="outline" size="icon" onClick={() => setShowKeys(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}>
-                          {showKeys[provider.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </Button>
-                        <Button variant="outline" onClick={() => { setEditingKey(provider.id); setKeyInput(apiKeys[provider.id]); }}>
-                          Update
-                        </Button>
-                        <Button variant="outline" className="text-red-500 hover:text-red-500" onClick={() => handleDeleteKey(provider.id, provider.keyField)}>
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex gap-2">
-                      <Button onClick={() => setEditingKey(provider.id)} className="flex-1">
-                        Add API Key
-                      </Button>
-                      <Button variant="outline" asChild>
-                        <a href={provider.docsUrl} target="_blank" rel="noopener noreferrer">
-                          Get API Key
-                          <ExternalLink className="h-4 w-4 ml-2" />
-                        </a>
-                      </Button>
-                    </div>
-                  )}
-                </Card>
-              )
-            })}
-
-            <div className="mt-8 p-4 rounded-lg bg-muted/50 border">
-              <div className="flex items-center gap-2 mb-2">
-                <Shield className="h-4 w-4 text-muted-foreground" />
-                <h4 className="font-medium">How we protect your keys:</h4>
+            <div className="mt-12 p-8 rounded-[2rem] bg-muted/10 border border-border/40 inline-flex flex-col xl:flex-row gap-8 items-start xl:items-center">
+              <div className="w-12 h-12 rounded-full bg-muted/30 border border-border/60 flex items-center justify-center shrink-0">
+                <Shield className="h-5 w-5 text-foreground/70" />
               </div>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Encrypted at rest with AES-256</li>
-                <li>• Never logged or shared with third parties</li>
-                <li>• You can delete keys anytime</li>
-                 <li>• We only use keys to facilitate your requests</li>
-              </ul>
+              <div className="">
+                <h4 className="font-semibold tracking-tight text-lg mb-4">How we strictly protect your keys</h4>
+                <ul className="text-sm text-muted-foreground space-y-2.5 font-medium flex flex-col">
+                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-green-500 shrink-0" /> Encrypted at rest with AES-256 standard</li>
+                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-green-500 shrink-0" /> Never logged or shared with third parties under any condition</li>
+                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-green-500 shrink-0" /> Complete deletion control of keys anytime from your end</li>
+                  <li className="flex items-center gap-2"><Check className="h-4 w-4 text-green-500 shrink-0" /> Key uses are strictly isolated to facilitate your app requests only</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
