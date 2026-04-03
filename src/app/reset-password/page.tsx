@@ -63,9 +63,6 @@ export default function ResetPasswordPage() {
       {/* Top Navigation */}
       <header className="w-full px-8 py-6 flex items-center justify-between z-10">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
-            <span className="text-white text-[10px] font-bold leading-none">S</span>
-          </div>
           <span className="font-serif font-medium text-lg tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">

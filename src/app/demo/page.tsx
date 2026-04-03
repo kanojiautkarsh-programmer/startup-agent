@@ -70,9 +70,6 @@ export default function DemoPage() {
       <header className="border-b h-16 flex items-center bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
-              <span className="text-white text-xs font-bold leading-none">T</span>
-            </div>
             <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex items-center gap-6">
@@ -239,9 +236,6 @@ export default function DemoPage() {
       <footer className="border-t py-16 px-6 bg-[#FAF9F6]">
         <div className="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-12">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
-              <span className="text-white text-xs font-bold">S</span>
-            </div>
             <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
