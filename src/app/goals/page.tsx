@@ -16,6 +16,9 @@ import {
   CheckCircle2,
   Trash2,
   Edit,
+  ArrowUpRight,
+  Trophy,
+  Filter,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import {
@@ -25,6 +28,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 interface Goal {
   id: string
@@ -185,11 +189,15 @@ export default function GoalsPage() {
       <div className="min-h-screen bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="flex-1 pl-60">
-          <div className="p-8 max-w-4xl mx-auto">
-            <Skeleton className="h-10 w-64 mb-6" />
-            <Skeleton className="h-12 w-full mb-8 rounded-full" />
-            <Skeleton className="h-48 w-full mb-4 rounded-3xl" />
-            <Skeleton className="h-48 w-full mb-4 rounded-3xl" />
+          <div className="p-8 max-w-5xl mx-auto">
+            <div className="flex items-center justify-between mb-12">
+               <Skeleton className="h-12 w-64 rounded-full" />
+               <Skeleton className="h-12 w-48 rounded-full" />
+            </div>
+            <Skeleton className="h-14 w-full mb-12 rounded-full" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               {[1,2,3,4].map(i => <Skeleton key={i} className="h-64 rounded-[3rem]" />)}
+            </div>
           </div>
         </main>
       </div>
@@ -197,50 +205,59 @@ export default function GoalsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={null} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
-        <div className="p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="p-8 md:p-12 max-w-6xl mx-auto">
           
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 animate-slide-up">
             <div>
-              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
-                Your <span className="italic font-normal">Goals</span>
+              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+                Strategic <span className="italic font-normal text-muted-foreground/60">& Goals</span>
               </h1>
-              <p className="text-sm font-medium text-muted-foreground tracking-wide">Track your strategic progress</p>
+              <div className="flex items-center gap-3">
+                 <span className="w-1.5 h-4 bg-primary rounded-full" />
+                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Milestone monitoring active</p>
+              </div>
             </div>
             <button 
               onClick={() => { setEditingGoal(null); setFormData({ title: '', description: '', deadline: '', priority: 'medium' }); setAddModalOpen(true) }}
-              className="rounded-full px-6 h-12 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0"
+              className="group rounded-full px-8 h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Goal
+              <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
+              Define Objective
             </button>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mb-10">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="flex flex-col lg:flex-row gap-6 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="relative flex-1 group">
+              <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
               <input 
-                placeholder="Search goals..." 
+                placeholder="Search strategic objectives..." 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
-                className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-muted/10 text-sm focus:outline-none focus:border-foreground/30 transition-colors placeholder:text-muted-foreground/60"
+                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
               />
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar shrink-0 items-center">
+            <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar shrink-0 items-center px-4">
+               <div className="flex items-center gap-2 mr-4 text-muted-foreground/40">
+                  <Filter className="h-3.5 w-3.5" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Status</span>
+               </div>
               {['all', 'active', 'completed'].map(status => (
                 <button 
                   key={status} 
                   onClick={() => setFilterStatus(status)}
-                  className={`px-5 h-10 rounded-full text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap ${
+                  className={cn(
+                    "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-sm border",
                     filterStatus === status 
-                      ? "bg-foreground text-background border-transparent" 
-                      : "bg-background text-foreground/70 border border-border/60 hover:bg-muted/50 hover:text-foreground"
-                  }`}
+                      ? "bg-[#2D211B] text-white border-transparent shadow-xl scale-105" 
+                      : "bg-white text-muted-foreground/60 border-border/60 hover:bg-muted/30 hover:text-foreground"
+                  )}
                 >
                   {status}
                 </button>
@@ -248,86 +265,91 @@ export default function GoalsPage() {
             </div>
           </div>
 
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-6 px-2">
-               <h2 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Active Goals</h2>
-               <span className="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded-full font-bold">{activeGoals.length}</span>
+          <div className="mb-20">
+            <div className="flex items-center gap-4 mb-8 px-4 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+               <h2 className="font-serif text-3xl font-medium tracking-tight text-foreground">Active Objectives</h2>
+               <span className="bg-muted px-3 py-1 rounded-full font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{activeGoals.length} Pending</span>
             </div>
             
             {activeGoals.length > 0 ? (
-              <div className="grid md:grid-cols-2 gap-4">
-                {activeGoals.map(goal => {
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                {activeGoals.map((goal, idx) => {
                   const daysLeft = getDaysLeft(goal.deadline)
                   return (
-                    <div key={goal.id} className="p-6 md:p-8 rounded-[2rem] bg-muted/20 border border-border/60 hover:border-foreground/20 hover:shadow-sm transition-all group flex flex-col justify-between">
+                    <div key={goal.id} className="glass-card border border-border/40 rounded-[3rem] p-8 md:p-10 hover:border-primary/20 hover:shadow-2xl transition-all group flex flex-col justify-between relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none" />
+                      
                       <div>
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-full border border-border bg-background flex items-center justify-center shrink-0">
-                              <Target className="h-5 w-5 text-foreground/80" />
+                        <div className="flex items-start justify-between mb-8">
+                          <div className="flex items-start gap-6">
+                            <div className="w-14 h-14 rounded-2xl border border-border/40 bg-white shadow-sm flex items-center justify-center shrink-0 group-hover:bg-[#2D211B] group-hover:text-white transition-all duration-500">
+                              <Target className="h-6 w-6" />
                             </div>
                             <div className="pt-1">
-                              <h3 className="font-semibold text-foreground text-base tracking-tight">{goal.title}</h3>
-                              <div className="flex items-center gap-2 mt-2 flex-wrap">
-                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest border ${getPriorityColor(goal.priority)}`}>
-                                  {goal.priority}
+                              <h3 className="font-bold text-xl md:text-2xl text-foreground tracking-tight group-hover:text-primary transition-colors duration-300">{goal.title}</h3>
+                              <div className="flex items-center gap-3 mt-3 flex-wrap">
+                                <span className={cn("px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-[0.15em] border transition-all", getPriorityColor(goal.priority))}>
+                                  {goal.priority} priority
                                 </span>
                                 {goal.deadline && (
-                                  <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/80 flex items-center gap-1">
-                                    <Calendar className="h-3 w-3 opacity-70" />
+                                  <span className="text-[9px] uppercase font-bold tracking-[0.15em] text-muted-foreground/40 flex items-center gap-2 group-hover:text-muted-foreground transition-colors">
+                                    <Calendar className="h-3 w-3" />
                                     {daysLeft !== null && daysLeft < 0 ? (
-                                      <span className="text-destructive">{Math.abs(daysLeft)}d overdue</span>
+                                      <span className="text-destructive">{Math.abs(daysLeft)}D overdue</span>
                                     ) : daysLeft === 0 ? (
-                                      <span className="text-destructive">Due today</span>
-                                    ) : daysLeft === 1 ? (
-                                      <span>1d left</span>
+                                      <span className="text-destructive">Terminating today</span>
                                     ) : (
-                                      <span>{daysLeft}d left</span>
+                                      <span>T-{daysLeft}D remaining</span>
                                     )}
                                   </span>
                                 )}
                               </div>
                             </div>
                           </div>
+                          
+                          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
+                               <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><Trash2 className="h-4 w-4" /></button>
+                          </div>
                         </div>
 
                         {goal.description && (
-                          <p className="text-sm text-muted-foreground/80 mb-6 leading-relaxed line-clamp-2">{goal.description}</p>
+                          <p className="text-sm md:text-base text-muted-foreground/80 mb-10 leading-relaxed font-medium line-clamp-2 italic font-serif">{goal.description}</p>
                         )}
                       </div>
 
-                      <div className="mt-4">
-                        <div className="flex items-center justify-between mb-3 px-1">
-                          <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Progress</span>
-                          <span className="text-xs font-bold font-serif">{goal.progress}%</span>
+                      <div className="mt-auto">
+                        <div className="flex items-center justify-between mb-4 px-2">
+                          <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40">Completion status</span>
+                          <span className="text-sm font-bold font-serif px-3 py-1 rounded-full bg-primary/5 text-primary">{goal.progress}%</span>
                         </div>
-                        <div className="h-2.5 w-full bg-border/50 rounded-full overflow-hidden mb-4 p-0.5">
+                        <div className="h-3 w-full bg-muted/30 rounded-full overflow-hidden mb-6 p-0.5 border border-border/20">
                           <div 
-                            className="h-full bg-foreground rounded-full transition-all duration-300 ease-out" 
-                            style={{ width: `${goal.progress}%` }} 
+                            className="h-full bg-[#2D211B] rounded-full transition-all duration-1000 ease-out shadow-[0_0_12px_rgba(45,33,27,0.2)]" 
+                            style={{ width: `${goal.progress}%`, animationDelay: `${idx * 0.1}s` }} 
                           />
                         </div>
                         
-                        <div className="flex items-center gap-3">
-                          <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            value={goal.progress}
-                            onChange={(e) => handleProgressChange(goal, parseInt(e.target.value))}
-                            className="flex-1 h-3 rounded-full appearance-none cursor-pointer bg-transparent border accent-foreground opacity-0 group-hover:opacity-100 transition-opacity absolute w-0 h-0 invisible" 
-                            // Using standard buttons instead for better UI
-                          />
-                          <div className="flex gap-2 w-full pt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onClick={() => handleProgressChange(goal, Math.max(0, goal.progress - 10))} className="flex-1 h-8 rounded-full border border-border text-xs font-semibold hover:bg-muted">-10%</button>
-                            <button onClick={() => handleProgressChange(goal, Math.min(100, goal.progress + 10))} className="flex-1 h-8 rounded-full border border-border text-xs font-semibold hover:bg-muted">+10%</button>
-                            <button onClick={() => handleComplete(goal)} className="flex-1 h-8 rounded-full bg-foreground text-background text-xs font-semibold hover:bg-foreground/90">Done</button>
-                          </div>
-                          
-                          {/* Control buttons in top right for edit/delete */}
-                          <div className="absolute top-6 right-6 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                             <button onClick={() => handleEdit(goal)} className="w-8 h-8 rounded-full border border-border bg-background flex items-center justify-center hover:bg-muted transition-colors"><Edit className="h-3.5 w-3.5 text-muted-foreground" /></button>
-                             <button onClick={() => handleDelete(goal.id)} className="w-8 h-8 rounded-full border border-border bg-background flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn"><Trash2 className="h-3.5 w-3.5 text-muted-foreground group-hover/btn:text-red-500 transition-colors" /></button>
+                        <div className="flex items-center gap-3 mt-4">
+                          <div className="flex gap-2 w-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 duration-500">
+                            <button 
+                               onClick={() => handleProgressChange(goal, Math.max(0, goal.progress - 10))} 
+                               className="flex-1 h-10 rounded-full border border-border/60 bg-white text-[10px] font-bold uppercase tracking-widest hover:bg-muted transition-all active:scale-95"
+                            >
+                                -10%
+                            </button>
+                            <button 
+                               onClick={() => handleProgressChange(goal, Math.min(100, goal.progress + 10))} 
+                               className="flex-1 h-10 rounded-full border border-border/60 bg-white text-[10px] font-bold uppercase tracking-widest hover:bg-muted transition-all active:scale-95"
+                            >
+                                +10%
+                            </button>
+                            <button 
+                               onClick={() => handleComplete(goal)} 
+                               className="flex-[1.5] h-10 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all shadow-lg active:scale-95"
+                            >
+                                Finalize Goal
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -336,46 +358,49 @@ export default function GoalsPage() {
                 })}
               </div>
             ) : (
-              <div className="p-16 text-center border border-dashed rounded-[2rem] bg-muted/5">
-                <div className="w-16 h-16 rounded-full bg-muted/30 border border-border mx-auto flex items-center justify-center mb-6">
-                  <Target className="h-6 w-6 text-muted-foreground opacity-70" />
+              <div className="py-24 text-center border border-dashed border-border/60 rounded-[3rem] bg-muted/5 animate-slide-up">
+                <div className="w-20 h-20 rounded-[2rem] bg-white border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
+                  <Target className="h-8 w-8 text-muted-foreground/20" />
                 </div>
-                <h3 className="text-lg font-serif font-medium mb-2">No active goals</h3>
-                <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">Set your first goal and start tracking your strategic progress.</p>
+                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">No active objectives</h3>
+                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Establish your next strategic milestone to begin operational tracking.</p>
                 <button 
-                  onClick={() => setAddModalOpen(true)}
-                  className="rounded-full px-6 h-11 border border-border bg-background hover:bg-muted transition-colors font-medium text-sm inline-flex items-center"
+                  onClick={() => { setEditingGoal(null); setAddModalOpen(true) }}
+                  className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create your first goal
+                  <Plus className="h-5 w-5 mr-3" />
+                  Define Objective
                 </button>
               </div>
             )}
           </div>
 
           {completedGoals.length > 0 && (
-            <div>
-              <div className="flex items-center gap-3 mb-6 px-2">
-                 <h2 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Completed</h2>
-                 <span className="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded-full font-bold">{completedGoals.length}</span>
+            <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-center gap-4 mb-8 px-4">
+                 <h2 className="font-serif text-3xl font-medium tracking-tight text-muted-foreground/40 italic">History</h2>
+                 <span className="bg-muted px-3 py-1 rounded-full font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{completedGoals.length} Achieved</span>
               </div>
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {completedGoals.map(goal => (
-                  <div key={goal.id} className="p-4 md:p-5 rounded-[1.5rem] bg-background border hover:border-foreground/30 transition-all group flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center shrink-0">
-                         <CheckCircle2 className="h-5 w-5" />
+                  <div key={goal.id} className="p-6 rounded-[2.5rem] bg-white border border-border/40 hover:border-foreground/10 transition-all group flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-6">
+                      <div className="w-12 h-12 rounded-2xl bg-green-500/5 text-green-600/40 flex items-center justify-center shrink-0 border border-green-100/50">
+                         <Trophy className="h-5 w-5" />
                       </div>
                       <div>
-                        <span className="font-medium text-sm line-through text-muted-foreground">{goal.title}</span>
+                        <span className="font-bold text-lg tracking-tight line-through text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors uppercase decoration-2">{goal.title}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60 hidden sm:inline-block">
-                        {new Date(goal.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </span>
-                      <button onClick={() => handleDelete(goal.id)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn opacity-0 group-hover:opacity-100">
-                         <Trash2 className="h-3.5 w-3.5 text-muted-foreground group-hover/btn:text-red-500 transition-colors" />
+                    <div className="flex items-center gap-6">
+                      <div className="hidden sm:flex flex-col items-end">
+                         <p className="text-[9px] uppercase font-bold tracking-[0.2em] text-muted-foreground/20">Finalized On</p>
+                         <p className="text-[10px] font-bold text-muted-foreground/40 tabular-nums">
+                           {new Date(goal.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                         </p>
+                      </div>
+                      <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/40 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0">
+                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
@@ -387,53 +412,55 @@ export default function GoalsPage() {
       </main>
 
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
-        <DialogContent className="rounded-[2rem] p-6 pb-8 border-border">
-          <DialogHeader className="mb-4">
-            <DialogTitle className="font-serif text-2xl font-medium tracking-tight">
-              {editingGoal ? 'Edit Goal' : 'Create New Goal'}
+        <DialogContent className="rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 border-border/40 shadow-2xl bg-white/95 backdrop-blur-xl max-w-2xl">
+          <DialogHeader className="mb-10">
+            <DialogTitle className="font-serif text-4xl font-medium tracking-tight">
+              {editingGoal ? 'Refine Objective' : 'Establish Goal'}
             </DialogTitle>
+            <p className="text-muted-foreground/60 text-xs font-bold uppercase tracking-widest mt-3 px-1">Tracking configuration protocol</p>
           </DialogHeader>
-          <div className="space-y-6">
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Title</label>
+          <div className="space-y-10">
+            <div className="animate-slide-up" style={{ animationDelay: '0.05s' }}>
+              <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Objective Title</label>
               <input 
-                placeholder="What do you want to achieve?" 
+                placeholder="What is your primary achievement target?" 
                 value={formData.title} 
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })} 
-                className="w-full h-12 px-5 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors"
+                className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
                />
             </div>
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Description</label>
+            <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Strategic Context (Optional)</label>
               <textarea 
-                placeholder="Add more details..." 
+                placeholder="Supplementary details for operational clarity..." 
                 value={formData.description} 
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })} 
-                className="w-full min-h-[100px] p-5 rounded-[1.5rem] border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors resize-none leading-relaxed" 
+                className="w-full min-h-[140px] p-8 rounded-[2rem] border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
                />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up" style={{ animationDelay: '0.15s' }}>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Deadline</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Termination Date</label>
                 <input 
                   type="date" 
                   value={formData.deadline} 
                   onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} 
-                  className="w-full h-12 px-5 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors"
+                  className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium shadow-sm"
                  />
               </div>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Priority</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Priority Level</label>
                 <div className="flex gap-2">
                   {(['low', 'medium', 'high'] as const).map(p => (
                     <button 
                       key={p} 
                       onClick={() => setFormData({ ...formData, priority: p })}
-                      className={`flex-1 h-12 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
-                        formData.priority === p 
-                          ? "bg-foreground text-background" 
-                          : "bg-background border border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
-                      }`}
+                      className={cn(
+                         "flex-1 h-14 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all border shadow-sm",
+                         formData.priority === p 
+                            ? "bg-[#2D211B] text-white border-transparent" 
+                            : "bg-white border-border/60 text-muted-foreground/60 hover:text-foreground"
+                      )}
                     >
                       {p}
                     </button>
@@ -442,19 +469,19 @@ export default function GoalsPage() {
               </div>
             </div>
           </div>
-          <DialogFooter className="mt-8 gap-3 sm:gap-0">
+          <DialogFooter className="mt-12 gap-4">
             <button 
               onClick={() => setAddModalOpen(false)}
-              className="rounded-full px-6 h-11 border border-border hover:bg-muted font-medium text-sm transition-colors w-full sm:w-auto"
+              className="rounded-full px-10 h-14 border border-border/60 hover:bg-muted font-bold text-[10px] uppercase tracking-widest transition-all w-full sm:w-auto"
             >
-              Cancel
+              Discard
             </button>
             <button 
               onClick={handleSave} 
               disabled={saving || !formData.title.trim()}
-              className="rounded-full px-8 h-11 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium text-sm transition-colors disabled:opacity-50 w-full sm:w-auto"
+              className="rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
             >
-              {saving ? "Saving..." : editingGoal ? "Update" : "Create Goal"}
+              {saving ? "Deploying..." : editingGoal ? "Commit Refinement" : "Deploy Objective"}
             </button>
           </DialogFooter>
         </DialogContent>

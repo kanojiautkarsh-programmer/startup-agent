@@ -1,32 +1,29 @@
+import Link from "next/link"
+import { ArrowLeft, Rocket, Users, Heart } from "lucide-react"
+
 export default function CareersPage() {
   return (
-    <main className="w-full flex-1">
-      {/* Dynamic Gradient Hero */}
-      <section className="pt-40 pb-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="text-5xl sm:text-7xl font-medium tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">
-            Careers
-          </h1>
-          <p className="text-xl text-muted-foreground/80 font-medium">
-            Discover the details around our careers.
+    <div className="bg-background pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12 group">
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to Home</span>
+        </Link>
+        <div className="mb-20">
+          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8 font-serif italic text-pretty">Build the command center <br />of the future.</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl font-medium leading-relaxed">
+            We're a team of engineers, designers, and operators building the intelligence layer for high-growth startups.
           </p>
         </div>
-      </section>
-
-      {/* Structured Content Box */}
-      <section className="py-20 px-6 bg-cream border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-card rounded-bento p-12 shadow-sm border border-border/50 text-foreground">
-             <div className="prose prose-lg text-pretty max-w-none">
-                <h2>Overview</h2>
-                <p>Content for Careers has not been finalized yet. This page aligns strictly to the Gradient Labs design system, utilizing the large <strong>bento border</strong> container structure, off-white cream blocks, and highly-legible serif/sans typography pairs.</p>
-                
-                <h3>Section Details</h3>
-                <p>When populated, this area will serve as the structural standard across all utility and legal pages keeping user experience extremely consistent.</p>
-             </div>
+        <div className="grid gap-8 mb-24">
+          <div className="glass-card border border-border/40 rounded-[2.5rem] p-12 text-center py-20">
+             <Rocket className="h-12 w-12 text-primary mx-auto mb-8" />
+             <h2 className="text-3xl font-serif font-medium mb-4">Launch our first cohort</h2>
+             <p className="text-xl text-muted-foreground mb-10 max-w-lg mx-auto">We're currently scaling our core team. We prioritize builders who value clarity and velocity.</p>
+             <p className="text-sm font-bold uppercase tracking-widest text-primary">Open roles coming soon.</p>
           </div>
         </div>
-      </section>
-    </main>
-  );
+      </div>
+    </div>
+  )
 }

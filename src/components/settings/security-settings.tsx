@@ -1,11 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { 
   Shield, 
   Lock, 
@@ -20,9 +16,20 @@ import {
   FileText,
   Plus,
   Trash2,
-  Loader2
+  Loader2,
+  ChevronRight,
+  ShieldCheck,
+  Zap,
+  Fingerprint,
+  Database,
+  Search,
+  ExternalLink,
+  History
 } from 'lucide-react';
+import { cn } from "@/lib/utils";
 import { ZERO_TRAINING_PRINCIPLES, EXCLUDED_PURPOSES, CONSENT_VERSION } from '@/lib/security/zero-data-training';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 
 interface AuditLog {
   id: string;
@@ -60,7 +67,7 @@ export function SecuritySettings() {
       await initializeClientEncryption();
       const fingerprint = await getKeyFingerprint();
       
-      const userPassword = prompt('Set a password to protect your encryption key (you will need this to recover your key):');
+      const userPassword = prompt('Establish a secure decryption phrase (Required for key recovery):');
       if (!userPassword) {
         setLoading(false);
         return;
@@ -88,7 +95,7 @@ export function SecuritySettings() {
         setE2eeEnabled(true);
       }
     } catch (error) {
-      console.error('Failed to enable E2EE:', error);
+      console.error('Core encryption failure:', error);
     } finally {
       setLoading(false);
     }
@@ -106,16 +113,14 @@ export function SecuritySettings() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}`,
         },
-        body: JSON.stringify({
-          action: 'check',
-        }),
+        body: JSON.stringify({ action: 'check' }),
       });
 
       if (res.ok) {
         setKeyFingerprint(fingerprint);
       }
     } catch (error) {
-      console.error('Failed to rotate key:', error);
+      console.error('Key rotation failure:', error);
     } finally {
       setLoading(false);
     }
@@ -124,19 +129,19 @@ export function SecuritySettings() {
   const handleExportKey = async () => {
     try {
       const { exportUserKey } = await import('@/lib/security/client-encryption');
-      const userPassword = prompt('Enter your password to export the key:');
+      const userPassword = prompt('Enter protocol password to authorize export:');
       if (userPassword) {
         const exportedKey = await exportUserKey(userPassword);
         const blob = new Blob([exportedKey], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'e2ee-backup.json';
+        a.download = `tasklyne-e2ee-vault-${Date.now()}.json`;
         a.click();
         URL.revokeObjectURL(url);
       }
     } catch (error) {
-      console.error('Failed to export key:', error);
+      console.error('Export failure:', error);
     }
   };
 
@@ -149,16 +154,14 @@ export function SecuritySettings() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}`,
         },
-        body: JSON.stringify({
-          optedOut: !dataTrainingOptOut,
-        }),
+        body: JSON.stringify({ optedOut: !dataTrainingOptOut }),
       });
 
       if (res.ok) {
         setDataTrainingOptOut(!dataTrainingOptOut);
       }
     } catch (error) {
-      console.error('Failed to update consent:', error);
+      console.error('Consent update failure:', error);
     } finally {
       setLoading(false);
     }
@@ -185,7 +188,7 @@ export function SecuritySettings() {
         URL.revokeObjectURL(url);
       }
     } catch (error) {
-      console.error('Failed to export data:', error);
+      console.error('Data export failure:', error);
     } finally {
       setLoading(false);
     }
@@ -195,9 +198,7 @@ export function SecuritySettings() {
     try {
       setLoading(true);
       const res = await fetch('/api/audit/logs?limit=20', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}`,
-        },
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}` },
       });
 
       if (res.ok) {
@@ -205,7 +206,7 @@ export function SecuritySettings() {
         setAuditLogs(logs);
       }
     } catch (error) {
-      console.error('Failed to fetch audit logs:', error);
+      console.error('Audit retrieval failure:', error);
     } finally {
       setLoading(false);
     }
@@ -215,9 +216,7 @@ export function SecuritySettings() {
     try {
       setLoading(true);
       const res = await fetch('/api/sso/providers', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}`,
-        },
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('sb-access-token') || ''}` },
       });
 
       if (res.ok) {
@@ -225,7 +224,7 @@ export function SecuritySettings() {
         setSsoProviders(providers);
       }
     } catch (error) {
-      console.error('Failed to fetch SSO providers:', error);
+      console.error('SSO retrieval failure:', error);
     } finally {
       setLoading(false);
     }
@@ -251,429 +250,432 @@ export function SecuritySettings() {
       });
 
       if (res.ok) {
-        const { message } = await res.json();
-        alert(message);
         setSsoConfig({ name: '', issuer: '', clientId: '', clientSecret: '', ssoUrl: '' });
         setSsoProvider(null);
         fetchSsoProviders();
-      } else {
-        const { error } = await res.json();
-        alert(error || 'Failed to add SSO provider');
       }
     } catch (error) {
-      console.error('Failed to add SSO provider:', error);
-      alert('Failed to add SSO provider');
+      console.error('SSO establishment failure:', error);
     } finally {
       setLoading(false);
     }
   };
 
   const tabs = [
-    { id: 'encryption', label: 'Encryption', icon: Lock },
-    { id: 'sso', label: 'SSO / SAML', icon: Shield },
-    { id: 'audit', label: 'Audit Logs', icon: Clock },
+    { id: 'encryption', label: 'Protocol Encryption', icon: Lock },
+    { id: 'sso', label: 'Identity / SSO', icon: ShieldCheck },
+    { id: 'audit', label: 'Tactical Logs', icon: Clock },
     { id: 'compliance', label: 'Compliance', icon: FileText },
   ];
 
+  useEffect(() => {
+    if (activeTab === 'audit' && auditLogs.length === 0) fetchAuditLogs();
+    if (activeTab === 'sso' && ssoProviders.length === 0) fetchSsoProviders();
+  }, [activeTab]);
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Security & Compliance</h1>
-        <p className="text-muted-foreground">
-          Manage your security settings, encryption, and compliance preferences.
-        </p>
+    <div className="space-y-12 animate-slide-up">
+      <div className="mb-16">
+        <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+          Integrity <span className="italic font-normal text-muted-foreground/60">& Shield</span>
+        </h1>
+        <div className="flex items-center gap-3">
+           <span className="w-1.5 h-4 bg-primary rounded-full" />
+           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Security level: Maximum reinforcement</p>
+        </div>
       </div>
 
-      <div className="flex gap-1 border-b">
+      <div className="flex flex-wrap gap-2 mb-12 border-b border-border/40 pb-6">
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => {
-              setActiveTab(tab.id);
-              if (tab.id === 'audit' && auditLogs.length === 0) {
-                fetchAuditLogs();
-              }
-              if (tab.id === 'sso' && ssoProviders.length === 0) {
-                fetchSsoProviders();
-              }
-            }}
-            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
-              activeTab === tab.id
-                ? 'border-primary text-primary'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
-            }`}
+            onClick={() => setActiveTab(tab.id)}
+            className={cn(
+               "flex items-center gap-3 px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] transition-all rounded-full border",
+               activeTab === tab.id
+                ? 'bg-[#2D211B] text-white border-transparent shadow-xl'
+                : 'bg-white text-muted-foreground/60 border-border/60 hover:border-primary/40 hover:text-foreground'
+            )}
           >
-            <tab.icon className="h-4 w-4" />
+            <tab.icon className={cn("h-4 w-4", activeTab === tab.id ? "text-white" : "text-muted-foreground/40")} />
             {tab.label}
           </button>
         ))}
       </div>
 
-      {activeTab === 'encryption' && (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5" />
-                <CardTitle>End-to-End Encryption</CardTitle>
-              </div>
-              <CardDescription>
-                Encrypt your sensitive data with your own encryption key
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <label className="text-sm font-medium">E2EE Status</label>
-                  <p className="text-sm text-muted-foreground">
-                    {e2eeEnabled ? (
-                      <span className="text-green-600 flex items-center gap-1">
-                        <CheckCircle2 className="h-4 w-4" /> Enabled
-                      </span>
-                    ) : (
-                      <span className="text-yellow-600 flex items-center gap-1">
-                        <AlertTriangle className="h-4 w-4" /> Not Enabled
-                      </span>
-                    )}
-                  </p>
-                </div>
-                <Button 
-                  variant={e2eeEnabled ? "secondary" : "default"}
-                  onClick={handleEnableE2EE}
-                  disabled={loading || e2eeEnabled}
-                >
-                  {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                  {e2eeEnabled ? 'Enabled' : 'Enable E2EE'}
-                </Button>
-              </div>
-
-              {e2eeEnabled && (
-                <>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Key Fingerprint</label>
-                    <div className="flex items-center gap-2">
-                      <code className="flex-1 rounded-md bg-muted px-3 py-2 text-sm font-mono">
-                        {keyFingerprint || 'Loading...'}
-                      </code>
-                      <Button variant="outline" size="icon" onClick={() => setShowKey(!showKey)}>
-                        {showKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button variant="outline" onClick={handleRotateKey} disabled={loading}>
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                      Rotate Key
-                    </Button>
-                    <Button variant="outline" onClick={handleExportKey}>
-                      <Download className="h-4 w-4 mr-2" />
-                      Export Backup
-                    </Button>
-                  </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Key className="h-5 w-5" />
-                <CardTitle>API Key Encryption</CardTitle>
-              </div>
-              <CardDescription>
-                Your API keys are encrypted at rest
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2 text-green-600">
-                <CheckCircle2 className="h-4 w-4" />
-                <span className="text-sm">All API keys are encrypted using AES-256-GCM</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {activeTab === 'sso' && (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5" />
-                <CardTitle>Single Sign-On (SSO)</CardTitle>
-              </div>
-              <CardDescription>
-                Configure SAML or OIDC-based single sign-on for your organization
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {ssoProviders.length > 0 && (
-                <div className="mb-4 p-4 border rounded-lg">
-                  <h4 className="font-medium mb-2">Configured Providers</h4>
-                  <div className="space-y-2">
-                    {ssoProviders.map((p) => (
-                      <div key={p.id} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Badge variant={p.enabled ? 'default' : 'secondary'}>
-                            {p.provider.toUpperCase()}
-                          </Badge>
-                          <span>{p.name}</span>
-                        </div>
-                        <Badge variant={p.enabled ? 'default' : 'outline'}>
-                          {p.enabled ? 'Active' : 'Inactive'}
-                        </Badge>
+      <div className="min-h-[400px]">
+        {activeTab === 'encryption' && (
+          <div className="space-y-8 animate-slide-up">
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl group relative overflow-hidden">
+                <div className="flex items-center justify-between mb-12">
+                   <div className="flex items-center gap-6">
+                      <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
+                         <Lock className="h-8 w-8" />
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="flex gap-2 mb-4">
-                <Button 
-                  variant={ssoProvider === 'saml' ? 'default' : 'outline'}
-                  onClick={() => setSsoProvider('saml')}
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  SAML 2.0
-                </Button>
-                <Button 
-                  variant={ssoProvider === 'oidc' ? 'default' : 'outline'}
-                  onClick={() => setSsoProvider('oidc')}
-                >
-                  <Key className="h-4 w-4 mr-2" />
-                  OIDC
-                </Button>
-              </div>
-
-              {ssoProvider && (
-                <div className="space-y-4 border-t pt-4">
-                  <div className="grid gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Provider Name</label>
-                      <Input 
-                        placeholder="e.g., Okta, Azure AD"
-                        value={ssoConfig.name}
-                        onChange={(e) => setSsoConfig({ ...ssoConfig, name: e.target.value })}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Issuer / Entity ID</label>
-                      <Input 
-                        placeholder="https://your-idp.com"
-                        value={ssoConfig.issuer}
-                        onChange={(e) => setSsoConfig({ ...ssoConfig, issuer: e.target.value })}
-                      />
-                    </div>
-                    {ssoProvider === 'saml' && (
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">SSO URL</label>
-                        <Input 
-                          placeholder="https://your-idp.com/sso"
-                          value={ssoConfig.ssoUrl}
-                          onChange={(e) => setSsoConfig({ ...ssoConfig, ssoUrl: e.target.value })}
-                        />
+                      <div>
+                         <h2 className="text-3xl font-serif font-medium tracking-tight">End-to-End Vault</h2>
+                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Client-side encryption protocol</p>
                       </div>
-                    )}
-                    {ssoProvider === 'oidc' && (
-                      <>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Client ID</label>
-                          <Input 
-                            placeholder="Your OAuth client ID"
-                            value={ssoConfig.clientId}
-                            onChange={(e) => setSsoConfig({ ...ssoConfig, clientId: e.target.value })}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Client Secret</label>
-                          <Input 
-                            type="password"
-                            placeholder="Your OAuth client secret"
-                            value={ssoConfig.clientSecret}
-                            onChange={(e) => setSsoConfig({ ...ssoConfig, clientSecret: e.target.value })}
-                          />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      onClick={handleAddSSOProvider}
-                      disabled={loading || !ssoConfig.name || !ssoConfig.issuer || (ssoProvider === 'saml' && !ssoConfig.ssoUrl) || (ssoProvider === 'oidc' && (!ssoConfig.clientId || !ssoConfig.clientSecret))}
-                    >
-                      {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
-                      Add Provider
-                    </Button>
-                  </div>
+                   </div>
+                   <div className={cn(
+                       "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border",
+                       e2eeEnabled ? "bg-green-500/5 text-green-600 border-green-600/20" : "bg-orange-500/5 text-orange-600 border-orange-600/20"
+                   )}>
+                      {e2eeEnabled ? "Active" : "Protected"}
+                   </div>
                 </div>
-              )}
 
-              {!ssoProvider && (
-                <p className="text-sm text-muted-foreground">
-                  Select SAML 2.0 or OIDC above to configure your identity provider.
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {activeTab === 'audit' && (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                <CardTitle>Activity Log</CardTitle>
-              </div>
-              <CardDescription>
-                View your recent account activity and security events
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {loading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                </div>
-              ) : auditLogs.length > 0 ? (
-                <div className="space-y-3">
-                  {auditLogs.map((log) => (
-                    <div key={log.id} className="flex items-center justify-between py-2 border-b last:border-0">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm">{log.action.replace(/_/g, ' ')}</span>
-                          <Badge variant={log.status === 'success' ? 'default' : 'destructive'} className="text-xs">
-                            {log.status}
-                          </Badge>
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(log.created_at).toLocaleString()} • {log.resource_type}
-                        </p>
-                      </div>
-                      {log.ip_address && (
-                        <code className="text-xs text-muted-foreground">{log.ip_address}</code>
-                      )}
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="space-y-6">
+                       <p className="text-sm text-foreground/80 leading-relaxed max-w-md">
+                          TaskLyne utilizes industrial-grade AES-256-GCM encryption. By enabling E2EE, your data is encrypted before it ever leaves your machine. 
+                       </p>
+                       <ul className="space-y-3">
+                          {[
+                             "Zero-knowledge architecture",
+                             "Personal recovery vault generation",
+                             "Atomic key rotation supported"
+                          ].map(feature => (
+                             <li key={feature} className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">
+                                <CheckCircle2 className="h-4 w-4 text-primary" />
+                                {feature}
+                             </li>
+                          ))}
+                       </ul>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p>No recent activity to display</p>
-                  <Button variant="link" onClick={fetchAuditLogs} className="mt-2">
-                    Refresh
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
 
-      {activeTab === 'compliance' && (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Zero Data Training Policy</CardTitle>
-              <CardDescription>
-                Your data will never be used to train AI models
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <label className="text-sm font-medium">Data Training Opt-Out</label>
-                  <p className="text-sm text-muted-foreground">
-                    Opt out of any potential data usage for AI training
-                  </p>
-                </div>
-                <Button 
-                  variant={dataTrainingOptOut ? "secondary" : "default"}
-                  onClick={handleConsentToggle}
-                  disabled={loading}
-                >
-                  {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                  {dataTrainingOptOut ? 'Opted Out' : 'Opt Out'}
-                </Button>
-              </div>
+                    <div className="glass-card bg-primary/[0.02] border-primary/10 rounded-[2.5rem] p-8">
+                       {e2eeEnabled ? (
+                          <div className="space-y-8">
+                             <div className="space-y-3">
+                                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 ml-2 flex items-center gap-2">
+                                   <Fingerprint className="h-3 w-3" /> User Fingerprint
+                                </label>
+                                <div className="flex gap-3">
+                                   <code className="flex-1 rounded-2xl bg-white border border-border/60 px-6 py-4 text-xs font-mono tracking-tight text-foreground/80 truncate">
+                                      {keyFingerprint || 'Establishing trace...'}
+                                   </code>
+                                   <button 
+                                      onClick={() => setShowKey(!showKey)}
+                                      className="w-14 h-14 rounded-2xl border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm"
+                                   >
+                                      {showKey ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                   </button>
+                                </div>
+                             </div>
 
-              <div className="rounded-lg border p-4 space-y-3">
-                <h4 className="font-semibold text-sm">Your Data Rights</h4>
-                {Object.values(ZERO_TRAINING_PRINCIPLES).map((principle) => (
-                  <div key={principle.id} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium">{principle.title}</span>
-                      <p className="text-sm text-muted-foreground">{principle.description}</p>
+                             <div className="flex gap-4">
+                                <button onClick={handleRotateKey} className="flex-1 h-14 rounded-full border border-border/60 bg-white text-[10px] font-bold uppercase tracking-widest hover:border-primary/40 transition-all flex items-center justify-center gap-3">
+                                   <RefreshCw className="h-4 w-4" /> Rotate Authority
+                                </button>
+                                <button onClick={handleExportKey} className="flex-1 h-14 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all flex items-center justify-center gap-3 shadow-xl">
+                                   <Download className="h-4 w-4" /> Export Vault
+                                </button>
+                             </div>
+                          </div>
+                       ) : (
+                          <div className="text-center py-6">
+                             <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center mx-auto mb-6">
+                                <AlertTriangle className="h-8 w-8 text-primary animate-pulse" />
+                             </div>
+                             <h4 className="text-xl font-serif font-medium mb-4">Encryption Standby</h4>
+                             <p className="text-sm text-muted-foreground/60 mb-8 mx-auto max-w-[280px]">Your session keys are currently managed by TaskLyne Secure Core.</p>
+                             <button 
+                                onClick={handleEnableE2EE}
+                                disabled={loading}
+                                className="w-full h-14 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-primary transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
+                             >
+                                {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+                                Establishing Private Key
+                             </button>
+                          </div>
+                       )}
                     </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="rounded-lg border p-4">
-                <h4 className="font-semibold text-sm mb-2">Excluded Purposes</h4>
-                <div className="flex flex-wrap gap-2">
-                  {EXCLUDED_PURPOSES.map((purpose) => (
-                    <Badge key={purpose.id} variant="secondary">
-                      {purpose.purpose}
-                    </Badge>
-                  ))}
                 </div>
-              </div>
+            </div>
 
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span>Consent version {CONSENT_VERSION} accepted</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Data Retention</CardTitle>
-              <CardDescription>
-                How long we keep your data
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {[
-                  { label: 'Messages', days: 365 },
-                  { label: 'Conversations', days: 730 },
-                  { label: 'Memories', days: 1095 },
-                  { label: 'Audit Logs', days: 2555 },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between">
-                    <span>{item.label}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {item.days} days ({Math.round(item.days / 365)} years)
-                    </span>
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl group">
+               <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+                     <Database className="h-7 w-7" />
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <div>
+                     <h2 className="text-2xl font-serif font-medium tracking-tight">API Transport Layer</h2>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B] mt-1 bg-green-500/10 px-3 py-1 rounded-full inline-block">AES-256-GCM Secure</p>
+                  </div>
+               </div>
+            </div>
+          </div>
+        )}
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Export Your Data</CardTitle>
-              <CardDescription>
-                Download a copy of all your data
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button onClick={handleExportData} disabled={loading}>
-                {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Download className="h-4 w-4 mr-2" />}
-                Request Data Export
-              </Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                You will receive a downloadable JSON file containing all your data
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+        {activeTab === 'sso' && (
+          <div className="space-y-8 animate-slide-up">
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
+               <div className="flex items-center justify-between mb-12 pb-8 border-b border-border/40">
+                  <div className="flex items-center gap-6">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white">
+                        <ShieldCheck className="h-8 w-8" />
+                     </div>
+                     <div>
+                        <h2 className="text-3xl font-serif font-medium tracking-tight">Identity Hub</h2>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Enterprise SSO / SAML configurations</p>
+                     </div>
+                  </div>
+                  <button className="h-12 px-8 rounded-full border border-border/60 text-[10px] font-bold uppercase tracking-widest hover:bg-primary/[0.02] transition-all">
+                     View Auth Logs
+                  </button>
+               </div>
+
+               <div className="grid lg:grid-cols-2 gap-12">
+                  <div className="space-y-6">
+                     <p className="text-sm text-foreground/80 leading-relaxed mb-6">Connect your organization's identity provider for centralized access control and seamless provisioning.</p>
+                     
+                     <div className="space-y-4">
+                        <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 ml-2">Active Gateways</label>
+                        {ssoProviders.length > 0 ? (
+                           <div className="grid gap-3">
+                              {ssoProviders.map((p) => (
+                                 <div key={p.id} className="flex items-center justify-between p-5 rounded-2xl bg-white border border-border/60 hover:border-primary/40 transition-all shadow-sm group">
+                                    <div className="flex items-center gap-4">
+                                       <div className="w-10 h-10 rounded-xl bg-[#2D211B]/5 border border-[#2D211B]/10 flex items-center justify-center text-[#2D211B] font-bold text-[10px]">
+                                          {p.provider.substring(0, 2).toUpperCase()}
+                                       </div>
+                                       <div>
+                                          <p className="text-sm font-bold tracking-tight">{p.name}</p>
+                                          <p className="text-[9px] uppercase font-bold tracking-widest text-muted-foreground/40">{p.provider}</p>
+                                       </div>
+                                    </div>
+                                    <div className={cn(
+                                       "w-2 h-2 rounded-full",
+                                       p.enabled ? "bg-green-500 shadow-[0_0_12px_rgba(34,197,94,0.4)]" : "bg-muted-foreground/30"
+                                    )} />
+                                 </div>
+                              ))}
+                           </div>
+                        ) : (
+                           <div className="p-8 rounded-[2rem] border border-dashed border-border/60 flex flex-col items-center justify-center text-center">
+                              <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/40">No identity providers configured</p>
+                           </div>
+                        )}
+                     </div>
+
+                     <div className="flex gap-4 pt-6">
+                        <button 
+                           onClick={() => setSsoProvider('saml')} 
+                           className={cn(
+                              "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
+                              ssoProvider === 'saml' ? "bg-[#2D211B] text-white border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                           )}
+                        >
+                           Establish SAML 2.0
+                        </button>
+                        <button 
+                           onClick={() => setSsoProvider('oidc')} 
+                           className={cn(
+                              "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
+                              ssoProvider === 'oidc' ? "bg-[#2D211B] text-white border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                           )}
+                        >
+                           Establish OIDC
+                        </button>
+                     </div>
+                  </div>
+
+                  <div className="glass-card bg-primary/[0.02] border-primary/10 rounded-[2.5rem] p-10">
+                     {ssoProvider ? (
+                        <div className="space-y-6 animate-slide-up">
+                           <h4 className="text-xl font-serif font-medium mb-6">New {ssoProvider.toUpperCase()} Protocol</h4>
+                           <div className="space-y-4">
+                              <div className="space-y-2">
+                                 <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 ml-2">Provider ID</label>
+                                 <input 
+                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
+                                    placeholder="e.g. Identity Node 01"
+                                    value={ssoConfig.name}
+                                    onChange={(e) => setSsoConfig({ ...ssoConfig, name: e.target.value })}
+                                 />
+                              </div>
+                              <div className="space-y-2">
+                                 <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 ml-2">Issuer URI</label>
+                                 <input 
+                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
+                                    placeholder="https://idp.identity.com"
+                                    value={ssoConfig.issuer}
+                                    onChange={(e) => setSsoConfig({ ...ssoConfig, issuer: e.target.value })}
+                                 />
+                              </div>
+                              <button 
+                                 onClick={handleAddSSOProvider}
+                                 disabled={loading || !ssoConfig.name}
+                                 className="w-full h-14 mt-4 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-xl hover:bg-primary transition-all active:scale-95"
+                              >
+                                 Establish Provider
+                              </button>
+                           </div>
+                        </div>
+                     ) : (
+                        <div className="text-center py-12 flex flex-col items-center">
+                           <Zap className="h-10 w-10 text-muted-foreground/20 mb-6" />
+                           <h4 className="text-lg font-serif font-medium mb-2">Awaiting Auth Block</h4>
+                           <p className="text-sm text-muted-foreground/40">Select a protocol on the left to begin provisioning.</p>
+                        </div>
+                     )}
+                  </div>
+               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'audit' && (
+          <div className="space-y-8 animate-slide-up">
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
+               <div className="flex items-center justify-between mb-12">
+                  <div className="flex items-center gap-6">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white">
+                        <Clock className="h-8 w-8" />
+                     </div>
+                     <div>
+                        <h2 className="text-3xl font-serif font-medium tracking-tight">Tactical Logs</h2>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Real-time account surveillance</p>
+                     </div>
+                  </div>
+                  <button onClick={fetchAuditLogs} className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-primary/[0.02] transition-all group">
+                     <RefreshCw className={cn("h-5 w-5 text-muted-foreground/60 transition-transform duration-500", loading && "animate-spin")} />
+                  </button>
+               </div>
+
+               <div className="space-y-4 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
+                  {auditLogs.length > 0 ? (
+                     auditLogs.map((log) => (
+                        <div key={log.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-white border border-border/40 hover:border-primary/20 hover:shadow-lg transition-all group">
+                           <div className="flex items-center gap-6">
+                              <div className={cn(
+                                 "w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-xl transition-all group-hover:scale-110",
+                                 log.status === 'success' ? "bg-green-600" : "bg-destructive"
+                              )}>
+                                 {log.status === 'success' ? <ShieldCheck className="h-6 w-6" /> : <AlertTriangle className="h-6 w-6" />}
+                              </div>
+                              <div>
+                                 <p className="text-sm font-bold tracking-tight mb-1">{log.action.replace(/_/g, ' ').toUpperCase()}</p>
+                                 <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground/40">
+                                    <span>{new Date(log.created_at).toLocaleString()}</span>
+                                    <span className="w-1 h-1 rounded-full bg-border" />
+                                    <span>{log.resource_type}</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div className="flex items-center gap-8">
+                              <code className="text-[10px] font-mono font-bold tracking-widest text-muted-foreground/60 bg-muted/30 px-3 py-1 rounded-full">
+                                 {log.ip_address || 'Internal'}
+                              </code>
+                              <ChevronRight className="h-5 w-5 text-muted-foreground/20 group-hover:translate-x-1 transition-all" />
+                           </div>
+                        </div>
+                     ))
+                  ) : (
+                     <div className="text-center py-24 bg-primary/[0.02] rounded-[3rem] border border-dashed border-border/40">
+                        <Search className="h-12 w-12 text-muted-foreground/20 mx-auto mb-6" />
+                        <h4 className="text-xl font-serif font-medium mb-2 text-muted-foreground/60">Scouring Data Buffers</h4>
+                        <p className="text-sm text-muted-foreground/40">No security events found in active cache.</p>
+                     </div>
+                  )}
+               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'compliance' && (
+          <div className="space-y-8 animate-slide-up">
+            <div className="grid lg:grid-cols-2 gap-8">
+               <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl space-y-10 group">
+                  <div className="flex items-center gap-6">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
+                        <Shield className="h-8 w-8" />
+                     </div>
+                     <div>
+                        <h2 className="text-3xl font-serif font-medium tracking-tight">Model Safety</h2>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Zero data training protocol</p>
+                     </div>
+                  </div>
+
+                  <div className="space-y-6">
+                     <p className="text-sm text-foreground/80 leading-relaxed">TaskLyne enforces a strict zero-data policy. Your organizational intelligence remains exclusive to your instance and is never used for training foundation models.</p>
+                     <div className="p-8 rounded-[2rem] bg-white border border-border/60 hover:border-primary/40 transition-all shadow-sm">
+                        <div className="flex items-center justify-between mb-6">
+                           <div className="space-y-1">
+                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B]">Training Opt-Out</h4>
+                              <p className="text-[11px] text-muted-foreground/60">Global exclusion for all sub-nodes</p>
+                           </div>
+                           <button 
+                              onClick={handleConsentToggle}
+                              disabled={loading}
+                              className={cn(
+                                 "px-6 h-10 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all",
+                                 dataTrainingOptOut ? "bg-green-500/10 text-green-600 border border-green-600/20" : "bg-[#2D211B] text-white"
+                              )}
+                           >
+                              {dataTrainingOptOut ? "Protocol Active" : "Activate Shield"}
+                           </button>
+                        </div>
+                        <div className="space-y-3">
+                           {Object.values(ZERO_TRAINING_PRINCIPLES).slice(0, 3).map(p => (
+                              <div key={p.id} className="flex items-start gap-3">
+                                 <CheckCircle2 className="h-3.5 w-3.5 text-green-600 mt-0.5" />
+                                 <span className="text-[11px] font-medium text-foreground/70">{p.title}</span>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div className="space-y-8">
+                  <div className="glass-card border border-border/40 rounded-[3rem] p-10 hover:border-primary/20 transition-all shadow-xl">
+                     <div className="flex items-center gap-6 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-primary">
+                           <History className="h-6 w-6" />
+                        </div>
+                        <h2 className="text-2xl font-serif font-medium tracking-tight">Persistence Rules</h2>
+                     </div>
+                     <div className="grid gap-4">
+                        {[
+                           { label: 'Intelligence Fragments', days: 365 },
+                           { label: 'Executive Sessions', days: 730 },
+                           { label: 'Security Buffer', days: 2555 },
+                        ].map((item) => (
+                           <div key={item.label} className="flex items-center justify-between p-4 rounded-xl hover:bg-primary/[0.02] transition-colors border-b border-border/20 last:border-0 group">
+                              <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60 group-hover:text-foreground transition-colors">{item.label}</span>
+                              <span className="text-[11px] font-mono font-bold text-primary">
+                                 {item.days} D
+                              </span>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+
+                  <div className="glass-card border border-border/40 rounded-[3rem] p-10 hover:border-primary/20 transition-all shadow-xl bg-[#2D211B] group overflow-hidden relative">
+                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none" />
+                     <div className="flex items-center gap-6 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
+                           <Download className="h-6 w-6" />
+                        </div>
+                        <h2 className="text-2xl font-serif font-medium tracking-tight text-white">Data Export</h2>
+                     </div>
+                     <p className="text-sm text-white/60 mb-10 leading-relaxed">Request a full structural export of all entity intelligence and protocol configurations in JSON format.</p>
+                     <button 
+                        onClick={handleExportData}
+                        disabled={loading}
+                        className="w-full h-14 rounded-full bg-white text-[#2D211B] text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                     >
+                        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+                        Execute Intelligence Export
+                     </button>
+                  </div>
+               </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

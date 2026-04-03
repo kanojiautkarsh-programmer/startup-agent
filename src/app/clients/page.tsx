@@ -43,6 +43,7 @@ export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [loading, setLoading] = React.useState(true)
   const [clients, setClients] = React.useState<Client[]>([])
+  const [user, setUser] = React.useState<{ full_name?: string; email?: string } | null>(null)
   const supabase = createClient()
 
   React.useEffect(() => {
@@ -52,6 +53,11 @@ export default function ClientsPage() {
         router.push('/login')
         return
       }
+
+      setUser({
+        full_name: user.user_metadata?.full_name || user.email?.split('@')[0],
+        email: user.email
+      })
 
       // Fetch real conversations as client interactions
       const { data: conversations } = await supabase
@@ -100,8 +106,8 @@ export default function ClientsPage() {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={null} />
-      <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
+      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={user} />
+      <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} user={user} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>

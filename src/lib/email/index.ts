@@ -39,7 +39,7 @@ interface EmailOptions {
   text?: string;
 }
 
-async function sendEmail(options: EmailOptions): Promise<{ success: boolean; error?: string }> {
+export async function sendEmail(options: EmailOptions): Promise<{ success: boolean; error?: string }> {
   if (!mailjetClient) {
     mailjetClient = getMailjetClient();
   }

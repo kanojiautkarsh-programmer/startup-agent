@@ -103,3 +103,29 @@
 .animate-fade-in-up {
   animation: fade-in-up 0.5s ease-out forwards;
 }
+
+.animate-slide-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism utils */
+.glass {
+  @apply bg-background/70 backdrop-blur-md border border-border/40;
+}
+
+.glass-card {
+  @apply bg-card/60 backdrop-blur-xl border border-border/50 shadow-sm transition-all;
+}
+
+.glass-card:hover {
+  @apply border-foreground/20 shadow-lg -translate-y-1;
+}
+
+/* Typography refinements */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}

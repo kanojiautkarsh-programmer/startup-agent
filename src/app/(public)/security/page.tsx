@@ -1,199 +1,75 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Lock, Key, Eye, Database, FileCheck, Users } from "lucide-react";
+import Link from "next/link"
+import { Shield, Lock, Eye, CheckCircle2, ArrowLeft } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function SecurityPage() {
+  const sections = [
+    {
+      title: "Data Protection",
+      icon: <Shield className="h-6 w-6 text-primary" />,
+      content: "All data is encrypted at rest using AES-256 and in transit using TLS 1.3. We maintain strict isolation between customer environments to ensure your data remains your own."
+    },
+    {
+      title: "Infrastructure",
+      icon: <Lock className="h-6 w-6 text-primary" />,
+      content: "Our infrastructure is hosted on ISO 27001 and SOC 2 Type II certified cloud providers. We utilize multi-region backups and automated failover to ensure 99.9% availability."
+    },
+    {
+      title: "Privacy by Design",
+      icon: <Eye className="h-6 w-6 text-primary" />,
+      content: "We never train our models on your private data without explicit consent. Your startup's internal context is siloed and accessible only to authorized members of your team."
+    }
+  ]
+
   return (
-    <main className="w-full flex-1">
-      <section className="pt-40 pb-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <div className="flex items-center gap-3 mb-6">
-            <Shield className="h-12 w-12 text-primary" />
-            <h1 className="text-5xl sm:text-7xl font-medium tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">
-              Security
-            </h1>
-          </div>
-          <p className="text-xl text-muted-foreground/80 font-medium max-w-2xl">
-            Enterprise-grade security built into every layer. Your data is protected with industry-leading encryption and compliance standards.
+    <div className="bg-background pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12 group">
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to Home</span>
+        </Link>
+        
+        <div className="mb-20 animate-slide-up">
+          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Security at TaskLyne</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
+            We build for high-growth teams that can't afford to compromise on trust. Security isn't a feature; it's our foundation.
           </p>
         </div>
-      </section>
 
-      <section className="py-20 px-6 bg-cream border-t border-border">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader className="pb-3">
-                <Lock className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">End-to-End Encryption</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>AES-256-GCM encryption protects your data at rest and in transit. Client-side encryption ensures only you can access your sensitive information.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Client-side key generation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Zero-knowledge architecture
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Key rotation support
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <Shield className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">SOC 2 Type II</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>Our security controls are audited and certified annually against SOC 2 Type II standards, covering security, availability, and confidentiality.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Continuous monitoring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Annual third-party audits
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Incident response procedures
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <Users className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">SSO & SAML</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>Enterprise single sign-on with SAML 2.0 and OIDC support. Integrate with your identity provider for seamless, secure authentication.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    SAML 2.0 & OIDC protocols
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Okta, Azure AD, Ping support
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Just-in-time provisioning
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <FileCheck className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Zero Data Training</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>Your data is never used to train, fine-tune, or improve AI models. We have a strict no-training policy backed by contractual guarantees.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    No AI model training
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    No third-party data sharing
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Vendor contract guarantees
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <Database className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Data Retention</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>Clear data retention policies with configurable retention periods. Automatic deletion and anonymization of data according to your requirements.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Configurable retention periods
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Automatic data deletion
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Data export capabilities
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <Eye className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Audit Logging</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground space-y-3">
-                <p>Comprehensive audit logging of all account activity. Track access, changes, and security events with immutable audit trails.</p>
-                <ul className="space-y-1.5 mt-4">
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Immutable audit logs
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Activity tracking
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Security event monitoring
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="grid gap-8 mb-24">
+          {sections.map((section, idx) => (
+            <div key={idx} className="glass-card border border-border/40 rounded-[2rem] p-10 md:p-12 animate-slide-up" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0">
+                  {section.icon}
+                </div>
+                <div>
+                  <h2 className="text-2xl font-semibold mb-4 tracking-tight">{section.title}</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">{section.content}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
 
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-medium tracking-tight mb-4">Enterprise Security Features</h2>
-          <p className="text-muted-foreground mb-12">
-            Additional security features available for enterprise customers
-          </p>
-          <div className="grid gap-6 md:grid-cols-2 text-left">
-            <div className="p-6 rounded-lg border bg-card">
-              <h3 className="font-semibold mb-2">Custom Data Retention</h3>
-              <p className="text-sm text-muted-foreground">Configure custom data retention periods and deletion policies to meet your organizational requirements.</p>
-            </div>
-            <div className="p-6 rounded-lg border bg-card">
-              <h3 className="font-semibold mb-2">Dedicated Infrastructure</h3>
-              <p className="text-sm text-muted-foreground">Isolated deployment with dedicated resources and enhanced isolation for maximum security.</p>
-            </div>
-            <div className="p-6 rounded-lg border bg-card">
-              <h3 className="font-semibold mb-2">HIPAA Compliance</h3>
-              <p className="text-sm text-muted-foreground">Healthcare-specific compliance including BAA agreements and additional safeguards for PHI.</p>
-            </div>
-            <div className="p-6 rounded-lg border bg-card">
-              <h3 className="font-semibold mb-2">Security Reviews</h3>
-              <p className="text-sm text-muted-foreground">Regular security reviews, penetration testing, and vulnerability assessments included.</p>
+        <div className="bg-foreground text-background rounded-[2.5rem] p-12 md:p-16 relative overflow-hidden animate-slide-up">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none" />
+          <div className="relative z-10 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-medium mb-8">Ready for enterprise scale?</h2>
+            <p className="text-background/70 text-lg mb-10 max-w-xl">
+              Download our full Security Whitepaper or request a SOC 2 Type II report from our compliance team.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild className="rounded-full px-8 h-12 bg-background text-foreground hover:bg-background/90 font-semibold transition-all">
+                <Link href="/contact">Contact Sales</Link>
+              </Button>
+              <Button variant="outline" className="rounded-full px-8 h-12 border-background/20 text-background hover:bg-background/10 font-semibold transition-all">
+                Request Report
+              </Button>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-  );
+      </div>
+    </div>
+  )
 }

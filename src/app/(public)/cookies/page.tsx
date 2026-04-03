@@ -1,32 +1,29 @@
-export default function CookiesPage() {
-  return (
-    <main className="w-full flex-1">
-      {/* Dynamic Gradient Hero */}
-      <section className="pt-40 pb-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="text-5xl sm:text-7xl font-medium tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">
-            Cookie Policy
-          </h1>
-          <p className="text-xl text-muted-foreground/80 font-medium">
-            Discover the details around our cookie policy.
-          </p>
-        </div>
-      </section>
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
-      {/* Structured Content Box */}
-      <section className="py-20 px-6 bg-cream border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-card rounded-bento p-12 shadow-sm border border-border/50 text-foreground">
-             <div className="prose prose-lg text-pretty max-w-none">
-                <h2>Overview</h2>
-                <p>Content for Cookie Policy has not been finalized yet. This page aligns strictly to the Gradient Labs design system, utilizing the large <strong>bento border</strong> container structure, off-white cream blocks, and highly-legible serif/sans typography pairs.</p>
-                
-                <h3>Section Details</h3>
-                <p>When populated, this area will serve as the structural standard across all utility and legal pages keeping user experience extremely consistent.</p>
-             </div>
-          </div>
+export default function CookiePage() {
+  return (
+    <div className="bg-background pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12 group">
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to Home</span>
+        </Link>
+        <div className="mb-16">
+          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Cookie Policy</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl font-medium italic">Last updated: April 3, 2026.</p>
         </div>
-      </section>
-    </main>
-  );
+        <div className="prose prose-lg prose-invert max-w-none text-muted-foreground space-y-12">
+          <section>
+            <h2 className="text-3xl font-serif text-white mb-6">How We Use Cookies</h2>
+            <p>TaskLyne uses cookies and similar tracking technologies to track the activity on our Service and store certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.</p>
+          </section>
+          <section>
+            <h2 className="text-3xl font-serif text-white mb-6">Managing Cookies</h2>
+            <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  )
 }

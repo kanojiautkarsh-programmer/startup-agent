@@ -1,32 +1,46 @@
+import Link from "next/link"
+import { ArrowLeft, Zap, Database, Slack, Github } from "lucide-react"
+
 export default function IntegrationsPage() {
+  const integrations = [
+    { name: "Slack", icon: <Slack className="h-6 w-6" />, type: "Communication" },
+    { name: "GitHub", icon: <Github className="h-6 w-6" />, type: "Dev Ops" },
+    { name: "PostgreSQL", icon: <Database className="h-6 w-6" />, type: "Data" },
+  ]
+
   return (
-    <main className="w-full flex-1">
-      {/* Dynamic Gradient Hero */}
-      <section className="pt-40 pb-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="text-5xl sm:text-7xl font-medium tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">
-            Integrations
-          </h1>
-          <p className="text-xl text-muted-foreground/80 font-medium">
-            Discover the details around our integrations.
+    <div className="bg-background pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6 text-center lg:text-left">
+        <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12 group">
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to Home</span>
+        </Link>
+        <div className="mb-20">
+          <div className="flex items-center justify-center lg:justify-start gap-4 mb-10">
+            <Zap className="h-6 w-6 text-primary fill-primary" />
+            <span className="font-serif italic text-2xl md:text-3xl text-muted-foreground">Powering your workflow</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Connected intelligence.</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
+            TaskLyne integrates with the tools you already use to capture context where it happens.
           </p>
         </div>
-      </section>
 
-      {/* Structured Content Box */}
-      <section className="py-20 px-6 bg-cream border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-card rounded-bento p-12 shadow-sm border border-border/50 text-foreground">
-             <div className="prose prose-lg text-pretty max-w-none">
-                <h2>Overview</h2>
-                <p>Content for Integrations has not been finalized yet. This page aligns strictly to the Gradient Labs design system, utilizing the large <strong>bento border</strong> container structure, off-white cream blocks, and highly-legible serif/sans typography pairs.</p>
-                
-                <h3>Section Details</h3>
-                <p>When populated, this area will serve as the structural standard across all utility and legal pages keeping user experience extremely consistent.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-24">
+          {integrations.map((int, idx) => (
+             <div key={idx} className="glass-card border border-border/40 rounded-[2rem] p-10 flex flex-col items-center justify-center group hover:border-primary/40 transition-all cursor-pointer">
+                <div className="w-16 h-16 bg-muted/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  {int.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{int.name}</h3>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">{int.type}</span>
              </div>
+          ))}
+          <div className="glass-card border border-dashed border-border/60 rounded-[2rem] p-10 flex items-center justify-center animate-pulse">
+             <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground/50">More Coming Soon</span>
           </div>
         </div>
-      </section>
-    </main>
-  );
+      </div>
+    </div>
+  )
 }

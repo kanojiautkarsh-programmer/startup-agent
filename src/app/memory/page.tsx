@@ -18,6 +18,10 @@ import {
   ChevronRight,
   Trash2,
   Edit,
+  History,
+  Archive,
+  MoreVertical,
+  Filter,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import {
@@ -27,6 +31,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 interface Memory {
   id: string
@@ -41,14 +46,14 @@ const typeIcons = {
   decision: FileText,
   commitment: Target,
   context: Lightbulb,
-  note: FileText,
+  note: History,
 }
 
 const typeColors = {
-  decision: "bg-muted text-foreground/80 border-border",
-  commitment: "bg-muted text-foreground/80 border-border",
-  context: "bg-muted text-foreground/80 border-border",
-  note: "bg-muted text-foreground/80 border-border",
+  decision: "bg-[#2D211B] text-white border-transparent shadow-lg",
+  commitment: "bg-primary/10 text-primary border-primary/20",
+  context: "bg-blue-50 text-blue-600 border-blue-100",
+  note: "bg-muted text-muted-foreground border-border",
 }
 
 function Section({ title, icon: Icon, children, defaultOpen = true, count }: {
@@ -61,23 +66,25 @@ function Section({ title, icon: Icon, children, defaultOpen = true, count }: {
   const [isOpen, setIsOpen] = React.useState(defaultOpen)
 
   return (
-    <div className="mb-6 bg-background">
+    <div className="mb-12 animate-slide-up">
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="flex items-center justify-between w-full text-left focus:outline-none group mb-4 px-2"
+        className="flex items-center justify-between w-full text-left focus:outline-none group mb-6 px-4"
       >
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-muted/30 border flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors shrink-0">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-2xl bg-muted/20 border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:bg-[#2D211B] group-hover:text-white transition-all shrink-0">
             <Icon className="h-4 w-4" />
           </div>
-          <h3 className="font-semibold tracking-wider text-sm uppercase text-muted-foreground group-hover:text-foreground tracking-tight transition-colors">
-            {title} <span className="ml-2 bg-muted px-2 py-0.5 rounded-full text-[10px]">{count}</span>
+          <h3 className="font-serif text-2xl font-medium tracking-tight text-foreground group-hover:text-primary transition-colors">
+            {title} <span className="ml-3 font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{count} Assets</span>
           </h3>
         </div>
-        {isOpen ? <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform" /> : <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform" />}
+        <div className="w-8 h-8 rounded-full border border-border/40 flex items-center justify-center hover:bg-muted transition-colors">
+          {isOpen ? <ChevronDown className="h-3 w-3 text-muted-foreground" /> : <ChevronRight className="h-3 w-3 text-muted-foreground" />}
+        </div>
       </button>
       {isOpen && (
-        <div className="bg-muted/10 border border-border/50 rounded-[2rem] p-2 md:p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {children}
         </div>
       )}
@@ -178,11 +185,15 @@ export default function MemoryPage() {
       <div className="min-h-screen bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="flex-1 pl-60">
-          <div className="p-8 max-w-4xl mx-auto">
-            <Skeleton className="h-10 w-64 mb-6" />
-            <Skeleton className="h-12 w-full mb-8 rounded-full" />
-            <Skeleton className="h-48 w-full mb-4 rounded-3xl" />
-            <Skeleton className="h-48 w-full mb-4 rounded-3xl" />
+          <div className="p-8 max-w-5xl mx-auto">
+            <div className="flex items-center justify-between mb-12">
+               <Skeleton className="h-12 w-64 rounded-full" />
+               <Skeleton className="h-12 w-48 rounded-full" />
+            </div>
+            <Skeleton className="h-14 w-full mb-12 rounded-full" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               {[1,2,3,4].map(i => <Skeleton key={i} className="h-48 rounded-[2.5rem]" />)}
+            </div>
           </div>
         </main>
       </div>
@@ -190,50 +201,65 @@ export default function MemoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={null} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
-        <div className="p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="p-8 md:p-12 max-w-6xl mx-auto">
           
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 animate-slide-up">
             <div>
-              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
-                Memory <span className="italic font-normal">& Context</span>
+              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+                Memory <span className="italic font-normal text-muted-foreground/60">& Index</span>
               </h1>
-              <p className="text-sm font-medium text-muted-foreground tracking-wide">Your startup's history, always accessible</p>
+              <div className="flex items-center gap-3">
+                 <span className="w-1.5 h-4 bg-primary rounded-full" />
+                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Startup context persistence active</p>
+              </div>
             </div>
-            <button 
-              onClick={() => { setEditingMemory(null); setFormData({ type: 'decision', title: '', content: '' }); setAddModalOpen(true) }}
-              className="rounded-full px-6 h-12 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Memory
-            </button>
+            <div className="flex items-center gap-4">
+               <div className="hidden lg:flex items-center gap-2 bg-muted/20 px-5 py-2.5 rounded-full border border-border/40">
+                  <Archive className="h-3.5 w-3.5 text-muted-foreground/60" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{memories.length} Assets Indexed</span>
+               </div>
+              <button 
+                onClick={() => { setEditingMemory(null); setFormData({ type: 'decision', title: '', content: '' }); setAddModalOpen(true) }}
+                className="group rounded-full px-8 h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              >
+                <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
+                Archive Memory
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mb-10">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="flex flex-col lg:flex-row gap-6 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="relative flex-1 group">
+              <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
               <input 
-                placeholder="Search memory..." 
+                placeholder="Search distributed context..." 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
-                className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-muted/10 text-sm focus:outline-none focus:border-foreground/30 transition-colors placeholder:text-muted-foreground/60"
+                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
               />
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar shrink-0 items-center">
+            <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar shrink-0 items-center px-2">
+               <div className="flex items-center gap-2 mr-4 text-muted-foreground/40">
+                  <Filter className="h-3.5 w-3.5" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">Filters</span>
+               </div>
               {['all', 'decision', 'commitment', 'note', 'context'].map(type => (
                 <button 
                   key={type} 
                   onClick={() => setFilterType(type)}
-                  className={`px-5 h-10 rounded-full text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap ${
+                  className={cn(
+                    "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-sm border",
                     filterType === type 
-                      ? "bg-foreground text-background border-transparent" 
-                      : "bg-background text-foreground/70 border border-border/60 hover:bg-muted/50 hover:text-foreground"
-                  }`}
+                      ? "bg-[#2D211B] text-white border-transparent shadow-xl scale-105" 
+                      : "bg-white text-muted-foreground/60 border-border/60 hover:bg-muted/30 hover:text-foreground hover:border-foreground/10"
+                  )}
                 >
                   {type}
                 </button>
@@ -243,103 +269,94 @@ export default function MemoryPage() {
 
           <div className="space-y-6">
             {groupedMemories.decision.length > 0 && (
-              <Section count={groupedMemories.decision.length} title="Decisions" icon={FileText}>
-                <div className="space-y-2">
-                  {groupedMemories.decision.map(memory => (
-                    <div key={memory.id} className="p-4 md:p-5 rounded-[1.5rem] bg-background border hover:border-foreground/30 transition-all group">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4">
-                          <div className={`p-2.5 rounded-xl border ${typeColors[memory.type]} shrink-0`}>
-                            <FileText className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm text-foreground">{memory.title}</p>
-                            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{memory.content}</p>
-                            <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60 mt-3">
-                              {new Date(memory.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEdit(memory)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors">
-                            <Edit className="h-3.5 w-3.5 text-muted-foreground" />
+              <Section count={groupedMemories.decision.length} title="Operational Decisions" icon={FileText}>
+                {groupedMemories.decision.map(memory => (
+                  <div key={memory.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6 relative">
+                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 border", typeColors[memory.type])}>
+                      <FileText className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
+                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white hover:border-transparent transition-all">
+                            <Edit className="h-4 w-4" />
                           </button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn">
-                            <Trash2 className="h-3.5 w-3.5 text-muted-foreground group-hover/btn:text-red-500 transition-colors" />
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-transparent transition-all">
+                            <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
+                      <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] mb-6 line-clamp-3 group-hover:line-clamp-none transition-all duration-500 font-medium">{memory.content}</p>
+                      <div className="flex items-center gap-4">
+                        <span className="w-1 h-1 bg-border rounded-full" />
+                        <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/30 tabular-nums">
+                          {new Date(memory.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </Section>
             )}
 
             {groupedMemories.commitment.length > 0 && (
-              <Section count={groupedMemories.commitment.length} title="Commitments" icon={Target}>
-                <div className="space-y-2">
-                  {groupedMemories.commitment.map(memory => (
-                    <div key={memory.id} className="p-4 md:p-5 rounded-[1.5rem] bg-background border hover:border-foreground/30 transition-all group">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4">
-                          <div className={`p-2.5 rounded-xl border ${typeColors[memory.type]} shrink-0`}>
-                            <Target className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm text-foreground">{memory.title}</p>
-                            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{memory.content}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEdit(memory)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"><Edit className="h-3.5 w-3.5 text-muted-foreground" /></button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn"><Trash2 className="h-3.5 w-3.5 text-muted-foreground group-hover/btn:text-red-500 transition-colors" /></button>
+              <Section count={groupedMemories.commitment.length} title="Strategic Commitments" icon={Target}>
+                {groupedMemories.commitment.map(memory => (
+                  <div key={memory.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6">
+                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 border", typeColors[memory.type])}>
+                      <Target className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
+                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all"><Edit className="h-4 w-4" /></button>
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
                         </div>
                       </div>
+                      <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] mb-6 font-medium">{memory.content}</p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </Section>
             )}
 
             {groupedMemories.note.length > 0 && (
-              <Section count={groupedMemories.note.length} title="Notes" icon={FileText}>
-                <div className="space-y-2">
-                  {groupedMemories.note.map(memory => (
-                    <div key={memory.id} className="p-4 md:p-5 rounded-[1.5rem] bg-background border hover:border-foreground/30 transition-all group">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4">
-                          <div className={`p-2.5 rounded-xl border ${typeColors[memory.type]} shrink-0`}>
-                            <FileText className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm text-foreground">{memory.title}</p>
-                            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{memory.content}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEdit(memory)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"><Edit className="h-3.5 w-3.5 text-muted-foreground" /></button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors group/btn"><Trash2 className="h-3.5 w-3.5 text-muted-foreground group-hover/btn:text-red-500 transition-colors" /></button>
+              <Section count={groupedMemories.note.length} title="Tactical Notes" icon={History}>
+                {groupedMemories.note.map(memory => (
+                  <div key={memory.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6">
+                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 border", typeColors[memory.type])}>
+                      <History className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
+                        <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all"><Edit className="h-4 w-4" /></button>
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
                         </div>
                       </div>
+                      <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] font-medium">{memory.content}</p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </Section>
             )}
 
             {filteredMemories.length === 0 && (
-              <div className="p-16 text-center border border-dashed rounded-[2rem] bg-muted/5">
-                <div className="w-16 h-16 rounded-full bg-muted/30 border border-border mx-auto flex items-center justify-center mb-6">
-                  <FileText className="h-6 w-6 text-muted-foreground opacity-70" />
+              <div className="py-24 text-center border border-dashed border-border/60 rounded-[3rem] bg-muted/5 animate-slide-up">
+                <div className="w-20 h-20 rounded-[2rem] bg-white border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
+                  <Archive className="h-8 w-8 text-muted-foreground/20" />
                 </div>
-                <h3 className="text-lg font-serif font-medium mb-2">No memories found</h3>
-                <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">Start building your startup's memory by adding decisions, commitments, and notes.</p>
+                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">Index is empty</h3>
+                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Capture your startup's evolution. Begin archiving decisions and strategic commitments.</p>
                 <button 
-                  onClick={() => setAddModalOpen(true)}
-                  className="rounded-full px-6 h-11 border border-border bg-background hover:bg-muted transition-colors font-medium text-sm inline-flex items-center"
+                  onClick={() => { setEditingMemory(null); setAddModalOpen(true) }}
+                  className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add your first memory
+                  <Plus className="h-5 w-5 mr-3" />
+                  Initial Archive Entry
                 </button>
               </div>
             )}
@@ -348,63 +365,69 @@ export default function MemoryPage() {
       </main>
 
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
-        <DialogContent className="rounded-[2rem] p-6 pb-8 border-border">
-          <DialogHeader className="mb-4">
-            <DialogTitle className="font-serif text-2xl font-medium tracking-tight">
-              {editingMemory ? 'Edit Memory' : 'Add New Memory'}
+        <DialogContent className="rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 border-border/40 shadow-2xl bg-white/95 backdrop-blur-xl max-w-2xl">
+          <DialogHeader className="mb-10">
+            <DialogTitle className="font-serif text-4xl font-medium tracking-tight">
+              {editingMemory ? 'Refine Memory' : 'Archive Intelligence'}
             </DialogTitle>
+            <p className="text-muted-foreground/60 text-xs font-bold uppercase tracking-widest mt-3 px-1">Persistence protocol active</p>
           </DialogHeader>
-          <div className="space-y-6">
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Type</label>
-              <div className="flex flex-wrap gap-2">
+          
+          <div className="space-y-10">
+            <div className="animate-slide-up" style={{ animationDelay: '0.05s' }}>
+              <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Classification</label>
+              <div className="flex flex-wrap gap-3">
                 {(['decision', 'commitment', 'note', 'context'] as const).map(type => (
                   <button 
                     key={type} 
                     onClick={() => setFormData({ ...formData, type })}
-                    className={`px-4 h-9 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+                    className={cn(
+                      "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all shadow-sm border",
                       formData.type === type 
-                        ? "bg-foreground text-background" 
-                        : "bg-background border border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
-                    }`}
+                        ? "bg-[#2D211B] text-white border-transparent" 
+                        : "bg-white border-border/60 text-muted-foreground/60 hover:border-foreground/30 hover:text-foreground"
+                    )}
                   >
                     {type}
                   </button>
                 ))}
               </div>
             </div>
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Title</label>
+
+            <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Context Title</label>
               <input 
-                placeholder="Brief title..." 
+                placeholder="Brief identifying title..." 
                 value={formData.title} 
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })} 
-                className="w-full h-12 px-5 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors"
+                className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
                />
             </div>
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3 block">Content</label>
+
+            <div className="animate-slide-up" style={{ animationDelay: '0.15s' }}>
+              <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 mb-4 block px-2">Intelligence Breakdown</label>
               <textarea 
-                placeholder="Describe this memory..." 
+                placeholder="Record the details of this memory..." 
                 value={formData.content} 
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })} 
-                className="w-full min-h-[120px] p-5 rounded-[1.5rem] border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors resize-none leading-relaxed" 
+                className="w-full min-h-[160px] p-8 rounded-[2rem] border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
                />
             </div>
           </div>
-          <DialogFooter className="mt-8 gap-3 sm:gap-0">
+
+          <DialogFooter className="mt-12 gap-4">
             <button 
               onClick={() => setAddModalOpen(false)}
-              className="rounded-full px-6 h-11 border border-border hover:bg-muted font-medium text-sm transition-colors w-full sm:w-auto"
+              className="rounded-full px-10 h-14 border border-border/60 hover:bg-muted font-bold text-[10px] uppercase tracking-widest transition-all w-full sm:w-auto"
             >
-              Cancel
+              Discard
             </button>
             <button 
               onClick={handleSave} 
               disabled={saving || !formData.title.trim() || !formData.content.trim()}
-              className="rounded-full px-8 h-11 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium text-sm transition-colors disabled:opacity-50 w-full sm:w-auto"
+              className="rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
             >
-              {saving ? "Saving..." : editingMemory ? "Update" : "Save Memory"}
+              {saving ? "Indexing..." : editingMemory ? "Commit Update" : "Archive Asset"}
             </button>
           </DialogFooter>
         </DialogContent>

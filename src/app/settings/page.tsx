@@ -16,12 +16,19 @@ import {
   ArrowRight,
   BookOpen,
   Plug,
+  Settings,
+  ChevronRight,
+  Sparkles,
+  Zap,
+  Rocket,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { NotionSync } from "@/components/integrations/notion-sync"
+import { cn } from "@/lib/utils"
 
 const navItems = [
   { title: "Profile", href: "/settings", icon: User },
+  { title: "Startup Profile", href: "/settings/startup", icon: Rocket },
   { title: "API Keys", href: "/settings/api-keys", icon: Key },
   { title: "Integrations", href: "/settings/integrations", icon: Plug },
   { title: "Knowledge Base", href: "/settings/documents", icon: BookOpen },
@@ -98,15 +105,15 @@ export default function SettingsPage() {
     return (
       <div className="min-h-screen bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
-        <main className="pl-60">
+        <main className={`pl-64 pt-14`}>
           <div className="flex">
-            <div className="w-64 border-r border-border/50 h-[calc(100vh-3.5rem)] sticky top-14 p-6">
-              <Skeleton className="h-4 w-16 mb-6" />
-              {[1, 2, 3].map(i => <Skeleton key={i} className="h-10 w-full mb-2 rounded-full" />)}
+            <div className="w-72 border-r border-border/40 h-[calc(100vh-3.5rem)] sticky top-14 p-8">
+              <Skeleton className="h-4 w-24 mb-10" />
+              {[1, 2, 3, 4, 5].map(i => <Skeleton key={i} className="h-12 w-full mb-3 rounded-full" />)}
             </div>
-            <div className="flex-1 p-10 max-w-3xl">
-              <Skeleton className="h-10 w-48 mb-8" />
-              <Skeleton className="h-64 w-full mb-6 rounded-[2rem]" />
+            <div className="flex-1 p-12 max-w-4xl">
+              <Skeleton className="h-14 w-64 mb-12 rounded-full" />
+              <Skeleton className="h-96 w-full mb-8 rounded-[3rem]" />
             </div>
           </div>
         </main>
@@ -115,7 +122,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={user} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
@@ -123,9 +130,12 @@ export default function SettingsPage() {
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
         <div className="flex min-h-[calc(100vh-3.5rem)]">
           {/* Settings Navigation */}
-          <div className="w-64 border-r border-border/50 bg-background/50 h-[calc(100vh-3.5rem)] sticky top-14 p-6">
-            <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-6 px-4">Settings</h2>
-            <div className="space-y-1">
+          <div className="w-72 border-r border-border/40 bg-muted/5 h-[calc(100vh-3.5rem)] sticky top-14 p-8 hidden lg:block animate-slide-in-left">
+            <div className="flex items-center gap-3 mb-10 px-4">
+              <div className="w-1.5 h-4 bg-primary rounded-full" />
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/60">Command Center</h2>
+            </div>
+            <div className="space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = pathname === item.href
@@ -133,97 +143,134 @@ export default function SettingsPage() {
                   <Link 
                     key={item.href} 
                     href={item.href} 
-                    className={`flex items-center gap-4 rounded-full px-4 py-3 text-sm transition-all font-medium ${
+                    className={cn(
+                      "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-foreground text-background shadow-sm" 
-                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                    }`}
+                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
+                    )}
                   >
-                    <Icon className="h-4 w-4" />
-                    {item.title}
+                    <div className="flex items-center gap-4">
+                      <Icon className={cn("h-4 w-4 transition-transform group-hover:scale-110", isActive ? "text-white" : "text-muted-foreground/60")} />
+                      <span className={cn(isActive && "font-bold tracking-tight")}>{item.title}</span>
+                    </div>
+                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
                   </Link>
                 )
               })}
             </div>
+
+            <div className="mt-12 pt-8 border-t border-border/40 px-4">
+               <div className="glass-card rounded-2xl p-6 bg-primary/5 border-primary/10">
+                  <div className="flex items-center gap-2 mb-3">
+                     <Zap className="h-4 w-4 text-primary" />
+                     <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Pro Status</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">You are currently using the <span className="font-bold text-foreground">Starter Engine</span>. Upgrade for custom model routing.</p>
+                  <Link href="/pricing" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4 flex items-center group">
+                     Upgrade Core <ChevronRight className="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+               </div>
+            </div>
           </div>
 
-          <div className="flex-1 p-8 md:p-12 max-w-4xl">
-            <div className="mb-10">
-              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
-                Your <span className="italic font-normal">Profile</span>
+          <div className="flex-1 p-8 md:p-16 max-w-5xl">
+            <div className="mb-16 animate-slide-up">
+              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+                Core <span className="italic font-normal text-muted-foreground/60">& Identity</span>
               </h1>
-              <p className="text-sm font-medium text-muted-foreground tracking-wide">Manage your personal information</p>
+              <div className="flex items-center gap-3">
+                 <span className="w-1.5 h-4 bg-primary rounded-full" />
+                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">System identity configuration active</p>
+              </div>
             </div>
 
-            <div className="bg-background border border-border/60 rounded-[2rem] p-8 md:p-10 mb-8 hover:border-foreground/20 transition-colors shadow-sm">
-              <div className="flex flex-col md:flex-row md:items-center gap-8 mb-10 pb-10 border-b border-border/40">
-                <div className="w-24 h-24 rounded-full bg-muted/30 border border-border flex items-center justify-center text-3xl font-serif font-medium text-foreground shrink-0 shadow-inner">
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 mb-10 hover:border-primary/20 transition-all shadow-2xl relative overflow-hidden animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -mr-32 -mt-32 pointer-events-none" />
+              
+              <div className="flex flex-col md:flex-row md:items-center gap-10 mb-12 pb-12 border-b border-border/40">
+                <div className="w-28 h-28 rounded-[2.5rem] bg-white border border-border shadow-2xl flex items-center justify-center text-4xl font-serif font-medium text-[#2D211B] shrink-0 group hover:rotate-3 transition-transform duration-500 relative">
+                  <div className="absolute inset-0 bg-[#2D211B] rounded-[2.5rem] opacity-0 group-hover:opacity-10 scale-95 group-hover:scale-105 transition-all duration-500" />
                   {initials}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-serif font-medium mb-1 tracking-tight">{user?.full_name || 'User'}</h2>
-                  <p className="text-muted-foreground text-sm font-medium">{user?.email}</p>
+                  <h2 className="text-3xl font-serif font-medium mb-2 tracking-tight">{user?.full_name || 'System User'}</h2>
+                  <div className="flex items-center gap-3">
+                    <div className="px-3 py-1 rounded-full bg-muted border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{user?.email}</div>
+                    <div className="flex items-center gap-1.5 text-primary">
+                       <Sparkles className="h-3.5 w-3.5" />
+                       <span className="text-[10px] font-bold uppercase tracking-widest">Verified Identity</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="space-y-6 max-w-lg">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Full Name</label>
+              <div className="space-y-10 max-w-2xl">
+                <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Operator Full Name</label>
                   <input 
                     value={formData.full_name} 
                     onChange={(e) => setFormData({ ...formData, full_name: e.target.value })} 
-                    placeholder="Your name" 
-                    className="w-full h-12 px-5 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors" 
+                    placeholder="Your legal or operational name" 
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</label>
-                  <input 
-                    value={user?.email || ''} 
-                    disabled 
-                    className="w-full h-12 px-5 rounded-full border border-border bg-muted/30 text-sm text-muted-foreground transition-colors cursor-not-allowed" 
-                  />
-                  <p className="text-[10px] text-muted-foreground/60 font-medium ml-1">Email cannot be changed.</p>
+                <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Authentication Endpoint</label>
+                  <div className="relative">
+                    <input 
+                      value={user?.email || ''} 
+                      disabled 
+                      className="w-full h-14 px-8 rounded-full border border-border/40 bg-muted/20 text-sm text-muted-foreground/60 transition-colors cursor-not-allowed font-medium shadow-inner" 
+                    />
+                    <Shield className="absolute right-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/20" />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest ml-2">Authenticated via distributed ledger</p>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Startup Name</label>
+                <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.25s' }}>
+                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Corporate Entity Name</label>
                   <input 
                     value={formData.company} 
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })} 
-                    placeholder="Your startup name" 
-                    className="w-full h-12 px-5 rounded-full border border-border bg-background text-sm focus:outline-none focus:border-foreground/50 transition-colors" 
+                    placeholder="Startup or Organization identifier" 
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
-                <button 
-                  onClick={handleSave} 
-                  disabled={saving}
-                  className="rounded-full px-8 h-11 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium text-sm transition-colors disabled:opacity-50 mt-4 shadow-sm"
-                >
-                  {saving ? "Saving Changes..." : "Save Profile"}
-                </button>
+                <div className="pt-4">
+                  <button 
+                    onClick={handleSave} 
+                    disabled={saving}
+                    className="group rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
+                  >
+                    {saving ? "Deploying Changes..." : "Commit Profile Changes"}
+                    <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="bg-background border border-border/60 rounded-[2rem] p-8 md:p-10 hover:border-foreground/20 transition-colors shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-              <div>
-                <h3 className="font-semibold flex items-center gap-3 tracking-tight mb-1.5 text-lg">
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                    Starter
-                  </span>
-                  Current Plan
-                </h3>
-                <p className="text-sm text-muted-foreground font-medium">
-                  Free tier • Configure your keys in <Link href="/settings/api-keys" className="underline underline-offset-2 hover:text-foreground transition-colors">API Keys</Link>
-                </p>
+            <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-10 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-center gap-8">
+                 <div className="w-16 h-16 rounded-[1.5rem] bg-primary/5 border border-primary/10 flex items-center justify-center text-primary group hover:bg-[#2D211B] group hover:text-white transition-all duration-500">
+                    <Zap className="h-6 w-6" />
+                 </div>
+                 <div>
+                  <h3 className="font-bold flex items-center gap-4 tracking-tight mb-2 text-2xl">
+                    Starter <span className="italic font-serif font-normal text-muted-foreground/40 text-lg">Foundation</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground/80 font-medium max-w-sm">
+                    Configure your high-latency endpoints or upgrade to dedicated compute clusters.
+                  </p>
+                </div>
               </div>
               <Link 
                 href="/pricing"
-                className="rounded-full px-6 h-11 border border-border bg-background hover:bg-muted font-medium text-sm transition-colors inline-flex items-center justify-center whitespace-nowrap shrink-0"
+                className="rounded-full px-10 h-14 bg-white border border-border/60 hover:bg-[#2D211B] hover:text-white hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
               >
-                View Upgrade Plans <ArrowRight className="h-4 w-4 ml-2" />
+                Scale Infrastructure <ArrowRight className="h-4 w-4 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>

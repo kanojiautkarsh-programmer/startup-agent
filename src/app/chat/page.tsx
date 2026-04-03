@@ -6,7 +6,7 @@ import * as React from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { CommandPalette } from "@/components/command/command-palette";
-import { Send, Brain, BarChart3, Settings, RefreshCw, Check, Copy } from "lucide-react";
+import { Send, Brain, BarChart3, Settings, RefreshCw, Check, Copy, Sparkles, Wand2, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { useAnalytics } from "@/lib/analytics/useAnalytics";
 
@@ -18,18 +18,18 @@ interface Message {
 }
 
 const quickActions = [
-  "Draft investor update",
-  "Create decision log",
-  "Set a new goal",
-  "Check progress",
-  "Generate report",
-  "Add commitment"
+  "Strategic overview",
+  "Summarize memory",
+  "Commitment check",
+  "Risk assessment",
+  "Decision logging",
+  "Investor brief"
 ];
 
 const getWelcomeMessage = (): Message => ({
   id: "welcome",
   role: "assistant",
-  content: `Hi! I'll help you remember decisions, track goals, and stay accountable.\n\nWhat would you like to work on today?`,
+  content: `Systems initialized. I am ready to scale your startup's context.\n\nHow should we refine your strategy today?`,
   timestamp: new Date(),
 });
 
@@ -94,7 +94,7 @@ export default function ChatPage() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: `Error: ${error instanceof Error ? error.message : 'Something went wrong'}. Please check your API key configuration.`,
+        content: `Operational Error: ${error instanceof Error ? error.message : 'Unknown exception'}. Verify system keys in settings.`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -121,7 +121,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -137,75 +137,80 @@ export default function ChatPage() {
           sidebarCollapsed ? "pl-16" : "pl-60"
         }`}
       >
-        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-6">
-          <div className="flex items-center justify-between mb-6 px-2">
+        <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full p-2 md:p-8 overflow-hidden">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 md:mb-12 px-6 pt-4 animate-slide-up">
             <div>
-              <h1 className="text-3xl font-serif tracking-tight font-medium">Assistant <span className="italic font-normal">& Chat</span></h1>
+              <h1 className="text-4xl md:text-5xl font-serif tracking-tight font-medium">Assistant <span className="italic font-normal text-muted-foreground/60">& Intelligence</span></h1>
+              <div className="flex items-center gap-3 mt-3">
+                 <span className="w-1.5 h-4 bg-primary rounded-full" />
+                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Distributed Network Active</p>
+              </div>
             </div>
             <Link 
               href="/settings/api-keys"
-              className="text-xs font-semibold tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors flex items-center"
+              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-[#2D211B] hover:text-white transition-all flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest shadow-sm"
             >
-              <Settings className="h-3 w-3 mr-1.5" />
-              Keys
+              <Settings className="h-3.5 w-3.5 group-hover:rotate-45 transition-transform" />
+              Configure Protocols
             </Link>
           </div>
 
-          <div className="flex-1 flex flex-col bg-background border rounded-[2rem] overflow-hidden mb-2">
-            <div className="px-6 py-4 border-b flex items-center gap-3 bg-muted/20">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background border text-[10px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
-                <Brain className="h-3 w-3" /> Active
+          <div className="flex-1 flex flex-col bg-background/50 backdrop-blur-sm border border-border/40 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden mb-6 shadow-2xl relative">
+            <div className="px-8 py-5 border-b border-border/30 flex items-center gap-4 bg-muted/10">
+              <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border/40 text-[9px] font-bold uppercase tracking-[0.15em] text-foreground shadow-sm">
+                <Sparkles className="h-3 w-3 text-primary animate-pulse" /> context_01
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-background border text-[10px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
-                <BarChart3 className="h-3 w-3" /> Context Loaded
+              <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border/40 text-[9px] font-bold uppercase tracking-[0.15em] text-muted-foreground shadow-sm">
+                <ShieldCheck className="h-3 w-3 text-green-500" /> secure_link
               </span>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
+            <div className="flex-1 overflow-y-auto p-6 md:p-12 space-y-12">
               {messages.map((message, index) => (
                 <div
                   key={message.id}
-                  className={`flex gap-4 animate-fade-in-up ${
+                  className={`flex gap-6 animate-slide-up ${
                     message.role === "user" ? "flex-row-reverse" : ""
                   }`}
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border shadow-sm ${
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border transition-all shadow-md group ${
                       message.role === "assistant"
                         ? "bg-[#2D211B] border-[#2D211B] text-white"
-                        : "bg-background border-border text-foreground"
+                        : "bg-white border-border/60 text-foreground"
                     }`}
                   >
                     {message.role === "assistant" ? (
-                      <Brain className="h-4 w-4" />
+                      <Brain className="h-5 w-5" />
                     ) : (
-                      <span className="text-sm font-semibold tracking-wider">U</span>
+                      <span className="text-xs font-bold tracking-widest uppercase">User</span>
                     )}
                   </div>
-                  <div className="flex-1 max-w-[85%] md:max-w-[75%]">
+                  <div className={`flex flex-col flex-1 max-w-[85%] md:max-w-[70%] ${message.role === "user" ? "items-end" : "items-start"}`}>
                     <div
-                      className={`rounded-[1.5rem] px-5 py-4 ${
+                      className={`rounded-[1.75rem] px-6 py-5 shadow-sm border transition-shadow hover:shadow-md ${
                         message.role === "assistant"
-                          ? "bg-muted/30 border"
-                          : "bg-muted border"
+                          ? "bg-white border-border/40"
+                          : "bg-[#FAF9F6] border-border/60"
                       }`}
                     >
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                      <p className="text-sm md:text-base leading-[1.8] tracking-tight whitespace-pre-wrap font-medium">{message.content}</p>
                     </div>
-                    <div className={`flex items-center gap-4 mt-2 px-2 ${message.role === "user" ? "justify-end" : ""}`}>
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">
+                    <div className={`flex items-center gap-5 mt-4 px-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
+                      <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40 tabular-nums">
                         {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                       </span>
                       {message.role === "assistant" && (
                         <button
                           onClick={() => copyToClipboard(message.content, message.id)}
-                          className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-foreground flex items-center gap-1 transition-colors"
+                          className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40 hover:text-foreground flex items-center gap-2 transition-colors"
                         >
                           {copiedId === message.id ? (
                             <><Check className="h-3 w-3 text-green-500" /> Copied</>
                           ) : (
-                            <><Copy className="h-3 w-3" /> Copy</>
+                            <><Copy className="h-3 w-3" /> Copy Asset</>
                           )}
                         </button>
                       )}
@@ -215,17 +220,18 @@ export default function ChatPage() {
               ))}
 
               {isLoading && (
-                <div className="flex gap-4 animate-fade-in">
-                  <div className="w-10 h-10 rounded-full bg-[#2D211B] text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Brain className="h-4 w-4" />
+                <div className="flex gap-6 animate-slide-up">
+                  <div className="w-12 h-12 rounded-2xl bg-[#2D211B] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Brain className="h-5 w-5 animate-pulse" />
                   </div>
-                  <div className="flex-1 max-w-[75%]">
-                    <div className="rounded-[1.5rem] px-5 py-5 bg-muted/30 border flex items-center gap-3 w-fit">
-                        <div className="flex gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-bounce" style={{ animationDelay: "300ms" }} />
+                  <div className="flex-1 max-w-[70%]">
+                    <div className="rounded-[1.75rem] px-8 py-6 bg-white border border-border/40 flex items-center gap-4 w-fit shadow-sm">
+                        <div className="flex gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-bounce" style={{ animationDelay: "300ms" }} />
                         </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Processing Context</span>
                     </div>
                   </div>
                 </div>
@@ -234,16 +240,19 @@ export default function ChatPage() {
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="p-4 md:p-6 bg-background pt-2 w-full mt-auto">
+            <div className="px-8 pb-8 md:px-12 md:pb-12 pt-4 bg-white/50 backdrop-blur-md w-full mt-auto border-t border-border/30">
               {messages.length === 1 && !isLoading && (
-                <div className="mb-4">
-                  <p className="text-[10px] uppercase font-semibold tracking-widest text-muted-foreground mb-3 px-2">Suggestions</p>
+                <div className="mb-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                  <div className="flex items-center gap-3 mb-4 px-2">
+                     <Wand2 className="h-3 w-3 text-muted-foreground/40" />
+                     <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/60">Tactical Suggestions</p>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {quickActions.map((action) => (
                       <button
                         key={action}
                         onClick={() => handleQuickAction(action)}
-                        className="text-xs rounded-full border border-border/80 bg-background px-4 py-2 hover:bg-muted/50 transition-colors font-medium text-foreground/80"
+                        className="text-[10px] uppercase tracking-widest rounded-full border border-border/60 bg-white px-5 py-2.5 hover:bg-[#2D211B] hover:text-white transition-all font-bold text-foreground/60 shadow-sm"
                       >
                         {action}
                       </button>
@@ -252,17 +261,18 @@ export default function ChatPage() {
                 </div>
               )}
               
-              <div className="relative">
+              <div className="relative group animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                <div className="absolute inset-0 bg-[#2D211B]/5 blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-[2rem]" />
                 <textarea
-                  placeholder="Ask me anything..."
+                  placeholder="Ask intelligence system..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="w-full min-h-[60px] max-h-[200px] resize-none rounded-[1.5rem] border bg-muted/20 px-6 py-4 pr-16 text-sm focus:outline-none focus:border-foreground/30 transition-colors placeholder:text-muted-foreground/60"
+                  className="w-full min-h-[70px] max-h-[250px] resize-none rounded-[2rem] border border-border/60 bg-white px-8 py-5 pr-16 text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
                   rows={1}
                 />
                 <button
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center rounded-full bg-[#2D211B] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#2D211B]/90 transition-colors shadow-sm"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-12 w-12 flex items-center justify-center rounded-full bg-[#2D211B] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary transition-all shadow-2xl z-20 active:scale-95"
                   onClick={handleSend}
                   disabled={!input.trim() || isLoading}
                 >
@@ -273,9 +283,15 @@ export default function ChatPage() {
                   )}
                 </button>
               </div>
-              <p className="text-[10px] text-muted-foreground/60 mt-3 text-center uppercase tracking-widest font-bold">
-                Enter to send <span className="mx-2 opacity-50">•</span> Shift+Enter for new line
-              </p>
+              <div className="flex items-center justify-between mt-4 px-6">
+                <p className="text-[9px] text-muted-foreground/40 uppercase tracking-[0.25em] font-bold">
+                  Enter to transmit <span className="mx-2 opacity-50">•</span> Shift+Enter for multiline
+                </p>
+                <div className="flex items-center gap-2">
+                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+                   <span className="text-[9px] text-muted-foreground/60 uppercase font-bold tracking-widest">System Latency: 42ms</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

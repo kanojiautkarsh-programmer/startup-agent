@@ -1,16 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { CommandPalette } from "@/components/command/command-palette";
-import { User, Key, CreditCard, Shield, Check, Zap, Building, Star, CreditCard as CardIcon } from 'lucide-react';
+import { 
+  User, 
+  Key, 
+  CreditCard, 
+  Shield, 
+  Check, 
+  Zap, 
+  Building, 
+  Star, 
+  CreditCard as CardIcon,
+  ChevronRight,
+  TrendingUp,
+  Download,
+  Plus,
+  ArrowRight,
+  Plug,
+  BookOpen,
+  Rocket,
+} from 'lucide-react';
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { title: "Profile", href: "/settings", icon: User },
+  { title: "Startup Profile", href: "/settings/startup", icon: Rocket },
   { title: "API Keys", href: "/settings/api-keys", icon: Key },
+  { title: "Integrations", href: "/settings/integrations", icon: Plug },
+  { title: "Knowledge Base", href: "/settings/documents", icon: BookOpen },
   { title: "Billing", href: "/settings/billing", icon: CreditCard },
   { title: "Security", href: "/settings/security", icon: Shield },
 ];
@@ -18,26 +40,26 @@ const navItems = [
 const plans = [
   {
     id: 'starter',
-    name: 'Starter',
+    name: 'Starter Engine',
     price: 0,
-    description: 'For individuals getting started',
-    features: ['5 conversations/day', 'Basic memory', '3 goals', 'Email support'],
+    description: 'Protocol foundation for individual operators.',
+    features: ['5 internal sessions / day', 'Base vector memory', '3 strategic objectives', 'Identity verification'],
     icon: Zap,
   },
   {
     id: 'pro',
-    name: 'Pro',
+    name: 'Pro Cluster',
     price: 29,
-    description: 'For power users',
-    features: ['Unlimited conversations', 'Advanced memory', 'Unlimited goals', 'Priority support', 'Custom integrations'],
+    description: 'Advanced compute for high-frequency workflows.',
+    features: ['Unlimited session throughput', 'Advanced persistence layers', 'Unlimited objectives', 'Priority routing', 'Custom node integrations'],
     icon: Star,
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Enterprise Grid',
     price: 99,
-    description: 'For teams and organizations',
-    features: ['Everything in Pro', 'SSO/SAML', 'Audit logs', 'API access', 'Dedicated support', 'Custom retention'],
+    description: 'Dedicated infrastructure for organizations.',
+    features: ['Everything in Pro', 'SSO / Ledger Auth', 'Audit logs', 'API Endpoint access', 'Dedicated strategist', 'Custom context retention'],
     icon: Building,
   },
 ];
@@ -58,17 +80,20 @@ export default function BillingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans">
-      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
+    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
+      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
         <div className="flex min-h-[calc(100vh-3.5rem)]">
           {/* Settings Navigation */}
-          <div className="w-64 border-r border-border/50 bg-background/50 h-[calc(100vh-3.5rem)] sticky top-14 p-6 hidden md:block">
-            <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-6 px-4">Settings</h2>
-            <div className="space-y-1">
+          <div className="w-72 border-r border-border/40 bg-muted/5 h-[calc(100vh-3.5rem)] sticky top-14 p-8 hidden lg:block animate-slide-in-left">
+            <div className="flex items-center gap-3 mb-10 px-4">
+              <div className="w-1.5 h-4 bg-primary rounded-full" />
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/60">Command Center</h2>
+            </div>
+            <div className="space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = pathname === item.href
@@ -76,85 +101,120 @@ export default function BillingPage() {
                   <Link 
                     key={item.href} 
                     href={item.href} 
-                    className={`flex items-center gap-4 rounded-full px-4 py-3 text-sm transition-all font-medium ${
+                    className={cn(
+                      "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-foreground text-background shadow-sm" 
-                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                    }`}
+                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
+                    )}
                   >
-                    <Icon className="h-4 w-4" />
-                    {item.title}
+                    <div className="flex items-center gap-4">
+                      <Icon className={cn("h-4 w-4 transition-transform group-hover:scale-110", isActive ? "text-white" : "text-muted-foreground/60")} />
+                      <span className={cn(isActive && "font-bold tracking-tight")}>{item.title}</span>
+                    </div>
+                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
                   </Link>
                 )
               })}
             </div>
+
+            <div className="mt-12 pt-8 border-t border-border/40 px-4">
+               <div className="glass-card rounded-2xl p-6 bg-primary/5 border-primary/10">
+                  <div className="flex items-center gap-2 mb-3">
+                     <TrendingUp className="h-4 w-4 text-primary" />
+                     <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Resource Usage</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">You have consumed <span className="font-bold text-foreground">84%</span> of your monthly compute cycles.</p>
+                  <Link href="/settings/billing" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4 flex items-center group">
+                     Scale Core <ChevronRight className="h-3 w-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+               </div>
+            </div>
           </div>
 
-          <div className="flex-1 p-8 md:p-12 max-w-5xl">
-            <div className="mb-10">
-              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
-                Plan <span className="italic font-normal">& Billing</span>
+          <div className="flex-1 p-8 md:p-16 max-w-6xl">
+            <div className="mb-16 animate-slide-up">
+              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+                Finance <span className="italic font-normal text-muted-foreground/60">& Quota</span>
               </h1>
-              <p className="text-sm font-medium text-muted-foreground tracking-wide">Manage your subscription constraints.</p>
+              <div className="flex items-center gap-3">
+                 <span className="w-1.5 h-4 bg-primary rounded-full" />
+                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Subscription constraints active</p>
+              </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3 mb-12">
-              {plans.map((plan) => {
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 items-start">
+              {plans.map((plan, planIdx) => {
                 const isCurrent = currentPlan === plan.id;
                 const isPro = plan.id === 'pro';
                 
                 return (
-                  <div key={plan.id} className={`bg-background rounded-[2rem] border overflow-hidden flex flex-col transition-all relative ${isPro ? 'border-foreground/30 shadow-sm md:-translate-y-2' : 'border-border/60 hover:border-foreground/20'}`}>
+                  <div key={plan.id} className={cn(
+                    "glass-card rounded-[3.5rem] border overflow-hidden flex flex-col transition-all relative animate-slide-up group",
+                    isPro ? 'border-primary/40 shadow-2xl md:-translate-y-4 bg-primary/[0.02]' : 'border-border/40 hover:border-primary/20 hover:shadow-xl'
+                  )} style={{ animationDelay: `${planIdx * 0.1}s` }}>
                     {isPro && (
-                      <div className="bg-foreground text-background text-center py-1.5 text-[10px] uppercase font-bold tracking-widest w-full top-0 absolute">
-                        Most Popular
+                      <div className="bg-[#2D211B] text-white text-center py-2 text-[10px] uppercase font-bold tracking-[0.3em] w-full top-0 absolute">
+                        Optimum Engine
                       </div>
                     )}
-                    <div className={`p-8 ${isPro ? 'pt-10' : ''}`}>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${isPro ? 'bg-foreground border-foreground text-background' : 'bg-muted/50 border-border'}`}>
-                           <plan.icon className="h-4 w-4" />
+                    <div className={cn("p-10", isPro ? "pt-14" : "")}>
+                      <div className="flex items-center gap-6 mb-8">
+                        <div className={cn(
+                            "w-14 h-14 rounded-[1.5rem] flex items-center justify-center shrink-0 border shadow-xl transition-all duration-500 group-hover:scale-110",
+                            isPro ? 'bg-[#2D211B] border-[#2D211B] text-white' : 'bg-white border-border text-[#2D211B]'
+                        )}>
+                           <plan.icon className="h-6 w-6" />
                         </div>
                         <div>
-                           <h3 className="text-lg font-semibold tracking-tight">{plan.name}</h3>
-                           {isCurrent && <span className="text-[10px] uppercase font-bold tracking-widest text-[#2D211B] bg-[#2D211B]/10 px-2 py-0.5 rounded-full inline-block mt-1">Current</span>}
+                           <h3 className="text-2xl font-serif font-medium tracking-tight">{plan.name}</h3>
+                           {isCurrent && (
+                             <div className="flex items-center gap-1.5 mt-1">
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                <span className="text-[10px] uppercase font-bold tracking-widest text-green-600">Active</span>
+                             </div>
+                           )}
                         </div>
                       </div>
                       
-                      <div className="mb-6 h-12">
-                         <p className="text-xs text-muted-foreground font-medium leading-relaxed">{plan.description}</p>
-                      </div>
+                      <p className="text-xs text-muted-foreground/60 font-medium leading-relaxed mb-10 h-10">{plan.description}</p>
                       
-                      <div className="mb-8">
-                         <div className="text-4xl font-serif font-medium tracking-tight">
+                      <div className="mb-10">
+                         <div className="text-5xl font-serif font-medium tracking-tight">
                            ${plan.price}
-                           {plan.price > 0 && <span className="text-sm font-sans font-medium text-muted-foreground">/mo</span>}
+                           {plan.price > 0 && <span className="text-lg font-sans font-medium text-muted-foreground/40 ml-1">/mo</span>}
                          </div>
                       </div>
 
-                      <ul className="space-y-3 mb-8 flex-1">
+                      <ul className="space-y-4 mb-10 flex-1">
                         {plan.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm text-foreground/80 font-medium">
-                            <Check className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
+                          <li key={i} className="flex items-start gap-4 text-sm text-foreground/80 font-medium">
+                            <div className="w-5 h-5 rounded-full bg-green-500/5 flex items-center justify-center shrink-0 mt-0.5">
+                                <Check className="h-3 w-3 text-green-600" />
+                            </div>
                             <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
-                    </div>
 
-                    <div className="px-8 pb-8 mt-auto">
                       <button 
-                        className={`w-full rounded-full h-11 font-medium text-sm transition-colors ${
+                        className={cn(
+                          "w-full rounded-full h-14 font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl active:scale-95",
                           isCurrent 
-                            ? 'bg-muted/50 text-muted-foreground cursor-not-allowed border border-border/50' 
+                            ? 'bg-muted border border-border/60 text-muted-foreground/60 cursor-not-allowed' 
                             : isPro 
-                              ? 'bg-[#2D211B] text-white hover:bg-[#2D211B]/90' 
-                              : 'bg-background border border-border hover:bg-muted text-foreground'
-                        }`}
+                              ? 'bg-[#2D211B] text-white hover:bg-primary' 
+                              : 'bg-white border border-border/60 hover:bg-[#2D211B] hover:text-white hover:border-transparent text-foreground'
+                        )}
                         disabled={isCurrent || loading !== null}
                         onClick={() => handleSubscribe(plan.id)}
                       >
-                        {loading === plan.id ? 'Processing...' : isCurrent ? 'Current Plan' : plan.price === 0 ? 'Downgrade' : 'Subscribe'}
+                        {loading === plan.id ? (
+                           <div className="flex items-center justify-center gap-2">
+                              <TrendingUp className="h-4 w-4 animate-spin" />
+                              <span>Processing...</span>
+                           </div>
+                        ) : isCurrent ? 'Active Engine' : plan.price === 0 ? 'Downgrade protocol' : 'Commence Upgrade'}
                       </button>
                     </div>
                   </div>
@@ -162,81 +222,80 @@ export default function BillingPage() {
               })}
             </div>
 
-            <div className="mb-8 bg-background border border-border/60 rounded-[2rem] p-8 hover:border-foreground/20 transition-colors shadow-sm">
-               <div className="flex items-center justify-between mb-8 pb-8 border-b border-border/40">
-                 <div>
-                   <h2 className="text-xl font-semibold tracking-tight flex items-center gap-3">
-                     <div className="w-10 h-10 rounded-full border border-border bg-muted/20 flex items-center justify-center shrink-0">
-                       <CardIcon className="h-4 w-4" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                   <div className="flex items-center justify-between mb-10 pb-10 border-b border-border/40">
+                     <div className="flex items-center gap-6">
+                        <div className="w-14 h-14 rounded-2xl border border-border shadow-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                          <CardIcon className="h-7 w-7" />
+                        </div>
+                        <div>
+                          <h2 className="text-3xl font-serif font-medium tracking-tight">Payment Hub</h2>
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Encrypted financial endpoints</p>
+                        </div>
                      </div>
-                     Payment Method
-                   </h2>
-                   <p className="text-sm text-muted-foreground font-medium ml-[3.25rem] mt-1">Manage your payment methods and options.</p>
-                 </div>
-                 <button className="rounded-full px-6 h-10 bg-foreground text-background hover:bg-foreground/90 font-medium text-sm transition-colors text-center hidden md:block">
-                   Add Method
-                 </button>
-               </div>
-               
-               <div className="flex items-center justify-between p-5 border border-border rounded-2xl bg-muted/10">
-                 <div className="flex items-center gap-5">
-                   <div className="w-14 h-9 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center text-white text-[10px] font-bold tracking-widest shadow-sm">
-                     VISA
                    </div>
-                   <div>
-                     <p className="font-semibold text-sm font-mono tracking-wide">•••• •••• •••• 4242</p>
-                     <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-1">Expires 12/25</p>
+                   
+                   <div className="flex items-center justify-between p-8 border border-border/60 rounded-[2rem] bg-white group hover:border-primary/40 transition-all shadow-sm">
+                     <div className="flex items-center gap-6">
+                       <div className="w-16 h-10 bg-[#2D211B] rounded-lg flex items-center justify-center text-white text-[10px] font-bold tracking-[0.3em] shadow-2xl">
+                         CORE
+                       </div>
+                       <div>
+                         <p className="font-bold text-base font-mono tracking-widest">•••• •••• •••• 4242</p>
+                         <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40 mt-1">Expiry: 12 / 2026</p>
+                       </div>
+                     </div>
+                     <button className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm">
+                        <ChevronRight className="h-5 w-5" />
+                     </button>
                    </div>
-                 </div>
-                 <button className="rounded-full px-5 h-9 border border-border bg-background hover:bg-muted font-medium text-xs uppercase tracking-wider transition-colors">
-                   Update
-                 </button>
-               </div>
-            </div>
+                   
+                   <button className="w-full mt-8 h-14 rounded-full border border-border/60 border-dashed hover:border-primary/40 hover:bg-primary/[0.02] text-[10px] font-bold uppercase tracking-widest text-muted-foreground transition-all flex items-center justify-center gap-3 active:scale-95 group">
+                      <Plus className="h-4 w-4 group-hover:rotate-90 transition-transform" />
+                      Add Payment Architecture
+                   </button>
+                </div>
 
-            <div className="bg-background border border-border/60 rounded-[2rem] p-8 hover:border-foreground/20 transition-colors shadow-sm">
-               <div className="mb-8 border-b border-border/40 pb-6">
-                 <h2 className="text-xl font-semibold tracking-tight mb-2">Billing History</h2>
-                 <p className="text-sm text-muted-foreground font-medium">View and download your past invoices.</p>
-               </div>
-               
-               <div className="space-y-4">
-                 <div className="flex items-center justify-between p-4 px-2 hover:bg-muted/30 rounded-xl transition-colors group">
-                   <div className="flex items-center gap-4">
-                     <div className="w-10 h-10 rounded-full bg-muted/50 border border-border flex items-center justify-center">
-                       <span className="font-serif font-medium">$</span>
-                     </div>
-                     <div>
-                       <p className="font-semibold text-sm mb-1">Pro Plan - Monthly</p>
-                       <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">March 1, 2024</p>
-                     </div>
+                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl animate-slide-up" style={{ animationDelay: '0.35s' }}>
+                   <div className="flex items-center justify-between mb-10 pb-10 border-b border-border/40">
+                      <div className="flex items-center gap-6">
+                         <div className="w-14 h-14 rounded-2xl border border-border shadow-xl flex items-center justify-center text-primary">
+                            <TrendingUp className="h-7 w-7" />
+                         </div>
+                         <div>
+                            <h2 className="text-3xl font-serif font-medium tracking-tight">Ledger Logs</h2>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Historical financial records</p>
+                         </div>
+                      </div>
                    </div>
-                   <div className="flex items-center gap-6 pr-2">
-                     <span className="font-semibold font-mono text-sm tracking-wide">$29.00</span>
-                     <button className="text-xs uppercase font-bold tracking-wider text-muted-foreground/60 hover:text-foreground transition-colors group-hover:text-foreground">
-                       Download
-                     </button>
+                   
+                   <div className="space-y-4 max-h-[16rem] overflow-y-auto pr-4 custom-scrollbar">
+                     {[
+                       { date: 'March 01, 2024', amount: '29.00', id: 'IN-8241' },
+                       { date: 'February 01, 2024', amount: '29.00', id: 'IN-7192' },
+                       { date: 'January 01, 2024', amount: '29.00', id: 'IN-6031' },
+                     ].map((invoice, idx) => (
+                       <div key={idx} className="flex items-center justify-between p-6 px-4 hover:bg-primary/[0.02] border-b border-border/20 transition-colors group">
+                         <div className="flex items-center gap-6">
+                           <div className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center text-muted-foreground/40 group-hover:text-primary transition-colors">
+                             <Download className="h-4 w-4" />
+                           </div>
+                           <div>
+                             <p className="font-bold text-sm mb-1">{invoice.id}</p>
+                             <p className="text-[9px] uppercase font-bold tracking-widest text-muted-foreground/40">{invoice.date}</p>
+                           </div>
+                         </div>
+                         <div className="flex items-center gap-8">
+                           <span className="font-bold font-mono text-sm tracking-tight">${invoice.amount}</span>
+                           <button className="text-[9px] uppercase font-bold tracking-widest text-primary hover:underline underline-offset-4 opacity-0 group-hover:opacity-100 transition-all">
+                             Export
+                           </button>
+                         </div>
+                       </div>
+                     ))}
                    </div>
-                 </div>
-                 
-                 <div className="flex items-center justify-between p-4 px-2 hover:bg-muted/30 rounded-xl transition-colors group">
-                   <div className="flex items-center gap-4">
-                     <div className="w-10 h-10 rounded-full bg-muted/50 border border-border flex items-center justify-center">
-                       <span className="font-serif font-medium">$</span>
-                     </div>
-                     <div>
-                       <p className="font-semibold text-sm mb-1">Pro Plan - Monthly</p>
-                       <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">February 1, 2024</p>
-                     </div>
-                   </div>
-                   <div className="flex items-center gap-6 pr-2">
-                     <span className="font-semibold font-mono text-sm tracking-wide">$29.00</span>
-                     <button className="text-xs uppercase font-bold tracking-wider text-muted-foreground/60 hover:text-foreground transition-colors group-hover:text-foreground">
-                       Download
-                     </button>
-                   </div>
-                 </div>
-               </div>
+                </div>
             </div>
 
           </div>
