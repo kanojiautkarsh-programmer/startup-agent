@@ -79,18 +79,12 @@ export default function DashboardPage() {
         email: user.email
       })
 
-      const [memoriesRes, goalsRes, conversationsRes] = await Promise.all([
+      const [memoriesRes, goalsRes, conversationsRes, documentsRes] = await Promise.all([
         supabase.from('memories').select('id', { count: 'exact' }).eq('user_id', user.id),
         supabase.from('goals').select('*').eq('user_id', user.id).eq('status', 'active'),
         supabase.from('conversations').select('id, title, updated_at').eq('user_id', user.id).order('updated_at', { ascending: false }).limit(5),
+        supabase.from('documents').select('id', { count: 'exact' }).eq('user_id', user.id),
       ])
-
-      // Mocking business data for now
-      const mockBusinessData = {
-        clientCount: 14,
-        portfolioValue: 42000,
-        mrr: 12500
-      }
 
       const now = new Date()
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
@@ -124,7 +118,9 @@ export default function DashboardPage() {
         recentConversations: conversationsRes.data || [],
         upcomingGoals: (goalsRes.data || []).slice(0, 5),
         recentDecisions: decisionsRes.data || [],
-        ...mockBusinessData
+        clientCount: conversationsRes.data?.length || 0,
+        portfolioValue: memoriesRes.count || 0,
+        mrr: documentsRes.count || 0
       })
 
       setLoading(false)
@@ -216,51 +212,49 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-             <div className="bg-[#2D211B] rounded-3xl p-6 text-white shadow-lg flex flex-col justify-between group hover:scale-[1.02] transition-transform cursor-pointer">
-                <div className="flex items-center justify-between mb-4 opacity-70">
-                   <span className="text-[10px] font-bold uppercase tracking-widest">Active Clients</span>
-                   <Users className="h-4 w-4" />
-                </div>
-                <div>
-                   <p className="text-3xl font-serif font-medium">{stats?.clientCount || 0}</p>
-                   <p className="text-[10px] uppercase font-bold tracking-widest mt-1 opacity-60">Revenue accounts</p>
-                </div>
-             </div>
+              <div className="bg-[#2D211B] rounded-3xl p-6 text-white shadow-lg flex flex-col justify-between group hover:scale-[1.02] transition-transform cursor-pointer">
+                 <div className="flex items-center justify-between mb-4 opacity-70">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Conversations</span>
+                    <MessageSquare className="h-4 w-4" />
+                 </div>
+                 <div>
+                    <p className="text-3xl font-serif font-medium">{stats?.clientCount || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-1 opacity-60">Total chats</p>
+                 </div>
+              </div>
 
-             <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
-                <div className="flex items-center justify-between mb-4 text-muted-foreground">
-                   <span className="text-[10px] font-bold uppercase tracking-widest">Monthly Revenue</span>
-                   <DollarSign className="h-4 w-4" />
-                </div>
-                <div>
-                   <p className="text-3xl font-serif font-medium tabular-nums">${(stats?.mrr || 0).toLocaleString()}</p>
-                   <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-green-600 font-bold flex items-center gap-1">
-                     <TrendingUp className="h-2.5 w-2.5" /> +8.4%
-                   </p>
-                </div>
-             </div>
+              <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
+                 <div className="flex items-center justify-between mb-4 text-muted-foreground">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Documents</span>
+                    <FileText className="h-4 w-4" />
+                 </div>
+                 <div>
+                    <p className="text-3xl font-serif font-medium tabular-nums">{stats?.mrr || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground/60">Indexed files</p>
+                 </div>
+              </div>
 
-             <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
-                <div className="flex items-center justify-between mb-4 text-muted-foreground">
-                   <span className="text-[10px] font-bold uppercase tracking-widest">Goals Tracking</span>
-                   <Target className="h-4 w-4" />
-                </div>
-                <div>
-                   <p className="text-3xl font-serif font-medium">{stats?.activeGoals || 0}</p>
-                   <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground/60">{stats?.dueToday || 0} due this week</p>
-                </div>
-             </div>
+              <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
+                 <div className="flex items-center justify-between mb-4 text-muted-foreground">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Goals Tracking</span>
+                    <Target className="h-4 w-4" />
+                 </div>
+                 <div>
+                    <p className="text-3xl font-serif font-medium">{stats?.activeGoals || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground/60">{stats?.dueToday || 0} due this week</p>
+                 </div>
+              </div>
 
-             <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
-                <div className="flex items-center justify-between mb-4 text-muted-foreground">
-                   <span className="text-[10px] font-bold uppercase tracking-widest">Accountability</span>
-                   <Brain className="h-4 w-4" />
-                </div>
-                <div>
-                   <p className="text-3xl font-serif font-medium">{stats?.memoryCount || 0}</p>
-                   <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground/60">Logged contexts</p>
-                </div>
-             </div>
+              <div className="bg-background border border-border/60 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/20 transition-colors cursor-pointer shadow-sm">
+                 <div className="flex items-center justify-between mb-4 text-muted-foreground">
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Memories</span>
+                    <Brain className="h-4 w-4" />
+                 </div>
+                 <div>
+                    <p className="text-3xl font-serif font-medium">{stats?.memoryCount || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground/60">Stored contexts</p>
+                 </div>
+              </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 mb-12">
