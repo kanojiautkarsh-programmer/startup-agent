@@ -61,7 +61,11 @@ export function generateCodeChallenge(verifier: string): string {
 }
 
 export function generateState(): string {
-  return base64UrlEncode(randomBytes(16));
+  return crypto.randomUUID().replace(/-/g, '');
+}
+
+export function generateNonce(): string {
+  return crypto.randomUUID().replace(/-/g, '');
 }
 
 export function buildAuthorizationUrl(

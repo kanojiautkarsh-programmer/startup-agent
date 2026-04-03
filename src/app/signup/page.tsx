@@ -38,8 +38,17 @@ export default function SignupPage() {
     setLoading(true)
     setError("")
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters")
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+    
+    if (!passwordRegex.test(password)) {
+      setError("Password must contain at least 8 characters, including uppercase, lowercase, number, and special character (@$!%*?&#)")
+      setLoading(false)
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address")
       setLoading(false)
       return
     }

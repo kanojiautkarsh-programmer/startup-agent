@@ -44,6 +44,8 @@ export type AuditAction =
   | 'mfa_challenge'
   | 'sso_login'
   | 'saml_assertion'
+  | 'sso_provider_linked'
+  | 'sso_provider_unlinked'
   | 'api_key_created'
   | 'api_key_deleted'
   | 'api_key_used'

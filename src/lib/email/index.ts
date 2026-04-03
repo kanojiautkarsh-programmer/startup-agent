@@ -13,7 +13,23 @@ function getMailjetClient() {
 
 let mailjetClient: ReturnType<typeof mailjet.apiConnect> | null = null;
 
-const FROM_EMAIL = process.env.EMAIL_FROM || 'TaskLyne <noreply@tasklyne.com>';
+function sanitizeEmailHeader(value: string): string {
+  if (!value) return '';
+  return value
+    .replace(/[\r\n<>()]/g, '')
+    .slice(0, 100);
+}
+
+function sanitizeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+const FROM_EMAIL = process.env.EMAIL_FROM || 'noreply@tasklyne.com';
+const FROM_NAME = sanitizeEmailHeader(process.env.EMAIL_FROM_NAME || 'TaskLyne');
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 interface EmailOptions {
@@ -33,35 +49,37 @@ async function sendEmail(options: EmailOptions): Promise<{ success: boolean; err
   }
   
   try {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(options.to)) {
+      return { success: false, error: 'Invalid recipient email address' };
+    }
+
     const result = await mailjetClient.post('send', { version: 'v3.1' }).request({
       Messages: [
         {
           From: {
-            Email: FROM_EMAIL.split(' ')[0],
-            Name: FROM_EMAIL.includes('<') ? FROM_EMAIL.split('<')[0].trim() : 'TaskLyne',
+            Email: FROM_EMAIL,
+            Name: FROM_NAME || 'TaskLyne',
           },
           To: [
             {
               Email: options.to,
             },
           ],
-          Subject: options.subject,
+          Subject: sanitizeHtml(options.subject).slice(0, 255),
           HTMLPart: options.html,
-          TextPart: options.text,
+          TextPart: options.text || '',
         },
       ],
     });
 
     const response = result.body as { Messages?: Array<{ Status?: string }> };
     if (response?.Messages?.[0]?.Status === 'success') {
-      console.log('Email sent via Mailjet');
       return { success: true };
     }
 
-    console.log('Mailjet response:', result.body);
     return { success: true };
   } catch (err: unknown) {
-    console.error('Email send failed:', err);
     const errorMessage = err instanceof Error ? err.message : 'Failed to send email';
     return { success: false, error: errorMessage };
   }

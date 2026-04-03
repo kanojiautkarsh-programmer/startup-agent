@@ -2,6 +2,11 @@ import { createClient } from '@/lib/supabase/server'
 import { createAIService, AIProvider } from '@/lib/ai'
 import { NextRequest, NextResponse } from 'next/server'
 import { Message } from '@/lib/ai/types'
+import { checkChatRateLimit, sanitizeError } from '@/lib/security-utils'
+
+const VALID_PROVIDERS: AIProvider[] = ['anthropic', 'openai', 'gemini', 'github'];
+const MAX_MESSAGE_LENGTH = 10000;
+const MAX_MESSAGES = 50;
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,12 +17,49 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { messages, provider = 'anthropic' } = await request.json() as { 
+    const rateLimit = await checkChatRateLimit(user.id);
+    if (!rateLimit.passed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait before sending another message.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await request.json();
+    const { messages, provider = 'anthropic' } = body as { 
       messages: Message[]
       provider?: AIProvider
     }
 
-    // Get user's API key from profile
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json(
+        { error: 'Invalid messages format' },
+        { status: 400 }
+      );
+    }
+
+    if (messages.length > MAX_MESSAGES) {
+      return NextResponse.json(
+        { error: `Too many messages (max ${MAX_MESSAGES})` },
+        { status: 400 }
+      );
+    }
+
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.content?.length > MAX_MESSAGE_LENGTH) {
+      return NextResponse.json(
+        { error: `Message too long (max ${MAX_MESSAGE_LENGTH} characters)` },
+        { status: 400 }
+      );
+    }
+
+    if (!VALID_PROVIDERS.includes(provider)) {
+      return NextResponse.json(
+        { error: 'Invalid AI provider' },
+        { status: 400 }
+      );
+    }
+
     const keyField = provider === 'openai' ? 'openai_key_encrypted' : 
                       provider === 'anthropic' ? 'anthropic_key_encrypted' : 
                       provider === 'github' ? 'github_key_encrypted' : 'gemini_key_encrypted'
@@ -36,7 +78,6 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
 
-    // Get user's memories for context
     const { data: memories } = await supabase
       .from('memories')
       .select('*')
@@ -44,12 +85,10 @@ export async function POST(request: NextRequest) {
       .order('created_at', { ascending: false })
       .limit(20)
 
-    // Build context from memories
     const memoryContext = memories?.length 
       ? `\n\nContext from your startup memory:\n${memories.map(m => `[${m.type.toUpperCase()}] ${m.title}: ${m.content}`).join('\n')}`
       : ''
 
-    // Get active goals for additional context
     const { data: goals } = await supabase
       .from('goals')
       .select('*')
@@ -62,18 +101,16 @@ export async function POST(request: NextRequest) {
       ? `\n\nYour active goals:\n${goals.map(g => `- [${g.priority.toUpperCase()}] ${g.title}${g.deadline ? ` (Due: ${new Date(g.deadline).toLocaleDateString()})` : ''}`).join('\n')}`
       : ''
 
-    // Inject context into system message or prepend
     const enrichedMessages: Message[] = messages.map((msg, i) => {
       if (i === 0 && msg.role === 'system') {
         return {
           ...msg,
-          content: msg.content + memoryContext + goalsContext
+          content: msg.content.slice(0, 5000) + memoryContext + goalsContext
         }
       }
       return msg
     })
 
-    // If no system message, prepend one with context
     if (!messages.find(m => m.role === 'system')) {
       enrichedMessages.unshift({
         role: 'system',
@@ -84,24 +121,21 @@ export async function POST(request: NextRequest) {
     const aiService = createAIService({ provider, apiKey })
     const response = await aiService.chat(enrichedMessages)
 
-    // Save the conversation
     const conversationId = request.headers.get('x-conversation-id')
     if (conversationId) {
-      // Save user message
       const userMessage = messages[messages.length - 1]
       if (userMessage?.role === 'user') {
         await supabase.from('messages').insert({
           conversation_id: conversationId,
           role: 'user',
-          content: userMessage.content
+          content: userMessage.content.slice(0, MAX_MESSAGE_LENGTH)
         })
       }
 
-      // Save assistant response
       await supabase.from('messages').insert({
         conversation_id: conversationId,
         role: 'assistant',
-        content: response.content
+        content: response.content.slice(0, MAX_MESSAGE_LENGTH * 2)
       })
     }
 
@@ -110,9 +144,8 @@ export async function POST(request: NextRequest) {
       usage: response.usage
     })
   } catch (error) {
-    console.error('Chat error:', error)
     return NextResponse.json({ 
-      error: error instanceof Error ? error.message : 'An error occurred' 
+      error: sanitizeError(error)
     }, { status: 500 })
   }
 }

@@ -1,11 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { validateCSRF, sanitizeError, checkRateLimit, getClientIP } from '@/lib/security-utils';
 
 function getSupabaseAdmin(): SupabaseClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error('Missing Supabase configuration');
   return createClient(url, key);
+}
+
+async function isAdmin(supabaseAdmin: SupabaseClient, userId: string): Promise<boolean> {
+  const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+  const { data: { user } } = await supabaseAdmin.auth.getUser();
+  
+  if (!user || !user.email) return false;
+  
+  if (adminEmails.includes(user.email.toLowerCase())) return true;
+  
+  const { data: profile } = await supabaseAdmin
+    .from('profiles')
+    .select('plan')
+    .eq('id', userId)
+    .single();
+  
+  return profile?.plan === 'enterprise';
 }
 
 export async function GET(request: NextRequest) {
@@ -34,12 +52,30 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ providers: providers || [] });
   } catch (error) {
-    console.error('SSO providers fetch error:', error);
-    return NextResponse.json({ error: 'Failed to fetch SSO providers' }, { status: 500 });
+    return NextResponse.json(
+      { error: sanitizeError(error) },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!validateCSRF(request)) {
+    return NextResponse.json(
+      { error: 'Invalid or missing CSRF token' },
+      { status: 403 }
+    );
+  }
+
+  const ip = getClientIP(request);
+  const rateLimit = await checkRateLimit(`sso:${ip}`, 5, 60 * 1000);
+  if (!rateLimit.passed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const authHeader = request.headers.get('authorization');
     if (!authHeader) {
@@ -53,6 +89,14 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const isUserAdmin = await isAdmin(supabaseAdmin, user.id);
+    if (!isUserAdmin) {
+      return NextResponse.json(
+        { error: 'Only administrators can create SSO providers' },
+        { status: 403 }
+      );
     }
 
     const body = await request.json();
@@ -84,19 +128,19 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabaseAdmin
       .from('sso_providers')
       .insert({
-        name,
+        name: name.slice(0, 100),
         provider,
         enabled: false,
-        entity_id: issuer,
-        issuer,
-        sso_url: ssoUrl || null,
+        entity_id: issuer.slice(0, 500),
+        issuer: issuer.slice(0, 500),
+        sso_url: ssoUrl ? ssoUrl.slice(0, 500) : null,
         acs_url: provider === 'saml' ? `${baseUrl}/api/auth/sso/saml/callback` : null,
         client_id: clientId || null,
         client_secret_encrypted: clientSecret ? Buffer.from(clientSecret).toString('base64') : null,
         authorization_endpoint: provider === 'oidc' ? `${issuer}/authorize` : null,
         token_endpoint: provider === 'oidc' ? `${issuer}/oauth/token` : null,
         userinfo_endpoint: provider === 'oidc' ? `${issuer}/userinfo` : null,
-        allowed_domains: allowedDomains || [],
+        allowed_domains: (allowedDomains || []).slice(0, 20).map((d: string) => d.slice(0, 100)),
         created_by: user.id,
       })
       .select()
@@ -110,12 +154,21 @@ export async function POST(request: NextRequest) {
       message: 'SSO provider created. Enable it after configuring your identity provider.' 
     });
   } catch (error) {
-    console.error('SSO provider create error:', error);
-    return NextResponse.json({ error: 'Failed to create SSO provider' }, { status: 500 });
+    return NextResponse.json(
+      { error: sanitizeError(error) },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!validateCSRF(request)) {
+    return NextResponse.json(
+      { error: 'Invalid or missing CSRF token' },
+      { status: 403 }
+    );
+  }
+
   try {
     const authHeader = request.headers.get('authorization');
     if (!authHeader) {
@@ -129,6 +182,14 @@ export async function DELETE(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const isUserAdmin = await isAdmin(supabaseAdmin, user.id);
+    if (!isUserAdmin) {
+      return NextResponse.json(
+        { error: 'Only administrators can delete SSO providers' },
+        { status: 403 }
+      );
     }
 
     const { searchParams } = new URL(request.url);
@@ -148,7 +209,9 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'SSO provider deleted' });
   } catch (error) {
-    console.error('SSO provider delete error:', error);
-    return NextResponse.json({ error: 'Failed to delete SSO provider' }, { status: 500 });
+    return NextResponse.json(
+      { error: sanitizeError(error) },
+      { status: 500 }
+    );
   }
 }

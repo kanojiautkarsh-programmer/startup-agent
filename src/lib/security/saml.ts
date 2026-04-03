@@ -1,5 +1,15 @@
 import { createHash, randomBytes, createHmac } from 'crypto';
 
+function escapeXml(unsafe: string): string {
+  if (!unsafe) return '';
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 export interface SAMLRequest {
   id: string;
   issueInstant: string;
@@ -84,7 +94,7 @@ export function decodeSAMLResponse(response: string): { assertion: SAMLAssertion
     
     return { assertion, isValid, errors };
   } catch (error) {
-    errors.push(`Failed to decode SAML response: ${error}`);
+    errors.push(`Failed to decode SAML response`);
     return { 
       assertion: null as unknown as SAMLAssertion, 
       isValid: false, 
@@ -98,15 +108,15 @@ function buildSAMLRequestXML(request: SAMLRequest): string {
 <samlp:AuthnRequest 
   xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
   xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-  ID="${request.id}"
+  ID="${escapeXml(request.id)}"
   Version="2.0"
-  IssueInstant="${request.issueInstant}"
-  Destination="${request.destination}"
-  AssertionConsumerServiceURL="${request.assertionConsumerServiceUrl}"
+  IssueInstant="${escapeXml(request.issueInstant)}"
+  Destination="${escapeXml(request.destination)}"
+  AssertionConsumerServiceURL="${escapeXml(request.assertionConsumerServiceUrl)}"
   ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST">
-  <saml:Issuer>${request.issuer}</saml:Issuer>
+  <saml:Issuer>${escapeXml(request.issuer)}</saml:Issuer>
   <samlp:NameIDPolicy 
-    Format="${request.nameIdPolicy}"
+    Format="${escapeXml(request.nameIdPolicy || '')}"
     AllowCreate="true"/>
 </samlp:AuthnRequest>`;
 }
@@ -237,7 +247,7 @@ export function createSAMLResponse(
   const issueInstant = new Date().toISOString();
   const notOnOrAfter = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString();
   
-  const subjectConfirmationData = `<saml:SubjectConfirmationData NotOnOrAfter="${notOnOrAfter}" Recipient="${config.acsUrl}"/>`;
+  const subjectConfirmationData = `<saml:SubjectConfirmationData NotOnOrAfter="${escapeXml(notOnOrAfter)}" Recipient="${escapeXml(config.acsUrl)}"/>`;
   
   const attributeStatement = Object.entries({
     email: userAttributes.email,
@@ -247,37 +257,37 @@ export function createSAMLResponse(
   })
     .filter(([, value]) => value)
     .map(([name, value]) => `
-    <saml:Attribute Name="${name}">
-      <saml:AttributeValue>${value}</saml:AttributeValue>
+    <saml:Attribute Name="${escapeXml(name)}">
+      <saml:AttributeValue>${escapeXml(value || '')}</saml:AttributeValue>
     </saml:Attribute>`)
     .join('');
 
   const assertionXml = `<?xml version="1.0" encoding="UTF-8"?>
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
                  xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" 
-                 ID="${generateSAMLRequestId()}" 
+                 ID="${escapeXml(generateSAMLRequestId())}" 
                  Version="2.0" 
-                 IssueInstant="${issueInstant}" 
-                 Destination="${config.acsUrl}" 
-                 InResponseTo="${requestId}">
-  <saml:Issuer>${config.issuer}</saml:Issuer>
+                 IssueInstant="${escapeXml(issueInstant)}" 
+                 Destination="${escapeXml(config.acsUrl)}" 
+                 InResponseTo="${escapeXml(requestId)}">
+  <saml:Issuer>${escapeXml(config.issuer)}</saml:Issuer>
   <samlp:Status>
     <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
   </samlp:Status>
-  <saml:Assertion ID="${assertionId}" Version="2.0" IssueInstant="${issueInstant}">
-    <saml:Issuer>${config.issuer}</saml:Issuer>
+  <saml:Assertion ID="${escapeXml(assertionId)}" Version="2.0" IssueInstant="${escapeXml(issueInstant)}">
+    <saml:Issuer>${escapeXml(config.issuer)}</saml:Issuer>
     <saml:Subject>
-      <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">${userAttributes.email}</saml:NameID>
+      <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">${escapeXml(userAttributes.email)}</saml:NameID>
       <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
         ${subjectConfirmationData}
       </saml:SubjectConfirmation>
     </saml:Subject>
-    <saml:Conditions NotBefore="${issueInstant}" NotOnOrAfter="${notOnOrAfter}">
+    <saml:Conditions NotBefore="${escapeXml(issueInstant)}" NotOnOrAfter="${escapeXml(notOnOrAfter)}">
       <saml:AudienceRestriction>
-        <saml:Audience>${config.issuer}</saml:Audience>
+        <saml:Audience>${escapeXml(config.issuer)}</saml:Audience>
       </saml:AudienceRestriction>
     </saml:Conditions>
-    <saml:AuthnStatement AuthnInstant="${issueInstant}">
+    <saml:AuthnStatement AuthnInstant="${escapeXml(issueInstant)}">
       <saml:AuthnContext>
         <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
       </saml:AuthnContext>

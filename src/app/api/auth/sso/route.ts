@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { logAuditEvent, getRequestContext } from '@/lib/audit/logger';
+import { validateCSRF, sanitizeError, checkRateLimit, getClientIP } from '@/lib/security-utils';
 
 function getSupabaseAdmin(): SupabaseClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -14,6 +15,22 @@ function getSupabaseAdmin(): SupabaseClient {
 }
 
 export async function POST(request: NextRequest) {
+  if (!validateCSRF(request)) {
+    return NextResponse.json(
+      { error: 'Invalid or missing CSRF token' },
+      { status: 403 }
+    );
+  }
+
+  const ip = getClientIP(request);
+  const rateLimit = await checkRateLimit(`sso:${ip}`, 10, 60 * 1000);
+  if (!rateLimit.passed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
@@ -118,7 +135,7 @@ export async function POST(request: NextRequest) {
         
         await logAuditEvent({
           userId: user.id,
-          action: 'mfa_enabled',
+          action: 'sso_provider_linked',
           resourceType: 'sso_link',
           metadata: { provider },
           status: 'success',
@@ -136,7 +153,7 @@ export async function POST(request: NextRequest) {
         
         await logAuditEvent({
           userId: user.id,
-          action: 'mfa_disabled',
+          action: 'sso_provider_unlinked',
           resourceType: 'sso_link',
           metadata: { provider },
           status: 'success',
@@ -151,14 +168,13 @@ export async function POST(request: NextRequest) {
 
       default:
         return NextResponse.json(
-          { error: `Unknown action: ${action}` },
+          { error: 'Unknown action' },
           { status: 400 }
         );
     }
   } catch (error) {
-    console.error('SSO action failed:', error);
     return NextResponse.json(
-      { error: 'SSO action failed' },
+      { error: sanitizeError(error) },
       { status: 500 }
     );
   }
@@ -200,9 +216,8 @@ export async function GET(request: NextRequest) {
       availableProviders: userProviders || [],
     });
   } catch (error) {
-    console.error('Failed to fetch SSO info:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch SSO information' },
+      { error: sanitizeError(error) },
       { status: 500 }
     );
   }
