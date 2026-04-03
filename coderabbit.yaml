@@ -1,0 +1,123 @@
+# CodeRabbit Configuration
+# https://docs.coderabbit.ai
+
+language: en
+reviews:
+  high_level_summary:
+    show_logo: true
+    show_line_numbers: true
+    title_bullets: true
+  auto_title_placeholder: ''
+  review_status: true
+  collapsewalkthrough: false
+  sequence Diagrams: true
+chat:
+  auto_reply: true
+  hard_break: false
+  summarize_questions: true
+  summarizeresponses: true
+  allow_commits: true
+  high_level_summary:
+    auto_title: true
+  sequence_diagrams:
+    enabled: true
+    always_draw: true
+look_here:
+  exclude:
+    - '*.md'
+    - '**/CHANGELOG.md'
+    - 'node_modules/**'
+    - '.git/**'
+    - '*.lock'
+    - '**/migrations/**'
+    - '**/__pycache__/**'
+    - '**/.next/**'
+    - '**/dist/**'
+    - '**/build/**'
+    - '**/coverage/**'
+    - '**/*.test.*'
+    - '**/*.spec.*'
+    - '**/*.stories.*'
+    - '**/storybook/**'
+    - '**/*.config.*'
+    - '**/tailwind.config.*'
+    - '**/next.config.*'
+    - '**/eslint.config.*'
+    - '**/tsconfig.json'
+    - '**/package-lock.json'
+    - '**/yarn.lock'
+    - '**/.env*'
+    - '**/supabase/migrations/**'
+uploads:
+  redmine_project_id: null
+  jira_project_id: null
+  jira_issue_type: Bug
+  jira_issue_status_done: Done
+  jira_project_key_prefix: 'TASK'
+  github:
+    pr_min_diff_lines: 10
+    pr_min_files: 2
+    pr_max_files: 20
+    pr_max_changes: 100
+    pr_max_additions: 200
+    pr_max_deletions: 100
+    pr_max_comments: 50
+    pr_max_threads: 5
+    max_inline_comments: 5
+    max_files_to_reject: 5
+    max_inline_suggestions: 10
+    max_suggestions_to_inline: 3
+notifications:
+  pull_request:
+    comment:
+      new_thread_resolved: true
+      collapse Walkthrough: never
+      position: tail
+    high_level_summary:
+      mirror_of-github_comment: never
+    status: 
+      if_attention_requested: true
+      if_approved: false
+      if_changed: false
+      if_requested: false
+  github_check:
+    summary:
+      pending_review_comment: true
+      sequence_diagrams: true
+      collapse_walkthrough: false
+  slack:
+    if_approved: false
+    if_attention_requested: false
+    if_changed: false
+    if_requested: false
+    channels:
+      - '#engineering'
+      - '#code-reviews'
+    branches_to_keep: []
+    users_to_ignore: []
+    jira_conversation_issue_type: Bug
+    jira_conversation_status_done: Done
+    jira_work_issue_type: Bug
+    jira_work_status_done: Done
+paths:
+  source_code:
+    exclude:
+      - add_.*\.sh
+      - '*.md'
+      - '*.txt'
+      - '*.json'
+      - '*.yaml'
+      - '*.yml'
+      - '*.toml'
+      - '*.config.*'
+      - '*.lock'
+      - '**/.git/**'
+      - '**/.next/**'
+      - '**/node_modules/**'
+      - '**/dist/**'
+      - '**/build/**'
+      - '**/coverage/**'
+      '**/__pycache__/**'
+      - '**/migrations/**'
+      - '**/scripts/**'
+    require_at_least_1_review: false
