@@ -69,7 +69,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                   <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
                     <span className="text-white text-xs font-bold leading-none">S</span>
                   </div>
-                  <span>StartupAgent</span>
+                  <span>TaskLyne</span>
                 </>
               )}
             </Link>

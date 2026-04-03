@@ -77,7 +77,7 @@ export default function SignupPage() {
           <div className="w-6 h-6 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
             <span className="text-white text-[10px] font-bold leading-none">S</span>
           </div>
-          <span className="font-serif font-medium text-lg tracking-tight">StartupAgent</span>
+          <span className="font-serif font-medium text-lg tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">
           Sign in instead
@@ -90,7 +90,7 @@ export default function SignupPage() {
           
           <div className="mb-8 text-center">
             <h1 className="text-4xl md:text-5xl font-serif text-foreground font-medium tracking-tight mb-3">
-              Join <span className="italic font-normal">StartupAgent</span>
+              Join <span className="italic font-normal">TaskLyne</span>
             </h1>
             <p className="text-muted-foreground text-sm">
               Start building your startup&apos;s memory
@@ -181,7 +181,7 @@ export default function SignupPage() {
 
       {/* Footer */}
       <footer className="w-full py-6 text-center text-xs text-muted-foreground font-medium flex justify-center space-x-6">
-        <span>© {new Date().getFullYear()} StartupAgent Intelligence Corp.</span>
+        <span>© {new Date().getFullYear()} TaskLyne Intelligence Corp.</span>
       </footer>
     </div>
   )

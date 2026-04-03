@@ -46,7 +46,7 @@ export default function ForgotPasswordPage() {
           <div className="w-6 h-6 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
             <span className="text-white text-[10px] font-bold leading-none">S</span>
           </div>
-          <span className="font-serif font-medium text-lg tracking-tight">StartupAgent</span>
+          <span className="font-serif font-medium text-lg tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">
           Back to Login
@@ -122,7 +122,7 @@ export default function ForgotPasswordPage() {
       <footer className="w-full py-6 text-center text-xs text-muted-foreground font-medium flex justify-center space-x-6">
         <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
         <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>
-        <span>© {new Date().getFullYear()} StartupAgent Intelligence Corp.</span>
+        <span>© {new Date().getFullYear()} TaskLyne Intelligence Corp.</span>
       </footer>
     </div>
   );

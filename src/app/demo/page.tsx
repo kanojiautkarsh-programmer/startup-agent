@@ -73,7 +73,7 @@ export default function DemoPage() {
             <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
               <span className="text-white text-xs font-bold leading-none">S</span>
             </div>
-            <span className="font-serif font-medium text-xl tracking-tight">StartupAgent</span>
+            <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/login" className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">Sign In</Link>
@@ -98,7 +98,7 @@ export default function DemoPage() {
             Experience your <br /><span className="italic font-normal">second brain in action.</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-16 font-medium">
-            See how StartupAgent captures every decision, goal, and insight in real-time.
+            See how TaskLyne captures every decision, goal, and insight in real-time.
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export default function DemoPage() {
                           {msg.content}
                        </div>
                        <p className={`text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60 mt-2 px-2 ${msg.role === 'user' ? 'text-right' : ''}`}>
-                         {msg.role === 'assistant' ? 'StartupAgent' : 'You'}
+                         {msg.role === 'assistant' ? 'TaskLyne' : 'You'}
                        </p>
                     </div>
                  </div>
@@ -242,7 +242,7 @@ export default function DemoPage() {
             <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
               <span className="text-white text-xs font-bold">S</span>
             </div>
-            <span className="font-serif font-medium text-xl tracking-tight">StartupAgent</span>
+            <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
             <Link href="/security" className="hover:text-foreground transition-colors">Security</Link>
@@ -252,7 +252,7 @@ export default function DemoPage() {
           </div>
         </div>
         <div className="container mx-auto px-6 max-w-6xl mt-12 pt-12 border-t border-border/40 text-center">
-           <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/40">© 2026 StartupAgent Intelligence Corp. All rights reserved.</p>
+           <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/40">© 2026 TaskLyne Intelligence Corp. All rights reserved.</p>
         </div>
       </footer>
     </div>
