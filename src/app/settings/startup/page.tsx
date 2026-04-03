@@ -242,7 +242,7 @@ export default function StartupProfilePage() {
                       type="text"
                       value={form.company_name}
                       onChange={e => setForm({ ...form, company_name: e.target.value })}
-                      className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
+                      className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
                       placeholder="Company Designation"
                     />
                   </div>
@@ -255,7 +255,7 @@ export default function StartupProfilePage() {
                       <select
                         value={form.stage}
                         onChange={e => setForm({ ...form, stage: e.target.value })}
-                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm appearance-none cursor-pointer"
+                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm appearance-none cursor-pointer"
                       >
                         <option value="">Phase Selection</option>
                         {STAGES.map(stage => (
@@ -278,7 +278,7 @@ export default function StartupProfilePage() {
                       <select
                         value={form.industry}
                         onChange={e => setForm({ ...form, industry: e.target.value })}
-                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm appearance-none cursor-pointer"
+                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm appearance-none cursor-pointer"
                       >
                         <option value="">Industry Classification</option>
                         {INDUSTRIES.map(ind => (
@@ -297,7 +297,7 @@ export default function StartupProfilePage() {
                       type="date"
                       value={form.founded_date}
                       onChange={e => setForm({ ...form, founded_date: e.target.value })}
-                      className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
+                      className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -310,7 +310,7 @@ export default function StartupProfilePage() {
                     type="text"
                     value={form.tagline}
                     onChange={e => setForm({ ...form, tagline: e.target.value })}
-                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
                     placeholder="Brief architectural mission statement"
                   />
                 </div>
@@ -397,3 +397,6 @@ export default function StartupProfilePage() {
     </div>
   )
 }
+
+
+

@@ -30,3 +30,6 @@ export default function LegalPage() {
     </main>
   );
 }
+
+
+

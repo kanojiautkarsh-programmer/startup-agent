@@ -330,7 +330,7 @@ export default function DocumentsPage() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Document title or identifier"
-                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
+                        className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
                       />
                     </div>
 
@@ -490,3 +490,6 @@ export default function DocumentsPage() {
     </div>
   )
 }
+
+
+

@@ -350,7 +350,7 @@ export default function APIKeysPage() {
                            </div>
                            <button 
                              onClick={() => setShowKeys(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
-                             className="w-14 h-14 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm text-muted-foreground shrink-0"
+                             className="w-14 h-14 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm text-muted-foreground shrink-0"
                              title={showKeys[provider.id] ? "Hide key" : "Reveal key"}
                            >
                              {showKeys[provider.id] ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -359,7 +359,7 @@ export default function APIKeysPage() {
                         <div className="flex items-center gap-3 shrink-0">
                           <button 
                             onClick={() => { setEditingKey(provider.id); setKeyInput(apiKeys[provider.id]); }}
-                            className="rounded-full px-8 h-14 border border-border/60 bg-white hover:bg-[#2D211B] hover:text-white font-bold text-[10px] uppercase tracking-widest transition-all shadow-sm"
+                            className="rounded-full px-8 h-14 border border-border/60 bg-white hover:bg-foreground hover:text-background font-bold text-[10px] uppercase tracking-widest transition-all shadow-sm"
                           >
                             Update Provider
                           </button>
@@ -429,3 +429,6 @@ export default function APIKeysPage() {
     </div>
   )
 }
+
+
+

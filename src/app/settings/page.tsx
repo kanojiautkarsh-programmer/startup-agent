@@ -213,7 +213,7 @@ export default function SettingsPage() {
                     value={formData.full_name}
                     onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                     placeholder="Your name"
-                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
@@ -238,7 +238,7 @@ export default function SettingsPage() {
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     placeholder="Your company or startup name"
-                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
@@ -271,7 +271,7 @@ export default function SettingsPage() {
               </div>
               <Link 
                 href="/pricing"
-                className="rounded-full px-10 h-14 bg-white border border-border/60 hover:bg-[#2D211B] hover:text-white hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
+                className="rounded-full px-10 h-14 bg-white border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
               >
                 Scale Infrastructure <ArrowRight className="h-4 w-4 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -282,3 +282,6 @@ export default function SettingsPage() {
     </div>
   )
 }
+
+
+

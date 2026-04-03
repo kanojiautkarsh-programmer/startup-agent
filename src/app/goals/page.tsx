@@ -308,7 +308,7 @@ export default function GoalsPage() {
                           </div>
                           
                           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
+                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
                                <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><Trash2 className="h-4 w-4" /></button>
                           </div>
                         </div>
@@ -426,7 +426,7 @@ export default function GoalsPage() {
                 placeholder="What is your primary achievement target?" 
                 value={formData.title} 
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })} 
-                className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
+                className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
                />
             </div>
             <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
@@ -445,7 +445,7 @@ export default function GoalsPage() {
                   type="date" 
                   value={formData.deadline} 
                   onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} 
-                  className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium shadow-sm"
+                  className="w-full h-14 px-8 rounded-full border border-border/60 bg-background dark:bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium shadow-sm"
                  />
               </div>
               <div>
@@ -489,3 +489,6 @@ export default function GoalsPage() {
     </div>
   )
 }
+
+
+

@@ -204,7 +204,7 @@ export default function BillingPage() {
                             ? 'bg-muted border border-border/60 text-muted-foreground/60 cursor-not-allowed' 
                             : isPro 
                               ? 'bg-[#2D211B] text-white hover:bg-primary' 
-                              : 'bg-white border border-border/60 hover:bg-[#2D211B] hover:text-white hover:border-transparent text-foreground'
+                              : 'bg-white border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent text-foreground'
                         )}
                         disabled={isCurrent || loading !== null}
                         onClick={() => handleSubscribe(plan.id)}
@@ -246,7 +246,7 @@ export default function BillingPage() {
                          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40 mt-1">Expiry: 12 / 2026</p>
                        </div>
                      </div>
-                     <button className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm">
+                     <button className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm">
                         <ChevronRight className="h-5 w-5" />
                      </button>
                    </div>
@@ -304,3 +304,6 @@ export default function BillingPage() {
     </div>
   );
 }
+
+
+

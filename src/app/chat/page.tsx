@@ -152,28 +152,27 @@ export default function ChatPage() {
             </div>
             <Link
               href="/settings/api-keys"
-              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-[#2D211B] hover:text-white transition-colors duration-150 flex items-center gap-2 text-xs font-medium shadow-sm"
+              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-foreground hover:text-background transition-colors duration-150 flex items-center gap-2 text-xs font-medium shadow-sm"
             >
               <Settings className="size-3.5 transition-transform duration-150 group-hover:rotate-45" aria-hidden="true" />
               Configure
             </Link>
           </div>
 
-          {/* Chat container — no backdrop-blur on large surface */}
+          {/* Chat container */}
           <div className="flex-1 flex flex-col bg-background border border-border/40 rounded-3xl overflow-hidden mb-6 shadow-sm">
             {/* Chat header strip */}
-            <div className="px-6 py-4 border-b border-border/30 flex items-center gap-3 bg-muted/20">
-              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-border/40 text-[10px] font-bold text-foreground shadow-sm">
+            <div className="px-6 py-4 border-b border-border/30 flex items-center gap-3 bg-muted/30">
+              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border/40 text-[10px] font-bold text-foreground shadow-sm">
                 <Sparkles className="size-3 text-primary" aria-hidden="true" />
                 context_01
               </span>
-              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-border/40 text-[10px] font-bold text-muted-foreground shadow-sm">
+              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border/40 text-[10px] font-bold text-muted-foreground shadow-sm">
                 <ShieldCheck className="size-3 text-green-500" aria-hidden="true" />
                 secure
               </span>
             </div>
 
-            {/* Messages — role="log" for screen readers */}
             <div
               role="log"
               aria-live="polite"
@@ -208,8 +207,8 @@ export default function ChatPage() {
                     <div
                       className={`rounded-3xl px-5 py-4 border ${
                         message.role === "assistant"
-                          ? "bg-white border-border/40"
-                          : "bg-[#FAF9F6] border-border/60"
+                          ? "bg-card border-border/40"
+                          : "bg-muted border-border/40"
                       }`}
                     >
                       <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium text-pretty">
@@ -245,7 +244,7 @@ export default function ChatPage() {
                     <Brain className="size-4" />
                   </div>
                   <div className="flex-1 max-w-[70%]">
-                    <div className="rounded-3xl px-6 py-5 bg-white border border-border/40 flex items-center gap-3 w-fit shadow-sm">
+                    <div className="rounded-3xl px-6 py-5 bg-card border border-border/40 flex items-center gap-3 w-fit shadow-sm">
                       <div className="flex gap-1.5" aria-hidden="true">
                         <span className="size-1.5 rounded-full bg-muted-foreground/30 animate-pulse" style={{ animationDelay: "0ms" }} />
                         <span className="size-1.5 rounded-full bg-muted-foreground/30 animate-pulse" style={{ animationDelay: "150ms" }} />
@@ -273,7 +272,7 @@ export default function ChatPage() {
                       <button
                         key={action}
                         onClick={() => handleQuickAction(action)}
-                        className="text-xs rounded-full border border-border/60 bg-white px-4 py-2 hover:bg-[#2D211B] hover:text-white transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
+                      className="text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-foreground hover:text-background transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
                       >
                         {action}
                       </button>
@@ -293,7 +292,7 @@ export default function ChatPage() {
                   onKeyDown={handleKeyDown}
                   aria-label="Message input"
                   aria-multiline="true"
-                  className="w-full min-h-[64px] max-h-[200px] resize-none rounded-2xl border border-border/60 bg-white px-6 py-4 pr-16 text-sm focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium shadow-sm"
+                  className="w-full min-h-[64px] max-h-[200px] resize-none rounded-2xl border border-border/60 bg-card px-6 py-4 pr-16 text-sm focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors duration-150 placeholder:text-muted-foreground/40 font-medium shadow-sm"
                   rows={1}
                 />
                 <button
@@ -319,3 +318,6 @@ export default function ChatPage() {
     </div>
   );
 }
+
+
+
