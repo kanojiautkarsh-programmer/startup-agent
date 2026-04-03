@@ -15,12 +15,15 @@ import {
   Shield,
   ArrowRight,
   BookOpen,
+  Plug,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+import { NotionSync } from "@/components/integrations/notion-sync"
 
 const navItems = [
   { title: "Profile", href: "/settings", icon: User },
   { title: "API Keys", href: "/settings/api-keys", icon: Key },
+  { title: "Integrations", href: "/settings/integrations", icon: Plug },
   { title: "Knowledge Base", href: "/settings/documents", icon: BookOpen },
   { title: "Billing", href: "/settings/billing", icon: CreditCard },
   { title: "Security", href: "/settings/security", icon: Shield },
