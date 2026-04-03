@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   LogOut,
   Zap,
+  Users,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -29,6 +30,7 @@ const navItems = [
   { title: "Chat", href: "/chat", icon: MessageSquare },
   { title: "Memory", href: "/memory", icon: Brain },
   { title: "Goals", href: "/goals", icon: Target },
+  { title: "Clients", href: "/clients", icon: Users },
 ]
 
 interface SidebarProps {
@@ -57,8 +59,19 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
       <aside className={cn("fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300", collapsed ? "w-16" : "w-60")}>
         <div className="flex h-full flex-col">
           <div className="flex h-14 items-center border-b px-4">
-            <Link href="/dashboard" className="flex items-center justify-center w-full font-bold text-xl">
-              {collapsed ? "T" : "TaskLyne"}
+            <Link href="/dashboard" className="flex items-center gap-2 px-1 font-serif font-medium text-xl tracking-tight">
+              {collapsed ? (
+                 <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-bold leading-none">S</span>
+                 </div>
+              ) : (
+                <>
+                  <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
+                    <span className="text-white text-xs font-bold leading-none">S</span>
+                  </div>
+                  <span>StartupAgent</span>
+                </>
+              )}
             </Link>
           </div>
 

@@ -155,7 +155,7 @@ export default function OnboardingPage() {
           <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0 shadow-lg group-hover:shadow-[#2D211B]/20">
             <span className="text-white text-xs font-bold leading-none">S</span>
           </div>
-          <span className="font-serif font-medium text-xl tracking-tight">StartupAgent</span>
+          <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
         </Link>
         <div className="flex flex-col items-end gap-1">
            <div className="flex items-center gap-1.5 px-2 py-1 bg-muted/40 rounded-full border border-border/40">
@@ -480,7 +480,7 @@ export default function OnboardingPage() {
       {/* Footer Branding */}
       <footer className="w-full py-10 text-center relative z-20">
         <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/30 font-medium">
-          Powered by StartupAgent Intelligence Systems &middot; v0.42
+          Powered by TaskLyne Intelligence Systems &middot; v0.42
         </p>
       </footer>
     </div>

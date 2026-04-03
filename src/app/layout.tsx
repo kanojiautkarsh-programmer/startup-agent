@@ -24,24 +24,24 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://startupagent.ai'),
   title: {
-    default: "StartupAgent | The command center for your startup",
-    template: "%s | StartupAgent"
+    default: "TaskLyne | The command center for your startup",
+    template: "%s | TaskLyne"
   },
   description: "The AI-powered command center for high-growth startups. Unifying goals, decisions, and knowledge.",
-  applicationName: "StartupAgent",
-  authors: [{ name: "StartupAgent Team" }],
+  applicationName: "TaskLyne",
+  authors: [{ name: "TaskLyne Team" }],
   keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals"],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://startupagent.ai',
-    title: "StartupAgent | The command center for your startup",
+    title: "TaskLyne | The command center for your startup",
     description: "The AI-powered command center for high-growth startups.",
-    siteName: 'StartupAgent',
+    siteName: 'TaskLyne',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "StartupAgent | The command center for your startup",
+    title: "TaskLyne | The command center for your startup",
     description: "The AI-powered command center for high-growth startups.",
   },
   robots: {
