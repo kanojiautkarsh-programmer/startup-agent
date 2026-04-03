@@ -127,14 +127,6 @@ export default function OnboardingPage() {
 
       setInitPercent(70);
 
-      if (selectedIntegrations.includes('notion')) {
-        await supabase.from('integrations').upsert({
-          user_id: user.id,
-          provider: 'notion',
-          status: 'pending'
-        }).select().single();
-      }
-
       await supabase.auth.updateUser({
         data: { onboarding_completed: true }
       });

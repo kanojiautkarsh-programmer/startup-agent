@@ -68,3 +68,21 @@ export function verifyHash(data: string, storedHash: string): boolean {
   const hash = scryptSync(data, salt, KEY_LENGTH);
   return hash.toString('base64') === hashB64;
 }
+
+export function encryptForStorage(plaintext: string): string {
+  const masterKey = process.env.ENCRYPTION_MASTER_KEY;
+  if (!masterKey) {
+    throw new Error('ENCRYPTION_MASTER_KEY not configured');
+  }
+  const encrypted = encrypt(plaintext, masterKey);
+  return JSON.stringify(encrypted);
+}
+
+export function decryptFromStorage(encryptedJson: string): string {
+  const masterKey = process.env.ENCRYPTION_MASTER_KEY;
+  if (!masterKey) {
+    throw new Error('ENCRYPTION_MASTER_KEY not configured');
+  }
+  const encrypted = JSON.parse(encryptedJson);
+  return decrypt(encrypted, masterKey);
+}
