@@ -61,7 +61,7 @@ export function PublicHeader() {
 
           <div className="flex items-center gap-4">
             <Button variant="ghost" asChild className="hidden sm:inline-flex rounded-full px-6 font-semibold hover:bg-accent hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1">
-              <Link href="https://app.tasklyne.com">Log in</Link>
+              <Link href="/login">Log in</Link>
             </Button>
             <Button asChild className="rounded-full px-8 h-12 bg-foreground text-background hover:bg-foreground/90 font-semibold shadow-sm transition-[transform,background-color] hover:scale-[1.02] focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1">
               <Link href="/demo">Request demo <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
@@ -87,7 +87,7 @@ export function PublicHeader() {
             <Link href="/pricing" className="block text-2xl font-semibold hover:text-accent-orange transition-colors focus-visible:ring-1 focus-visible:ring-ring rounded">Pricing</Link>
             <Link href="/contact" className="block text-2xl font-semibold hover:text-accent-orange transition-colors focus-visible:ring-1 focus-visible:ring-ring rounded">Contact</Link>
             <div className="mt-auto pb-8 space-y-4">
-              <Button variant="outline" asChild className="w-full rounded-full h-14 text-lg font-semibold"><Link href="https://app.tasklyne.com">Log in</Link></Button>
+              <Button variant="outline" asChild className="w-full rounded-full h-14 text-lg font-semibold"><Link href="/login">Log in</Link></Button>
               <Button asChild className="w-full rounded-full h-14 text-lg font-semibold bg-accent-orange hover:bg-accent-orange/90 text-black border-transparent"><Link href="/demo">Request demo</Link></Button>
             </div>
           </nav>
