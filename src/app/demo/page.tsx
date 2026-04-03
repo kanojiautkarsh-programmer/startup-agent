@@ -71,7 +71,7 @@ export default function DemoPage() {
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
-              <span className="text-white text-xs font-bold leading-none">S</span>
+              <span className="text-white text-xs font-bold leading-none">T</span>
             </div>
             <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
           </Link>

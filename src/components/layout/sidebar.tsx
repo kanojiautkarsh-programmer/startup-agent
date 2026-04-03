@@ -62,12 +62,12 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
             <Link href="/dashboard" className="flex items-center gap-2 px-1 font-serif font-medium text-xl tracking-tight">
               {collapsed ? (
                  <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
-                    <span className="text-white text-xs font-bold leading-none">S</span>
+                    <span className="text-white text-xs font-bold leading-none">T</span>
                  </div>
               ) : (
                 <>
                   <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center shrink-0">
-                    <span className="text-white text-xs font-bold leading-none">S</span>
+                    <span className="text-white text-xs font-bold leading-none">T</span>
                   </div>
                   <span>TaskLyne</span>
                 </>
