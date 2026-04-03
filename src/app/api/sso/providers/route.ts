@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createCipheriv, randomBytes, scryptSync } from 'crypto';
 import { validateCSRF, sanitizeError, checkRateLimit, getClientIP } from '@/lib/security-utils';
 
 function getSupabaseAdmin(): SupabaseClient {
@@ -7,6 +8,33 @@ function getSupabaseAdmin(): SupabaseClient {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error('Missing Supabase configuration');
   return createClient(url, key);
+}
+
+function encryptSecret(plaintext: string): string {
+  const key = scryptSync(process.env.ENCRYPTION_MASTER_KEY || 'default-key-change-in-production', 'salt', 32);
+  const iv = randomBytes(16);
+  const cipher = createCipheriv('aes-256-gcm', key, iv);
+  const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
+  const authTag = cipher.getAuthTag();
+  return Buffer.concat([iv, authTag, encrypted]).toString('base64');
+}
+
+function isValidUrl(urlString: string): boolean {
+  try {
+    const url = new URL(urlString);
+    return url.protocol === 'https:' || url.hostname === 'localhost';
+  } catch {
+    return false;
+  }
+}
+
+function isValidIssuer(issuer: string): boolean {
+  try {
+    const url = new URL(issuer);
+    return url.protocol === 'https:' && url.hostname.includes('.');
+  } catch {
+    return issuer.length > 5 && issuer.includes('/');
+  }
 }
 
 async function isAdmin(supabaseAdmin: SupabaseClient, userId: string): Promise<boolean> {
@@ -109,9 +137,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!isValidIssuer(issuer)) {
+      return NextResponse.json(
+        { error: 'Invalid issuer URL format' },
+        { status: 400 }
+      );
+    }
+
     if (provider === 'saml' && !ssoUrl) {
       return NextResponse.json(
         { error: 'SAML requires ssoUrl' },
+        { status: 400 }
+      );
+    }
+
+    if (provider === 'saml' && ssoUrl && !isValidUrl(ssoUrl)) {
+      return NextResponse.json(
+        { error: 'Invalid SSO URL format' },
         { status: 400 }
       );
     }
@@ -136,7 +178,7 @@ export async function POST(request: NextRequest) {
         sso_url: ssoUrl ? ssoUrl.slice(0, 500) : null,
         acs_url: provider === 'saml' ? `${baseUrl}/api/auth/sso/saml/callback` : null,
         client_id: clientId || null,
-        client_secret_encrypted: clientSecret ? Buffer.from(clientSecret).toString('base64') : null,
+        client_secret_encrypted: clientSecret ? encryptSecret(clientSecret) : null,
         authorization_endpoint: provider === 'oidc' ? `${issuer}/authorize` : null,
         token_endpoint: provider === 'oidc' ? `${issuer}/oauth/token` : null,
         userinfo_endpoint: provider === 'oidc' ? `${issuer}/userinfo` : null,
@@ -166,6 +208,15 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json(
       { error: 'Invalid or missing CSRF token' },
       { status: 403 }
+    );
+  }
+
+  const ip = getClientIP(request);
+  const rateLimit = await checkRateLimit(`sso-delete:${ip}`, 5, 60 * 1000);
+  if (!rateLimit.passed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429 }
     );
   }
 

@@ -1,12 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createHash, createHmac } from 'crypto';
 
-const CSRF_SECRET = process.env.CSRF_SECRET || 'default-secret-change-in-production';
+function getCSRFSecret(): string {
+  const secret = process.env.CSRF_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('CSRF_SECRET environment variable is required in production');
+  }
+  return secret || 'dev-secret-do-not-use-in-production';
+}
 
 export function generateCSRFToken(): string {
-  const array = new Uint8Array(32);
-  crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+  const randomBytes = crypto.getRandomValues(new Uint8Array(32));
+  const randomPart = Array.from(randomBytes, byte => byte.toString(16).padStart(2, '0')).join('');
+  
+  const timestamp = Date.now().toString(36);
+  const hmac = createHmac('sha256', getCSRFSecret());
+  hmac.update(`${randomPart}:${timestamp}`);
+  const signature = hmac.digest('base64url').slice(0, 16);
+  
+  return `${randomPart}.${timestamp}.${signature}`;
+}
+
+export function validateCSRFToken(token: string): boolean {
+  if (!token || typeof token !== 'string') {
+    return false;
+  }
+
+  const parts = token.split('.');
+  if (parts.length !== 3) {
+    return false;
+  }
+
+  const [randomPart, timestamp, signature] = parts;
+  
+  const tokenAge = Date.now() - parseInt(timestamp, 36) * 1000;
+  const maxAge = 24 * 60 * 60 * 1000;
+  if (tokenAge > maxAge || tokenAge < 0) {
+    return false;
+  }
+
+  const expectedHmac = createHmac('sha256', getCSRFSecret());
+  expectedHmac.update(`${randomPart}:${timestamp}`);
+  const expectedSignature = expectedHmac.digest('base64url').slice(0, 16);
+
+  return signature === expectedSignature;
 }
 
 export function createCSRFToken(): { token: string; formField: string } {
@@ -29,7 +66,7 @@ export function validateCSRF(request: NextRequest): boolean {
     return false;
   }
 
-  return csrfToken === cookieToken;
+  return csrfToken === cookieToken && validateCSRFToken(cookieToken);
 }
 
 export function withCSRFValidation(
