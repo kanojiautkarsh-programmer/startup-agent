@@ -218,7 +218,7 @@ export default function APIKeysPage() {
                     className={cn(
                       "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl translate-x-2" 
                         : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
                     )}
                   >
@@ -329,7 +329,7 @@ export default function APIKeysPage() {
                             <button 
                               onClick={() => handleSaveKey(provider.id, provider.keyField)} 
                               disabled={saving || !keyInput.trim()}
-                              className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50"
+                              className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50"
                             >
                               {saving ? 'Integrating...' : 'Integrate'}
                             </button>
@@ -350,7 +350,7 @@ export default function APIKeysPage() {
                            </div>
                            <button 
                              onClick={() => setShowKeys(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
-                             className="w-14 h-14 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm text-muted-foreground shrink-0"
+                             className="w-14 h-14 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-emphasis hover:text-emphasis-fg transition-all shadow-sm text-muted-foreground shrink-0"
                              title={showKeys[provider.id] ? "Hide key" : "Reveal key"}
                            >
                              {showKeys[provider.id] ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -359,7 +359,7 @@ export default function APIKeysPage() {
                         <div className="flex items-center gap-3 shrink-0">
                           <button 
                             onClick={() => { setEditingKey(provider.id); setKeyInput(apiKeys[provider.id]); }}
-                            className="rounded-full px-8 h-14 border border-border/60 bg-white hover:bg-foreground hover:text-background font-bold text-[10px] uppercase tracking-widest transition-all shadow-sm"
+                            className="rounded-full px-8 h-14 border border-border/60 bg-white hover:bg-emphasis hover:text-emphasis-fg font-bold text-[10px] uppercase tracking-widest transition-all shadow-sm"
                           >
                             Update Provider
                           </button>
@@ -376,7 +376,7 @@ export default function APIKeysPage() {
                       <div className="pt-10 border-t border-border/40 flex flex-col md:flex-row gap-4">
                         <button 
                           onClick={() => setEditingKey(provider.id)} 
-                          className="flex-1 rounded-full h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 group"
+                          className="flex-1 rounded-full h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 group"
                         >
                           Establish Handshake
                           <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

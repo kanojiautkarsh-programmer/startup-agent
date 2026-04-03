@@ -64,7 +64,7 @@ export function PublicHeader() {
             <Button variant="ghost" asChild className="hidden md:inline-flex rounded-full px-6 font-semibold hover:bg-muted">
               <Link href="/login">Log in</Link>
             </Button>
-            <Button asChild className="rounded-full px-8 h-12 bg-foreground text-background hover:bg-foreground/90 font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <Button asChild className="rounded-full px-8 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
               <Link href="/demo">Request demo <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
             </Button>
             <button 
@@ -110,7 +110,7 @@ export function PublicHeader() {
             <Button variant="outline" asChild className="w-full rounded-full h-14 text-lg font-semibold border-border/60">
               <Link href="/login" onClick={() => setMobileMenuOpen(false)}>Log in</Link>
             </Button>
-            <Button asChild className="w-full rounded-full h-14 text-lg font-semibold bg-foreground text-background hover:bg-foreground/90">
+            <Button asChild className="w-full rounded-full h-14 text-lg font-semibold bg-emphasis text-emphasis-fg hover:bg-emphasis-hover">
               <Link href="/demo" onClick={() => setMobileMenuOpen(false)}>Request demo</Link>
             </Button>
           </div>

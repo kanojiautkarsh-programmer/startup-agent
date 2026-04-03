@@ -270,7 +270,7 @@ export default function DocumentsPage() {
                     className={cn(
                       "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl translate-x-2" 
                         : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
                     )}
                   >
@@ -348,7 +348,7 @@ export default function DocumentsPage() {
                     <button
                       onClick={handleIngest}
                       disabled={uploadState.uploading || !title.trim() || !content.trim()}
-                      className="w-full h-14 rounded-full bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                      className="w-full h-14 rounded-full bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
                     >
                       {uploadState.uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
                       {uploadState.uploading ? 'Processing...' : 'Engage Ingestion'}

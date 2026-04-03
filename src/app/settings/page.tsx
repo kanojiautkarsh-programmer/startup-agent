@@ -146,7 +146,7 @@ export default function SettingsPage() {
                     className={cn(
                       "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl translate-x-2" 
                         : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
                     )}
                   >
@@ -246,7 +246,7 @@ export default function SettingsPage() {
                   <button 
                     onClick={handleSave} 
                     disabled={saving}
-                    className="group rounded-full px-12 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
+                    className="group rounded-full px-12 h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
                   >
                     {saving ? "Saving..." : "Save changes"}
                     <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -271,7 +271,7 @@ export default function SettingsPage() {
               </div>
               <Link 
                 href="/pricing"
-                className="rounded-full px-10 h-14 bg-card border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
+                className="rounded-full px-10 h-14 bg-card border border-border/60 hover:bg-emphasis hover:text-emphasis-fg hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
               >
                 Scale Infrastructure <ArrowRight className="h-4 w-4 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>

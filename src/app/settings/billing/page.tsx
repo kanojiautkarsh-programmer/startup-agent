@@ -104,7 +104,7 @@ export default function BillingPage() {
                     className={cn(
                       "flex items-center justify-between group rounded-2xl px-5 h-12 text-sm transition-all font-medium border",
                       isActive 
-                        ? "bg-[#2D211B] text-white border-transparent shadow-xl translate-x-2" 
+                        ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl translate-x-2" 
                         : "text-muted-foreground border-transparent hover:bg-muted/50 hover:text-foreground hover:border-border/40"
                     )}
                   >
@@ -203,8 +203,8 @@ export default function BillingPage() {
                           isCurrent 
                             ? 'bg-muted border border-border/60 text-muted-foreground/60 cursor-not-allowed' 
                             : isPro 
-                              ? 'bg-foreground text-background hover:bg-primary' 
-                              : 'bg-white border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent text-foreground'
+                              ? 'bg-emphasis text-emphasis-fg hover:bg-primary' 
+                              : 'bg-white border border-border/60 hover:bg-emphasis hover:text-emphasis-fg hover:border-transparent text-foreground'
                         )}
                         disabled={isCurrent || loading !== null}
                         onClick={() => handleSubscribe(plan.id)}
@@ -246,7 +246,7 @@ export default function BillingPage() {
                          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40 mt-1">Expiry: 12 / 2026</p>
                        </div>
                      </div>
-                     <button className="w-12 h-12 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm">
+                     <button className="w-12 h-12 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-emphasis hover:text-emphasis-fg transition-all shadow-sm">
                         <ChevronRight className="h-5 w-5" />
                      </button>
                    </div>

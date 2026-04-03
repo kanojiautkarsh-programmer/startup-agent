@@ -293,7 +293,7 @@ export function SecuritySettings() {
             className={cn(
                "flex items-center gap-3 px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] transition-all rounded-full border",
                activeTab === tab.id
-                ? 'bg-foreground text-background border-transparent shadow-xl'
+                ? 'bg-emphasis text-emphasis-fg border-transparent shadow-xl'
                 : 'bg-white text-muted-foreground/60 border-border/60 hover:border-primary/40 hover:text-foreground'
             )}
           >
@@ -309,7 +309,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl group relative overflow-hidden">
                 <div className="flex items-center justify-between mb-12">
                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background group-hover:scale-110 transition-transform duration-500">
+                      <div className="w-16 h-16 rounded-[1.5rem] bg-emphasis shadow-2xl flex items-center justify-center text-emphasis-fg group-hover:scale-110 transition-transform duration-500">
                          <Lock className="h-8 w-8" />
                       </div>
                       <div>
@@ -357,7 +357,7 @@ export function SecuritySettings() {
                                    </code>
                                    <button 
                                       onClick={() => setShowKey(!showKey)}
-                                      className="w-14 h-14 rounded-2xl border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"
+                                      className="w-14 h-14 rounded-2xl border border-border/60 bg-card flex items-center justify-center hover:bg-emphasis hover:text-emphasis-fg transition-all shadow-sm"
                                    >
                                       {showKey ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                    </button>
@@ -413,7 +413,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
                <div className="flex items-center justify-between mb-12 pb-8 border-b border-border/40">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-emphasis shadow-2xl flex items-center justify-center text-emphasis-fg">
                         <ShieldCheck className="h-8 w-8" />
                      </div>
                      <div>
@@ -464,7 +464,7 @@ export function SecuritySettings() {
                            onClick={() => setSsoProvider('saml')} 
                            className={cn(
                               "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
-                              ssoProvider === 'saml' ? "bg-foreground text-background border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                              ssoProvider === 'saml' ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
                            )}
                         >
                            Establish SAML 2.0
@@ -473,7 +473,7 @@ export function SecuritySettings() {
                            onClick={() => setSsoProvider('oidc')} 
                            className={cn(
                               "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
-                              ssoProvider === 'oidc' ? "bg-foreground text-background border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                              ssoProvider === 'oidc' ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
                            )}
                         >
                            Establish OIDC
@@ -531,7 +531,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
                <div className="flex items-center justify-between mb-12">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-emphasis shadow-2xl flex items-center justify-center text-emphasis-fg">
                         <Clock className="h-8 w-8" />
                      </div>
                      <div>
@@ -589,7 +589,7 @@ export function SecuritySettings() {
             <div className="grid lg:grid-cols-2 gap-8">
                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl space-y-10 group">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background group-hover:scale-110 transition-transform duration-500">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-emphasis shadow-2xl flex items-center justify-center text-emphasis-fg group-hover:scale-110 transition-transform duration-500">
                         <Shield className="h-8 w-8" />
                      </div>
                      <div>

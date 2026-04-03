@@ -225,7 +225,7 @@ export default function GoalsPage() {
             </div>
             <button 
               onClick={() => { setEditingGoal(null); setFormData({ title: '', description: '', deadline: '', priority: 'medium' }); setAddModalOpen(true) }}
-              className="group rounded-full px-8 h-14 bg-foreground text-background hover:bg-foreground/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-8 h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
               <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
               Define Objective
@@ -255,7 +255,7 @@ export default function GoalsPage() {
                   className={cn(
                     "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-sm border",
                     filterStatus === status 
-                      ? "bg-[#2D211B] text-white border-transparent shadow-xl scale-105" 
+                      ? "bg-emphasis text-emphasis-fg border-transparent shadow-xl scale-105" 
                       : "bg-white text-muted-foreground/60 border-border/60 hover:bg-muted/30 hover:text-foreground"
                   )}
                 >
@@ -282,7 +282,7 @@ export default function GoalsPage() {
                       <div>
                         <div className="flex items-start justify-between mb-8">
                           <div className="flex items-start gap-6">
-                            <div className="w-14 h-14 rounded-2xl border border-border/40 bg-white shadow-sm flex items-center justify-center shrink-0 group-hover:bg-[#2D211B] group-hover:text-white transition-all duration-500">
+                            <div className="w-14 h-14 rounded-2xl border border-border/40 bg-white shadow-sm flex items-center justify-center shrink-0 group-hover:bg-emphasis group-hover:text-emphasis-fg transition-all duration-500">
                               <Target className="h-6 w-6" />
                             </div>
                             <div className="pt-1">
@@ -308,7 +308,7 @@ export default function GoalsPage() {
                           </div>
                           
                           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
+                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-emphasis hover:text-emphasis-fg transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
                                <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><Trash2 className="h-4 w-4" /></button>
                           </div>
                         </div>
@@ -366,7 +366,7 @@ export default function GoalsPage() {
                 <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Establish your next strategic milestone to begin operational tracking.</p>
                 <button 
                   onClick={() => { setEditingGoal(null); setAddModalOpen(true) }}
-                  className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
+                  className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
                   <Plus className="h-5 w-5 mr-3" />
                   Define Objective
@@ -458,7 +458,7 @@ export default function GoalsPage() {
                       className={cn(
                          "flex-1 h-14 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all border shadow-sm",
                          formData.priority === p 
-                            ? "bg-[#2D211B] text-white border-transparent" 
+                            ? "bg-emphasis text-emphasis-fg border-transparent" 
                             : "bg-white border-border/60 text-muted-foreground/60 hover:text-foreground"
                       )}
                     >
@@ -479,7 +479,7 @@ export default function GoalsPage() {
             <button 
               onClick={handleSave} 
               disabled={saving || !formData.title.trim()}
-              className="rounded-full px-12 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
+              className="rounded-full px-12 h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
             >
               {saving ? "Deploying..." : editingGoal ? "Commit Refinement" : "Deploy Objective"}
             </button>

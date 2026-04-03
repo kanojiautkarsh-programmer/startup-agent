@@ -208,7 +208,7 @@ export default function DashboardPage() {
             </div>
             <Link 
               href="/chat"
-              className="group rounded-full px-8 h-14 bg-foreground text-background hover:bg-foreground/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-8 h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
               <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
               New Intelligence Session
@@ -216,14 +216,14 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              <div className="bg-[#2D211B] rounded-[2rem] p-8 text-white shadow-2xl flex flex-col justify-between group hover:scale-[1.03] transition-all cursor-pointer relative overflow-hidden">
+              <div className="bg-emphasis rounded-[2rem] p-8 text-emphasis-fg shadow-2xl flex flex-col justify-between group hover:scale-[1.03] transition-all cursor-pointer relative overflow-hidden">
                  <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                     <MessageSquare className="h-20 w-20" />
                  </div>
                  <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-6">
                        <span className="w-2 h-2 rounded-full bg-primary" />
-                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Total Conversations</span>
+                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-50">Total Conversations</span>
                     </div>
                     <div>
                        <p className="text-5xl font-serif font-medium">{stats?.clientCount || 0}</p>
@@ -299,7 +299,7 @@ export default function DashboardPage() {
                   <div className="divide-y divide-border/40">
                     {stats.recentConversations.map((conv) => (
                       <Link key={conv.id} href={`/chat?conversation=${conv.id}`} className="flex items-center gap-6 p-6 hover:bg-muted/30 transition-all group">
-                        <div className="w-12 h-12 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-foreground group-hover:text-background group-hover:border-transparent transition-all duration-300">
+                        <div className="w-12 h-12 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-emphasis group-hover:text-emphasis-fg group-hover:border-transparent transition-all duration-300">
                           <MessageSquare className="h-5 w-5" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -369,7 +369,7 @@ export default function DashboardPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 {stats.recentDecisions.map((decision) => (
                   <div key={decision.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6">
-                     <div className="w-14 h-14 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                     <div className="w-14 h-14 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-emphasis group-hover:text-emphasis-fg transition-all duration-300">
                        <FileText className="h-6 w-6" />
                      </div>
                      <div>

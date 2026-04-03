@@ -152,7 +152,7 @@ export default function ChatPage() {
             </div>
             <Link
               href="/settings/api-keys"
-              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-foreground hover:text-background transition-colors duration-150 flex items-center gap-2 text-xs font-medium shadow-sm"
+              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 flex items-center gap-2 text-xs font-medium shadow-sm"
             >
               <Settings className="size-3.5 transition-transform duration-150 group-hover:rotate-45" aria-hidden="true" />
               Configure
@@ -240,7 +240,7 @@ export default function ChatPage() {
               {/* Loading indicator — opacity animation, not bounce (layout) */}
               {isLoading && (
                 <div className="flex gap-4 animate-fade-in" aria-busy="true" aria-label="Assistant is thinking">
-                  <div className="size-10 rounded-2xl bg-[#2D211B] text-white flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
+                  <div className="size-10 rounded-2xl bg-emphasis text-emphasis-fg flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
                     <Brain className="size-4" />
                   </div>
                   <div className="flex-1 max-w-[70%]">
@@ -272,7 +272,7 @@ export default function ChatPage() {
                       <button
                         key={action}
                         onClick={() => handleQuickAction(action)}
-                      className="text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-foreground hover:text-background transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
+                      className="text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
                       >
                         {action}
                       </button>
@@ -296,7 +296,7 @@ export default function ChatPage() {
                   rows={1}
                 />
                 <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 size-10 flex items-center justify-center rounded-xl bg-[#2D211B] text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary transition-colors duration-150 shadow-sm active:scale-95"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 size-10 flex items-center justify-center rounded-xl bg-emphasis text-emphasis-fg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary transition-colors duration-150 shadow-sm active:scale-95"
                   onClick={handleSend}
                   disabled={!input.trim() || isLoading}
                   aria-label="Send message"

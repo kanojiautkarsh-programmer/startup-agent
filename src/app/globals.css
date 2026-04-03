@@ -33,11 +33,15 @@
 
     --radius: 0.5rem;
 
+    /* ── Emphasis: warm charcoal in light, cream in dark ── */
+    --emphasis: 20 30% 20%;          /* #2D211B warm charcoal */
+    --emphasis-fg: 34 38% 97%;       /* warm cream text on it */
+
     /* Sidebar tokens */
     --sidebar-bg: 0 0% 100%;         /* white sidebar in light mode */
     --sidebar-fg: 20 14% 10%;
     --sidebar-border: 34 20% 88%;
-    --sidebar-item-active-bg: 20 14% 10%;  /* charcoal active pill */
+    --sidebar-item-active-bg: 20 30% 20%;  /* charcoal active pill */
     --sidebar-item-active-fg: 34 38% 97%;
     --sidebar-item-hover-bg: 34 20% 92%;
     --sidebar-item-fg: 20 10% 45%;
@@ -71,11 +75,15 @@
     --input: 20 10% 20%;
     --ring: 24 100% 55%;
 
+    /* ── Emphasis: flips to cream in dark mode ─────────── */
+    --emphasis: 34 38% 90%;          /* warm cream */
+    --emphasis-fg: 20 14% 9%;        /* dark text on it */
+
     /* Sidebar tokens */
     --sidebar-bg: 20 14% 6%;         /* darkest layer for sidebar in dark */
     --sidebar-fg: 34 38% 85%;
     --sidebar-border: 20 10% 14%;
-    --sidebar-item-active-bg: 34 38% 94%;  /* cream active pill */
+    --sidebar-item-active-bg: 34 38% 90%;  /* cream active pill */
     --sidebar-item-active-fg: 20 14% 9%;
     --sidebar-item-hover-bg: 20 10% 14%;
     --sidebar-item-fg: 34 20% 55%;
@@ -152,6 +160,20 @@
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ── Emphasis utility — theme-aware CTA colour ───────── */
+/* Light: warm charcoal (#2D211B) / Dark: warm cream (#F0EBE4) */
+.bg-emphasis {
+  background-color: hsl(var(--emphasis));
+}
+
+.text-emphasis-fg {
+  color: hsl(var(--emphasis-fg));
+}
+
+.hover\:bg-emphasis-hover:hover {
+  background-color: hsl(var(--emphasis) / 0.85);
 }
 
 /* ── Sidebar CSS-variable utilities ─────────────────── */

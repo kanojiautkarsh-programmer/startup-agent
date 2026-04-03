@@ -107,7 +107,7 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
               size="icon"
               className={cn(
                 "size-7 rounded-full transition-colors duration-150",
-                isDark ? "bg-foreground text-background shadow-sm" : "text-muted-foreground"
+                isDark ? "bg-emphasis text-emphasis-fg shadow-sm" : "text-muted-foreground"
               )}
               onClick={() => setTheme("dark")}
               aria-label="Dark mode"
@@ -150,7 +150,7 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
               aria-label="Open profile menu"
             >
               <Avatar className="size-8 ring-1 ring-border/60">
-                <AvatarFallback className="bg-foreground text-background font-bold text-[10px]">
+                <AvatarFallback className="bg-emphasis text-emphasis-fg font-bold text-[10px]">
                   {initials}
                 </AvatarFallback>
               </Avatar>

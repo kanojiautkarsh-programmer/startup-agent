@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 items-center animate-slide-up" style={{ animationDelay: '0.4s' }}>
               <Link 
                 href="/demo"
-                className="rounded-full px-12 h-16 bg-foreground text-background hover:bg-foreground/90 font-medium transition-all flex items-center justify-center text-xl shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="rounded-full px-12 h-16 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-all flex items-center justify-center text-xl shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 See it in action <ArrowRight className="ml-3 h-6 w-6" aria-hidden="true" />
               </Link>
@@ -189,7 +189,7 @@ export default function Home() {
                </h2>
                <Link 
                 href="/demo"
-                className="rounded-full px-16 h-20 bg-foreground text-background hover:bg-foreground/90 font-medium transition-all flex items-center justify-center text-2xl shadow-2xl hover:scale-[1.03] active:scale-[0.97] animate-slide-up"
+                className="rounded-full px-16 h-20 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-all flex items-center justify-center text-2xl shadow-2xl hover:scale-[1.03] active:scale-[0.97] animate-slide-up"
               >
                 See the Demo <ArrowRight className="ml-4 h-8 w-8" />
               </Link>

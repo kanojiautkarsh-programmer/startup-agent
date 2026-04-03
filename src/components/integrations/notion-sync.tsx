@@ -100,7 +100,7 @@ export function NotionSync() {
             <button
               onClick={handleSync}
               disabled={syncing}
-              className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 flex items-center gap-3 active:scale-95"
+              className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 flex items-center gap-3 active:scale-95"
             >
               <RefreshCw className={cn("h-4 w-4", syncing && "animate-spin")} />
               {syncing ? 'Syncing...' : 'Initiate Sync'}
@@ -110,7 +110,7 @@ export function NotionSync() {
           <button
             onClick={handleConnect}
             disabled={connecting}
-            className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl flex items-center gap-3 active:scale-95"
+            className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl flex items-center gap-3 active:scale-95"
           >
             {connecting ? 'Connecting...' : 'Establish Connection'}
             <ChevronRight className="h-4 w-4" />

@@ -120,7 +120,7 @@ export default function ClientsPage() {
               </h1>
               <p className="text-sm font-medium text-muted-foreground tracking-wide">Manage your customer portfolio</p>
             </div>
-            <button className="rounded-full px-6 h-12 bg-foreground text-background hover:bg-foreground/90 font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0">
+            <button className="rounded-full px-6 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0">
               <Plus className="h-4 w-4 mr-2" />
               Add Client
             </button>
