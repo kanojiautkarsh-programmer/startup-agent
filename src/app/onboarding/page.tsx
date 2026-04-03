@@ -144,7 +144,7 @@ export default function OnboardingPage() {
   const stepNames = ["Welcome", "Vision", "Expertise", "Strategy", "Context", "Launch"];
 
   return (
-    <div className="min-h-screen bg-[#FDFCFB] flex flex-col font-sans relative overflow-hidden">
+    <div className="min-h-dvh bg-[#FDFCFB] flex flex-col font-sans relative overflow-hidden">
       {/* Dynamic Background Elements */}
       <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-accent-orange/5 rounded-full blur-[100px] animate-pulse" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-[#2D211B]/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />

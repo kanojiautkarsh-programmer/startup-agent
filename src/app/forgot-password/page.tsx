@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans">
+    <div className="min-h-dvh bg-background flex flex-col font-sans">
       {/* Top Navigation */}
       <header className="w-full px-8 py-6 flex items-center justify-between z-10">
         <Link href="/" className="flex items-center gap-2">

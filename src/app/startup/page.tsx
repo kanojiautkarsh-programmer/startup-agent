@@ -116,7 +116,7 @@ export default function StartupPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background font-sans">
+      <div className="min-h-dvh bg-background font-sans">
         <Sidebar collapsed={false} onToggle={() => {}} user={{}} />
         <main className="pl-60">
           <div className="p-10">
@@ -131,7 +131,7 @@ export default function StartupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-dvh bg-background font-sans">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

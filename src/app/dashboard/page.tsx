@@ -165,7 +165,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="pl-60">
           <div className="p-8 max-w-7xl mx-auto">
@@ -186,7 +186,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
+    <div className="min-h-dvh bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={user} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} user={user} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

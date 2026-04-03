@@ -51,7 +51,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/10 relative overflow-hidden">
+    <div className="min-h-dvh bg-background flex flex-col font-sans selection:bg-primary/10 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#2D211B]/5 blur-[120px] rounded-full pointer-events-none" />
@@ -81,7 +81,11 @@ export default function LoginPage() {
 
           <div className="glass-card border border-border/40 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
             {error && (
-              <div className="mb-8 p-4 text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-2xl text-center font-bold tracking-tight">
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="mb-8 p-4 text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-2xl text-center font-medium"
+              >
                 {error}
               </div>
             )}
@@ -112,30 +116,34 @@ export default function LoginPage() {
 
             <form onSubmit={handleEmailSignIn} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Email</label>
-                <input 
-                  type="email" 
-                  placeholder="you@startup.com" 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  required 
-                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 font-medium"
+                <label htmlFor="login-email" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Email</label>
+                <input
+                  id="login-email"
+                  type="email"
+                  placeholder="you@startup.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  aria-required="true"
+                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium"
                 />
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center px-4">
-                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Password</label>
-                <Link href="/forgot-password" title="Forgot password" className="text-[10px] text-muted-foreground/60 hover:text-foreground font-bold uppercase tracking-widest transition-colors mb-1">
+                  <label htmlFor="login-password" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Password</label>
+                  <Link href="/forgot-password" className="text-[10px] text-muted-foreground/60 hover:text-foreground font-bold uppercase transition-colors mb-1">
                     Forgot?
                   </Link>
                 </div>
-                <input 
-                  type="password" 
-                  placeholder="••••••••" 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  required 
-                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 font-medium"
+                <input
+                  id="login-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  aria-required="true"
+                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium"
                 />
               </div>
               <button 

@@ -63,7 +63,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/10 relative overflow-hidden">
+    <div className="min-h-dvh bg-background flex flex-col font-sans selection:bg-primary/10 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#2D211B]/5 blur-[120px] rounded-full pointer-events-none" />
@@ -93,7 +93,11 @@ export default function SignupPage() {
 
           <div className="glass-card border border-border/40 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
             {error && (
-              <div className="mb-8 p-4 text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-2xl text-center font-bold tracking-tight">
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="mb-8 p-4 text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-2xl text-center font-medium"
+              >
                 {error}
               </div>
             )}
@@ -124,38 +128,45 @@ export default function SignupPage() {
 
             <form onSubmit={handleEmailSignUp} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Full Name</label>
-                <input 
-                  type="text" 
-                  placeholder="Jane Doe" 
-                  value={fullName} 
-                  onChange={(e) => setFullName(e.target.value)} 
-                  required 
-                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 font-medium"
+                <label htmlFor="signup-name" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Full Name</label>
+                <input
+                  id="signup-name"
+                  type="text"
+                  placeholder="Jane Doe"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                  aria-required="true"
+                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Email</label>
-                <input 
-                  type="email" 
-                  placeholder="you@startup.com" 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  required 
-                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 font-medium"
+                <label htmlFor="signup-email" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Email</label>
+                <input
+                  id="signup-email"
+                  type="email"
+                  placeholder="you@startup.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  aria-required="true"
+                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Password</label>
-                <input 
-                  type="password" 
-                  placeholder="••••••••" 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  required 
-                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 font-medium"
+                <label htmlFor="signup-password" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest ml-4">Password</label>
+                <input
+                  id="signup-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  aria-required="true"
+                  aria-describedby="signup-password-hint"
+                  className="w-full px-6 h-14 rounded-full border border-border/60 bg-background/50 text-sm focus:outline-none focus:border-primary/50 transition-colors duration-150 placeholder:text-muted-foreground/30 font-medium"
                 />
-                <p className="text-[9px] text-muted-foreground/50 font-medium ml-4 mt-1">8+ chars, upper, lower, number, &amp; special.</p>
+                <p id="signup-password-hint" className="text-[9px] text-muted-foreground/50 font-medium ml-4 mt-1">8+ chars, upper, lower, number, &amp; special.</p>
               </div>
               
               <p className="text-[10px] text-center text-muted-foreground/60 font-medium leading-relaxed mt-8 px-4">

@@ -91,7 +91,7 @@ export default function ClientsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="flex-1 pl-60">
           <div className="p-8 max-w-5xl mx-auto">
@@ -105,7 +105,7 @@ export default function ClientsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-dvh bg-background font-sans">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={user} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} user={user} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

@@ -38,7 +38,7 @@ export default function SecurityPage() {
   const [commandOpen, setCommandOpen] = React.useState(false)
 
   return (
-    <div className="min-h-screen bg-background font-sans flex flex-col selection:bg-primary/10">
+    <div className="min-h-dvh bg-background font-sans flex flex-col selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

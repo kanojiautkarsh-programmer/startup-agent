@@ -58,7 +58,7 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-dvh bg-background font-sans">
       {/* Navigation */}
       <header className="border-b h-16 flex items-center bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 flex items-center justify-between">

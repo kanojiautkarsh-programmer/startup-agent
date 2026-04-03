@@ -61,7 +61,7 @@ export default function IntegrationsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className={`pl-64 pt-14`}>
           <div className="flex">
@@ -82,7 +82,7 @@ export default function IntegrationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
+    <div className="min-h-dvh bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

@@ -80,7 +80,7 @@ export default function BillingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
+    <div className="min-h-dvh bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />

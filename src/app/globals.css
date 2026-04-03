@@ -85,40 +85,58 @@
   }
 }
 
-/* Animations per skills and guidelines */
+/* Animations — compositor-only (transform + opacity) */
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+  animation: fade-in 0.25s ease-out forwards;
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+  animation: fade-in-up 0.35s ease-out forwards;
 }
 
 .animate-slide-up {
-  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-in-up 0.4s ease-out forwards;
 }
 
-/* Glassmorphism utils */
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Glass utils — no blur on large surfaces (performance) */
 .glass {
-  @apply bg-background/70 backdrop-blur-md border border-border/40;
+  @apply bg-background/90 border border-border/40;
 }
 
 .glass-card {
-  @apply bg-card/60 backdrop-blur-xl border border-border/50 shadow-sm transition-all;
+  @apply bg-card border border-border/50 shadow-sm transition-transform transition-shadow duration-200;
 }
 
 .glass-card:hover {
-  @apply border-foreground/20 shadow-lg -translate-y-1;
+  @apply border-foreground/15 shadow-md -translate-y-0.5;
+}
+
+/* Focus visible ring — consistent across all interactive elements */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Typography refinements */

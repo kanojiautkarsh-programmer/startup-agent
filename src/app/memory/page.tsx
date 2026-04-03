@@ -182,7 +182,7 @@ export default function MemoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-dvh bg-background">
         <Sidebar collapsed={false} onToggle={() => {}} user={null} />
         <main className="flex-1 pl-60">
           <div className="p-8 max-w-5xl mx-auto">
@@ -201,7 +201,7 @@ export default function MemoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background font-sans selection:bg-primary/10">
+    <div className="min-h-dvh bg-background font-sans selection:bg-primary/10">
       <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={null} />
       <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
