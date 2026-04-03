@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ArrowUpRight, Upload, Search, CheckCircle2 } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Upload, Search, CheckCircle2, Brain } from "lucide-react"
 
 export default function Home() {
   return (
@@ -56,25 +56,25 @@ export default function Home() {
                 </Link>
               </div>
               
-              {/* Mock UI */}
+              {/* Feature Preview */}
               <div className="mt-16 bg-muted/20 rounded-3xl p-8 border border-border shadow-inner relative z-10 w-full max-w-xl translate-y-8 group-hover:translate-y-4 transition-transform duration-500 ease-out">
                 <div className="flex items-center justify-between mb-8 pb-6 border-b border-border/40">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-[#2D211B] rounded-full flex items-center justify-center">
-                      <Upload className="h-6 w-6 text-white" />
+                      <Brain className="h-6 w-6 text-white" />
                     </div>
-                    <span className="text-lg font-semibold tracking-tight">Recent Decisions</span>
+                    <span className="text-lg font-semibold tracking-tight">How It Works</span>
                   </div>
                 </div>
                 <div className="space-y-3">
                   {[
-                    "Series A Fundraising Terms",
-                    "New Engineering Roadmap",
-                    "Marketing Strategy Update"
+                    "Chat naturally about your startup",
+                    "Decisions get auto-captured",
+                    "Goals auto-tracked with deadlines"
                   ].map((doc, idx) => (
                     <div key={idx} className="flex justify-between items-center p-4 bg-background border border-border/40 rounded-2xl">
                       <span className="font-medium text-sm truncate mr-4">{doc}</span>
-                      <span className="px-3 py-1 bg-muted text-[10px] font-bold uppercase tracking-widest rounded-full whitespace-nowrap">Logged</span>
+                      <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
                     </div>
                   ))}
                 </div>
@@ -86,18 +86,14 @@ export default function Home() {
               <div className="relative z-10">
                 <span className="font-serif italic text-xl md:text-2xl text-muted-foreground/80 mb-6 block">Smart Context</span>
                 <h2 className="text-4xl font-serif font-medium tracking-tight leading-tight text-foreground mb-6">
-                  Retrieve answers instantly.
+                  Ask anything, remember everything.
                 </h2>
               </div>
               <div className="mt-12 group-hover:scale-105 transition-transform duration-500 ease-out origin-bottom">
-                 <div className="bg-muted/30 w-full rounded-full p-4 flex items-center gap-4 border border-border/60">
-                    <Search className="h-5 w-5 text-muted-foreground shrink-0 ml-2" />
-                    <div className="font-medium text-muted-foreground text-sm flex-1 truncate">
-                      "What was our Q3 churn rate?"
-                    </div>
-                 </div>
-                 <div className="mt-6 bg-[#2D211B] rounded-3xl p-6 text-sm text-white leading-relaxed font-medium shadow-lg">
-                    "Based on our logged contexts, your net revenue churn rate was <strong className="font-serif italic">1.2%</strong>, an improvement from Q2."
+                 <div className="bg-muted/30 w-full rounded-3xl p-6 border border-border/60">
+                    <p className="text-sm text-muted-foreground italic">
+                      "Just ask TaskLyne about any decision, goal, or context from your startup journey."
+                    </p>
                  </div>
               </div>
             </div>
@@ -112,24 +108,16 @@ export default function Home() {
                 
                 <div className="mt-12 space-y-6 w-full pt-4">
                   {[
-                    { title: "Close Series A Round", progress: 85 },
-                    { title: "Beta Product Launch", progress: 40 },
-                  ].map((goal, idx) => (
-                    <div key={idx} className="w-full">
-                      <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold text-base tracking-tight">{goal.title}</span>
-                        <span className="font-serif italic text-sm">{goal.progress}%</span>
-                      </div>
-                      <div className="h-2.5 bg-muted rounded-full w-full overflow-hidden p-0.5 border border-border/40">
-                        <div 
-                          className="h-full bg-[#2D211B] rounded-full transition-transform origin-left duration-1000 ease-out"
-                          style={{ transform: `scaleX(${goal.progress / 100})` }}
-                        ></div>
-                      </div>
+                    "Weekly accountability reviews",
+                    "Progress auto-tracked",
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+                      <span className="font-medium text-base">{feature}</span>
                     </div>
                   ))}
                 </div>
-              </div>
+               </div>
             </div>
 
             {/* Bento Block 4 - Large */}

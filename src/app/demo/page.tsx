@@ -1,67 +1,60 @@
-"use client"
+'use client'
 
 export const dynamic = 'force-dynamic'
 
 import { useState } from 'react'
 import { 
-  MessageSquare, 
   Brain, 
-  Target, 
-  Zap, 
   CheckCircle2,
-  ArrowRight,
   Loader2,
-  ChevronRight,
   Plus
 } from 'lucide-react'
 import Link from 'next/link'
 
-const features = [
+const COMMON_QUESTIONS = [
   {
-    icon: MessageSquare,
-    title: 'AI Conversations',
-    description: 'Chat with an AI that remembers everything about your startup lifecycle.',
+    question: "What's our current progress on the product launch?",
+    answer: "Based on your goals, the product launch is tracking at 60% completion. The main milestones achieved: beta testing complete, final QA in progress. Remaining tasks: security audit, documentation, and marketing assets."
   },
   {
-    icon: Brain,
-    title: 'Persistent Memory',
-    description: 'Extracts decisions, commitments, and key developer context automatically.',
+    question: "What decisions did we make last week?",
+    answer: "You've logged 3 key decisions this week:\n• Decided on API-first architecture for v2\n• Approved $15K marketing budget for launch\n• Selected Notion for documentation\n\nAll decisions are tagged and searchable."
   },
   {
-    icon: Target,
-    title: 'Goal Tracking',
-    description: 'Set and track goals with deadlines and automated progress indicators.',
+    question: "Who do we need to follow up with?",
+    answer: "Based on your commitments, you have 2 pending follow-ups:\n• Investor call with Sequoia - scheduled for Friday\n• Partnership discussion with TechCorp - needs scheduling\n\nI've reminded you 3 times about the TechCorp follow-up."
   },
   {
-    icon: Zap,
-    title: 'Instant Takeaways',
-    description: 'Get AI-powered summaries and action items from every conversation.',
+    question: "What's our burn rate?",
+    answer: "Current monthly burn rate: $42,000\n\nBreakdown: Salaries (65%), Tools (15%), Marketing (12%), Misc (8%)\n\nWith current runway: ~6 months until Series A needed."
   },
+  {
+    question: "Set a goal to launch MVP by end of Q2",
+    answer: "I've created the goal: 'Launch MVP'\n\nTarget: June 30, 2026\nPriority: High\nStatus: Active\n\nI've also broken it down into sub-tasks based on your conversation context."
+  }
 ]
 
 export default function DemoPage() {
-  const [loading, setLoading] = useState(false)
-  const [chatInput, setChatInput] = useState('')
   const [messages, setMessages] = useState<{role: string; content: string}[]>([
-    { role: 'assistant', content: "Hi! I'm your startup co-pilot. I'll help you remember decisions and track goals.\n\nWhat are you working on today?" }
+    { 
+      role: 'assistant', 
+      content: "Hi! I'm TaskLyne, your startup's AI memory. I help founders track decisions, goals, and stay accountable.\n\nTry one of these common questions to see me in action:" 
+    }
   ])
+  const [loading, setLoading] = useState(false)
+  const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null)
 
-  const handleChat = async () => {
-    if (!chatInput.trim()) return
-    
+  const handleQuestionClick = (index: number) => {
+    const qa = COMMON_QUESTIONS[index]
+    setSelectedQuestion(index)
     setLoading(true)
-    const userMessage = chatInput
-    setChatInput('')
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }])
     
-    // Simulate AI response
+    setMessages(prev => [...prev, { role: 'user', content: qa.question }])
+    
     setTimeout(() => {
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: "That sounds like a critical milestone. I've logged this as a potentially new decision. Should I create a supporting goal with a deadline for the team?" 
-      }])
+      setMessages(prev => [...prev, { role: 'assistant', content: qa.answer }])
       setLoading(false)
-    }, 1200)
+    }, 1000)
   }
 
   return (
@@ -92,23 +85,43 @@ export default function DemoPage() {
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B]">Interactive Demo</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-8">
-            Experience your <br /><span className="italic font-normal">second brain in action.</span>
+            See AI-powered <br /><span className="italic font-normal">memory in action.</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-16 font-medium">
-            See how TaskLyne captures every decision, goal, and insight in real-time.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-medium">
+            Click a question below to see how TaskLyne retrieves context, tracks goals, and keeps you accountable.
           </p>
         </div>
 
-        {/* Demo Chat - Utilitarian Style */}
+        {/* Quick Questions */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="flex flex-wrap justify-center gap-3">
+            {COMMON_QUESTIONS.map((qa, index) => (
+              <button
+                key={index}
+                onClick={() => handleQuestionClick(index)}
+                disabled={loading}
+                className={`px-4 py-2 rounded-full border text-sm font-medium transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  selectedQuestion === index 
+                    ? 'bg-[#2D211B] text-white border-[#2D211B]' 
+                    : 'bg-background border-border hover:border-foreground/20'
+                }`}
+              >
+                {qa.question.slice(0, 30)}...
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Demo Chat */}
         <div className="max-w-4xl mx-auto mb-32">
-          <div className="bg-background border border-border/60 rounded-[2.5rem] overflow-hidden shadow-xl flex flex-col h-[600px]">
+          <div className="bg-background border border-border/60 rounded-[2.5rem] overflow-hidden shadow-xl flex flex-col h-[500px]">
             <div className="px-6 py-4 border-b flex items-center justify-between bg-[#FAF9F6]">
               <div className="flex items-center gap-4">
                 <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
                   <Brain className="h-4 w-4 text-white" />
                 </div>
                 <div>
-                   <p className="text-xs font-bold uppercase tracking-widest text-[#2D211B]">Co-Pilot Active</p>
+                   <p className="text-xs font-bold uppercase tracking-widest text-[#2D211B]">TaskLyne Active</p>
                    <p className="text-[10px] text-muted-foreground font-medium">Demo Mode</p>
                 </div>
               </div>
@@ -126,7 +139,7 @@ export default function DemoPage() {
                        {msg.role === 'assistant' ? <Brain className="h-4 w-4" /> : <span className="text-xs font-bold uppercase tracking-widest">U</span>}
                     </div>
                     <div className="flex-1 max-w-[80%]">
-                       <div className={`p-5 rounded-[1.5rem] text-sm leading-relaxed border ${msg.role === 'assistant' ? 'bg-muted/30' : 'bg-muted'}`}>
+                       <div className={`p-5 rounded-[1.5rem] text-sm leading-relaxed border whitespace-pre-wrap ${msg.role === 'assistant' ? 'bg-muted/30' : 'bg-muted'}`}>
                           {msg.content}
                        </div>
                        <p className={`text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60 mt-2 px-2 ${msg.role === 'user' ? 'text-right' : ''}`}>
@@ -152,91 +165,56 @@ export default function DemoPage() {
                  </div>
                )}
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="p-6 pt-4 bg-background border-t">
-               <div className="relative">
-                  <input 
-                    placeholder="Ask about your startup, log a decision..." 
-                    className="w-full h-14 pl-6 pr-14 rounded-full border border-border/80 bg-muted/10 text-sm focus:outline-none focus:border-foreground/30 transition-all font-medium"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleChat()}
-                  />
-                  <button 
-                    onClick={handleChat}
-                    className="absolute right-2 top-2 h-10 w-10 flex items-center justify-center rounded-full bg-[#2D211B] text-white hover:bg-[#2D211B]/90 transition-all"
-                  >
-                     <ArrowRight className="h-4 w-4" />
-                  </button>
-               </div>
-               <p className="text-[10px] text-center text-muted-foreground/60 mt-4 font-bold uppercase tracking-[0.2em]">Press Enter to send message</p>
+      {/* Features */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl font-serif font-medium tracking-tight mb-12">
+            Your data stays <span className="italic">yours.</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-background p-8 rounded-3xl border">
+              <CheckCircle2 className="h-8 w-8 mx-auto mb-4 text-green-600" />
+              <h3 className="font-bold text-lg mb-2">Fresh Start</h3>
+              <p className="text-muted-foreground text-sm">Every user starts with a clean slate. Add your own decisions, goals, and context.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border">
+              <CheckCircle2 className="h-8 w-8 mx-auto mb-4 text-green-600" />
+              <h3 className="font-bold text-lg mb-2">Zero Training</h3>
+              <p className="text-muted-foreground text-sm">Your data is never used to train AI models. Period.</p>
+            </div>
+            <div className="bg-background p-8 rounded-3xl border">
+              <CheckCircle2 className="h-8 w-8 mx-auto mb-4 text-green-600" />
+              <h3 className="font-bold text-lg mb-2">End-to-End Encrypted</h3>
+              <p className="text-muted-foreground text-sm">Your startup memory is encrypted and secure.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features - Bento Style */}
-      <section className="py-32 px-6 bg-[#FAF9F6] border-t">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 mb-10 justify-center">
-            <span className="w-1.5 h-6 bg-[#2D211B]" aria-hidden="true"></span>
-            <span className="font-serif italic text-3xl text-[#2D211B] tracking-tight">Technical Overview</span>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, i) => (
-              <div key={i} className="bg-background border border-border/60 rounded-[2rem] p-8 hover:border-foreground/20 transition-all shadow-sm flex flex-col justify-between">
-                <div>
-                   <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-6">
-                      <feature.icon className="h-5 w-5 text-[#2D211B]" />
-                   </div>
-                   <h3 className="text-xl font-serif font-medium tracking-tight mb-4">{feature.title}</h3>
-                   <p className="text-sm text-muted-foreground leading-relaxed font-medium">{feature.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-40 px-6 bg-background text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-12">
-            Build your collective <br /><span className="italic font-normal">intelligence today.</span>
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/signup" 
-              className="rounded-full px-12 h-16 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-all flex items-center justify-center text-xl shadow-lg"
+      <section className="py-32 px-6 text-center bg-[#FAF9F6] border-t">
+         <div className="max-w-4xl mx-auto flex flex-col items-center">
+             <h2 className="text-6xl md:text-7xl font-serif font-medium tracking-tight mb-12">
+               Ready for your <br /><span className="italic font-normal">own memory?</span>
+             </h2>
+             <Link 
+              href="/signup"
+              className="rounded-full px-12 h-16 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-all flex items-center justify-center text-lg shadow-xl hover:scale-[1.02]"
             >
-              Get Started Free <ArrowRight className="ml-3 h-5 w-5" />
-            </Link>
-            <Link 
-              href="/pricing" 
-              className="rounded-full px-12 h-16 border border-border bg-background hover:bg-muted font-medium transition-all flex items-center justify-center text-xl"
-            >
-              View Pricing
-            </Link>
-          </div>
-          <div className="flex items-center justify-center gap-8 mt-12 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
-             <span className="flex items-center gap-2">
-               <CheckCircle2 className="h-3 w-3" /> No card required
-             </span>
-             <span className="flex items-center gap-2">
-               <CheckCircle2 className="h-3 w-3" /> E2E Encrypted
-             </span>
-             <span className="flex items-center gap-2">
-               <CheckCircle2 className="h-3 w-3" /> SOC 2 Type II
-             </span>
-          </div>
-        </div>
+              Start Free <Plus className="ml-2 h-5 w-5" />
+             </Link>
+         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t py-16 px-6 bg-[#FAF9F6]">
         <div className="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-12">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-serif font-bold text-2xl tracking-tight">TaskLyne</span>
+            <span className="font-serif font-bold text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
             <Link href="/security" className="hover:text-foreground transition-colors">Security</Link>
@@ -246,7 +224,7 @@ export default function DemoPage() {
           </div>
         </div>
         <div className="container mx-auto px-6 max-w-6xl mt-12 pt-12 border-t border-border/40 text-center">
-           <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/40">© 2026 TaskLyne Intelligence Corp. All rights reserved.</p>
+           <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/40">© 2026 TaskLyne. All rights reserved.</p>
         </div>
       </footer>
     </div>
