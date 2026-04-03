@@ -225,7 +225,7 @@ export default function GoalsPage() {
             </div>
             <button 
               onClick={() => { setEditingGoal(null); setFormData({ title: '', description: '', deadline: '', priority: 'medium' }); setAddModalOpen(true) }}
-              className="group rounded-full px-8 h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-8 h-14 bg-foreground text-background hover:bg-foreground/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
               <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
               Define Objective
@@ -240,7 +240,7 @@ export default function GoalsPage() {
                 placeholder="Search strategic objectives..." 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
-                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
+                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
               />
             </div>
             <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar shrink-0 items-center px-4">
@@ -308,8 +308,8 @@ export default function GoalsPage() {
                           </div>
                           
                           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
-                               <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><Trash2 className="h-4 w-4" /></button>
+                               <button onClick={() => handleEdit(goal)} className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"><Edit className="h-4 w-4" /></button>
+                               <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"><Trash2 className="h-4 w-4" /></button>
                           </div>
                         </div>
 
@@ -359,14 +359,14 @@ export default function GoalsPage() {
               </div>
             ) : (
               <div className="py-24 text-center border border-dashed border-border/60 rounded-[3rem] bg-muted/5 animate-slide-up">
-                <div className="w-20 h-20 rounded-[2rem] bg-white border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
+                <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
                   <Target className="h-8 w-8 text-muted-foreground/20" />
                 </div>
                 <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">No active objectives</h3>
                 <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Establish your next strategic milestone to begin operational tracking.</p>
                 <button 
                   onClick={() => { setEditingGoal(null); setAddModalOpen(true) }}
-                  className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
+                  className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
                   <Plus className="h-5 w-5 mr-3" />
                   Define Objective
@@ -383,7 +383,7 @@ export default function GoalsPage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {completedGoals.map(goal => (
-                  <div key={goal.id} className="p-6 rounded-[2.5rem] bg-white border border-border/40 hover:border-foreground/10 transition-all group flex items-center justify-between shadow-sm">
+                  <div key={goal.id} className="p-6 rounded-[2.5rem] bg-card border border-border/40 hover:border-foreground/10 transition-all group flex items-center justify-between shadow-sm">
                     <div className="flex items-center gap-6">
                       <div className="w-12 h-12 rounded-2xl bg-green-500/5 text-green-600/40 flex items-center justify-center shrink-0 border border-green-100/50">
                          <Trophy className="h-5 w-5" />
@@ -399,7 +399,7 @@ export default function GoalsPage() {
                            {new Date(goal.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                          </p>
                       </div>
-                      <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/40 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0">
+                      <button onClick={() => handleDelete(goal.id)} className="w-10 h-10 rounded-full border border-border/40 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0">
                          <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
@@ -435,7 +435,7 @@ export default function GoalsPage() {
                 placeholder="Supplementary details for operational clarity..." 
                 value={formData.description} 
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })} 
-                className="w-full min-h-[140px] p-8 rounded-[2rem] border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
+                className="w-full min-h-[140px] p-8 rounded-[2rem] border border-border/60 bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
                />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up" style={{ animationDelay: '0.15s' }}>
@@ -479,7 +479,7 @@ export default function GoalsPage() {
             <button 
               onClick={handleSave} 
               disabled={saving || !formData.title.trim()}
-              className="rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
+              className="rounded-full px-12 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
             >
               {saving ? "Deploying..." : editingGoal ? "Commit Refinement" : "Deploy Objective"}
             </button>
@@ -489,6 +489,7 @@ export default function GoalsPage() {
     </div>
   )
 }
+
 
 
 

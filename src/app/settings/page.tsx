@@ -189,8 +189,8 @@ export default function SettingsPage() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -mr-32 -mt-32 pointer-events-none" />
               
               <div className="flex flex-col md:flex-row md:items-center gap-10 mb-12 pb-12 border-b border-border/40">
-                <div className="w-28 h-28 rounded-[2.5rem] bg-white border border-border shadow-2xl flex items-center justify-center text-4xl font-serif font-medium text-[#2D211B] shrink-0 group hover:rotate-3 transition-transform duration-500 relative">
-                  <div className="absolute inset-0 bg-[#2D211B] rounded-[2.5rem] opacity-0 group-hover:opacity-10 scale-95 group-hover:scale-105 transition-all duration-500" />
+                <div className="w-28 h-28 rounded-[2.5rem] bg-card border border-border shadow-2xl flex items-center justify-center text-4xl font-serif font-medium text-foreground shrink-0 group hover:rotate-3 transition-transform duration-500 relative">
+                  <div className="absolute inset-0 bg-foreground rounded-[2.5rem] opacity-0 group-hover:opacity-10 scale-95 group-hover:scale-105 transition-all duration-500" />
                   {initials}
                 </div>
                 <div>
@@ -246,7 +246,7 @@ export default function SettingsPage() {
                   <button 
                     onClick={handleSave} 
                     disabled={saving}
-                    className="group rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
+                    className="group rounded-full px-12 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
                   >
                     {saving ? "Saving..." : "Save changes"}
                     <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -271,7 +271,7 @@ export default function SettingsPage() {
               </div>
               <Link 
                 href="/pricing"
-                className="rounded-full px-10 h-14 bg-white border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
+                className="rounded-full px-10 h-14 bg-card border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent font-bold text-[10px] uppercase tracking-widest transition-all inline-flex items-center justify-center whitespace-nowrap shrink-0 shadow-sm active:scale-95 group"
               >
                 Scale Infrastructure <ArrowRight className="h-4 w-4 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -282,6 +282,7 @@ export default function SettingsPage() {
     </div>
   )
 }
+
 
 
 

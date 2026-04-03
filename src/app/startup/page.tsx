@@ -163,7 +163,7 @@ export default function StartupPage() {
 
           {/* Key Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-            <div className="bg-[#2D211B] rounded-3xl p-6 text-white">
+            <div className="bg-foreground rounded-3xl p-6 text-background">
               <div className="flex items-center justify-between mb-4 opacity-70">
                 <span className="text-[10px] font-bold uppercase tracking-widest">MRR</span>
                 <DollarSign className="h-4 w-4" />
@@ -321,6 +321,7 @@ export default function StartupPage() {
     </div>
   )
 }
+
 
 
 

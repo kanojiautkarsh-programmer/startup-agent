@@ -87,3 +87,4 @@ interface DialogFooterProps {
 export function DialogFooter({ className, children }: DialogFooterProps) {
   return <div className={cn("flex justify-end gap-2 mt-4", className)}>{children}</div>
 }
+

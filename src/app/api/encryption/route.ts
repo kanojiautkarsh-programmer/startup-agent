@@ -188,3 +188,4 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to delete encryption key' }, { status: 500 });
   }
 }
+

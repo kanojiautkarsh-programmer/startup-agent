@@ -162,7 +162,7 @@ export default function IntegrationsPage() {
                   </div>
                   <button
                     onClick={handleConnectGitHub}
-                    className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl flex items-center gap-3 active:scale-95 group"
+                    className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl flex items-center gap-3 active:scale-95 group"
                   >
                     Sync Repository <Plus className="h-4 w-4 group-hover:rotate-90 transition-transform" />
                   </button>
@@ -211,6 +211,7 @@ export default function IntegrationsPage() {
     </div>
   )
 }
+
 
 
 

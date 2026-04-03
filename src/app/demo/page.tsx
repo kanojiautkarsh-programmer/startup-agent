@@ -69,7 +69,7 @@ export default function DemoPage() {
             <Link href="/login" className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">Sign In</Link>
             <Link 
               href="/signup" 
-              className="rounded-full px-5 h-10 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-colors flex items-center justify-center text-xs shadow-sm"
+              className="rounded-full px-5 h-10 bg-foreground text-background hover:bg-foreground/90 font-medium transition-colors flex items-center justify-center text-xs shadow-sm"
             >
               Get Started
             </Link>
@@ -203,7 +203,7 @@ export default function DemoPage() {
              </h2>
              <Link 
               href="/signup"
-              className="rounded-full px-12 h-16 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-all flex items-center justify-center text-lg shadow-xl hover:scale-[1.02]"
+              className="rounded-full px-12 h-16 bg-foreground text-background hover:bg-foreground/90 font-medium transition-all flex items-center justify-center text-lg shadow-xl hover:scale-[1.02]"
             >
               Start Free <Plus className="ml-2 h-5 w-5" />
              </Link>
@@ -230,6 +230,7 @@ export default function DemoPage() {
     </div>
   )
 }
+
 
 
 

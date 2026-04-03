@@ -208,7 +208,7 @@ export default function DashboardPage() {
             </div>
             <Link 
               href="/chat"
-              className="group rounded-full px-8 h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-8 h-14 bg-foreground text-background hover:bg-foreground/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
               <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
               New Intelligence Session
@@ -299,7 +299,7 @@ export default function DashboardPage() {
                   <div className="divide-y divide-border/40">
                     {stats.recentConversations.map((conv) => (
                       <Link key={conv.id} href={`/chat?conversation=${conv.id}`} className="flex items-center gap-6 p-6 hover:bg-muted/30 transition-all group">
-                        <div className="w-12 h-12 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-[#2D211B] group-hover:text-white group-hover:border-transparent transition-all duration-500">
+                        <div className="w-12 h-12 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-foreground group-hover:text-background group-hover:border-transparent transition-all duration-300">
                           <MessageSquare className="h-5 w-5" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -313,7 +313,7 @@ export default function DashboardPage() {
                 ) : (
                   <div className="p-16 text-center">
                     <p className="text-lg font-serif italic text-muted-foreground mb-8">Establish a new context.</p>
-                    <Link href="/chat" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-white border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all">
+                    <Link href="/chat" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all">
                       Initial Session
                     </Link>
                   </div>
@@ -349,7 +349,7 @@ export default function DashboardPage() {
                 ) : (
                   <div className="p-16 text-center">
                     <p className="text-lg font-serif italic text-muted-foreground mb-8">Define your strategic horizon.</p>
-                    <Link href="/goals" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-white border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-black">
+                    <Link href="/goals" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-foreground">
                       Set New Goal
                     </Link>
                   </div>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 {stats.recentDecisions.map((decision) => (
                   <div key={decision.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6">
-                     <div className="w-14 h-14 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-[#2D211B] group-hover:text-white transition-all duration-500">
+                     <div className="w-14 h-14 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
                        <FileText className="h-6 w-6" />
                      </div>
                      <div>
@@ -387,7 +387,7 @@ export default function DashboardPage() {
             ) : (
               <div className="glass-card border border-border/40 border-dashed rounded-[2.5rem] p-16 text-center">
                 <p className="text-lg font-serif italic text-muted-foreground mb-8">No critical decisions recorded.</p>
-                <Link href="/memory" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-white border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-black">
+                <Link href="/memory" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-black">
                   Archive Intelligence
                 </Link>
               </div>
@@ -432,6 +432,7 @@ export default function DashboardPage() {
     </div>
   )
 }
+
 
 
 

@@ -203,3 +203,4 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
     </TooltipProvider>
   )
 }
+

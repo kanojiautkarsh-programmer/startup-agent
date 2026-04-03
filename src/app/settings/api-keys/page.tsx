@@ -316,7 +316,7 @@ export default function APIKeysPage() {
                             value={keyInput}
                             onChange={(e) => setKeyInput(e.target.value)}
                             placeholder="sk-protocol-..."
-                            className="flex-1 h-14 px-8 rounded-full border border-border/60 bg-white text-sm font-mono focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
+                            className="flex-1 h-14 px-8 rounded-full border border-border/60 bg-card text-sm font-mono focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm"
                             autoFocus
                           />
                           <div className="flex gap-3">
@@ -329,7 +329,7 @@ export default function APIKeysPage() {
                             <button 
                               onClick={() => handleSaveKey(provider.id, provider.keyField)} 
                               disabled={saving || !keyInput.trim()}
-                              className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50"
+                              className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50"
                             >
                               {saving ? 'Integrating...' : 'Integrate'}
                             </button>
@@ -350,7 +350,7 @@ export default function APIKeysPage() {
                            </div>
                            <button 
                              onClick={() => setShowKeys(prev => ({ ...prev, [provider.id]: !prev[provider.id] }))}
-                             className="w-14 h-14 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm text-muted-foreground shrink-0"
+                             className="w-14 h-14 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm text-muted-foreground shrink-0"
                              title={showKeys[provider.id] ? "Hide key" : "Reveal key"}
                            >
                              {showKeys[provider.id] ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -365,7 +365,7 @@ export default function APIKeysPage() {
                           </button>
                           <button 
                             onClick={() => handleDeleteKey(provider.id, provider.keyField)}
-                            className="w-14 h-14 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm group/btn"
+                            className="w-14 h-14 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm group/btn"
                             title="Remove Key"
                           >
                             <Trash2 className="h-5 w-5 text-muted-foreground/60 group-hover/btn:text-white transition-colors" />
@@ -376,7 +376,7 @@ export default function APIKeysPage() {
                       <div className="pt-10 border-t border-border/40 flex flex-col md:flex-row gap-4">
                         <button 
                           onClick={() => setEditingKey(provider.id)} 
-                          className="flex-1 rounded-full h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 group"
+                          className="flex-1 rounded-full h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 group"
                         >
                           Establish Handshake
                           <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -398,7 +398,7 @@ export default function APIKeysPage() {
             </div>
 
             <div className="mt-20 p-10 md:p-12 rounded-[3.5rem] bg-[#2D211B]/[0.02] border border-border/40 flex flex-col lg:flex-row gap-10 items-start lg:items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              <div className="w-16 h-16 rounded-[1.5rem] bg-white border border-border shadow-xl flex items-center justify-center shrink-0">
+              <div className="w-16 h-16 rounded-[1.5rem] bg-card border border-border shadow-xl flex items-center justify-center shrink-0">
                 <Shield className="h-7 w-7 text-primary" />
               </div>
               <div className="flex-1">
@@ -429,6 +429,7 @@ export default function APIKeysPage() {
     </div>
   )
 }
+
 
 
 

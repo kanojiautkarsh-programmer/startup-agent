@@ -91,3 +91,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/login?error=oidc_init_failed', request.url));
   }
 }
+

@@ -50,9 +50,9 @@ const typeIcons = {
 }
 
 const typeColors = {
-  decision: "bg-[#2D211B] text-white border-transparent shadow-lg",
+  decision: "bg-foreground text-background border-transparent shadow-lg",
   commitment: "bg-primary/10 text-primary border-primary/20",
-  context: "bg-blue-50 text-blue-600 border-blue-100",
+  context: "bg-muted text-muted-foreground border-border",
   note: "bg-muted text-muted-foreground border-border",
 }
 
@@ -72,7 +72,7 @@ function Section({ title, icon: Icon, children, defaultOpen = true, count }: {
         className="flex items-center justify-between w-full text-left focus:outline-none group mb-6 px-4"
       >
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-2xl bg-muted/20 border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:bg-[#2D211B] group-hover:text-white transition-all shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-muted/20 border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:bg-foreground group-hover:text-background transition-all shrink-0">
             <Icon className="h-4 w-4" />
           </div>
           <h3 className="font-serif text-2xl font-medium tracking-tight text-foreground group-hover:text-primary transition-colors">
@@ -226,7 +226,7 @@ export default function MemoryPage() {
                </div>
               <button 
                 onClick={() => { setEditingMemory(null); setFormData({ type: 'decision', title: '', content: '' }); setAddModalOpen(true) }}
-                className="group rounded-full px-8 h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+                className="group rounded-full px-8 h-14 bg-foreground text-background hover:bg-foreground/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
               >
                 <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
                 Archive Memory
@@ -242,7 +242,7 @@ export default function MemoryPage() {
                 placeholder="Search distributed context..." 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
-                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
+                className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
               />
             </div>
             <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0 hide-scrollbar shrink-0 items-center px-2">
@@ -257,8 +257,8 @@ export default function MemoryPage() {
                   className={cn(
                     "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all whitespace-nowrap shadow-sm border",
                     filterType === type 
-                      ? "bg-[#2D211B] text-white border-transparent shadow-xl scale-105" 
-                      : "bg-white text-muted-foreground/60 border-border/60 hover:bg-muted/30 hover:text-foreground hover:border-foreground/10"
+                      ? "bg-foreground text-background border-transparent shadow-xl scale-105" 
+                      : "bg-card text-muted-foreground/60 border-border/60 hover:bg-muted/30 hover:text-foreground hover:border-foreground/10"
                   )}
                 >
                   {type}
@@ -279,10 +279,10 @@ export default function MemoryPage() {
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
                         <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background hover:border-transparent transition-all">
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background hover:border-transparent transition-all">
                             <Edit className="h-4 w-4" />
                           </button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-transparent transition-all">
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-transparent transition-all">
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
@@ -311,8 +311,8 @@ export default function MemoryPage() {
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
                         <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all"><Edit className="h-4 w-4" /></button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all"><Edit className="h-4 w-4" /></button>
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
                         </div>
                       </div>
                       <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] mb-6 font-medium">{memory.content}</p>
@@ -333,8 +333,8 @@ export default function MemoryPage() {
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-bold text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">{memory.title}</p>
                         <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all"><Edit className="h-4 w-4" /></button>
-                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
+                          <button onClick={() => handleEdit(memory)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all"><Edit className="h-4 w-4" /></button>
+                          <button onClick={() => handleDelete(memory.id)} className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 className="h-4 w-4" /></button>
                         </div>
                       </div>
                       <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] font-medium">{memory.content}</p>
@@ -346,14 +346,14 @@ export default function MemoryPage() {
 
             {filteredMemories.length === 0 && (
               <div className="py-24 text-center border border-dashed border-border/60 rounded-[3rem] bg-muted/5 animate-slide-up">
-                <div className="w-20 h-20 rounded-[2rem] bg-white border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
+                <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
                   <Archive className="h-8 w-8 text-muted-foreground/20" />
                 </div>
                 <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">Index is empty</h3>
                 <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Capture your startup's evolution. Begin archiving decisions and strategic commitments.</p>
                 <button 
                   onClick={() => { setEditingMemory(null); setAddModalOpen(true) }}
-                  className="rounded-full px-10 h-14 bg-[#2D211B] text-white hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
+                  className="rounded-full px-10 h-14 bg-foreground text-background hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
                   <Plus className="h-5 w-5 mr-3" />
                   Initial Archive Entry
@@ -384,8 +384,8 @@ export default function MemoryPage() {
                     className={cn(
                       "px-6 h-11 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all shadow-sm border",
                       formData.type === type 
-                        ? "bg-[#2D211B] text-white border-transparent" 
-                        : "bg-white border-border/60 text-muted-foreground/60 hover:border-foreground/30 hover:text-foreground"
+                      ? "bg-foreground text-background border-transparent" 
+                      : "bg-card border-border/60 text-muted-foreground/60 hover:border-foreground/30 hover:text-foreground"
                     )}
                   >
                     {type}
@@ -410,7 +410,7 @@ export default function MemoryPage() {
                 placeholder="Record the details of this memory..." 
                 value={formData.content} 
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })} 
-                className="w-full min-h-[160px] p-8 rounded-[2rem] border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
+                className="w-full min-h-[160px] p-8 rounded-[2rem] border border-border/60 bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all resize-none leading-relaxed font-medium placeholder:text-muted-foreground/30 shadow-sm" 
                />
             </div>
           </div>
@@ -425,7 +425,7 @@ export default function MemoryPage() {
             <button 
               onClick={handleSave} 
               disabled={saving || !formData.title.trim() || !formData.content.trim()}
-              className="rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
+              className="rounded-full px-12 h-14 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-widest transition-all shadow-2xl disabled:opacity-50 w-full sm:w-auto active:scale-95"
             >
               {saving ? "Indexing..." : editingMemory ? "Commit Update" : "Archive Asset"}
             </button>
@@ -435,6 +435,7 @@ export default function MemoryPage() {
     </div>
   )
 }
+
 
 
 

@@ -104,3 +104,4 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to update commitment' }, { status: 500 });
   }
 }
+

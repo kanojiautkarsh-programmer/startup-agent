@@ -224,7 +224,7 @@ export default function StartupProfilePage() {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none" />
                 
                 <div className="flex items-center gap-6 mb-12">
-                   <div className="w-14 h-14 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
+                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
                       <Building2 className="h-7 w-7" />
                    </div>
                    <div>
@@ -323,7 +323,7 @@ export default function StartupProfilePage() {
                     value={form.description}
                     onChange={e => setForm({ ...form, description: e.target.value })}
                     rows={4}
-                    className="w-full p-8 rounded-[2rem] border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
+                    className="w-full p-8 rounded-[2rem] border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
                     placeholder="Full business logic overview..."
                   />
                 </div>
@@ -331,7 +331,7 @@ export default function StartupProfilePage() {
 
               <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl relative group">
                 <div className="flex items-center gap-6 mb-12">
-                   <div className="w-14 h-14 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
+                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
                       <Target className="h-7 w-7" />
                    </div>
                    <div>
@@ -349,7 +349,7 @@ export default function StartupProfilePage() {
                       value={form.target_market}
                       onChange={e => setForm({ ...form, target_market: e.target.value })}
                       rows={3}
-                      className="w-full p-8 rounded-[2rem] border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
+                      className="w-full p-8 rounded-[2rem] border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
                       placeholder="Specify your ideal entity profiles..."
                     />
                   </div>
@@ -362,7 +362,7 @@ export default function StartupProfilePage() {
                       value={form.current_challenges}
                       onChange={e => setForm({ ...form, current_challenges: e.target.value })}
                       rows={3}
-                      className="w-full p-8 rounded-[2rem] border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
+                      className="w-full p-8 rounded-[2rem] border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
                       placeholder="What is currently slowing your deployment?"
                     />
                   </div>
@@ -384,7 +384,7 @@ export default function StartupProfilePage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="rounded-full px-12 h-16 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.3em] transition-all shadow-2xl flex items-center gap-3 active:scale-95 disabled:opacity-50"
+                  className="rounded-full px-12 h-16 bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.3em] transition-all shadow-2xl flex items-center gap-3 active:scale-95 disabled:opacity-50"
                 >
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                   {saving ? 'Synchronizing...' : 'Save Context Profile'}
@@ -397,6 +397,7 @@ export default function StartupProfilePage() {
     </div>
   )
 }
+
 
 
 

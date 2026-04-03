@@ -87,3 +87,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/settings?error=github_callback_failed', request.url));
   }
 }
+

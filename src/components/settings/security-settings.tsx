@@ -293,7 +293,7 @@ export function SecuritySettings() {
             className={cn(
                "flex items-center gap-3 px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] transition-all rounded-full border",
                activeTab === tab.id
-                ? 'bg-[#2D211B] text-white border-transparent shadow-xl'
+                ? 'bg-foreground text-background border-transparent shadow-xl'
                 : 'bg-white text-muted-foreground/60 border-border/60 hover:border-primary/40 hover:text-foreground'
             )}
           >
@@ -309,7 +309,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl group relative overflow-hidden">
                 <div className="flex items-center justify-between mb-12">
                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
+                      <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background group-hover:scale-110 transition-transform duration-500">
                          <Lock className="h-8 w-8" />
                       </div>
                       <div>
@@ -352,12 +352,12 @@ export function SecuritySettings() {
                                    <Fingerprint className="h-3 w-3" /> User Fingerprint
                                 </label>
                                 <div className="flex gap-3">
-                                   <code className="flex-1 rounded-2xl bg-white border border-border/60 px-6 py-4 text-xs font-mono tracking-tight text-foreground/80 truncate">
+                                   <code className="flex-1 rounded-2xl bg-card border border-border/60 px-6 py-4 text-xs font-mono tracking-tight text-foreground/80 truncate">
                                       {keyFingerprint || 'Establishing trace...'}
                                    </code>
                                    <button 
                                       onClick={() => setShowKey(!showKey)}
-                                      className="w-14 h-14 rounded-2xl border border-border/60 bg-white flex items-center justify-center hover:bg-[#2D211B] hover:text-white transition-all shadow-sm"
+                                      className="w-14 h-14 rounded-2xl border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm"
                                    >
                                       {showKey ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                    </button>
@@ -396,7 +396,7 @@ export function SecuritySettings() {
 
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl group">
                <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
                      <Database className="h-7 w-7" />
                   </div>
                   <div>
@@ -413,7 +413,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
                <div className="flex items-center justify-between mb-12 pb-8 border-b border-border/40">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background">
                         <ShieldCheck className="h-8 w-8" />
                      </div>
                      <div>
@@ -435,7 +435,7 @@ export function SecuritySettings() {
                         {ssoProviders.length > 0 ? (
                            <div className="grid gap-3">
                               {ssoProviders.map((p) => (
-                                 <div key={p.id} className="flex items-center justify-between p-5 rounded-2xl bg-white border border-border/60 hover:border-primary/40 transition-all shadow-sm group">
+                                 <div key={p.id} className="flex items-center justify-between p-5 rounded-2xl bg-card border border-border/60 hover:border-primary/40 transition-all shadow-sm group">
                                     <div className="flex items-center gap-4">
                                        <div className="w-10 h-10 rounded-xl bg-[#2D211B]/5 border border-[#2D211B]/10 flex items-center justify-center text-[#2D211B] font-bold text-[10px]">
                                           {p.provider.substring(0, 2).toUpperCase()}
@@ -464,7 +464,7 @@ export function SecuritySettings() {
                            onClick={() => setSsoProvider('saml')} 
                            className={cn(
                               "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
-                              ssoProvider === 'saml' ? "bg-[#2D211B] text-white border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                              ssoProvider === 'saml' ? "bg-foreground text-background border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
                            )}
                         >
                            Establish SAML 2.0
@@ -473,7 +473,7 @@ export function SecuritySettings() {
                            onClick={() => setSsoProvider('oidc')} 
                            className={cn(
                               "flex-1 h-16 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all",
-                              ssoProvider === 'oidc' ? "bg-[#2D211B] text-white border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
+                              ssoProvider === 'oidc' ? "bg-foreground text-background border-transparent shadow-xl" : "bg-white border-border/60 hover:border-primary/40"
                            )}
                         >
                            Establish OIDC
@@ -489,7 +489,7 @@ export function SecuritySettings() {
                               <div className="space-y-2">
                                  <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 ml-2">Provider ID</label>
                                  <input 
-                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
+                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
                                     placeholder="e.g. Identity Node 01"
                                     value={ssoConfig.name}
                                     onChange={(e) => setSsoConfig({ ...ssoConfig, name: e.target.value })}
@@ -498,7 +498,7 @@ export function SecuritySettings() {
                               <div className="space-y-2">
                                  <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 ml-2">Issuer URI</label>
                                  <input 
-                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
+                                    className="w-full h-12 px-6 rounded-xl border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 transition-all font-medium"
                                     placeholder="https://idp.identity.com"
                                     value={ssoConfig.issuer}
                                     onChange={(e) => setSsoConfig({ ...ssoConfig, issuer: e.target.value })}
@@ -531,7 +531,7 @@ export function SecuritySettings() {
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl">
                <div className="flex items-center justify-between mb-12">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background">
                         <Clock className="h-8 w-8" />
                      </div>
                      <div>
@@ -539,7 +539,7 @@ export function SecuritySettings() {
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Real-time account surveillance</p>
                      </div>
                   </div>
-                  <button onClick={fetchAuditLogs} className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-primary/[0.02] transition-all group">
+                  <button onClick={fetchAuditLogs} className="w-12 h-12 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-primary/[0.02] transition-all group">
                      <RefreshCw className={cn("h-5 w-5 text-muted-foreground/60 transition-transform duration-500", loading && "animate-spin")} />
                   </button>
                </div>
@@ -547,7 +547,7 @@ export function SecuritySettings() {
                <div className="space-y-4 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar">
                   {auditLogs.length > 0 ? (
                      auditLogs.map((log) => (
-                        <div key={log.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-white border border-border/40 hover:border-primary/20 hover:shadow-lg transition-all group">
+                        <div key={log.id} className="flex items-center justify-between p-6 rounded-[2rem] bg-card border border-border/40 hover:border-primary/20 hover:shadow-lg transition-all group">
                            <div className="flex items-center gap-6">
                               <div className={cn(
                                  "w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-xl transition-all group-hover:scale-110",
@@ -589,7 +589,7 @@ export function SecuritySettings() {
             <div className="grid lg:grid-cols-2 gap-8">
                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl space-y-10 group">
                   <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 rounded-[1.5rem] bg-[#2D211B] shadow-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-500">
+                     <div className="w-16 h-16 rounded-[1.5rem] bg-foreground shadow-2xl flex items-center justify-center text-background group-hover:scale-110 transition-transform duration-500">
                         <Shield className="h-8 w-8" />
                      </div>
                      <div>
@@ -600,7 +600,7 @@ export function SecuritySettings() {
 
                   <div className="space-y-6">
                      <p className="text-sm text-foreground/80 leading-relaxed">TaskLyne enforces a strict zero-data policy. Your organizational intelligence remains exclusive to your instance and is never used for training foundation models.</p>
-                     <div className="p-8 rounded-[2rem] bg-white border border-border/60 hover:border-primary/40 transition-all shadow-sm">
+                     <div className="p-8 rounded-[2rem] bg-card border border-border/60 hover:border-primary/40 transition-all shadow-sm">
                         <div className="flex items-center justify-between mb-6">
                            <div className="space-y-1">
                               <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B]">Training Opt-Out</h4>
@@ -632,7 +632,7 @@ export function SecuritySettings() {
                <div className="space-y-8">
                   <div className="glass-card border border-border/40 rounded-[3rem] p-10 hover:border-primary/20 transition-all shadow-xl">
                      <div className="flex items-center gap-6 mb-8">
-                        <div className="w-12 h-12 rounded-2xl bg-white border border-border shadow-xl flex items-center justify-center text-primary">
+                        <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-primary">
                            <History className="h-6 w-6" />
                         </div>
                         <h2 className="text-2xl font-serif font-medium tracking-tight">Persistence Rules</h2>
@@ -665,7 +665,7 @@ export function SecuritySettings() {
                      <button 
                         onClick={handleExportData}
                         disabled={loading}
-                        className="w-full h-14 rounded-full bg-white text-[#2D211B] text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                        className="w-full h-14 rounded-full bg-card text-foreground text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                      >
                         {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                         Execute Intelligence Export
@@ -679,3 +679,4 @@ export function SecuritySettings() {
     </div>
   );
 }
+

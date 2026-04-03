@@ -79,3 +79,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/settings?error=notion_callback_failed', request.url));
   }
 }
+

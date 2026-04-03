@@ -174,3 +174,4 @@ function parseUserAgent(userAgent: string) {
   
   return { device_type: deviceType, browser, os };
 }
+

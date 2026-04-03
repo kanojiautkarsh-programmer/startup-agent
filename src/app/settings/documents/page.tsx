@@ -313,7 +313,7 @@ export default function DocumentsPage() {
                {/* Manual Ingestion */}
                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
                   <div className="flex items-center gap-4 mb-10">
-                     <div className="w-12 h-12 rounded-2xl bg-white border border-border shadow-lg flex items-center justify-center text-[#2D211B]">
+                     <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-lg flex items-center justify-center text-[#2D211B]">
                         <FileText className="h-6 w-6" />
                      </div>
                      <div>
@@ -341,14 +341,14 @@ export default function DocumentsPage() {
                         onChange={(e) => setContent(e.target.value)}
                         placeholder="Paste context for vector alignment..."
                         rows={6}
-                        className="w-full p-8 rounded-[2rem] border border-border/60 bg-white text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
+                        className="w-full p-8 rounded-[2rem] border border-border/60 bg-card text-sm focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all shadow-sm resize-none"
                       />
                     </div>
 
                     <button
                       onClick={handleIngest}
                       disabled={uploadState.uploading || !title.trim() || !content.trim()}
-                      className="w-full h-14 rounded-full bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                      className="w-full h-14 rounded-full bg-foreground text-background hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
                     >
                       {uploadState.uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
                       {uploadState.uploading ? 'Processing...' : 'Engage Ingestion'}
@@ -360,7 +360,7 @@ export default function DocumentsPage() {
                <div className="flex flex-col gap-8">
                   <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl animate-slide-up" style={{ animationDelay: '0.15s' }}>
                     <div className="flex items-center gap-4 mb-8">
-                      <div className="w-12 h-12 rounded-2xl bg-white border border-border shadow-lg flex items-center justify-center text-[#2D211B]">
+                      <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-lg flex items-center justify-center text-[#2D211B]">
                           <Upload className="h-6 w-6" />
                       </div>
                       <div>
@@ -474,7 +474,7 @@ export default function DocumentsPage() {
                         </div>
                         <button
                           onClick={() => handleDelete(doc.id)}
-                          className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-transparent transition-all shadow-sm group-hover:translate-x-0 translate-x-4 opacity-0 group-hover:opacity-100"
+                          className="w-12 h-12 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-transparent transition-all shadow-sm group-hover:translate-x-0 translate-x-4 opacity-0 group-hover:opacity-100"
                         >
                           <Trash2 className="h-5 w-5" />
                         </button>
@@ -490,6 +490,7 @@ export default function DocumentsPage() {
     </div>
   )
 }
+
 
 
 

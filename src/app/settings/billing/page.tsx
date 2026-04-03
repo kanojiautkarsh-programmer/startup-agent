@@ -203,7 +203,7 @@ export default function BillingPage() {
                           isCurrent 
                             ? 'bg-muted border border-border/60 text-muted-foreground/60 cursor-not-allowed' 
                             : isPro 
-                              ? 'bg-[#2D211B] text-white hover:bg-primary' 
+                              ? 'bg-foreground text-background hover:bg-primary' 
                               : 'bg-white border border-border/60 hover:bg-foreground hover:text-background hover:border-transparent text-foreground'
                         )}
                         disabled={isCurrent || loading !== null}
@@ -246,7 +246,7 @@ export default function BillingPage() {
                          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40 mt-1">Expiry: 12 / 2026</p>
                        </div>
                      </div>
-                     <button className="w-12 h-12 rounded-full border border-border/60 bg-white flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm">
+                     <button className="w-12 h-12 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-foreground hover:text-background transition-all shadow-sm">
                         <ChevronRight className="h-5 w-5" />
                      </button>
                    </div>
@@ -278,7 +278,7 @@ export default function BillingPage() {
                      ].map((invoice, idx) => (
                        <div key={idx} className="flex items-center justify-between p-6 px-4 hover:bg-primary/[0.02] border-b border-border/20 transition-colors group">
                          <div className="flex items-center gap-6">
-                           <div className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center text-muted-foreground/40 group-hover:text-primary transition-colors">
+                           <div className="w-10 h-10 rounded-full border border-border/60 bg-card flex items-center justify-center text-muted-foreground/40 group-hover:text-primary transition-colors">
                              <Download className="h-4 w-4" />
                            </div>
                            <div>
@@ -304,6 +304,7 @@ export default function BillingPage() {
     </div>
   );
 }
+
 
 
 

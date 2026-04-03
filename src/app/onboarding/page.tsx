@@ -422,7 +422,7 @@ export default function OnboardingPage() {
                            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">Intelligence Feed</p>
                            <div className="flex flex-wrap gap-2">
                               {selectedIntegrations.length > 0 ? selectedIntegrations.map(i => (
-                                <span key={i} className="px-3 py-1 bg-white border border-border shadow-sm rounded-full text-[9px] font-bold uppercase tracking-widest">{i}</span>
+                                <span key={i} className="px-3 py-1 bg-card border border-border shadow-sm rounded-full text-[9px] font-bold uppercase tracking-widest">{i}</span>
                               )) : <span className="text-[10px] text-muted-foreground italic">No external sources connected</span>}
                            </div>
                         </div>
@@ -512,6 +512,7 @@ function BuildingIcon(props: any) {
     </svg>
   );
 }
+
 
 
 

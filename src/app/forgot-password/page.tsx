@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full rounded-full h-12 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-medium transition-colors flex items-center justify-center mt-4"
+                  className="w-full rounded-full h-12 bg-foreground text-background hover:bg-foreground/90 font-medium transition-colors flex items-center justify-center mt-4"
                 >
                   {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Send Reset Link"}
                 </button>
@@ -124,6 +124,7 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+
 
 
 

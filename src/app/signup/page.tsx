@@ -176,7 +176,7 @@ export default function SignupPage() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full rounded-full h-14 bg-[#2D211B] text-white hover:bg-[#2D211B]/90 font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full rounded-full h-14 bg-foreground text-background hover:bg-foreground/90 font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Create account"}
               </button>
@@ -197,6 +197,7 @@ export default function SignupPage() {
     </div>
   )
 }
+
 
 
 

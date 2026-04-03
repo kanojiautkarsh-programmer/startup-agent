@@ -182,3 +182,4 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
     </header>
   );
 }
+
