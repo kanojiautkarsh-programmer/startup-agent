@@ -554,4 +554,5 @@ ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS last_security_review TIMESTAMPTZ,
   ADD COLUMN IF NOT EXISTS security_review_token TEXT,
   ADD COLUMN IF NOT EXISTS accepted_terms_version TEXT,
-  ADD COLUMN IF NOT EXISTS accepted_privacy_policy_version TEXT;
+  ADD COLUMN IF NOT EXISTS accepted_privacy_policy_version TEXT,
+  ADD COLUMN IF NOT EXISTS github_key_encrypted TEXT;

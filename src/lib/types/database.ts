@@ -19,6 +19,7 @@ export interface Database {
           openai_key_encrypted: string | null
           anthropic_key_encrypted: string | null
           gemini_key_encrypted: string | null
+          github_key_encrypted: string | null
           e2ee_enabled: boolean | null
           e2ee_key_id: string | null
           sso_mandatory: boolean | null
@@ -41,6 +42,7 @@ export interface Database {
           openai_key_encrypted?: string | null
           anthropic_key_encrypted?: string | null
           gemini_key_encrypted?: string | null
+          github_key_encrypted?: string | null
           e2ee_enabled?: boolean | null
           e2ee_key_id?: string | null
           sso_mandatory?: boolean | null
@@ -63,6 +65,7 @@ export interface Database {
           openai_key_encrypted?: string | null
           anthropic_key_encrypted?: string | null
           gemini_key_encrypted?: string | null
+          github_key_encrypted?: string | null
           e2ee_enabled?: boolean | null
           e2ee_key_id?: string | null
           sso_mandatory?: boolean | null
