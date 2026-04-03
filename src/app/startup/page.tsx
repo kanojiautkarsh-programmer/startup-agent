@@ -63,6 +63,7 @@ export default function StartupPage() {
   const [latestMetrics, setLatestMetrics] = useState<Metric | null>(null)
   const [commitments, setCommitments] = useState<Commitment[]>([])
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([])
+  const [authUser, setAuthUser] = useState<{ full_name?: string; email?: string } | null>(null)
   const supabase = createClient()
 
   useEffect(() => {
@@ -72,6 +73,11 @@ export default function StartupPage() {
         router.push('/login')
         return
       }
+
+      setAuthUser({
+        full_name: user.user_metadata?.full_name || user.email?.split('@')[0],
+        email: user.email
+      })
 
       const [profileRes, metricsRes, commitmentsRes, journalRes] = await Promise.all([
         supabase.from('startup_profiles').select('*').eq('user_id', user.id).single(),
@@ -92,9 +98,10 @@ export default function StartupPage() {
 
   const getGreeting = () => {
     const hour = new Date().getHours()
-    if (hour < 12) return 'Good morning'
-    if (hour < 18) return 'Good afternoon'
-    return 'Good evening'
+    if (hour >= 5 && hour < 12) return 'Good morning'
+    if (hour >= 12 && hour < 17) return 'Good afternoon'
+    if (hour >= 17 && hour < 21) return 'Good evening'
+    return 'Good night'
   }
 
   const formatCurrency = (num: number) => {
@@ -132,24 +139,24 @@ export default function StartupPage() {
 
   return (
     <div className="min-h-dvh bg-background font-sans">
-      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={{}} />
-      <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} />
+      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} user={authUser} />
+      <Header onOpenCommand={() => setCommandOpen(true)} sidebarCollapsed={sidebarCollapsed} user={authUser} />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? 'pl-16' : 'pl-60'}`}>
         <div className="p-8 md:p-12 max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-4xl font-serif font-medium tracking-tight mb-2">
-              {getGreeting()}, Founder
+            <h1 className="text-4xl font-serif font-medium tracking-tight mb-2 text-balance">
+              {getGreeting()}, <span className="italic font-normal text-muted-foreground/60">{authUser?.full_name?.split(' ')[0] || 'Founder'}</span>
             </h1>
             {profile?.company_name ? (
-              <p className="text-muted-foreground">
-                Welcome back to <span className="font-semibold">{profile.company_name}</span>
+              <p className="text-muted-foreground font-medium">
+                Welcome back to <span className="font-semibold text-foreground">{profile.company_name}</span>
               </p>
             ) : (
-              <p className="text-muted-foreground">
-                <Link href="/settings/startup" className="text-blue-600 hover:underline">Set up your startup profile</Link> to get personalized insights
+              <p className="text-muted-foreground font-medium">
+                <Link href="/settings/startup" className="text-foreground underline underline-offset-4 hover:text-primary transition-colors">Set up your startup profile</Link> to get personalized insights
               </p>
             )}
           </div>
@@ -213,7 +220,7 @@ export default function StartupPage() {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                         commitment.priority === 'critical' ? 'bg-red-100 text-red-600' :
                         commitment.priority === 'high' ? 'bg-orange-100 text-orange-600' :
-                        'bg-muted'
+                        'bg-muted text-muted-foreground'
                       }`}>
                         {commitment.status === 'completed' ? <CheckCircle2 className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
                       </div>
@@ -233,7 +240,7 @@ export default function StartupPage() {
                 <div className="text-center py-8 text-muted-foreground">
                   <Trophy className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p className="text-sm">No pending commitments</p>
-                  <Link href="/startup/commitments" className="text-sm text-blue-600 hover:underline mt-1 inline-block">
+                  <Link href="/startup/commitments" className="text-sm text-primary hover:underline underline-offset-4 mt-1 inline-block">
                     Add your first commitment
                   </Link>
                 </div>
@@ -274,7 +281,7 @@ export default function StartupPage() {
                 <div className="text-center py-8 text-muted-foreground">
                   <Edit3 className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p className="text-sm">No journal entries yet</p>
-                  <Link href="/startup/journal" className="text-sm text-blue-600 hover:underline mt-1 inline-block">
+                  <Link href="/startup/journal" className="text-sm text-primary hover:underline underline-offset-4 mt-1 inline-block">
                     Write your first entry
                   </Link>
                 </div>
@@ -284,27 +291,27 @@ export default function StartupPage() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/startup/profile" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-all flex flex-col items-center justify-center text-center group">
-              <div className="w-12 h-12 rounded-full bg-background border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Edit3 className="h-5 w-5" />
+            <Link href="/startup/profile" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-colors duration-150 flex flex-col items-center justify-center text-center group">
+              <div className="size-12 rounded-full bg-background border flex items-center justify-center mb-4 transition-transform duration-150 group-hover:scale-110">
+                <Edit3 className="size-5" aria-hidden="true" />
               </div>
               <p className="font-medium text-sm">Edit Startup</p>
             </Link>
-            <Link href="/startup/metrics" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-all flex flex-col items-center justify-center text-center group">
-              <div className="w-12 h-12 rounded-full bg-background border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <TrendingUp className="h-5 w-5" />
+            <Link href="/startup/metrics" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-colors duration-150 flex flex-col items-center justify-center text-center group">
+              <div className="size-12 rounded-full bg-background border flex items-center justify-center mb-4 transition-transform duration-150 group-hover:scale-110">
+                <TrendingUp className="size-5" aria-hidden="true" />
               </div>
               <p className="font-medium text-sm">Log Metrics</p>
             </Link>
-            <Link href="/startup/journal" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-all flex flex-col items-center justify-center text-center group">
-              <div className="w-12 h-12 rounded-full bg-background border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Plus className="h-5 w-5" />
+            <Link href="/startup/journal" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-colors duration-150 flex flex-col items-center justify-center text-center group">
+              <div className="size-12 rounded-full bg-background border flex items-center justify-center mb-4 transition-transform duration-150 group-hover:scale-110">
+                <Plus className="size-5" aria-hidden="true" />
               </div>
               <p className="font-medium text-sm">New Journal</p>
             </Link>
-            <Link href="/startup/commitments" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-all flex flex-col items-center justify-center text-center group">
-              <div className="w-12 h-12 rounded-full bg-background border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Target className="h-5 w-5" />
+            <Link href="/startup/commitments" className="rounded-3xl border bg-muted/10 p-6 hover:bg-muted/30 transition-colors duration-150 flex flex-col items-center justify-center text-center group">
+              <div className="size-12 rounded-full bg-background border flex items-center justify-center mb-4 transition-transform duration-150 group-hover:scale-110">
+                <Target className="size-5" aria-hidden="true" />
               </div>
               <p className="font-medium text-sm">Add Commitment</p>
             </Link>

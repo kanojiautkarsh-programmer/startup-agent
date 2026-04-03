@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Search, Bell, Sun, Moon, Command, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { createClient } from "@/lib/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +22,28 @@ interface HeaderProps {
   user?: { full_name?: string; email?: string } | null;
 }
 
-export function Header({ onOpenCommand, sidebarCollapsed, user }: HeaderProps) {
+export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: HeaderProps) {
   const [isDark, setIsDark] = React.useState(false);
+  const [user, setUser] = React.useState<{ full_name?: string; email?: string } | null | undefined>(userProp);
+  const supabase = createClient();
+
+  // Self-fetch user when not provided via prop
+  React.useEffect(() => {
+    if (userProp !== undefined) {
+      setUser(userProp);
+      return;
+    }
+    const fetchUser = async () => {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (authUser) {
+        setUser({
+          full_name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0],
+          email: authUser.email
+        });
+      }
+    };
+    fetchUser();
+  }, [userProp]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);

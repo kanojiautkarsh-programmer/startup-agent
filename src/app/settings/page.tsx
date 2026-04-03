@@ -207,35 +207,38 @@ export default function SettingsPage() {
 
               <div className="space-y-10 max-w-2xl">
                 <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.15s' }}>
-                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Operator Full Name</label>
-                  <input 
-                    value={formData.full_name} 
-                    onChange={(e) => setFormData({ ...formData, full_name: e.target.value })} 
-                    placeholder="Your legal or operational name" 
-                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
+                  <label htmlFor="settings-name" className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Full Name</label>
+                  <input
+                    id="settings-name"
+                    value={formData.full_name}
+                    onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                    placeholder="Your name"
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
                 <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Authentication Endpoint</label>
+                  <label htmlFor="settings-email" className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Email</label>
                   <div className="relative">
-                    <input 
-                      value={user?.email || ''} 
-                      disabled 
-                      className="w-full h-14 px-8 rounded-full border border-border/40 bg-muted/20 text-sm text-muted-foreground/60 transition-colors cursor-not-allowed font-medium shadow-inner" 
+                    <input
+                      id="settings-email"
+                      value={user?.email || ''}
+                      disabled
+                      className="w-full h-14 px-8 rounded-full border border-border/40 bg-muted/20 text-sm text-muted-foreground/60 transition-colors cursor-not-allowed font-medium shadow-inner"
                     />
-                    <Shield className="absolute right-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/20" />
+                    <Shield className="absolute right-6 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/20" aria-hidden="true" />
                   </div>
-                  <p className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest ml-2">Authenticated via distributed ledger</p>
+                  <p className="text-[10px] text-muted-foreground/40 font-medium ml-2">Verified — contact support to change your email</p>
                 </div>
 
                 <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.25s' }}>
-                  <label className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Corporate Entity Name</label>
-                  <input 
-                    value={formData.company} 
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })} 
-                    placeholder="Startup or Organization identifier" 
-                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all font-medium placeholder:text-muted-foreground/30 shadow-sm"
+                  <label htmlFor="settings-company" className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/40 ml-2">Company / Organization</label>
+                  <input
+                    id="settings-company"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    placeholder="Your company or startup name"
+                    className="w-full h-14 px-8 rounded-full border border-border/60 bg-white text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/5 transition-colors duration-150 font-medium placeholder:text-muted-foreground/30 shadow-sm"
                   />
                 </div>
 
@@ -245,7 +248,7 @@ export default function SettingsPage() {
                     disabled={saving}
                     className="group rounded-full px-12 h-14 bg-[#2D211B] text-white hover:bg-primary font-bold text-[10px] uppercase tracking-[0.2em] transition-all disabled:opacity-50 shadow-2xl active:scale-95 flex items-center gap-3"
                   >
-                    {saving ? "Deploying Changes..." : "Commit Profile Changes"}
+                    {saving ? "Saving..." : "Save changes"}
                     <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
