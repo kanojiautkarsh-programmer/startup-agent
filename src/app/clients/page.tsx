@@ -199,31 +199,7 @@ export default function ClientsPage() {
             )}
           </div>
 
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-             <div className="p-8 rounded-[2rem] bg-[#2D211B] text-white shadow-lg">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60 mb-4">Total Portfolio Value</p>
-                <h2 className="text-4xl font-serif font-medium tracking-tight">$42,000</h2>
-                <p className="text-xs mt-4 flex items-center gap-2">
-                   <span className="text-green-400 font-bold">↑ 12%</span> vs last month
-                </p>
-             </div>
-             
-             <div className="p-8 rounded-[2rem] bg-background border border-border/60 shadow-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">New Leads (Q3)</p>
-                <h2 className="text-4xl font-serif font-medium tracking-tight">14</h2>
-                <p className="text-xs mt-4 font-medium text-muted-foreground">
-                   6 scheduled for next week
-                </p>
-             </div>
 
-             <div className="p-8 rounded-[2rem] bg-background border border-border/60 shadow-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">Churn Risk</p>
-                <h2 className="text-4xl font-serif font-medium tracking-tight">1</h2>
-                <p className="text-xs mt-4 font-medium text-destructive">
-                   Account: Solaris Systems
-                </p>
-             </div>
-          </div>
         </div>
       </main>
     </div>
