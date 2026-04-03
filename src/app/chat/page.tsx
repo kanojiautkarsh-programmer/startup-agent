@@ -8,6 +8,7 @@ import { Header } from "@/components/layout/header";
 import { CommandPalette } from "@/components/command/command-palette";
 import { Send, Brain, BarChart3, Settings, RefreshCw, Check, Copy } from "lucide-react";
 import Link from "next/link";
+import { useAnalytics } from "@/lib/analytics/useAnalytics";
 
 interface Message {
   id: string;
@@ -39,7 +40,13 @@ export default function ChatPage() {
   const [messages, setMessages] = React.useState<Message[]>([getWelcomeMessage()]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [copiedId, setCopiedId] = React.useState<string | null>(null);
+  const [provider, setProvider] = React.useState<string>("github");
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const { trackPageView, trackAIChat, trackFeature } = useAnalytics();
+
+  React.useEffect(() => {
+    trackPageView('/chat');
+  }, []);
 
   React.useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -82,6 +89,7 @@ export default function ChatPage() {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+      trackAIChat(provider, userMessage.content.length);
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),

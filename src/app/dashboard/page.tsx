@@ -9,6 +9,8 @@ import { Sidebar } from "@/components/layout/sidebar"
 import { Header } from "@/components/layout/header"
 import { CommandPalette } from "@/components/command/command-palette"
 import { Skeleton } from "@/components/ui/skeleton"
+import { AnalyticsDashboard } from "@/components/analytics/dashboard"
+import { useAnalytics } from "@/lib/analytics/useAnalytics"
 import {
   MessageSquare,
   Brain,
@@ -57,6 +59,11 @@ export default function DashboardPage() {
   const [stats, setStats] = React.useState<Stats | null>(null)
   const [user, setUser] = React.useState<{ full_name?: string; email?: string } | null>(null)
   const supabase = createClient()
+  const { trackPageView } = useAnalytics()
+
+  React.useEffect(() => {
+    trackPageView('/dashboard')
+  }, [])
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -359,6 +366,8 @@ export default function DashboardPage() {
               </div>
             )}
           </div>
+
+          <AnalyticsDashboard />
 
           <div>
             <h2 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground mb-4 px-2">Quick Actions</h2>
