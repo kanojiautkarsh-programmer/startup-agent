@@ -161,23 +161,23 @@ export default function Home() {
              <h2 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-20 text-balance leading-tight">
                Built for the <br /> <span className="italic font-normal">most ambitious founders.</span>
              </h2>
-             <div className="grid md:grid-cols-3 gap-6 text-left w-full">
-               {[
-                  { quote: "Our platform removed all operational friction. We make decisions 5x faster because context is centralized.", person: "Sarah", role: "CEO, Series A" },
-                  { quote: "It’s like having a chief of staff that never sleeps, indexing every goal and decision we ever set.", person: "David", role: "Technical Founder" },
-                  { quote: "Investor updates that used to take hours now take literally five minutes. Truly incredible UX.", person: "Marcus", role: "CTO, Seed Stage" },
-               ].map((test, idx) => (
-                 <div key={idx} className="bg-muted/10 border border-border/40 rounded-[2rem] p-10 flex flex-col justify-between hover:border-foreground/20 transition-all shadow-sm">
-                   <p className="text-xl leading-relaxed mb-12 font-medium italic">&ldquo;{test.quote}&rdquo;</p>
-                   <div>
-                     <p className="font-bold text-base tracking-tight">{test.person}</p>
-                     <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-1">{test.role}</p>
-                   </div>
-                 </div>
-               ))}
-             </div>
-           </div>
-        </section>
+              <div className="grid md:grid-cols-3 gap-6 text-left w-full">
+                {[
+                   { quote: "Our platform removed all operational friction. We make decisions 5x faster because context is centralized.", person: "Beta User", role: "CEO, Series A" },
+                   { quote: "It's like having a chief of staff that never sleeps, indexing every goal and decision we ever set.", person: "Early Adopter", role: "Technical Founder" },
+                   { quote: "Investor updates that used to take hours now take literally five minutes. Truly incredible UX.", person: "Verified User", role: "CTO, Seed Stage" },
+                ].map((test, idx) => (
+                  <div key={idx} className="bg-muted/10 border border-border/40 rounded-[2rem] p-10 flex flex-col justify-between hover:border-foreground/20 transition-all shadow-sm">
+                    <p className="text-xl leading-relaxed mb-12 font-medium italic">&ldquo;{test.quote}&rdquo;</p>
+                    <div>
+                      <p className="font-bold text-base tracking-tight">{test.person}</p>
+                      <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-1">{test.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+         </section>
 
         {/* CTA */}
         <section className="py-48 px-6 text-center bg-[#FAF9F6] border-t">
