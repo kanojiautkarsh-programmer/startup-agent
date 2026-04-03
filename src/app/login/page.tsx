@@ -55,7 +55,7 @@ export default function LoginPage() {
       {/* Top Navigation */}
       <header className="w-full px-8 py-6 flex items-center justify-between z-10">
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-serif font-medium text-lg tracking-tight">TaskLyne</span>
+          <span className="font-serif font-bold text-xl tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/signup" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">
           Create an account

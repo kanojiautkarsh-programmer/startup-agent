@@ -7,7 +7,7 @@ export function PublicFooter() {
       <div className="max-w-[88rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-4 flex flex-col justify-between">
           <Link href="/" className="flex items-center gap-3 mb-8" aria-label="TaskLyne Home">
-            <span className="font-bold text-2xl tracking-tighter">TaskLyne</span>
+            <span className="font-extrabold text-3xl tracking-tighter">TaskLyne</span>
           </Link>
           <p className="text-muted-foreground max-w-sm mb-12 text-pretty">
             The only AI support agent and command center built specifically for high-growth financial services and tech startups.

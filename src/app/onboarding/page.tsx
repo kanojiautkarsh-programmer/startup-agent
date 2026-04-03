@@ -152,7 +152,7 @@ export default function OnboardingPage() {
       {/* Top Navigation */}
       <header className="w-full px-8 py-8 flex items-center justify-between z-20 sticky top-0 bg-white/40 backdrop-blur-md">
         <Link href="/" className="flex items-center gap-2 group transition-transform hover:scale-[1.02]">
-          <span className="font-serif font-medium text-xl tracking-tight">TaskLyne</span>
+          <span className="font-serif font-bold text-2xl tracking-tight">TaskLyne</span>
         </Link>
         <div className="flex flex-col items-end gap-1">
            <div className="flex items-center gap-1.5 px-2 py-1 bg-muted/40 rounded-full border border-border/40">

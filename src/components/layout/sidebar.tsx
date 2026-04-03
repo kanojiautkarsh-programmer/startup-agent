@@ -63,7 +63,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               {collapsed ? (
                  <span className="font-serif font-medium">T</span>
               ) : (
-                <span>TaskLyne</span>
+                <span className="font-bold">TaskLyne</span>
               )}
             </Link>
           </div>

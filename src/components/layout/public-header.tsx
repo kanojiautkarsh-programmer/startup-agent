@@ -15,7 +15,7 @@ export function PublicHeader() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group" aria-label="TaskLyne Home">
-              <span className="font-bold text-2xl tracking-tighter">TaskLyne</span>
+              <span className="font-extrabold text-3xl tracking-tighter">TaskLyne</span>
             </Link>
             
             <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
