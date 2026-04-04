@@ -1,6 +1,13 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { Brain, Target, ClipboardList, Database, Sparkles, ShieldCheck, Zap, ArrowRight, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+export const metadata: Metadata = {
+  title: "Features",
+  description: "Learn more about TaskLyne's Features."
+};
 
 export default function FeaturesPage() {
   const features = [
@@ -43,8 +50,8 @@ export default function FeaturesPage() {
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-bold tracking-widest uppercase text-muted-foreground">The New Standard</span>
           </div>
-          <h1 className="text-6xl sm:text-7xl font-serif font-medium tracking-tight mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Built for <span className="italic font-normal">intelligence.</span>
+          <h1 className="text-6xl sm:text-7xl  font-medium tracking-tight mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            Built for <span className="text-muted-foreground">intelligence.</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground/80 font-medium max-w-2xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
             TaskLyne replaces static docs and fragmented tools with a unified AI command center for your entire startup engine.
@@ -63,7 +70,7 @@ export default function FeaturesPage() {
                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-primary/20 transition-colors">
                     <Brain className="h-8 w-8 text-primary" />
                  </div>
-                 <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight mb-6">AI Memory</h2>
+                 <h2 className="text-4xl md:text-5xl  font-medium tracking-tight mb-6">AI Memory</h2>
                  <p className="text-xl text-muted-foreground/90 font-medium mb-12 leading-relaxed">
                    Capture the "Why" behind every strategic move. TaskLyne builds a persistent knowledge graph of your startup's evolution.
                  </p>
@@ -96,7 +103,7 @@ export default function FeaturesPage() {
                 <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-primary/20 transition-colors">
                   <Target className="h-8 w-8 text-primary" />
                 </div>
-                <h2 className="text-4xl font-serif font-medium tracking-tight mb-6">Goal Tracking</h2>
+                <h2 className="text-4xl  font-medium tracking-tight mb-6">Goal Tracking</h2>
                 <p className="text-lg text-muted-foreground font-medium mb-10 leading-relaxed">
                   Connect high-level strategy to daily execution with automated OKR tracking and accountability loops.
                 </p>
@@ -121,7 +128,7 @@ export default function FeaturesPage() {
                      <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-10">
                         <ClipboardList className="h-8 w-8 text-primary" />
                      </div>
-                     <h2 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Decision Log</h2>
+                     <h2 className="text-5xl md:text-6xl  font-medium tracking-tight mb-8">Decision Log</h2>
                      <p className="text-xl text-background/80 font-medium mb-12 max-w-lg leading-relaxed">
                        Static documentation is dead. TaskLyne creates a living, searchable record of every decision made, ensuring team members have context on day one.
                      </p>
@@ -152,7 +159,7 @@ export default function FeaturesPage() {
       {/* Simple CTA */}
       <section className="py-40 px-6 text-center border-t border-border/10 bg-muted/5 relative">
          <div className="max-w-2xl mx-auto flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl font-serif font-medium tracking-tight mb-12">Capture the future <br /><span className="italic font-normal">of your startup.</span></h2>
+            <h2 className="text-4xl md:text-6xl  font-medium tracking-tight mb-12">Capture the future <br /><span className="text-muted-foreground">of your startup.</span></h2>
             <Link 
               href="/signup" 
               className="rounded-full px-12 h-16 bg-foreground text-background font-bold text-xl hover:bg-foreground/90 transition-all flex items-center hover:scale-[1.02] shadow-xl"

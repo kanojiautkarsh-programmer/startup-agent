@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link "TaskLyne" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: TaskLyne
+      - link "Create Account" [ref=e6] [cursor=pointer]:
+        - /url: /signup
+    - main [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - heading "Welcome back" [level=1] [ref=e10]
+          - paragraph [ref=e11]: Sign in to your account to continue
+        - generic [ref=e12]:
+          - button "Continue with Google" [ref=e13] [cursor=pointer]:
+            - img [ref=e14]
+            - text: Continue with Google
+          - generic [ref=e23]: or email
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - text: Email
+              - textbox "Email" [ref=e26]:
+                - /placeholder: you@startup.com
+            - generic [ref=e27]:
+              - generic [ref=e28]:
+                - generic [ref=e29]: Password
+                - link "Forgot?" [ref=e30] [cursor=pointer]:
+                  - /url: /forgot-password
+              - textbox "Password" [ref=e31]:
+                - /placeholder: ••••••••
+            - button "Sign in to TaskLyne" [ref=e32] [cursor=pointer]
+    - contentinfo [ref=e33]:
+      - generic [ref=e34]:
+        - link "Privacy" [ref=e35] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms" [ref=e36] [cursor=pointer]:
+          - /url: /terms
+      - generic [ref=e37]: © 2026 TaskLyne Intelligence Systems
+  - alert [ref=e38]

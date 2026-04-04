@@ -1,0 +1,117 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - generic [ref=e22]:
+      - link "Back to Home" [ref=e23] [cursor=pointer]:
+        - /url: /
+        - img [ref=e24]
+        - generic [ref=e26]: Back to Home
+      - generic [ref=e27]:
+        - generic [ref=e30]: The Lab Note
+        - heading "Ideas, intelligence, and velocity." [level=1] [ref=e31]:
+          - text: Ideas, intelligence,
+          - text: and velocity.
+        - paragraph [ref=e32]: Stories from the frontier of startup operations, decision theory, and AI context management.
+      - generic [ref=e33]:
+        - 'link "Launch April 3, 2026 5 min read TaskLyne: Scaling Intelligence with Startup Context Today, we''re officially launching TaskLyne. A unified AI command center built for the founders who need clarity at every step. Read Article" [ref=e34] [cursor=pointer]':
+          - /url: "#"
+          - generic [ref=e35]:
+            - generic [ref=e36]: Launch
+            - generic [ref=e37]:
+              - generic [ref=e38]: April 3, 2026
+              - generic [ref=e40]: 5 min read
+          - 'heading "TaskLyne: Scaling Intelligence with Startup Context" [level=2] [ref=e41]'
+          - paragraph [ref=e42]: Today, we're officially launching TaskLyne. A unified AI command center built for the founders who need clarity at every step.
+          - generic [ref=e43]:
+            - text: Read Article
+            - img [ref=e44]
+        - generic [ref=e47]:
+          - paragraph [ref=e48]: More insights coming soon.
+          - paragraph [ref=e49]: Quarterly updates from the command center.
+    - contentinfo [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - link "TaskLyne Home" [ref=e54] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e55]: TaskLyne
+            - paragraph [ref=e56]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e57]:
+              - link "Twitter" [ref=e58] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e59]
+              - link "LinkedIn" [ref=e61] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e62]
+              - link "GitHub" [ref=e66] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e67]
+          - generic [ref=e70]:
+            - heading "Product" [level=4] [ref=e71]
+            - list [ref=e72]:
+              - listitem [ref=e73]:
+                - link "Features" [ref=e74] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e75]:
+                - link "Pricing" [ref=e76] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e77]:
+                - link "Security" [ref=e78] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e79]:
+                - link "Integrations" [ref=e80] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e81]:
+            - heading "Company" [level=4] [ref=e82]
+            - list [ref=e83]:
+              - listitem [ref=e84]:
+                - link "About Us" [ref=e85] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e86]:
+                - link "Blog" [ref=e87] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e88]:
+                - link "Careers" [ref=e89] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e90]:
+                - link "Contact" [ref=e91] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e92]:
+            - heading "Legal" [level=4] [ref=e93]
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - link "Privacy Policy" [ref=e96] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e97]:
+                - link "Terms of Service" [ref=e98] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e99]:
+                - link "Cookie Policy" [ref=e100] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e101]:
+                - link "DPA" [ref=e102] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e103]:
+          - paragraph [ref=e104]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e107]: System Operational
+  - alert [ref=e108]

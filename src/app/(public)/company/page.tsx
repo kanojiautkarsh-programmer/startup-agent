@@ -1,4 +1,11 @@
+export const metadata: Metadata = {
+  title: "Company",
+  description: "Learn more about TaskLyne's Company."
+};
+
 export default function CompanyPage() {
+import { Metadata } from "next"
+
   return (
     <main className="w-full flex-1">
       {/* Dynamic Gradient Hero */}

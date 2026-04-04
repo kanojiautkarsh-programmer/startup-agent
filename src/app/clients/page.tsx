@@ -115,19 +115,19 @@ export default function ClientsPage() {
           
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
             <div>
-              <h1 className="text-4xl font-serif text-foreground font-medium tracking-tight mb-2">
-                Client <span className="italic font-normal">& Accounts</span>
+              <h1 className="text-4xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-2">
+                Client <span className="text-muted-foreground">& Accounts</span>
               </h1>
               <p className="text-sm font-medium text-muted-foreground tracking-wide">Manage your customer portfolio</p>
             </div>
-            <button className="rounded-full px-6 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0">
+            <button className="rounded-full px-6 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors flex items-center justify-center text-sm shadow-sm shrink-0">
               <Plus className="h-4 w-4 mr-2" />
               Add Client
             </button>
           </div>
 
           <div className="relative mb-10 group">
-            <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+            <div className="absolute inset-0 bg-card/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
             <input 
               placeholder="Search clients by name or company..." 
@@ -154,7 +154,7 @@ export default function ClientsPage() {
                     <tr key={client.id} className="hover:bg-muted/30 transition-colors group">
                       <td className="px-8 py-5">
                         <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-2xl bg-muted/50 border flex items-center justify-center font-serif text-sm font-medium shadow-sm">
+                          <div className="w-10 h-10 rounded-2xl bg-muted/50 border flex items-center justify-center font-bold tracking-tight text-sm font-medium shadow-sm">
                             {client.name[0]}
                           </div>
                           <div>
@@ -177,7 +177,7 @@ export default function ClientsPage() {
                         </span>
                       </td>
                       <td className="px-6 py-5">
-                        <span className="text-sm font-serif font-medium tabular-nums">
+                        <span className="text-sm font-bold tracking-tight font-medium tabular-nums">
                           ${client.value.toLocaleString()}
                         </span>
                       </td>
@@ -202,8 +202,8 @@ export default function ClientsPage() {
                 <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
                    <Users className="h-8 w-8 text-muted-foreground/20" />
                 </div>
-                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">No clients found</h3>
-                <p className="text-muted-foreground text-sm max-w-sm mx-auto font-medium italic font-serif">Try adjusting your search criteria or register a new customer in your portal.</p>
+                <h3 className="text-3xl font-bold tracking-tight font-medium mb-4 tracking-tight">No clients found</h3>
+                <p className="text-muted-foreground text-sm max-w-sm mx-auto font-medium italic font-bold tracking-tight">Try adjusting your search criteria or register a new customer in your portal.</p>
               </div>
             )}
           </div>

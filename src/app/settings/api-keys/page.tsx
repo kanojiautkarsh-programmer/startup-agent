@@ -248,8 +248,8 @@ export default function APIKeysPage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-5xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Provider <span className="italic font-normal text-muted-foreground/60">& Keys</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Provider <span className="text-muted-foreground text-muted-foreground/60">& Keys</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -282,7 +282,7 @@ export default function APIKeysPage() {
                           <Key className="h-6 w-6" />
                         </div>
                         <div>
-                          <h3 className="font-serif text-3xl font-medium tracking-tight mb-2">{provider.name}</h3>
+                          <h3 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-2">{provider.name}</h3>
                           <div className="flex items-center gap-3">
                             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{provider.provider} Engine</span>
                             <span className="w-1 h-1 bg-border rounded-full" />
@@ -397,12 +397,12 @@ export default function APIKeysPage() {
               })}
             </div>
 
-            <div className="mt-20 p-10 md:p-12 rounded-[3.5rem] bg-[#2D211B]/[0.02] border border-border/40 flex flex-col lg:flex-row gap-10 items-start lg:items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="mt-20 p-10 md:p-12 rounded-[3.5rem] bg-card/[0.02] border border-border/40 flex flex-col lg:flex-row gap-10 items-start lg:items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <div className="w-16 h-16 rounded-[1.5rem] bg-card border border-border shadow-xl flex items-center justify-center shrink-0">
                 <Shield className="h-7 w-7 text-primary" />
               </div>
               <div className="flex-1">
-                <h4 className="font-serif text-3xl font-medium tracking-tight mb-6">Encrypted Security Layers</h4>
+                <h4 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-6">Encrypted Security Layers</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
                   <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground/80">
                      <div className="w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center shrink-0"><Check className="h-3 w-3 text-green-600" /></div>

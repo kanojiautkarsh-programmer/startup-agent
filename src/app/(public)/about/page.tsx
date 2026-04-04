@@ -1,5 +1,12 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { Sparkles, Target, Zap, Brain, Quote, ArrowRight } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Learn more about TaskLyne's About."
+};
 
 export default function AboutPage() {
   const values = [
@@ -26,8 +33,8 @@ export default function AboutPage() {
       <section className="pt-48 pb-32 px-6 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[100px] rounded-full -z-10 animate-fade-in" />
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-serif font-medium tracking-tight mb-12 animate-slide-up">
-            The memory of <br /><span className="italic font-normal">a thousand startups.</span>
+          <h1 className="text-6xl sm:text-7xl md:text-8xl  font-medium tracking-tight mb-12 animate-slide-up">
+            The memory of <br /><span className="text-muted-foreground">a thousand startups.</span>
           </h1>
           <p className="text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium max-w-3xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
             We're building the infrastructure for startup intelligence—centralizing every goal, decision, and pivot into a single source of truth.
@@ -36,11 +43,11 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section */}
-      <section className="py-32 px-6 bg-[#FAF9F6] border-y border-border/40 relative">
+      <section className="py-32 px-6 bg-muted/10 border-y border-border/40 relative">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col gap-12 animate-slide-up" style={{ animationDelay: '0.2s' }}>
              <span className="text-sm font-bold tracking-[0.2em] uppercase text-primary">Our Mission</span>
-             <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-tight">
+             <h2 className="text-4xl md:text-5xl  font-medium tracking-tight leading-tight">
                Founder context is the most <span className="italic">valuable and volatile</span> asset in any high-growth company.
              </h2>
              <div className="prose prose-2xl text-pretty text-muted-foreground font-medium leading-relaxed space-y-8 max-w-none">
@@ -68,7 +75,7 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-8">
                   {value.icon}
                 </div>
-                <h3 className="text-2xl font-serif font-bold mb-6">{value.title}</h3>
+                <h3 className="text-2xl  font-bold mb-6">{value.title}</h3>
                 <p className="text-lg text-muted-foreground font-medium leading-relaxed">
                   {value.description}
                 </p>
@@ -79,11 +86,11 @@ export default function AboutPage() {
       </section>
 
       {/* Quote Section */}
-      <section className="py-40 px-6 relative bg-[#2D211B] text-white overflow-hidden">
+      <section className="py-40 px-6 relative bg-card text-white overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-50" />
         <div className="max-w-4xl mx-auto relative z-10 text-center flex flex-col items-center">
             <Quote className="h-16 w-16 text-primary/40 mb-12 animate-slide-up" />
-            <h2 className="text-4xl md:text-6xl font-serif font-medium tracking-tight mb-16 leading-tight animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <h2 className="text-4xl md:text-6xl  font-medium tracking-tight mb-16 leading-tight animate-slide-up" style={{ animationDelay: '0.1s' }}>
               &ldquo;The best founders aren't just fast; they are <span className="italic">intellectually persistent.</span> We built TaskLyne for them.&rdquo;
             </h2>
             <div className="flex flex-col items-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -97,7 +104,7 @@ export default function AboutPage() {
       {/* Join the Team CTA */}
       <section className="py-40 px-6 text-center animate-slide-up" style={{ animationDelay: '0.5s' }}>
          <div className="max-w-2xl mx-auto flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl font-serif font-medium tracking-tight mb-12">Want to build the <br /><span className="italic font-normal">future of memory?</span></h2>
+            <h2 className="text-4xl md:text-6xl  font-medium tracking-tight mb-12">Want to build the <br /><span className="text-muted-foreground">future of memory?</span></h2>
             <Link 
               href="/careers" 
               className="text-primary font-bold text-2xl hover:underline transition-all flex items-center"

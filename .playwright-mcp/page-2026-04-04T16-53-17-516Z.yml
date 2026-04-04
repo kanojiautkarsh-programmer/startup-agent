@@ -1,0 +1,110 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - generic [ref=e22]:
+      - link "Back to Home" [ref=e23] [cursor=pointer]:
+        - /url: /
+        - img [ref=e24]
+        - generic [ref=e26]: Back to Home
+      - generic [ref=e27]:
+        - heading "Data Processing Agreement (DPA)" [level=1] [ref=e28]
+        - paragraph [ref=e29]: "Effective: April 3, 2026."
+      - generic [ref=e30]:
+        - paragraph [ref=e31]: This Data Processing Agreement (“DPA”) is between TaskLyne Inc. and the customer that has signed an Agreement for the purchase of Service from TaskLyne.
+        - generic [ref=e32]:
+          - heading "GDPR Compliance" [level=2] [ref=e33]
+          - paragraph [ref=e34]: TaskLyne acknowledges its obligations under the General Data Protection Regulation (GDPR) and other applicable data protection laws. We act as a Data Processor for the Personal Data provided by our customers.
+        - generic [ref=e35]:
+          - heading "Data Security" [level=2] [ref=e36]
+          - paragraph [ref=e37]:
+            - text: We maintain comprehensive technical and organizational security measures to protect Personal Data against unauthorized access, use, or disclosure. For details, see our
+            - link "Security Whitepaper" [ref=e38] [cursor=pointer]:
+              - /url: /security
+            - text: .
+    - contentinfo [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - link "TaskLyne Home" [ref=e43] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e44]: TaskLyne
+            - paragraph [ref=e45]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e46]:
+              - link "Twitter" [ref=e47] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e48]
+              - link "LinkedIn" [ref=e50] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e51]
+              - link "GitHub" [ref=e55] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e56]
+          - generic [ref=e59]:
+            - heading "Product" [level=4] [ref=e60]
+            - list [ref=e61]:
+              - listitem [ref=e62]:
+                - link "Features" [ref=e63] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e64]:
+                - link "Pricing" [ref=e65] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e66]:
+                - link "Security" [ref=e67] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e68]:
+                - link "Integrations" [ref=e69] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e70]:
+            - heading "Company" [level=4] [ref=e71]
+            - list [ref=e72]:
+              - listitem [ref=e73]:
+                - link "About Us" [ref=e74] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e75]:
+                - link "Blog" [ref=e76] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e77]:
+                - link "Careers" [ref=e78] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e79]:
+                - link "Contact" [ref=e80] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e81]:
+            - heading "Legal" [level=4] [ref=e82]
+            - list [ref=e83]:
+              - listitem [ref=e84]:
+                - link "Privacy Policy" [ref=e85] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e86]:
+                - link "Terms of Service" [ref=e87] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e88]:
+                - link "Cookie Policy" [ref=e89] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e90]:
+                - link "DPA" [ref=e91] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e92]:
+          - paragraph [ref=e93]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e96]: System Operational
+  - alert [ref=e97]

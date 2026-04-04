@@ -1,0 +1,191 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: TaskLyne
+        - navigation [ref=e8]:
+          - button "Product" [ref=e10] [cursor=pointer]:
+            - text: Product
+            - img [ref=e11]
+          - link "Company" [ref=e13] [cursor=pointer]:
+            - /url: /about
+          - link "Pricing" [ref=e14] [cursor=pointer]:
+            - /url: /pricing
+      - generic [ref=e15]:
+        - link "Log in" [ref=e16] [cursor=pointer]:
+          - /url: /login
+        - link "Request demo" [ref=e17] [cursor=pointer]:
+          - /url: /demo
+          - text: Request demo
+          - img [ref=e18]
+  - main [ref=e22]:
+    - generic [ref=e26]:
+      - generic [ref=e29]: Scale your startup intelligence
+      - heading "The AI command center for high-growth teams." [level=1] [ref=e30]:
+        - text: The AI command center
+        - text: for high-growth teams.
+      - paragraph [ref=e31]:
+        - text: A unified platform to capture your goals, decisions, and context.
+        - text: Delivering clarity and speed at every operational step.
+      - generic [ref=e32]:
+        - link "See it in action" [ref=e33] [cursor=pointer]:
+          - /url: /demo
+          - text: See it in action
+          - img [ref=e34]
+        - link "Get Started Free" [ref=e36] [cursor=pointer]:
+          - /url: /signup
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - generic [ref=e41]: Unified Knowledge Hub
+          - heading "Log your progress. Stay organized." [level=2] [ref=e42]:
+            - text: Log your progress.
+            - text: Stay organized.
+          - link "Explore Memory System" [ref=e43] [cursor=pointer]:
+            - /url: /features#memory
+            - text: Explore Memory System
+            - img [ref=e44]
+        - generic [ref=e47]:
+          - generic [ref=e49]:
+            - img [ref=e51]
+            - generic [ref=e61]: How It Works
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: Chat naturally about your startup
+              - img [ref=e65]
+            - generic [ref=e68]:
+              - generic [ref=e69]: Decisions get auto-captured
+              - img [ref=e70]
+            - generic [ref=e73]:
+              - generic [ref=e74]: Goals auto-tracked with deadlines
+              - img [ref=e75]
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - generic [ref=e80]: Smart Context
+          - heading "Ask anything, remember everything." [level=2] [ref=e81]
+        - paragraph [ref=e84]: "\"Just ask TaskLyne about any decision, goal, or context from your startup journey.\""
+      - generic [ref=e86]:
+        - generic [ref=e87]: Accountability
+        - heading "Set goals, ship faster." [level=2] [ref=e88]
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - img [ref=e92]
+            - generic [ref=e95]: Weekly accountability reviews
+          - generic [ref=e96]:
+            - img [ref=e98]
+            - generic [ref=e101]: Progress auto-tracked
+      - generic [ref=e103]:
+        - generic [ref=e104]: Uncompromising Security
+        - heading "Enterprise-grade protection for your velocity." [level=2] [ref=e105]:
+          - text: Enterprise-grade protection
+          - text: for your velocity.
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - img [ref=e108]
+            - generic [ref=e111]: SOC 2 Type II Certified
+          - generic [ref=e112]:
+            - img [ref=e113]
+            - generic [ref=e116]: End-to-End Encryption
+          - generic [ref=e117]:
+            - img [ref=e118]
+            - generic [ref=e121]: SSO & SAML Ready
+          - generic [ref=e122]:
+            - img [ref=e123]
+            - generic [ref=e126]: Zero Data Training Policy
+    - generic [ref=e128]:
+      - heading "Built for the most ambitious founders." [level=2] [ref=e129]:
+        - text: Built for the
+        - text: most ambitious founders.
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - paragraph [ref=e132]: “Our platform removed all operational friction. We make decisions 5x faster because context is centralized.”
+          - generic [ref=e133]:
+            - paragraph [ref=e134]: Beta User
+            - paragraph [ref=e135]: CEO, Series A
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: “It's like having a chief of staff that never sleeps, indexing every goal and decision we ever set.”
+          - generic [ref=e138]:
+            - paragraph [ref=e139]: Early Adopter
+            - paragraph [ref=e140]: Technical Founder
+        - generic [ref=e141]:
+          - paragraph [ref=e142]: “Investor updates that used to take hours now take literally five minutes. Truly incredible UX.”
+          - generic [ref=e143]:
+            - paragraph [ref=e144]: Verified User
+            - paragraph [ref=e145]: CTO, Seed Stage
+    - generic [ref=e149]:
+      - generic [ref=e152]: Setup in minutes
+      - heading "Ready to move with clarity?" [level=2] [ref=e153]:
+        - text: Ready to move
+        - text: with clarity?
+      - link "See the Demo" [ref=e154] [cursor=pointer]:
+        - /url: /demo
+        - text: See the Demo
+        - img [ref=e155]
+  - contentinfo [ref=e157]:
+    - generic [ref=e158]:
+      - generic [ref=e159]:
+        - generic [ref=e160]:
+          - link "TaskLyne Home" [ref=e161] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e162]: TaskLyne
+          - paragraph [ref=e163]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+          - generic [ref=e164]:
+            - link "Twitter" [ref=e165] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e166]
+            - link "LinkedIn" [ref=e168] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e169]
+            - link "GitHub" [ref=e173] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e174]
+        - generic [ref=e177]:
+          - heading "Product" [level=4] [ref=e178]
+          - list [ref=e179]:
+            - listitem [ref=e180]:
+              - link "Features" [ref=e181] [cursor=pointer]:
+                - /url: /features
+            - listitem [ref=e182]:
+              - link "Pricing" [ref=e183] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e184]:
+              - link "Security" [ref=e185] [cursor=pointer]:
+                - /url: /security
+            - listitem [ref=e186]:
+              - link "Integrations" [ref=e187] [cursor=pointer]:
+                - /url: /integrations
+        - generic [ref=e188]:
+          - heading "Company" [level=4] [ref=e189]
+          - list [ref=e190]:
+            - listitem [ref=e191]:
+              - link "About Us" [ref=e192] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e193]:
+              - link "Blog" [ref=e194] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e195]:
+              - link "Careers" [ref=e196] [cursor=pointer]:
+                - /url: /careers
+            - listitem [ref=e197]:
+              - link "Contact" [ref=e198] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e199]:
+          - heading "Legal" [level=4] [ref=e200]
+          - list [ref=e201]:
+            - listitem [ref=e202]:
+              - link "Privacy Policy" [ref=e203] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e204]:
+              - link "Terms of Service" [ref=e205] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e206]:
+              - link "Cookie Policy" [ref=e207] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=e208]:
+              - link "DPA" [ref=e209] [cursor=pointer]:
+                - /url: /dpa
+      - generic [ref=e210]:
+        - paragraph [ref=e211]: © 2026 TaskLyne Inc. Designed with clarity.
+        - generic [ref=e214]: System Operational

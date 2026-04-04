@@ -134,8 +134,8 @@ export default function BillingPage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-6xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Finance <span className="italic font-normal text-muted-foreground/60">& Quota</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Finance <span className="text-muted-foreground text-muted-foreground/60">& Quota</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -154,7 +154,7 @@ export default function BillingPage() {
                     isPro ? 'border-primary/40 shadow-2xl md:-translate-y-4 bg-primary/[0.02]' : 'border-border/40 hover:border-primary/20 hover:shadow-xl'
                   )} style={{ animationDelay: `${planIdx * 0.1}s` }}>
                     {isPro && (
-                      <div className="bg-[#2D211B] text-white text-center py-2 text-[10px] uppercase font-bold tracking-[0.3em] w-full top-0 absolute">
+                      <div className="bg-card text-white text-center py-2 text-[10px] uppercase font-bold tracking-[0.3em] w-full top-0 absolute">
                         Optimum Engine
                       </div>
                     )}
@@ -162,12 +162,12 @@ export default function BillingPage() {
                       <div className="flex items-center gap-6 mb-8">
                         <div className={cn(
                             "w-14 h-14 rounded-[1.5rem] flex items-center justify-center shrink-0 border shadow-xl transition-all duration-500 group-hover:scale-110",
-                            isPro ? 'bg-[#2D211B] border-[#2D211B] text-white' : 'bg-white border-border text-[#2D211B]'
+                            isPro ? 'bg-card border-[#2D211B] text-white' : 'bg-white border-border text-[#2D211B]'
                         )}>
                            <plan.icon className="h-6 w-6" />
                         </div>
                         <div>
-                           <h3 className="text-2xl font-serif font-medium tracking-tight">{plan.name}</h3>
+                           <h3 className="text-2xl font-bold tracking-tight font-medium tracking-tight">{plan.name}</h3>
                            {isCurrent && (
                              <div className="flex items-center gap-1.5 mt-1">
                                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
@@ -180,7 +180,7 @@ export default function BillingPage() {
                       <p className="text-xs text-muted-foreground/60 font-medium leading-relaxed mb-10 h-10">{plan.description}</p>
                       
                       <div className="mb-10">
-                         <div className="text-5xl font-serif font-medium tracking-tight">
+                         <div className="text-5xl font-bold tracking-tight font-medium tracking-tight">
                            ${plan.price}
                            {plan.price > 0 && <span className="text-lg font-sans font-medium text-muted-foreground/40 ml-1">/mo</span>}
                          </div>
@@ -230,7 +230,7 @@ export default function BillingPage() {
                           <CardIcon className="h-7 w-7" />
                         </div>
                         <div>
-                          <h2 className="text-3xl font-serif font-medium tracking-tight">Payment Hub</h2>
+                          <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Payment Hub</h2>
                           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Encrypted financial endpoints</p>
                         </div>
                      </div>
@@ -238,7 +238,7 @@ export default function BillingPage() {
                    
                    <div className="flex items-center justify-between p-8 border border-border/60 rounded-[2rem] bg-white group hover:border-primary/40 transition-all shadow-sm">
                      <div className="flex items-center gap-6">
-                       <div className="w-16 h-10 bg-[#2D211B] rounded-lg flex items-center justify-center text-white text-[10px] font-bold tracking-[0.3em] shadow-2xl">
+                       <div className="w-16 h-10 bg-card rounded-lg flex items-center justify-center text-white text-[10px] font-bold tracking-[0.3em] shadow-2xl">
                          CORE
                        </div>
                        <div>
@@ -264,7 +264,7 @@ export default function BillingPage() {
                             <TrendingUp className="h-7 w-7" />
                          </div>
                          <div>
-                            <h2 className="text-3xl font-serif font-medium tracking-tight">Ledger Logs</h2>
+                            <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Ledger Logs</h2>
                             <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Historical financial records</p>
                          </div>
                       </div>

@@ -1,5 +1,12 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Learn more about TaskLyne's Blog."
+};
 
 export default function BlogPage() {
   const posts = [
@@ -23,9 +30,9 @@ export default function BlogPage() {
         <div className="mb-20 animate-slide-up">
           <div className="flex items-center gap-3 mb-8">
             <span className="w-1.5 h-6 bg-primary" />
-            <span className="font-serif italic text-2xl text-muted-foreground tracking-tight">The Lab Note</span>
+            <span className=" italic text-2xl text-muted-foreground tracking-tight">The Lab Note</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Ideas, intelligence, <br /><span className="italic font-normal">and velocity.</span></h1>
+          <h1 className="text-5xl md:text-6xl  font-medium tracking-tight mb-8">Ideas, intelligence, <br /><span className="text-muted-foreground">and velocity.</span></h1>
           <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
             Stories from the frontier of startup operations, decision theory, and AI context management.
           </p>
@@ -42,7 +49,7 @@ export default function BlogPage() {
                   <span>{post.readTime}</span>
                 </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium mb-6 leading-tight group-hover:text-primary transition-colors">{post.title}</h2>
+              <h2 className="text-3xl md:text-4xl  font-medium mb-6 leading-tight group-hover:text-primary transition-colors">{post.title}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-2xl">{post.excerpt}</p>
               <div className="flex items-center text-sm font-bold uppercase tracking-widest text-primary group-hover:gap-2 transition-all">
                 Read Article <ArrowUpRight className="ml-2 h-4 w-4" />
@@ -51,7 +58,7 @@ export default function BlogPage() {
           ))}
           
           <div className="text-center py-24 glass-card border border-dashed border-border/60 rounded-[2.5rem]">
-             <p className="text-xl text-muted-foreground font-serif italic mb-2">More insights coming soon.</p>
+             <p className="text-xl text-muted-foreground  italic mb-2">More insights coming soon.</p>
              <p className="text-sm font-medium text-muted-foreground/50 tabular-nums">Quarterly updates from the command center.</p>
           </div>
         </div>

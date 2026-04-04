@@ -84,7 +84,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               </span>
               {/* Label only when expanded */}
               {!collapsed && (
-                <span className="font-serif text-lg tracking-tight">
+                <span className="font-bold tracking-tight text-lg tracking-tight">
                   TaskLyne
                 </span>
               )}

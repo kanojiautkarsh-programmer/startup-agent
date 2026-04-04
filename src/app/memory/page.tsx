@@ -82,7 +82,7 @@ function Section({ title, icon: Icon, children, defaultOpen = true, count }: {
           <div className="w-10 h-10 rounded-2xl bg-muted/20 border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:bg-emphasis group-hover:text-emphasis-fg transition-all shrink-0">
             <Icon className="h-4 w-4" />
           </div>
-          <h3 className="font-serif text-2xl font-medium tracking-tight text-foreground group-hover:text-primary transition-colors">
+          <h3 className="font-bold tracking-tight text-2xl font-medium tracking-tight text-foreground group-hover:text-primary transition-colors">
             {title} <span className="ml-3 font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{count} Assets</span>
           </h3>
         </div>
@@ -218,8 +218,8 @@ export default function MemoryPage() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 animate-slide-up">
             <div>
-              <h1 className="text-4xl md:text-5xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Memory <span className="italic font-normal text-muted-foreground/60">& Index</span>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Memory <span className="text-muted-foreground text-muted-foreground/60">& Index</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -233,7 +233,7 @@ export default function MemoryPage() {
                </div>
               <button 
                 onClick={() => { setEditingMemory(null); setFormData({ type: 'decision', title: '', content: '' }); setAddModalOpen(true) }}
-                className="group rounded-full px-8 h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+                className="group rounded-full px-8 h-14 bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
               >
                 <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
                 Archive Memory
@@ -243,7 +243,7 @@ export default function MemoryPage() {
 
           <div className="flex flex-col lg:flex-row gap-6 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <div className="relative flex-1 group">
-              <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+              <div className="absolute inset-0 bg-card/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
               <input 
                 placeholder="Search distributed context..." 
@@ -359,8 +359,8 @@ export default function MemoryPage() {
                 <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
                   <Archive className="h-8 w-8 text-muted-foreground/20" />
                 </div>
-                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">Index is empty</h3>
-                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Capture your startup's evolution. Begin archiving decisions and strategic commitments.</p>
+                <h3 className="text-3xl font-bold tracking-tight font-medium mb-4 tracking-tight">Index is empty</h3>
+                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-bold tracking-tight">Capture your startup's evolution. Begin archiving decisions and strategic commitments.</p>
                 <button
                   onClick={() => { setEditingMemory(null); setAddModalOpen(true) }}
                   className="inline-flex items-center justify-center gap-2 rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
@@ -377,7 +377,7 @@ export default function MemoryPage() {
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
         <DialogContent className="rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 border-border/40 shadow-2xl bg-popover max-w-2xl">
           <DialogHeader className="mb-10">
-            <DialogTitle className="font-serif text-4xl font-medium tracking-tight">
+            <DialogTitle className="font-bold tracking-tight text-4xl font-medium tracking-tight">
               {editingMemory ? 'Refine Memory' : 'Archive Intelligence'}
             </DialogTitle>
             <p className="text-muted-foreground/60 text-xs font-bold uppercase tracking-widest mt-3 px-1">Persistence protocol active</p>

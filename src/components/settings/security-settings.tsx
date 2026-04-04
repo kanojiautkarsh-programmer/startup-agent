@@ -276,8 +276,8 @@ export function SecuritySettings() {
   return (
     <div className="space-y-12 animate-slide-up">
       <div className="mb-16">
-        <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-          Integrity <span className="italic font-normal text-muted-foreground/60">& Shield</span>
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+          Integrity <span className="text-muted-foreground text-muted-foreground/60">& Shield</span>
         </h1>
         <div className="flex items-center gap-3">
            <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -313,7 +313,7 @@ export function SecuritySettings() {
                          <Lock className="h-8 w-8" />
                       </div>
                       <div>
-                         <h2 className="text-3xl font-serif font-medium tracking-tight">End-to-End Vault</h2>
+                         <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">End-to-End Vault</h2>
                          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Client-side encryption protocol</p>
                       </div>
                    </div>
@@ -368,7 +368,7 @@ export function SecuritySettings() {
                                 <button onClick={handleRotateKey} className="flex-1 h-14 rounded-full border border-border/60 bg-white text-[10px] font-bold uppercase tracking-widest hover:border-primary/40 transition-all flex items-center justify-center gap-3">
                                    <RefreshCw className="h-4 w-4" /> Rotate Authority
                                 </button>
-                                <button onClick={handleExportKey} className="flex-1 h-14 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all flex items-center justify-center gap-3 shadow-xl">
+                                <button onClick={handleExportKey} className="flex-1 h-14 rounded-full bg-card text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all flex items-center justify-center gap-3 shadow-xl">
                                    <Download className="h-4 w-4" /> Export Vault
                                 </button>
                              </div>
@@ -378,12 +378,12 @@ export function SecuritySettings() {
                              <div className="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center mx-auto mb-6">
                                 <AlertTriangle className="h-8 w-8 text-primary animate-pulse" />
                              </div>
-                             <h4 className="text-xl font-serif font-medium mb-4">Encryption Standby</h4>
+                             <h4 className="text-xl font-bold tracking-tight font-medium mb-4">Encryption Standby</h4>
                              <p className="text-sm text-muted-foreground/60 mb-8 mx-auto max-w-[280px]">Your session keys are currently managed by TaskLyne Secure Core.</p>
                              <button 
                                 onClick={handleEnableE2EE}
                                 disabled={loading}
-                                className="w-full h-14 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-primary transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
+                                className="w-full h-14 rounded-full bg-card text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-primary transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
                              >
                                 {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                                 Establishing Private Key
@@ -400,7 +400,7 @@ export function SecuritySettings() {
                      <Database className="h-7 w-7" />
                   </div>
                   <div>
-                     <h2 className="text-2xl font-serif font-medium tracking-tight">API Transport Layer</h2>
+                     <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight">API Transport Layer</h2>
                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B] mt-1 bg-green-500/10 px-3 py-1 rounded-full inline-block">AES-256-GCM Secure</p>
                   </div>
                </div>
@@ -417,7 +417,7 @@ export function SecuritySettings() {
                         <ShieldCheck className="h-8 w-8" />
                      </div>
                      <div>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight">Identity Hub</h2>
+                        <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Identity Hub</h2>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Enterprise SSO / SAML configurations</p>
                      </div>
                   </div>
@@ -437,7 +437,7 @@ export function SecuritySettings() {
                               {ssoProviders.map((p) => (
                                  <div key={p.id} className="flex items-center justify-between p-5 rounded-2xl bg-card border border-border/60 hover:border-primary/40 transition-all shadow-sm group">
                                     <div className="flex items-center gap-4">
-                                       <div className="w-10 h-10 rounded-xl bg-[#2D211B]/5 border border-[#2D211B]/10 flex items-center justify-center text-[#2D211B] font-bold text-[10px]">
+                                       <div className="w-10 h-10 rounded-xl bg-card/5 border border-[#2D211B]/10 flex items-center justify-center text-[#2D211B] font-bold text-[10px]">
                                           {p.provider.substring(0, 2).toUpperCase()}
                                        </div>
                                        <div>
@@ -484,7 +484,7 @@ export function SecuritySettings() {
                   <div className="glass-card bg-primary/[0.02] border-primary/10 rounded-[2.5rem] p-10">
                      {ssoProvider ? (
                         <div className="space-y-6 animate-slide-up">
-                           <h4 className="text-xl font-serif font-medium mb-6">New {ssoProvider.toUpperCase()} Protocol</h4>
+                           <h4 className="text-xl font-bold tracking-tight font-medium mb-6">New {ssoProvider.toUpperCase()} Protocol</h4>
                            <div className="space-y-4">
                               <div className="space-y-2">
                                  <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 ml-2">Provider ID</label>
@@ -507,7 +507,7 @@ export function SecuritySettings() {
                               <button 
                                  onClick={handleAddSSOProvider}
                                  disabled={loading || !ssoConfig.name}
-                                 className="w-full h-14 mt-4 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-xl hover:bg-primary transition-all active:scale-95"
+                                 className="w-full h-14 mt-4 rounded-full bg-card text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-xl hover:bg-primary transition-all active:scale-95"
                               >
                                  Establish Provider
                               </button>
@@ -516,7 +516,7 @@ export function SecuritySettings() {
                      ) : (
                         <div className="text-center py-12 flex flex-col items-center">
                            <Zap className="h-10 w-10 text-muted-foreground/20 mb-6" />
-                           <h4 className="text-lg font-serif font-medium mb-2">Awaiting Auth Block</h4>
+                           <h4 className="text-lg font-bold tracking-tight font-medium mb-2">Awaiting Auth Block</h4>
                            <p className="text-sm text-muted-foreground/40">Select a protocol on the left to begin provisioning.</p>
                         </div>
                      )}
@@ -535,7 +535,7 @@ export function SecuritySettings() {
                         <Clock className="h-8 w-8" />
                      </div>
                      <div>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight">Tactical Logs</h2>
+                        <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Tactical Logs</h2>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Real-time account surveillance</p>
                      </div>
                   </div>
@@ -575,7 +575,7 @@ export function SecuritySettings() {
                   ) : (
                      <div className="text-center py-24 bg-primary/[0.02] rounded-[3rem] border border-dashed border-border/40">
                         <Search className="h-12 w-12 text-muted-foreground/20 mx-auto mb-6" />
-                        <h4 className="text-xl font-serif font-medium mb-2 text-muted-foreground/60">Scouring Data Buffers</h4>
+                        <h4 className="text-xl font-bold tracking-tight font-medium mb-2 text-muted-foreground/60">Scouring Data Buffers</h4>
                         <p className="text-sm text-muted-foreground/40">No security events found in active cache.</p>
                      </div>
                   )}
@@ -593,7 +593,7 @@ export function SecuritySettings() {
                         <Shield className="h-8 w-8" />
                      </div>
                      <div>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight">Model Safety</h2>
+                        <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Model Safety</h2>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Zero data training protocol</p>
                      </div>
                   </div>
@@ -611,7 +611,7 @@ export function SecuritySettings() {
                               disabled={loading}
                               className={cn(
                                  "px-6 h-10 rounded-full text-[9px] font-bold uppercase tracking-widest transition-all",
-                                 dataTrainingOptOut ? "bg-green-500/10 text-green-600 border border-green-600/20" : "bg-[#2D211B] text-white"
+                                 dataTrainingOptOut ? "bg-green-500/10 text-green-600 border border-green-600/20" : "bg-card text-white"
                               )}
                            >
                               {dataTrainingOptOut ? "Protocol Active" : "Activate Shield"}
@@ -635,7 +635,7 @@ export function SecuritySettings() {
                         <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-primary">
                            <History className="h-6 w-6" />
                         </div>
-                        <h2 className="text-2xl font-serif font-medium tracking-tight">Persistence Rules</h2>
+                        <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight">Persistence Rules</h2>
                      </div>
                      <div className="grid gap-4">
                         {[
@@ -653,13 +653,13 @@ export function SecuritySettings() {
                      </div>
                   </div>
 
-                  <div className="glass-card border border-border/40 rounded-[3rem] p-10 hover:border-primary/20 transition-all shadow-xl bg-[#2D211B] group overflow-hidden relative">
+                  <div className="glass-card border border-border/40 rounded-[3rem] p-10 hover:border-primary/20 transition-all shadow-xl bg-card group overflow-hidden relative">
                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none" />
                      <div className="flex items-center gap-6 mb-8">
                         <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
                            <Download className="h-6 w-6" />
                         </div>
-                        <h2 className="text-2xl font-serif font-medium tracking-tight text-white">Data Export</h2>
+                        <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight text-white">Data Export</h2>
                      </div>
                      <p className="text-sm text-white/60 mb-10 leading-relaxed">Request a full structural export of all entity intelligence and protocol configurations in JSON format.</p>
                      <button 

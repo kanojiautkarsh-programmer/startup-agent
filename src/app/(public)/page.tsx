@@ -13,13 +13,13 @@ export default function Home() {
         {/* Hero Section */}
         <section className="pt-48 pb-32 px-6 relative">
           <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
-            <div className="flex items-center gap-3 mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              <span className="w-1.5 h-6 bg-primary" aria-hidden="true"></span>
-              <span className="font-serif italic text-2xl md:text-3xl text-muted-foreground tracking-tight">Scale your startup intelligence</span>
+            <div className="inline-flex items-center gap-2 mb-10 px-4 py-2 rounded-full border border-border/40 bg-muted/30 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <span className="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
+              <span className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Scale your startup intelligence</span>
             </div>
             
-            <h1 className="text-6xl sm:text-7xl md:text-[5.5rem] font-serif font-medium tracking-tight leading-[1.05] mb-12 text-foreground animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              The AI command center <br /><span className="italic font-normal">for high-growth teams.</span>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-8 text-foreground animate-slide-up" style={{ animationDelay: '0.2s' }}>
+              The AI command center <br /><span className="text-muted-foreground">for high-growth teams.</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-16 max-w-3xl mx-auto leading-relaxed text-pretty font-medium animate-slide-up" style={{ animationDelay: '0.3s' }}>
@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 items-center animate-slide-up" style={{ animationDelay: '0.4s' }}>
               <Link 
                 href="/demo"
-                className="rounded-full px-12 h-16 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-all flex items-center justify-center text-xl shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="rounded-full px-12 h-16 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all flex items-center justify-center text-xl shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 See it in action <ArrowRight className="ml-3 h-6 w-6" aria-hidden="true" />
               </Link>
@@ -45,14 +45,14 @@ export default function Home() {
         </section>
 
         {/* Bento Grid Features */}
-        <section className="py-32 px-6 bg-[#FAF9F6]/50 relative">
+        <section className="py-32 px-6 bg-muted/10/50 relative">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-12">
             
             {/* Bento Block 1 - Large */}
             <div className="md:col-span-8 glass-card border border-border/60 rounded-[2.5rem] p-10 md:p-14 flex flex-col justify-between overflow-hidden relative group animate-slide-up" style={{ animationDelay: '0.5s' }}>
               <div className="relative z-10 max-w-xl">
-                <span className="font-serif italic text-xl md:text-2xl text-muted-foreground/80 mb-6 block font-medium">Unified Knowledge Hub</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-tight text-foreground mb-6">
+                <span className="text-sm font-semibold tracking-wider uppercase text-primary mb-4 block">Unified Knowledge Hub</span>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-foreground mb-6">
                   Log your progress.<br />Stay organized.
                 </h2>
                 <Link href="/features#memory" className="text-sm font-bold uppercase tracking-widest text-primary flex items-center group-hover:gap-2 transition-all">
@@ -88,8 +88,8 @@ export default function Home() {
             {/* Bento Block 2 - Small */}
             <div className="md:col-span-4 glass-card border border-border/60 rounded-[2.5rem] p-10 flex flex-col justify-between overflow-hidden relative group animate-slide-up" style={{ animationDelay: '0.6s' }}>
               <div className="relative z-10">
-                <span className="font-serif italic text-xl md:text-2xl text-muted-foreground/80 mb-6 block font-medium">Smart Context</span>
-                <h2 className="text-4xl font-serif font-medium tracking-tight leading-tight text-foreground mb-6">
+                <span className="text-sm font-semibold tracking-wider uppercase text-primary mb-4 block">Smart Context</span>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-foreground mb-6">
                   Ask anything, remember everything.
                 </h2>
               </div>
@@ -105,8 +105,8 @@ export default function Home() {
             {/* Bento Block 3 - Small */}
             <div className="md:col-span-5 glass-card border border-border/60 rounded-[2.5rem] p-10 flex flex-col justify-between overflow-hidden group animate-slide-up" style={{ animationDelay: '0.7s' }}>
                <div className="relative z-10 w-full">
-                <span className="font-serif italic text-xl md:text-2xl text-muted-foreground/80 mb-6 block font-medium">Accountability</span>
-                <h2 className="text-4xl font-serif font-medium tracking-tight leading-tight text-foreground mb-6">
+                <span className="text-sm font-semibold tracking-wider uppercase text-primary mb-4 block">Accountability</span>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-foreground mb-6">
                   Set goals, ship faster.
                 </h2>
                 
@@ -127,12 +127,12 @@ export default function Home() {
             </div>
 
             {/* Bento Block 4 - Large */}
-            <div className="md:col-span-7 bg-foreground rounded-[2.5rem] p-10 md:p-14 flex flex-col justify-center overflow-hidden shadow-2xl text-background relative group animate-slide-up" style={{ animationDelay: '0.8s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none" />
+            <div className="md:col-span-7 glass-card border border-border/60 bg-muted/10 rounded-[2.5rem] p-10 md:p-14 flex flex-col justify-center overflow-hidden relative group animate-slide-up" style={{ animationDelay: '0.8s' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
               <div className="relative z-10">
-                <span className="font-serif italic text-xl md:text-2xl text-background/60 mb-6 block font-medium">Uncompromising Security</span>
-                <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-tight mb-10 max-w-xl">
-                  Enterprise-grade protection <br /><span className="italic font-normal">for your velocity.</span>
+                <span className="text-sm font-semibold tracking-wider uppercase text-primary mb-4 block">Uncompromising Security</span>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight text-foreground mb-10 max-w-xl">
+                  Enterprise-grade protection <br /><span className="text-muted-foreground">for your velocity.</span>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12 mt-4">
                   {[
@@ -153,8 +153,8 @@ export default function Home() {
         {/* Testimonial Section */}
         <section className="py-40 px-6 bg-background relative">
            <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
-             <h2 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-24 text-balance leading-tight animate-slide-up">
-               Built for the <br /> <span className="italic font-normal">most ambitious founders.</span>
+             <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-24 text-balance leading-tight animate-slide-up">
+               Built for the <br /> <span className="text-muted-foreground">most ambitious founders.</span>
              </h2>
               <div className="grid md:grid-cols-3 gap-8 text-left w-full">
                 {[
@@ -180,16 +180,16 @@ export default function Home() {
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0,transparent_70%)] -z-10" />
            
            <div className="max-w-4xl mx-auto flex flex-col items-center">
-               <div className="flex items-center gap-3 mb-10 animate-slide-up">
-                 <span className="w-1.5 h-6 bg-primary" aria-hidden="true"></span>
-                 <span className="font-serif italic text-3xl text-muted-foreground tracking-tight font-medium">Setup in minutes</span>
+               <div className="inline-flex items-center gap-2 mb-10 px-4 py-2 rounded-full border border-border/40 bg-background animate-slide-up">
+                 <span className="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
+                 <span className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Setup in minutes</span>
                </div>
-               <h2 className="text-6xl md:text-[7rem] font-serif font-medium tracking-tight mb-16 text-balance leading-[0.9] animate-slide-up">
-                 Ready to move <br /><span className="italic font-normal text-muted-foreground">with clarity?</span>
+               <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-16 text-balance leading-[0.9] animate-slide-up">
+                 Ready to move <br /><span className="text-muted-foreground">with clarity?</span>
                </h2>
                <Link 
                 href="/demo"
-                className="rounded-full px-16 h-20 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-all flex items-center justify-center text-2xl shadow-2xl hover:scale-[1.03] active:scale-[0.97] animate-slide-up"
+                className="rounded-full px-16 h-20 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all flex items-center justify-center text-2xl shadow-2xl hover:scale-[1.03] active:scale-[0.97] animate-slide-up"
               >
                 See the Demo <ArrowRight className="ml-4 h-8 w-8" />
               </Link>

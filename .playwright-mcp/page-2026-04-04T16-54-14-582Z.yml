@@ -1,0 +1,105 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - generic [ref=e22]:
+      - link "Back to Home" [ref=e23] [cursor=pointer]:
+        - /url: /
+        - img [ref=e24]
+        - generic [ref=e26]: Back to Home
+      - generic [ref=e27]:
+        - heading "Build the command center of the future." [level=1] [ref=e28]:
+          - text: Build the command center
+          - text: of the future.
+        - paragraph [ref=e29]: We're a team of engineers, designers, and operators building the intelligence layer for high-growth startups.
+      - generic [ref=e31]:
+        - img [ref=e32]
+        - heading "Launch our first cohort" [level=2] [ref=e37]
+        - paragraph [ref=e38]: We're currently scaling our core team. We prioritize builders who value clarity and velocity.
+        - paragraph [ref=e39]: Open roles coming soon.
+    - contentinfo [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - link "TaskLyne Home" [ref=e44] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e45]: TaskLyne
+            - paragraph [ref=e46]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e47]:
+              - link "Twitter" [ref=e48] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e49]
+              - link "LinkedIn" [ref=e51] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e52]
+              - link "GitHub" [ref=e56] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e57]
+          - generic [ref=e60]:
+            - heading "Product" [level=4] [ref=e61]
+            - list [ref=e62]:
+              - listitem [ref=e63]:
+                - link "Features" [ref=e64] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e65]:
+                - link "Pricing" [ref=e66] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e67]:
+                - link "Security" [ref=e68] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e69]:
+                - link "Integrations" [ref=e70] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e71]:
+            - heading "Company" [level=4] [ref=e72]
+            - list [ref=e73]:
+              - listitem [ref=e74]:
+                - link "About Us" [ref=e75] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e76]:
+                - link "Blog" [ref=e77] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e78]:
+                - link "Careers" [ref=e79] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e80]:
+                - link "Contact" [ref=e81] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e82]:
+            - heading "Legal" [level=4] [ref=e83]
+            - list [ref=e84]:
+              - listitem [ref=e85]:
+                - link "Privacy Policy" [ref=e86] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e87]:
+                - link "Terms of Service" [ref=e88] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e89]:
+                - link "Cookie Policy" [ref=e90] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e91]:
+                - link "DPA" [ref=e92] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e93]:
+          - paragraph [ref=e94]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e97]: System Operational
+  - alert [ref=e98]

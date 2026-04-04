@@ -1,0 +1,121 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - generic [ref=e22]:
+      - link "Back to Home" [ref=e23] [cursor=pointer]:
+        - /url: /
+        - img [ref=e24]
+        - generic [ref=e26]: Back to Home
+      - generic [ref=e27]:
+        - heading "Security at TaskLyne" [level=1] [ref=e28]
+        - paragraph [ref=e29]: We build for high-growth teams that can't afford to compromise on trust. Security isn't a feature; it's our foundation.
+      - generic [ref=e30]:
+        - generic [ref=e32]:
+          - img [ref=e34]
+          - generic [ref=e36]:
+            - heading "Data Protection" [level=2] [ref=e37]
+            - paragraph [ref=e38]: All data is encrypted at rest using AES-256 and in transit using TLS 1.3. We maintain strict isolation between customer environments to ensure your data remains your own.
+        - generic [ref=e40]:
+          - img [ref=e42]
+          - generic [ref=e45]:
+            - heading "Infrastructure" [level=2] [ref=e46]
+            - paragraph [ref=e47]: Our infrastructure is hosted on ISO 27001 and SOC 2 Type II certified cloud providers. We utilize multi-region backups and automated failover to ensure 99.9% availability.
+        - generic [ref=e49]:
+          - img [ref=e51]
+          - generic [ref=e54]:
+            - heading "Privacy by Design" [level=2] [ref=e55]
+            - paragraph [ref=e56]: We never train our models on your private data without explicit consent. Your startup's internal context is siloed and accessible only to authorized members of your team.
+      - generic [ref=e58]:
+        - heading "Ready for enterprise scale?" [level=2] [ref=e59]
+        - paragraph [ref=e60]: Download our full Security Whitepaper or request a SOC 2 Type II report from our compliance team.
+        - generic [ref=e61]:
+          - link "Contact Sales" [ref=e62] [cursor=pointer]:
+            - /url: /contact
+          - button "Request Report" [ref=e63] [cursor=pointer]
+    - contentinfo [ref=e64]:
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - link "TaskLyne Home" [ref=e68] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e69]: TaskLyne
+            - paragraph [ref=e70]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e71]:
+              - link "Twitter" [ref=e72] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e73]
+              - link "LinkedIn" [ref=e75] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e76]
+              - link "GitHub" [ref=e80] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e81]
+          - generic [ref=e84]:
+            - heading "Product" [level=4] [ref=e85]
+            - list [ref=e86]:
+              - listitem [ref=e87]:
+                - link "Features" [ref=e88] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e89]:
+                - link "Pricing" [ref=e90] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e91]:
+                - link "Security" [ref=e92] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e93]:
+                - link "Integrations" [ref=e94] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e95]:
+            - heading "Company" [level=4] [ref=e96]
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - link "About Us" [ref=e99] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e100]:
+                - link "Blog" [ref=e101] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e102]:
+                - link "Careers" [ref=e103] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e104]:
+                - link "Contact" [ref=e105] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e106]:
+            - heading "Legal" [level=4] [ref=e107]
+            - list [ref=e108]:
+              - listitem [ref=e109]:
+                - link "Privacy Policy" [ref=e110] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e111]:
+                - link "Terms of Service" [ref=e112] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e113]:
+                - link "Cookie Policy" [ref=e114] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e115]:
+                - link "DPA" [ref=e116] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e121]: System Operational
+  - alert [ref=e122]

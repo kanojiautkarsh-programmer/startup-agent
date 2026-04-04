@@ -1,5 +1,12 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { ArrowLeft } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Privacy",
+  description: "Learn more about TaskLyne's Privacy."
+};
 
 export default function PrivacyPage() {
   return (
@@ -11,7 +18,7 @@ export default function PrivacyPage() {
         </Link>
         
         <div className="mb-16 animate-slide-up">
-          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Privacy Policy</h1>
+          <h1 className="text-5xl md:text-6xl  font-medium tracking-tight mb-8">Privacy Policy</h1>
           <p className="text-xl text-muted-foreground max-w-2xl font-medium italic">
             Last updated: April 3, 2026.
           </p>
@@ -19,14 +26,14 @@ export default function PrivacyPage() {
 
         <div className="prose prose-lg prose-invert max-w-none text-muted-foreground space-y-12 animate-slide-up">
           <section>
-            <h2 className="text-3xl font-serif text-white mb-6">Introduction</h2>
+            <h2 className="text-3xl  text-white mb-6">Introduction</h2>
             <p className="leading-relaxed">
               At TaskLyne, we take your privacy seriously. This policy explains how we collect, use, and protect your data when you use our platform. Our core principle is that your data is yours—we build the intelligence to help you scale, not to harvest your startup's context.
             </p>
           </section>
 
           <section>
-            <h2 className="text-3xl font-serif text-white mb-6">Data Collection</h2>
+            <h2 className="text-3xl  text-white mb-6">Data Collection</h2>
             <p className="leading-relaxed">
               We collect information that you provided directly (e.g., when you create an account, log your goals, or chat with our AI agents) and information collected automatically (e.g., usage patterns and performance logs).
             </p>
@@ -38,7 +45,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-3xl font-serif text-white mb-6">How We Use Your Data</h2>
+            <h2 className="text-3xl  text-white mb-6">How We Use Your Data</h2>
             <p className="leading-relaxed">
               TaskLyne uses your data to provide a personalized command center for your startup. This includes training our models on your specific context (local only) and identifying bottlenecks in your decision-making workflows.
             </p>
@@ -46,14 +53,14 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-3xl font-serif text-white mb-6">Security</h2>
+            <h2 className="text-3xl  text-white mb-6">Security</h2>
             <p className="leading-relaxed">
               We implement industry-standard security measures, including end-to-end encryption in transit and rest. For more details, please visit our <Link href="/security" className="text-primary hover:underline">Security Page</Link>.
             </p>
           </section>
 
           <section>
-            <h2 className="text-3xl font-serif text-white mb-6">Contact Us</h2>
+            <h2 className="text-3xl  text-white mb-6">Contact Us</h2>
             <p className="leading-relaxed">
               If you have any questions about our privacy practices, please contact our Data Protection Officer at privacy@tasklyne.com.
             </p>

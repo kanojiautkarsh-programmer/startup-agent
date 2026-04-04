@@ -300,8 +300,8 @@ export default function DocumentsPage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-5xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Knowledge <span className="italic font-normal text-muted-foreground/60">& Base</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Knowledge <span className="text-muted-foreground text-muted-foreground/60">& Base</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -317,7 +317,7 @@ export default function DocumentsPage() {
                         <FileText className="h-6 w-6" />
                      </div>
                      <div>
-                        <h2 className="text-2xl font-serif font-medium tracking-tight">Manual Ingest</h2>
+                        <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight">Manual Ingest</h2>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Direct protocol entry</p>
                      </div>
                   </div>
@@ -364,7 +364,7 @@ export default function DocumentsPage() {
                           <Upload className="h-6 w-6" />
                       </div>
                       <div>
-                          <h2 className="text-2xl font-serif font-medium tracking-tight">Upload Protocol</h2>
+                          <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight">Upload Protocol</h2>
                           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">Encrypted batch upload</p>
                       </div>
                     </div>
@@ -413,7 +413,7 @@ export default function DocumentsPage() {
                   <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl flex-1 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                       <div className="flex items-center gap-6 mb-4">
                          <Shield className="h-6 w-6 text-primary" />
-                         <h3 className="text-xl font-serif font-medium tracking-tight">Security Isolation</h3>
+                         <h3 className="text-xl font-bold tracking-tight font-medium tracking-tight">Security Isolation</h3>
                       </div>
                       <p className="text-xs text-muted-foreground/60 leading-relaxed">All context point documents are encrypted and hashed before being routed to dedicated vector clusters. Deletion triggers an instant purge protocol.</p>
                   </div>
@@ -435,7 +435,7 @@ export default function DocumentsPage() {
                        <FileText className="h-10 w-10" />
                     </div>
                     <div className="space-y-2">
-                       <p className="text-xl font-serif font-medium text-muted-foreground/60">No context establishing points found.</p>
+                       <p className="text-xl font-bold tracking-tight font-medium text-muted-foreground/60">No context establishing points found.</p>
                        <p className="text-xs text-muted-foreground/40 font-medium tracking-wide">Sync your Notion workspace or upload manual context to begin.</p>
                     </div>
                   </div>

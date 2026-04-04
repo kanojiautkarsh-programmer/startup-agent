@@ -176,8 +176,8 @@ export default function SettingsPage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-5xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Core <span className="italic font-normal text-muted-foreground/60">& Identity</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Core <span className="text-muted-foreground text-muted-foreground/60">& Identity</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -189,12 +189,12 @@ export default function SettingsPage() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -mr-32 -mt-32 pointer-events-none" />
               
               <div className="flex flex-col md:flex-row md:items-center gap-10 mb-12 pb-12 border-b border-border/40">
-                <div className="w-28 h-28 rounded-[2.5rem] bg-card border border-border shadow-2xl flex items-center justify-center text-4xl font-serif font-medium text-foreground shrink-0 group hover:rotate-3 transition-transform duration-500 relative">
+                <div className="w-28 h-28 rounded-[2.5rem] bg-card border border-border shadow-2xl flex items-center justify-center text-4xl font-bold tracking-tight font-medium text-foreground shrink-0 group hover:rotate-3 transition-transform duration-500 relative">
                   <div className="absolute inset-0 bg-foreground rounded-[2.5rem] opacity-0 group-hover:opacity-10 scale-95 group-hover:scale-105 transition-all duration-500" />
                   {initials}
                 </div>
                 <div>
-                  <h2 className="text-3xl font-serif font-medium mb-2 tracking-tight">{user?.full_name || 'System User'}</h2>
+                  <h2 className="text-3xl font-bold tracking-tight font-medium mb-2 tracking-tight">{user?.full_name || 'System User'}</h2>
                   <div className="flex items-center gap-3">
                     <div className="px-3 py-1 rounded-full bg-muted border border-border/60 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{user?.email}</div>
                     <div className="flex items-center gap-1.5 text-primary">
@@ -257,12 +257,12 @@ export default function SettingsPage() {
 
             <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-10 animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center gap-8">
-                 <div className="w-16 h-16 rounded-[1.5rem] bg-primary/5 border border-primary/10 flex items-center justify-center text-primary group hover:bg-[#2D211B] group hover:text-white transition-all duration-500">
+                 <div className="w-16 h-16 rounded-[1.5rem] bg-primary/5 border border-primary/10 flex items-center justify-center text-primary group hover:bg-card group hover:text-white transition-all duration-500">
                     <Zap className="h-6 w-6" />
                  </div>
                  <div>
                   <h3 className="font-bold flex items-center gap-4 tracking-tight mb-2 text-2xl">
-                    Starter <span className="italic font-serif font-normal text-muted-foreground/40 text-lg">Foundation</span>
+                    Starter <span className="italic font-bold tracking-tight font-normal text-muted-foreground/40 text-lg">Foundation</span>
                   </h3>
                   <p className="text-sm text-muted-foreground/80 font-medium max-w-sm">
                     Configure your high-latency endpoints or upgrade to dedicated compute clusters.

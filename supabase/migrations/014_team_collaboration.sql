@@ -210,15 +210,17 @@ RETURNS TEXT AS $$
 DECLARE
   token TEXT;
 BEGIN
+  SET search_path = public;
   token := encode(gen_random_bytes(32), 'hex');
   RETURN token;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Function to get user's teams
 CREATE OR REPLACE FUNCTION public.get_user_teams(user_uuid UUID)
 RETURNS TABLE(id UUID, name TEXT, slug TEXT, role TEXT, member_count BIGINT) AS $$
 BEGIN
+  SET search_path = public;
   RETURN QUERY
   SELECT 
     t.id,
@@ -231,18 +233,19 @@ BEGIN
   WHERE tm.user_id = user_uuid
   ORDER BY tm.role = 'owner' DESC, t.name ASC;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Function to check if user is team member
 CREATE OR REPLACE FUNCTION public.is_team_member(team_uuid UUID, user_uuid UUID)
 RETURNS BOOLEAN AS $$
 BEGIN
+  SET search_path = public;
   RETURN EXISTS (
     SELECT 1 FROM team_members 
     WHERE team_id = team_uuid AND user_id = user_uuid
   );
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Function to check if user has minimum role
 CREATE OR REPLACE FUNCTION public.has_team_role(team_uuid UUID, user_uuid UUID, required_role TEXT)
@@ -256,6 +259,7 @@ DECLARE
     "viewer": 1
   }'::JSONB;
 BEGIN
+  SET search_path = public;
   SELECT role INTO user_role FROM team_members
   WHERE team_id = team_uuid AND user_id = user_uuid;
   
@@ -265,16 +269,17 @@ BEGIN
   
   RETURN (role_hierarchy->>user_role)::INT >= (role_hierarchy->>required_role)::INT;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Trigger to update updated_at
 CREATE OR REPLACE FUNCTION public.update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
+  SET search_path = public;
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE TRIGGER teams_updated_at
   BEFORE UPDATE ON public.teams

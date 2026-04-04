@@ -167,7 +167,7 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-80 rounded-2xl p-2 shadow-lg">
-            <DropdownMenuLabel className="font-serif px-3 py-2 text-base">
+            <DropdownMenuLabel className="font-bold tracking-tight px-3 py-2 text-base">
               Notifications
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="opacity-40" />

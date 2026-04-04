@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
       {/* Top Navigation */}
       <header className="w-full px-8 py-6 flex items-center justify-between z-10">
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-serif font-bold text-xl tracking-tight">TaskLyne</span>
+          <span className="font-bold tracking-tight text-xl tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">
           Back to Login
@@ -55,8 +55,8 @@ export default function ForgotPasswordPage() {
         <div className="w-full max-w-[360px] mx-auto flex flex-col">
           
           <div className="mb-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-serif text-foreground font-medium tracking-tight mb-3">
-              Reset <span className="italic font-normal">access</span>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-3">
+              Reset <span className="text-muted-foreground">access</span>
             </h1>
             <p className="text-muted-foreground text-sm">
               We'll send you a link to reset your password.
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full rounded-full h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-colors flex items-center justify-center mt-4"
+                  className="w-full rounded-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors flex items-center justify-center mt-4"
                 >
                   {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Send Reset Link"}
                 </button>

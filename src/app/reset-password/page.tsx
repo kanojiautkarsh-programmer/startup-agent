@@ -63,7 +63,7 @@ export default function ResetPasswordPage() {
       {/* Top Navigation */}
       <header className="w-full px-8 py-6 flex items-center justify-between z-10">
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-serif font-bold text-xl tracking-tight">TaskLyne</span>
+          <span className="font-bold tracking-tight text-xl tracking-tight">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-muted-foreground text-sm hover:text-foreground transition-colors font-medium">
           Back to Login
@@ -75,8 +75,8 @@ export default function ResetPasswordPage() {
         <div className="w-full max-w-[360px] mx-auto flex flex-col">
           
           <div className="mb-8 text-center">
-            <h1 className="text-4xl md:text-5xl font-serif text-foreground font-medium tracking-tight mb-3">
-              Set new <span className="italic font-normal">password</span>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-3">
+              Set new <span className="text-muted-foreground">password</span>
             </h1>
             <p className="text-muted-foreground text-sm">
               Please enter your new secure password below.
@@ -118,7 +118,7 @@ export default function ResetPasswordPage() {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full rounded-full h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-colors flex items-center justify-center mt-4"
+              className="w-full rounded-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors flex items-center justify-center mt-4"
             >
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Update Password"}
             </button>

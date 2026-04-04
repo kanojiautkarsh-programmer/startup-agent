@@ -63,13 +63,13 @@ export default function DemoPage() {
       <header className="border-b h-16 flex items-center bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-serif font-bold text-2xl tracking-tight">TaskLyne</span>
+            <span className="font-bold tracking-tight text-2xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/login" className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">Sign In</Link>
             <Link 
               href="/signup" 
-              className="rounded-full px-5 h-10 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-colors flex items-center justify-center text-xs shadow-sm"
+              className="rounded-full px-5 h-10 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors flex items-center justify-center text-xs shadow-sm"
             >
               Get Started
             </Link>
@@ -81,11 +81,11 @@ export default function DemoPage() {
       <section className="pt-24 pb-16 px-6 text-center">
         <div className="max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-muted border border-border/60 rounded-full mb-8">
-            <span className="w-1.5 h-1.5 bg-[#2D211B] rounded-full animate-pulse" />
+            <span className="w-1.5 h-1.5 bg-card rounded-full animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B]">Interactive Demo</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-8">
-            See AI-powered <br /><span className="italic font-normal">memory in action.</span>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight font-medium tracking-tight mb-8">
+            See AI-powered <br /><span className="text-muted-foreground">memory in action.</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-medium">
             Click a question below to see how TaskLyne retrieves context, tracks goals, and keeps you accountable.
@@ -102,7 +102,7 @@ export default function DemoPage() {
                 disabled={loading}
                 className={`px-4 py-2 rounded-full border text-sm font-medium transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                   selectedQuestion === index 
-                    ? 'bg-[#2D211B] text-white border-[#2D211B]' 
+                    ? 'bg-card text-white border-[#2D211B]' 
                     : 'bg-background border-border hover:border-foreground/20'
                 }`}
               >
@@ -115,9 +115,9 @@ export default function DemoPage() {
         {/* Demo Chat */}
         <div className="max-w-4xl mx-auto mb-32">
           <div className="bg-background border border-border/60 rounded-[2.5rem] overflow-hidden shadow-xl flex flex-col h-[500px]">
-            <div className="px-6 py-4 border-b flex items-center justify-between bg-[#FAF9F6]">
+            <div className="px-6 py-4 border-b flex items-center justify-between bg-muted/10">
               <div className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#2D211B] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center">
                   <Brain className="h-4 w-4 text-white" />
                 </div>
                 <div>
@@ -135,7 +135,7 @@ export default function DemoPage() {
             <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-background">
                {messages.map((msg, i) => (
                  <div key={i} className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${msg.role === 'assistant' ? 'bg-[#2D211B] border-[#2D211B] text-white' : 'bg-background border-border shadow-sm'}`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${msg.role === 'assistant' ? 'bg-card border-[#2D211B] text-white' : 'bg-background border-border shadow-sm'}`}>
                        {msg.role === 'assistant' ? <Brain className="h-4 w-4" /> : <span className="text-xs font-bold uppercase tracking-widest">U</span>}
                     </div>
                     <div className="flex-1 max-w-[80%]">
@@ -150,15 +150,15 @@ export default function DemoPage() {
                ))}
                {loading && (
                  <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#2D211B] text-white flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-card text-white flex items-center justify-center shrink-0">
                        <Brain className="h-4 w-4" />
                     </div>
                     <div className="flex-1">
                        <div className="p-5 rounded-[1.5rem] bg-muted/30 border w-fit">
                           <div className="flex gap-1">
-                             <div className="w-1.5 h-1.5 bg-[#2D211B]/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                             <div className="w-1.5 h-1.5 bg-[#2D211B]/40 rounded-full animate-bounce" style={{ animationDelay: '200ms' }} />
-                             <div className="w-1.5 h-1.5 bg-[#2D211B]/40 rounded-full animate-bounce" style={{ animationDelay: '400ms' }} />
+                             <div className="w-1.5 h-1.5 bg-card/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                             <div className="w-1.5 h-1.5 bg-card/40 rounded-full animate-bounce" style={{ animationDelay: '200ms' }} />
+                             <div className="w-1.5 h-1.5 bg-card/40 rounded-full animate-bounce" style={{ animationDelay: '400ms' }} />
                           </div>
                        </div>
                     </div>
@@ -172,7 +172,7 @@ export default function DemoPage() {
       {/* Features */}
       <section className="py-20 px-6 bg-muted/30">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-serif font-medium tracking-tight mb-12">
+          <h2 className="text-4xl font-bold tracking-tight font-medium tracking-tight mb-12">
             Your data stays <span className="italic">yours.</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -196,14 +196,14 @@ export default function DemoPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 px-6 text-center bg-[#FAF9F6] border-t">
+      <section className="py-32 px-6 text-center bg-muted/10 border-t">
          <div className="max-w-4xl mx-auto flex flex-col items-center">
-             <h2 className="text-6xl md:text-7xl font-serif font-medium tracking-tight mb-12">
-               Ready for your <br /><span className="italic font-normal">own memory?</span>
+             <h2 className="text-6xl md:text-7xl font-bold tracking-tight font-medium tracking-tight mb-12">
+               Ready for your <br /><span className="text-muted-foreground">own memory?</span>
              </h2>
              <Link 
               href="/signup"
-              className="rounded-full px-12 h-16 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-medium transition-all flex items-center justify-center text-lg shadow-xl hover:scale-[1.02]"
+              className="rounded-full px-12 h-16 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all flex items-center justify-center text-lg shadow-xl hover:scale-[1.02]"
             >
               Start Free <Plus className="ml-2 h-5 w-5" />
              </Link>
@@ -211,10 +211,10 @@ export default function DemoPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-16 px-6 bg-[#FAF9F6]">
+      <footer className="border-t py-16 px-6 bg-muted/10">
         <div className="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center justify-between gap-12">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-serif font-bold text-xl tracking-tight">TaskLyne</span>
+            <span className="font-bold tracking-tight text-xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/80">
             <Link href="/security" className="hover:text-foreground transition-colors">Security</Link>

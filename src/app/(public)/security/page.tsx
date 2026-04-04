@@ -1,6 +1,13 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { Shield, Lock, Eye, CheckCircle2, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+export const metadata: Metadata = {
+  title: "Security",
+  description: "Learn more about TaskLyne's Security."
+};
 
 export default function SecurityPage() {
   const sections = [
@@ -30,7 +37,7 @@ export default function SecurityPage() {
         </Link>
         
         <div className="mb-20 animate-slide-up">
-          <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight mb-8">Security at TaskLyne</h1>
+          <h1 className="text-5xl md:text-6xl  font-medium tracking-tight mb-8">Security at TaskLyne</h1>
           <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
             We build for high-growth teams that can't afford to compromise on trust. Security isn't a feature; it's our foundation.
           </p>
@@ -55,7 +62,7 @@ export default function SecurityPage() {
         <div className="bg-foreground text-background rounded-[2.5rem] p-12 md:p-16 relative overflow-hidden animate-slide-up">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none" />
           <div className="relative z-10 flex flex-col items-center text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-medium mb-8">Ready for enterprise scale?</h2>
+            <h2 className="text-3xl md:text-4xl  font-medium mb-8">Ready for enterprise scale?</h2>
             <p className="text-background/70 text-lg mb-10 max-w-xl">
               Download our full Security Whitepaper or request a SOC 2 Type II report from our compliance team.
             </p>

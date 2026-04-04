@@ -147,8 +147,8 @@ export default function StartupPage() {
         <div className="p-8 md:p-12 max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-4xl font-serif font-medium tracking-tight mb-2 text-balance">
-              {getGreeting()}, <span className="italic font-normal text-muted-foreground/60">{authUser?.full_name?.split(' ')[0] || 'Founder'}</span>
+            <h1 className="text-4xl font-bold tracking-tight font-medium tracking-tight mb-2 text-balance">
+              {getGreeting()}, <span className="text-muted-foreground text-muted-foreground/60">{authUser?.full_name?.split(' ')[0] || 'Founder'}</span>
             </h1>
             {profile?.company_name ? (
               <p className="text-muted-foreground font-medium">
@@ -168,7 +168,7 @@ export default function StartupPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest">MRR</span>
                 <DollarSign className="h-4 w-4" />
               </div>
-              <p className="text-3xl font-serif font-medium">{formatCurrency(latestMetrics?.mrr || 0)}</p>
+              <p className="text-3xl font-bold tracking-tight font-medium">{formatCurrency(latestMetrics?.mrr || 0)}</p>
               <p className="text-[10px] uppercase font-bold tracking-widest mt-1 opacity-60">Monthly Revenue</p>
             </div>
 
@@ -177,7 +177,7 @@ export default function StartupPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest">Users</span>
                 <Users className="h-4 w-4" />
               </div>
-              <p className="text-3xl font-serif font-medium">{latestMetrics?.active_users || 0}</p>
+              <p className="text-3xl font-bold tracking-tight font-medium">{latestMetrics?.active_users || 0}</p>
               <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground">Active Users</p>
             </div>
 
@@ -186,7 +186,7 @@ export default function StartupPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest">Burn Rate</span>
                 <TrendingUp className="h-4 w-4" />
               </div>
-              <p className="text-3xl font-serif font-medium">{formatCurrency(latestMetrics?.burn_rate || 0)}</p>
+              <p className="text-3xl font-bold tracking-tight font-medium">{formatCurrency(latestMetrics?.burn_rate || 0)}</p>
               <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground">Per Month</p>
             </div>
 
@@ -195,7 +195,7 @@ export default function StartupPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest">Runway</span>
                 <Clock className="h-4 w-4" />
               </div>
-              <p className="text-3xl font-serif font-medium">{latestMetrics?.runway_months || 0}</p>
+              <p className="text-3xl font-bold tracking-tight font-medium">{latestMetrics?.runway_months || 0}</p>
               <p className="text-[10px] uppercase font-bold tracking-widest mt-1 text-muted-foreground">Months Left</p>
             </div>
           </div>

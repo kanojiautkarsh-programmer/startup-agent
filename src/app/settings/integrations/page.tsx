@@ -136,8 +136,8 @@ export default function IntegrationsPage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-5xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Systems <span className="italic font-normal text-muted-foreground/60">& Sync</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Systems <span className="text-muted-foreground text-muted-foreground/60">& Sync</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -156,7 +156,7 @@ export default function IntegrationsPage() {
                       <Github className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-3xl font-medium tracking-tight mb-2">GitHub Repositories</h3>
+                      <h3 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-2">GitHub Repositories</h3>
                       <p className="text-xs text-muted-foreground font-medium">Inject issues, PRs, and codebase architecture into your system context.</p>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ export default function IntegrationsPage() {
                       <Zap className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-3xl font-medium tracking-tight mb-2">Slack Workspace</h3>
+                      <h3 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-2">Slack Workspace</h3>
                       <p className="text-xs text-muted-foreground font-medium">Real-time team communication and ephemeral context ingestion.</p>
                     </div>
                   </div>
@@ -195,7 +195,7 @@ export default function IntegrationsPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-serif text-3xl font-medium tracking-tight mb-2">Linear Projects</h3>
+                      <h3 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-2">Linear Projects</h3>
                       <p className="text-xs text-muted-foreground font-medium">Sync issues, cycles, and product roadmap engineering context.</p>
                     </div>
                   </div>

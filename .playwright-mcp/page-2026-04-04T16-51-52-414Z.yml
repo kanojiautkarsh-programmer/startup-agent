@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - generic [ref=e22]:
+      - link "Back to Home" [ref=e23] [cursor=pointer]:
+        - /url: /
+        - img [ref=e24]
+        - generic [ref=e26]: Back to Home
+      - generic [ref=e27]:
+        - heading "Get in touch" [level=1] [ref=e28]
+        - paragraph [ref=e29]: Whether you're scaling a Series A startup or architecturalizing a new financial service, we're here to help.
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - heading "Email us" [level=2] [ref=e35]
+          - paragraph [ref=e36]: For general inquiries and support.
+          - link "hello@tasklyne.com" [ref=e37] [cursor=pointer]:
+            - /url: mailto:hello@tasklyne.com
+        - generic [ref=e38]:
+          - img [ref=e39]
+          - heading "Sales" [level=2] [ref=e41]
+          - paragraph [ref=e42]: For enterprise plans and custom demos.
+          - link "sales@tasklyne.com" [ref=e43] [cursor=pointer]:
+            - /url: mailto:sales@tasklyne.com
+    - contentinfo [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - link "TaskLyne Home" [ref=e48] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e49]: TaskLyne
+            - paragraph [ref=e50]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e51]:
+              - link "Twitter" [ref=e52] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e53]
+              - link "LinkedIn" [ref=e55] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e56]
+              - link "GitHub" [ref=e60] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e61]
+          - generic [ref=e64]:
+            - heading "Product" [level=4] [ref=e65]
+            - list [ref=e66]:
+              - listitem [ref=e67]:
+                - link "Features" [ref=e68] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e69]:
+                - link "Pricing" [ref=e70] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e71]:
+                - link "Security" [ref=e72] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e73]:
+                - link "Integrations" [ref=e74] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e75]:
+            - heading "Company" [level=4] [ref=e76]
+            - list [ref=e77]:
+              - listitem [ref=e78]:
+                - link "About Us" [ref=e79] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e80]:
+                - link "Blog" [ref=e81] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e82]:
+                - link "Careers" [ref=e83] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e84]:
+                - link "Contact" [ref=e85] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e86]:
+            - heading "Legal" [level=4] [ref=e87]
+            - list [ref=e88]:
+              - listitem [ref=e89]:
+                - link "Privacy Policy" [ref=e90] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e91]:
+                - link "Terms of Service" [ref=e92] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e93]:
+                - link "Cookie Policy" [ref=e94] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e95]:
+                - link "DPA" [ref=e96] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e97]:
+          - paragraph [ref=e98]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e101]: System Operational
+  - alert [ref=e102]

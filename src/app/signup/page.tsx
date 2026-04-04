@@ -66,12 +66,12 @@ export default function SignupPage() {
     <div className="min-h-dvh bg-background flex flex-col font-sans selection:bg-primary/10 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#2D211B]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-card/5 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Top Navigation */}
       <header className="w-full px-8 py-8 flex items-center justify-between z-10 animate-slide-up">
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="font-serif font-bold text-2xl tracking-tighter">TaskLyne</span>
+          <span className="font-bold tracking-tight text-2xl tracking-tighter">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-xs uppercase font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors">
           Sign in instead
@@ -83,8 +83,8 @@ export default function SignupPage() {
         <div className="w-full max-w-[420px] mx-auto flex flex-col animate-slide-up" style={{ animationDelay: '0.1s' }}>
           
           <div className="mb-12 text-center">
-            <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-              Join <span className="italic font-normal text-muted-foreground/60">TaskLyne</span>
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+              Join <span className="text-muted-foreground text-muted-foreground/60">TaskLyne</span>
             </h1>
             <p className="text-base text-muted-foreground font-medium">
               Start building your startup&apos;s memory
@@ -176,7 +176,7 @@ export default function SignupPage() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full rounded-full h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full rounded-full h-14 bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Create account"}
               </button>

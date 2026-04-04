@@ -1,6 +1,13 @@
 import Link from "next/link"
+import { Metadata } from "next"
+
 import { Check, HelpCircle, ArrowRight, Zap, Target, Brain, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  description: "Learn more about TaskLyne's Pricing."
+};
 
 export default function PricingPage() {
   const tiers = [
@@ -66,8 +73,8 @@ export default function PricingPage() {
       <section className="pt-48 pb-20 px-6 text-center relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[100px] rounded-full -z-10 animate-fade-in" />
         <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="text-6xl sm:text-7xl font-serif font-medium tracking-tight mb-8 animate-slide-up">
-            Transparent pricing <br /><span className="italic font-normal">for every stage.</span>
+          <h1 className="text-6xl sm:text-7xl  font-medium tracking-tight mb-8 animate-slide-up">
+            Transparent pricing <br /><span className="text-muted-foreground">for every stage.</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground/80 font-medium max-w-2xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
             Choose the plan that matches your startup's velocity. From seed to scale, TaskLyne has you covered.
@@ -93,9 +100,9 @@ export default function PricingPage() {
               )}
               
               <div className="mb-10">
-                <h3 className="text-2xl font-serif font-bold mb-4">{tier.name}</h3>
+                <h3 className="text-2xl  font-bold mb-4">{tier.name}</h3>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-5xl font-serif font-medium tracking-tighter">{tier.price}</span>
+                  <span className="text-5xl  font-medium tracking-tighter">{tier.price}</span>
                   {tier.price !== "Custom" && <span className="text-muted-foreground font-medium">/mo</span>}
                 </div>
                 <p className="mt-4 text-muted-foreground font-medium leading-relaxed">{tier.description}</p>
@@ -136,7 +143,7 @@ export default function PricingPage() {
       {/* FAQs */}
       <section className="py-40 px-6 bg-muted/5 border-t border-border/10 mt-20 relative">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight mb-20 text-center animate-slide-up">Frequently Asked <span className="italic font-normal">Questions</span></h2>
+          <h2 className="text-4xl md:text-5xl  font-medium tracking-tight mb-20 text-center animate-slide-up">Frequently Asked <span className="text-muted-foreground">Questions</span></h2>
           <div className="grid md:grid-cols-2 gap-12">
             {faqs.map((faq, i) => (
               <div key={i} className="space-y-4 animate-slide-up" style={{ animationDelay: `${0.7 + i * 0.1}s` }}>
@@ -156,7 +163,7 @@ export default function PricingPage() {
       {/* Final CTA */}
       <section className="py-40 px-6 text-center animate-slide-up" style={{ animationDelay: '1s' }}>
          <div className="max-w-2xl mx-auto flex flex-col items-center">
-            <h2 className="text-4xl md:text-6xl font-serif font-medium tracking-tight mb-12">Ready to ship with <br /><span className="italic font-normal">total clarity?</span></h2>
+            <h2 className="text-4xl md:text-6xl  font-medium tracking-tight mb-12">Ready to ship with <br /><span className="text-muted-foreground">total clarity?</span></h2>
             <Link 
               href="/signup" 
               className="rounded-full px-16 h-20 bg-foreground text-background font-bold text-2xl hover:bg-foreground/90 transition-all flex items-center hover:scale-[1.02] shadow-2xl"

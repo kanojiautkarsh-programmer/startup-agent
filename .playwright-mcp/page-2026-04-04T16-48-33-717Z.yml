@@ -1,0 +1,159 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "TaskLyne Home" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]: TaskLyne
+          - navigation [ref=e8]:
+            - button "Product" [ref=e10] [cursor=pointer]:
+              - text: Product
+              - img [ref=e11]
+            - link "Company" [ref=e13] [cursor=pointer]:
+              - /url: /about
+            - link "Pricing" [ref=e14] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e15]:
+          - link "Log in" [ref=e16] [cursor=pointer]:
+            - /url: /login
+          - link "Request demo" [ref=e17] [cursor=pointer]:
+            - /url: /demo
+            - text: Request demo
+            - img [ref=e18]
+    - main [ref=e21]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - img [ref=e26]
+          - generic [ref=e28]: The New Standard
+        - heading "Built for intelligence." [level=1] [ref=e29]
+        - paragraph [ref=e30]: TaskLyne replaces static docs and fragmented tools with a unified AI command center for your entire startup engine.
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - img [ref=e37]
+            - heading "AI Memory" [level=2] [ref=e47]
+            - paragraph [ref=e48]: Capture the "Why" behind every strategic move. TaskLyne builds a persistent knowledge graph of your startup's evolution.
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - img [ref=e52]
+                - generic [ref=e55]: Conversational capture
+              - generic [ref=e56]:
+                - img [ref=e58]
+                - generic [ref=e61]: Decision indexing
+              - generic [ref=e62]:
+                - img [ref=e64]
+                - generic [ref=e67]: Context threading
+              - generic [ref=e68]:
+                - img [ref=e70]
+                - generic [ref=e73]: Stakeholder tracking
+          - generic [ref=e76]:
+            - generic [ref=e79]: Live Context Capture
+            - paragraph [ref=e80]: "\"Captured decision from the Series A roadmap meeting: Pivoting to PLG for European markets due to 0.45 CAC efficiency...\""
+        - generic [ref=e81]:
+          - img [ref=e83]
+          - heading "Goal Tracking" [level=2] [ref=e87]
+          - paragraph [ref=e88]: Connect high-level strategy to daily execution with automated OKR tracking and accountability loops.
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - heading "Weekly Alignment" [level=4] [ref=e91]
+              - paragraph [ref=e92]: Automated check-ins that keep the team focused.
+            - generic [ref=e93]:
+              - heading "Progress Velocity" [level=4] [ref=e94]
+              - paragraph [ref=e95]: Track how fast you are moving towards key results.
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - img [ref=e100]
+            - heading "Decision Log" [level=2] [ref=e103]
+            - paragraph [ref=e104]: Static documentation is dead. TaskLyne creates a living, searchable record of every decision made, ensuring team members have context on day one.
+            - button "Get Started Today" [ref=e105] [cursor=pointer]:
+              - text: Get Started Today
+              - img [ref=e106]
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - img [ref=e110]
+              - generic [ref=e113]: SAML/SSO
+            - generic [ref=e114]:
+              - img [ref=e115]
+              - generic [ref=e118]: Soc 2 Type II
+            - generic [ref=e119]:
+              - img [ref=e120]
+              - generic [ref=e123]: 256-bit AES
+            - generic [ref=e124]:
+              - img [ref=e125]
+              - generic [ref=e127]: Zero Data Training
+      - generic [ref=e129]:
+        - heading "Capture the future of your startup." [level=2] [ref=e130]:
+          - text: Capture the future
+          - text: of your startup.
+        - link "Join the Beta" [ref=e131] [cursor=pointer]:
+          - /url: /signup
+          - text: Join the Beta
+          - img [ref=e132]
+    - contentinfo [ref=e134]:
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - link "TaskLyne Home" [ref=e138] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e139]: TaskLyne
+            - paragraph [ref=e140]: Scale your startup intelligence with the only AI command center built for high-growth teams.
+            - generic [ref=e141]:
+              - link "Twitter" [ref=e142] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e143]
+              - link "LinkedIn" [ref=e145] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e146]
+              - link "GitHub" [ref=e150] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e151]
+          - generic [ref=e154]:
+            - heading "Product" [level=4] [ref=e155]
+            - list [ref=e156]:
+              - listitem [ref=e157]:
+                - link "Features" [ref=e158] [cursor=pointer]:
+                  - /url: /features
+              - listitem [ref=e159]:
+                - link "Pricing" [ref=e160] [cursor=pointer]:
+                  - /url: /pricing
+              - listitem [ref=e161]:
+                - link "Security" [ref=e162] [cursor=pointer]:
+                  - /url: /security
+              - listitem [ref=e163]:
+                - link "Integrations" [ref=e164] [cursor=pointer]:
+                  - /url: /integrations
+          - generic [ref=e165]:
+            - heading "Company" [level=4] [ref=e166]
+            - list [ref=e167]:
+              - listitem [ref=e168]:
+                - link "About Us" [ref=e169] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e170]:
+                - link "Blog" [ref=e171] [cursor=pointer]:
+                  - /url: /blog
+              - listitem [ref=e172]:
+                - link "Careers" [ref=e173] [cursor=pointer]:
+                  - /url: /careers
+              - listitem [ref=e174]:
+                - link "Contact" [ref=e175] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e176]:
+            - heading "Legal" [level=4] [ref=e177]
+            - list [ref=e178]:
+              - listitem [ref=e179]:
+                - link "Privacy Policy" [ref=e180] [cursor=pointer]:
+                  - /url: /privacy
+              - listitem [ref=e181]:
+                - link "Terms of Service" [ref=e182] [cursor=pointer]:
+                  - /url: /terms
+              - listitem [ref=e183]:
+                - link "Cookie Policy" [ref=e184] [cursor=pointer]:
+                  - /url: /cookies
+              - listitem [ref=e185]:
+                - link "DPA" [ref=e186] [cursor=pointer]:
+                  - /url: /dpa
+        - generic [ref=e187]:
+          - paragraph [ref=e188]: © 2026 TaskLyne Inc. Designed with clarity.
+          - generic [ref=e191]: System Operational
+  - alert [ref=e192]

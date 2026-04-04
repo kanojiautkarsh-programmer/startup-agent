@@ -70,7 +70,7 @@ export function NotionSync() {
             </svg>
           </div>
           <div>
-            <h3 className="font-serif text-3xl font-medium tracking-tight mb-2">Notion Workspace</h3>
+            <h3 className="font-bold tracking-tight text-3xl font-medium tracking-tight mb-2">Notion Workspace</h3>
             <div className="flex items-center gap-3">
               <span className={cn(
                 "text-[10px] font-bold uppercase tracking-widest",

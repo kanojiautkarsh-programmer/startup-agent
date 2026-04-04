@@ -76,11 +76,11 @@ export default function TeamInvitePage() {
         <div className="max-w-md w-full mx-4">
           <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-2xl p-8 text-center">
             <XCircle className="w-16 h-16 mx-auto text-red-500 mb-4" />
-            <h1 className="text-2xl font-serif font-medium mb-2">Invitation Invalid</h1>
+            <h1 className="text-2xl font-bold tracking-tight font-medium mb-2">Invitation Invalid</h1>
             <p className="text-muted-foreground mb-6">{error}</p>
             <Link
               href="/login"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#2D211B] text-white"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-card text-white"
             >
               Go to Login
             </Link>
@@ -96,7 +96,7 @@ export default function TeamInvitePage() {
         <div className="max-w-md w-full mx-4">
           <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 rounded-2xl p-8 text-center">
             <CheckCircle className="w-16 h-16 mx-auto text-green-500 mb-4" />
-            <h1 className="text-2xl font-serif font-medium mb-2">Welcome to the team!</h1>
+            <h1 className="text-2xl font-bold tracking-tight font-medium mb-2">Welcome to the team!</h1>
             <p className="text-muted-foreground mb-6">Redirecting you to the dashboard...</p>
             <Loader2 className="w-6 h-6 mx-auto animate-spin text-muted-foreground" />
           </div>
@@ -110,10 +110,10 @@ export default function TeamInvitePage() {
       <div className="max-w-md w-full mx-4">
         <div className="bg-muted/30 rounded-2xl p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-[#2D211B] mx-auto flex items-center justify-center mb-4">
+            <div className="w-16 h-16 rounded-full bg-card mx-auto flex items-center justify-center mb-4">
               <Users className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-2xl font-serif font-medium mb-2">You're invited!</h1>
+            <h1 className="text-2xl font-bold tracking-tight font-medium mb-2">You're invited!</h1>
             <p className="text-muted-foreground">
               Join <span className="font-medium text-foreground">{invite?.teams?.name}</span> on TaskLyne
             </p>
@@ -127,7 +127,7 @@ export default function TeamInvitePage() {
           <button
             onClick={acceptInvite}
             disabled={accepting}
-            className="w-full py-3 rounded-full bg-[#2D211B] text-white hover:bg-[#2D211B]/90 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-full bg-card text-white hover:bg-card/90 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {accepting ? (
               <>

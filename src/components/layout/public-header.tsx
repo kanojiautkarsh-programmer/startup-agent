@@ -21,7 +21,7 @@ export function PublicHeader() {
             <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
               <div className="relative group/product">
                 <button 
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors py-8"
+                  className="flex items-center gap-1 hover:text-primary transition-colors h-20"
                   onMouseEnter={() => setProductOpen(true)}
                   aria-expanded={productOpen}
                 >
@@ -55,8 +55,8 @@ export function PublicHeader() {
                 )}
               </div>
               
-              <Link href="/about" className="hover:text-primary transition-colors">Company</Link>
-              <Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link>
+              <Link href="/about" className="hover:text-primary transition-colors flex items-center h-20">Company</Link>
+              <Link href="/pricing" className="hover:text-primary transition-colors flex items-center h-20">Pricing</Link>
             </nav>
           </div>
 
@@ -64,7 +64,7 @@ export function PublicHeader() {
             <Button variant="ghost" asChild className="hidden md:inline-flex rounded-full px-6 font-semibold hover:bg-muted">
               <Link href="/login">Log in</Link>
             </Button>
-            <Button asChild className="rounded-full px-8 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <Button asChild className="rounded-full px-8 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
               <Link href="/demo">Request demo <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
             </Button>
             <button 
@@ -100,17 +100,17 @@ export function PublicHeader() {
           </div>
 
           <nav className="flex flex-col gap-6 text-xl font-semibold">
-            <Link href="/features" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-border/20">Product</Link>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-border/20">Company</Link>
-            <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-border/20">Pricing</Link>
-            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-border/20">Contact</Link>
+            <Link href="/features" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">Product</Link>
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">Company</Link>
+            <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">Pricing</Link>
+            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary transition-colors py-2">Contact</Link>
           </nav>
 
           <div className="mt-auto space-y-4 pb-8">
             <Button variant="outline" asChild className="w-full rounded-full h-14 text-lg font-semibold border-border/60">
               <Link href="/login" onClick={() => setMobileMenuOpen(false)}>Log in</Link>
             </Button>
-            <Button asChild className="w-full rounded-full h-14 text-lg font-semibold bg-emphasis text-emphasis-fg hover:bg-emphasis-hover">
+            <Button asChild className="w-full rounded-full h-14 text-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90">
               <Link href="/demo" onClick={() => setMobileMenuOpen(false)}>Request demo</Link>
             </Button>
           </div>

@@ -11,7 +11,7 @@ const inter = Inter({
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-bold tracking-tight",
   style: ["normal", "italic"],
   display: "swap",
 });

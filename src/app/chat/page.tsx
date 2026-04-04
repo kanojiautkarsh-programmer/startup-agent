@@ -142,8 +142,8 @@ export default function ChatPage() {
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 md:mb-8 px-2 pt-4 animate-slide-up">
             <div>
-              <h1 className="text-4xl md:text-5xl font-serif tracking-tight font-medium text-balance">
-                Chat <span className="italic font-normal text-muted-foreground/60">&amp; Intelligence</span>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight tracking-tight font-medium text-balance">
+                Chat <span className="text-muted-foreground text-muted-foreground/60">&amp; Intelligence</span>
               </h1>
               <div className="flex items-center gap-2 mt-2">
                 <span className="size-1.5 rounded-full bg-green-500" aria-hidden="true" />

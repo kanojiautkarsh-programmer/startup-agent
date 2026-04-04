@@ -215,8 +215,8 @@ export default function GoalsPage() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 animate-slide-up">
             <div>
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Strategic <span className="italic font-normal text-muted-foreground/60">& Goals</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Strategic <span className="text-muted-foreground text-muted-foreground/60">& Goals</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -225,7 +225,7 @@ export default function GoalsPage() {
             </div>
             <button 
               onClick={() => { setEditingGoal(null); setFormData({ title: '', description: '', deadline: '', priority: 'medium' }); setAddModalOpen(true) }}
-              className="group rounded-full px-8 h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-8 h-14 bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
             >
               <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
               Define Objective
@@ -234,7 +234,7 @@ export default function GoalsPage() {
 
           <div className="flex flex-col lg:flex-row gap-6 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <div className="relative flex-1 group">
-              <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+              <div className="absolute inset-0 bg-card/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
               <input 
                 placeholder="Search strategic objectives..." 
@@ -267,7 +267,7 @@ export default function GoalsPage() {
 
           <div className="mb-20">
             <div className="flex items-center gap-4 mb-8 px-4 animate-slide-up" style={{ animationDelay: '0.15s' }}>
-               <h2 className="font-serif text-3xl font-medium tracking-tight text-foreground">Active Objectives</h2>
+               <h2 className="font-bold tracking-tight text-3xl font-medium tracking-tight text-foreground">Active Objectives</h2>
                <span className="bg-muted px-3 py-1 rounded-full font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">{activeGoals.length} Pending</span>
             </div>
             
@@ -314,18 +314,18 @@ export default function GoalsPage() {
                         </div>
 
                         {goal.description && (
-                          <p className="text-sm md:text-base text-muted-foreground/80 mb-10 leading-relaxed font-medium line-clamp-2 italic font-serif">{goal.description}</p>
+                          <p className="text-sm md:text-base text-muted-foreground/80 mb-10 leading-relaxed font-medium line-clamp-2 italic font-bold tracking-tight">{goal.description}</p>
                         )}
                       </div>
 
                       <div className="mt-auto">
                         <div className="flex items-center justify-between mb-4 px-2">
                           <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/40">Completion status</span>
-                          <span className="text-sm font-bold font-serif px-3 py-1 rounded-full bg-primary/5 text-primary">{goal.progress}%</span>
+                          <span className="text-sm font-bold font-bold tracking-tight px-3 py-1 rounded-full bg-primary/5 text-primary">{goal.progress}%</span>
                         </div>
                         <div className="h-3 w-full bg-muted/30 rounded-full overflow-hidden mb-6 p-0.5 border border-border/20">
                           <div 
-                            className="h-full bg-[#2D211B] rounded-full transition-all duration-1000 ease-out shadow-[0_0_12px_rgba(45,33,27,0.2)]" 
+                            className="h-full bg-card rounded-full transition-all duration-1000 ease-out shadow-[0_0_12px_rgba(45,33,27,0.2)]" 
                             style={{ width: `${goal.progress}%`, animationDelay: `${idx * 0.1}s` }} 
                           />
                         </div>
@@ -346,7 +346,7 @@ export default function GoalsPage() {
                             </button>
                             <button 
                                onClick={() => handleComplete(goal)} 
-                               className="flex-[1.5] h-10 rounded-full bg-[#2D211B] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all shadow-lg active:scale-95"
+                               className="flex-[1.5] h-10 rounded-full bg-card text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all shadow-lg active:scale-95"
                             >
                                 Finalize Goal
                             </button>
@@ -362,8 +362,8 @@ export default function GoalsPage() {
                 <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
                   <Target className="h-8 w-8 text-muted-foreground/20" />
                 </div>
-                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">No active objectives</h3>
-                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Establish your next strategic milestone to begin operational tracking.</p>
+                <h3 className="text-3xl font-bold tracking-tight font-medium mb-4 tracking-tight">No active objectives</h3>
+                <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-bold tracking-tight">Establish your next strategic milestone to begin operational tracking.</p>
                 <button 
                   onClick={() => { setEditingGoal(null); setAddModalOpen(true) }}
                   className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
@@ -378,7 +378,7 @@ export default function GoalsPage() {
           {completedGoals.length > 0 && (
             <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center gap-4 mb-8 px-4">
-                 <h2 className="font-serif text-3xl font-medium tracking-tight text-muted-foreground/40 italic">History</h2>
+                 <h2 className="font-bold tracking-tight text-3xl font-medium tracking-tight text-muted-foreground/40 italic">History</h2>
                  <span className="bg-muted px-3 py-1 rounded-full font-sans text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">{completedGoals.length} Achieved</span>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -414,7 +414,7 @@ export default function GoalsPage() {
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
         <DialogContent className="rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 border-border/40 shadow-2xl bg-white/95 backdrop-blur-xl max-w-2xl">
           <DialogHeader className="mb-10">
-            <DialogTitle className="font-serif text-4xl font-medium tracking-tight">
+            <DialogTitle className="font-bold tracking-tight text-4xl font-medium tracking-tight">
               {editingGoal ? 'Refine Objective' : 'Establish Goal'}
             </DialogTitle>
             <p className="text-muted-foreground/60 text-xs font-bold uppercase tracking-widest mt-3 px-1">Tracking configuration protocol</p>

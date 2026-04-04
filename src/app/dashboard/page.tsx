@@ -210,8 +210,8 @@ export default function DashboardPage() {
           {/* Greeting */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 animate-slide-up">
             <div>
-              <h1 className="text-3xl md:text-4xl font-serif text-foreground font-medium tracking-tight">
-                {getGreeting()}<span className="italic font-normal">{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''}</span>
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-medium tracking-tight">
+                {getGreeting()}<span className="text-muted-foreground">{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''}</span>
               </h1>
               <p className="text-xs font-semibold text-muted-foreground/60 mt-1.5 uppercase tracking-widest">
                 {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
@@ -219,7 +219,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/chat"
-              className="group rounded-full px-6 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-lg hover:scale-105 active:scale-95 shrink-0"
+              className="group rounded-full px-6 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all flex items-center justify-center text-sm shadow-lg hover:scale-105 active:scale-95 shrink-0"
             >
               <Plus className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
               New Session
@@ -264,7 +264,7 @@ export default function DashboardPage() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Conversations</span>
                  </div>
                  <div>
-                    <p className="text-4xl font-serif font-medium">{stats?.clientCount || 0}</p>
+                    <p className="text-4xl font-bold tracking-tight font-medium">{stats?.clientCount || 0}</p>
                     <div className="flex items-center gap-2 mt-2">
                        <TrendingUp className="h-3 w-3 text-green-400" />
                        <span className="text-[10px] font-bold text-green-400 tracking-wider">+12% this week</span>
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Indexed Files</span>
                  </div>
                  <div>
-                    <p className="text-4xl font-serif font-medium tabular-nums">{stats?.mrr || 0}</p>
+                    <p className="text-4xl font-bold tracking-tight font-medium tabular-nums">{stats?.mrr || 0}</p>
                     <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Across 14 categories</p>
                  </div>
               </div>
@@ -289,7 +289,7 @@ export default function DashboardPage() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Active Goals</span>
                  </div>
                  <div>
-                    <p className="text-4xl font-serif font-medium">{stats?.activeGoals || 0}</p>
+                    <p className="text-4xl font-bold tracking-tight font-medium">{stats?.activeGoals || 0}</p>
                     <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-destructive/80">{stats?.dueToday || 0} critical deadlines</p>
                  </div>
               </div>
@@ -300,7 +300,7 @@ export default function DashboardPage() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Memory Assets</span>
                  </div>
                  <div>
-                    <p className="text-4xl font-serif font-medium">{stats?.memoryCount || 0}</p>
+                    <p className="text-4xl font-bold tracking-tight font-medium">{stats?.memoryCount || 0}</p>
                     <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Distributed context</p>
                  </div>
               </div>
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <div className="p-16 text-center">
-                    <p className="text-lg font-serif italic text-muted-foreground mb-8">Establish a new context.</p>
+                    <p className="text-lg font-bold tracking-tight italic text-muted-foreground mb-8">Establish a new context.</p>
                     <Link href="/chat" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all">
                       Initial Session
                     </Link>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <div className="p-16 text-center">
-                    <p className="text-lg font-serif italic text-muted-foreground mb-8">Define your strategic horizon.</p>
+                    <p className="text-lg font-bold tracking-tight italic text-muted-foreground mb-8">Define your strategic horizon.</p>
                     <Link href="/goals" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-foreground">
                       Set New Goal
                     </Link>
@@ -405,7 +405,7 @@ export default function DashboardPage() {
               </div>
             ) : (
               <div className="glass-card border border-border/40 border-dashed rounded-3xl p-12 text-center">
-                <p className="text-base font-serif italic text-muted-foreground mb-6">No critical decisions recorded.</p>
+                <p className="text-base font-bold tracking-tight italic text-muted-foreground mb-6">No critical decisions recorded.</p>
                 <Link href="/memory" className="inline-flex items-center gap-2 rounded-full px-6 h-11 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-foreground">
                   Archive Intelligence
                 </Link>

@@ -279,16 +279,18 @@ CREATE POLICY "Users can manage their own subscriptions" ON public.subscriptions
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, email, full_name, avatar_url)
+  SET search_path = public;
+  INSERT INTO public.profiles (id, email, full_name, avatar_url, plan)
   VALUES (
     NEW.id,
     NEW.email,
-    NEW.raw_user_meta_data->>'full_name',
-    NEW.raw_user_meta_data->>'avatar_url'
+    COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name'),
+    NEW.raw_user_meta_data->>'avatar_url',
+    'starter'
   );
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE OR REPLACE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
@@ -499,11 +501,12 @@ CREATE POLICY "Users can manage their own consent" ON public.data_training_conse
 CREATE OR REPLACE FUNCTION public.handle_new_user_consent()
 RETURNS trigger AS $$
 BEGIN
+  SET search_path = public;
   INSERT INTO public.data_training_consent (user_id, opted_out, consent_version)
   VALUES (NEW.id, true, '1.0.0');
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE OR REPLACE TRIGGER on_auth_user_created_consent
   AFTER INSERT ON auth.users

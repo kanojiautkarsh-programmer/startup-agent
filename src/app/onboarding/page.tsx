@@ -136,7 +136,7 @@ export default function OnboardingPage() {
           >
             <Zap className="size-4" />
           </span>
-          <span className="font-serif text-lg font-bold tracking-tight">TaskLyne</span>
+          <span className="font-bold tracking-tight text-lg">TaskLyne</span>
         </Link>
 
         {/* Step dots */}
@@ -147,7 +147,7 @@ export default function OnboardingPage() {
                 key={i}
                 className={cn(
                   'h-1.5 rounded-full transition-all duration-500 ease-out',
-                  i + 1 <= step ? 'w-8 bg-emphasis shadow-sm' : 'w-2 bg-muted-foreground/20'
+                  i + 1 <= step ? 'w-8 bg-primary shadow-sm' : 'w-2 bg-muted-foreground/20'
                 )}
               />
             ))}
@@ -171,15 +171,15 @@ export default function OnboardingPage() {
                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-10 animate-fade-in-up">
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/15 rounded-full blur-2xl scale-150" aria-hidden="true" />
-                    <div className="relative w-20 h-20 bg-emphasis rounded-[1.75rem] flex items-center justify-center shadow-xl">
-                      <Zap className="size-9 text-emphasis-fg" />
+                    <div className="relative w-20 h-20 bg-primary/10 rounded-[1.75rem] flex items-center justify-center shadow-xl">
+                      <Zap className="size-9 text-primary" />
                     </div>
                   </div>
 
                   <div className="space-y-5">
-                    <h1 className="text-5xl md:text-6xl font-serif font-medium tracking-tight leading-[0.92] text-balance">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[0.92] text-balance">
                       Welcome to<br />
-                      <span className="italic font-normal text-muted-foreground/70">intelligence.</span>
+                      <span className="text-muted-foreground/70">intelligence.</span>
                     </h1>
                     <p className="text-muted-foreground text-base leading-relaxed font-medium max-w-sm mx-auto">
                       Your autonomous Chief of Staff — capturing decisions, tracking goals, and surfacing context exactly when you need it.
@@ -188,7 +188,7 @@ export default function OnboardingPage() {
 
                   <button
                     onClick={next}
-                    className="group flex items-center gap-3 rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:opacity-90 font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                    className="group flex items-center gap-3 rounded-full px-10 h-14 bg-primary text-primary-foreground hover:opacity-90 font-bold text-sm shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   >
                     Get started
                     <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
@@ -207,9 +207,9 @@ export default function OnboardingPage() {
                     <div className="w-9 h-9 rounded-xl bg-muted/50 border border-border/40 flex items-center justify-center mb-5">
                       <Building className="size-4 text-muted-foreground" aria-hidden="true" />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                       Tell me about<br />
-                      <span className="italic font-normal text-primary">your startup.</span>
+                      <span className="text-primary">your startup.</span>
                     </h1>
                     <p className="text-muted-foreground text-sm font-medium">
                       I'll use this to personalise your context and intelligence feed.
@@ -228,7 +228,7 @@ export default function OnboardingPage() {
                         placeholder="e.g. Acme Corp"
                         value={orgName}
                         onChange={e => setOrgName(e.target.value)}
-                        className="w-full bg-transparent border-b-2 border-border pb-3 text-xl font-serif focus:outline-none focus:border-emphasis transition-colors duration-200 placeholder:text-muted-foreground/30"
+                        className="w-full bg-transparent border-b-2 border-border pb-3 text-xl font-bold tracking-tight focus:outline-none focus:border-emphasis transition-colors duration-200 placeholder:text-muted-foreground/30"
                       />
                     </div>
 
@@ -244,9 +244,9 @@ export default function OnboardingPage() {
                             onClick={() => setOrgStage(stage.id)}
                             className={cn(
                               'px-4 py-2 rounded-full border text-[10px] font-bold uppercase tracking-widest transition-all duration-150',
-                              orgStage === stage.id
-                                ? 'bg-emphasis text-emphasis-fg border-transparent shadow-md scale-[1.03]'
-                                : 'bg-card hover:bg-muted/50 border-border/60 text-muted-foreground hover:text-foreground hover:border-foreground/20'
+                                orgStage === stage.id
+                                  ? 'bg-primary text-primary-foreground border-transparent shadow-md scale-[1.03]'
+                                  : 'bg-card hover:bg-muted/50 border-border/60 text-muted-foreground hover:text-foreground hover:border-foreground/20'
                             )}
                           >
                             {stage.label}
@@ -267,9 +267,9 @@ export default function OnboardingPage() {
                     <div className="w-9 h-9 rounded-xl bg-muted/50 border border-border/40 flex items-center justify-center mb-5">
                       <Target className="size-4 text-muted-foreground" aria-hidden="true" />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                       Your role &<br />
-                      <span className="italic font-normal text-primary">north star.</span>
+                      <span className="text-primary">north star.</span>
                     </h1>
                     <p className="text-muted-foreground text-sm font-medium">
                       I'll calibrate my focus to what matters most to you.
@@ -291,9 +291,9 @@ export default function OnboardingPage() {
                             onClick={() => setPrimaryRole(role.id)}
                             className={cn(
                               'flex items-center gap-3 px-4 py-3 rounded-2xl border text-left transition-all duration-150',
-                              active
-                                ? 'bg-emphasis text-emphasis-fg border-transparent shadow-md'
-                                : 'bg-card hover:bg-muted/50 border-border/60 text-foreground hover:border-foreground/20'
+                                active
+                                  ? 'bg-primary text-primary-foreground border-transparent shadow-md'
+                                  : 'bg-card hover:bg-muted/50 border-border/60 text-foreground hover:border-foreground/20'
                             )}
                           >
                             <RoleIcon className="size-4 shrink-0" aria-hidden="true" />
@@ -346,7 +346,7 @@ export default function OnboardingPage() {
                       <circle cx="56" cy="56" r="50" stroke="hsl(var(--muted))" strokeWidth="6" fill="none" />
                       <circle
                         cx="56" cy="56" r="50"
-                        stroke="hsl(var(--emphasis))"
+                        stroke="hsl(var(--primary))"
                         strokeWidth="6"
                         fill="none"
                         strokeLinecap="round"
@@ -358,13 +358,13 @@ export default function OnboardingPage() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       {initPercent >= 100
                         ? <Check className="size-8 text-emphasis animate-fade-in" aria-hidden="true" />
-                        : <span className="font-serif text-2xl font-bold tabular-nums">{initPercent}%</span>
+                        : <span className="font-bold tracking-tight text-2xl font-bold tabular-nums">{initPercent}%</span>
                       }
                     </div>
                   </div>
 
                   <div className="text-center space-y-3">
-                    <h2 className="text-2xl font-serif font-medium tracking-tight min-h-[2rem]">
+                    <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight min-h-[2rem]">
                       {INIT_MESSAGES[initMsgIdx]}
                     </h2>
                     <div className="flex items-center gap-1.5 justify-center" aria-hidden="true">
@@ -434,7 +434,7 @@ function NavButtons({
           'flex-1 rounded-full h-13 font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2',
           nextDisabled
             ? 'bg-muted text-muted-foreground cursor-not-allowed'
-            : 'bg-emphasis text-emphasis-fg hover:opacity-90 shadow-lg hover:scale-[1.01] active:scale-[0.99]'
+            : 'bg-primary text-primary-foreground hover:opacity-90 shadow-lg hover:scale-[1.01] active:scale-[0.99]'
         )}
       >
         {nextLabel}

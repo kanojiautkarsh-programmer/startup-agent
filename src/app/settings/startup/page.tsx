@@ -210,8 +210,8 @@ export default function StartupProfilePage() {
 
           <div className="flex-1 p-8 md:p-16 max-w-5xl">
             <div className="mb-16 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
-                Entity <span className="italic font-normal text-muted-foreground/60">& Identity</span>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground font-medium tracking-tight mb-4">
+                Entity <span className="text-muted-foreground text-muted-foreground/60">& Identity</span>
               </h1>
               <div className="flex items-center gap-3">
                  <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -228,7 +228,7 @@ export default function StartupProfilePage() {
                       <Building2 className="h-7 w-7" />
                    </div>
                    <div>
-                      <h2 className="text-3xl font-serif font-medium tracking-tight">Core Repository</h2>
+                      <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Core Repository</h2>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Foundational metadata</p>
                    </div>
                 </div>
@@ -335,7 +335,7 @@ export default function StartupProfilePage() {
                       <Target className="h-7 w-7" />
                    </div>
                    <div>
-                      <h2 className="text-3xl font-serif font-medium tracking-tight">Market Strategy</h2>
+                      <h2 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Market Strategy</h2>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40 mt-1">Growth vector analysis</p>
                    </div>
                 </div>

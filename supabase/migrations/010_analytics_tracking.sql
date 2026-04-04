@@ -90,6 +90,7 @@ CREATE INDEX IF NOT EXISTS idx_feature_usage_user_date ON public.feature_usage(u
 CREATE OR REPLACE FUNCTION update_feature_usage()
 RETURNS TRIGGER AS $$
 BEGIN
+  SET search_path = public;
   INSERT INTO feature_usage (user_id, feature_name, usage_date, usage_count)
   VALUES (NEW.user_id, NEW.event_data->>'feature', CURRENT_DATE, 1)
   ON CONFLICT (user_id, feature_name, usage_date)
@@ -98,7 +99,7 @@ BEGIN
     updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Trigger to auto-track feature usage
 CREATE OR REPLACE TRIGGER track_feature_usage

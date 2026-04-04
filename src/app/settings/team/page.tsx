@@ -213,7 +213,7 @@ export default function TeamSettingsPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div>
-        <h1 className="text-3xl font-serif font-medium tracking-tight">Team Settings</h1>
+        <h1 className="text-3xl font-bold tracking-tight font-medium tracking-tight">Team Settings</h1>
         <p className="text-muted-foreground mt-1">Manage your team and collaborators</p>
       </div>
 
@@ -233,7 +233,7 @@ export default function TeamSettingsPage() {
             <button
               onClick={createTeam}
               disabled={creatingTeam || !newTeamName.trim()}
-              className="px-6 py-2 rounded-full bg-[#2D211B] text-white disabled:opacity-50"
+              className="px-6 py-2 rounded-full bg-card text-white disabled:opacity-50"
             >
               {creatingTeam ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create Team'}
             </button>
@@ -285,7 +285,7 @@ export default function TeamSettingsPage() {
                 <button
                   onClick={createTeam}
                   disabled={creatingTeam || !newTeamName.trim()}
-                  className="px-6 py-2 rounded-lg bg-[#2D211B] text-white disabled:opacity-50"
+                  className="px-6 py-2 rounded-lg bg-card text-white disabled:opacity-50"
                 >
                   Create
                 </button>
@@ -331,7 +331,7 @@ export default function TeamSettingsPage() {
                   {members.map(member => (
                     <div key={member.id} className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[#2D211B] flex items-center justify-center text-white font-medium">
+                        <div className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-white font-medium">
                           {member.user.profiles?.full_name?.[0] || member.user.email?.[0] || '?'}
                         </div>
                         <div>
@@ -384,7 +384,7 @@ export default function TeamSettingsPage() {
                         <button
                           onClick={sendInvite}
                           disabled={sendingInvite || !inviteEmail.trim()}
-                          className="px-6 py-2 rounded-lg bg-[#2D211B] text-white disabled:opacity-50 flex items-center gap-2"
+                          className="px-6 py-2 rounded-lg bg-card text-white disabled:opacity-50 flex items-center gap-2"
                         >
                           {sendingInvite && <Loader2 className="w-4 h-4 animate-spin" />}
                           Send Invite
