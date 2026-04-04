@@ -2,6 +2,7 @@
 -- This prevents potential privilege escalation via search_path manipulation
 
 -- Fix handle_new_user_consent
+DROP FUNCTION IF EXISTS public.handle_new_user_consent();
 CREATE OR REPLACE FUNCTION public.handle_new_user_consent()
 RETURNS trigger AS $$
 BEGIN
@@ -13,6 +14,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix generate_invite_token (from migration 014)
+DROP FUNCTION IF EXISTS public.generate_invite_token();
 CREATE OR REPLACE FUNCTION public.generate_invite_token()
 RETURNS TEXT AS $$
 DECLARE
@@ -45,6 +47,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix is_team_member (from migration 014)
+DROP FUNCTION IF EXISTS public.is_team_member(UUID, UUID);
 CREATE OR REPLACE FUNCTION public.is_team_member(team_uuid UUID, user_uuid UUID)
 RETURNS BOOLEAN AS $$
 BEGIN
@@ -57,6 +60,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix has_team_role (from migration 014)
+DROP FUNCTION IF EXISTS public.has_team_role(UUID, UUID, TEXT);
 CREATE OR REPLACE FUNCTION public.has_team_role(team_uuid UUID, user_uuid UUID, required_role TEXT)
 RETURNS BOOLEAN AS $$
 DECLARE
@@ -81,6 +85,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix update_feature_usage (ensure consistent definition with search_path)
+DROP FUNCTION IF EXISTS public.update_feature_usage();
 CREATE OR REPLACE FUNCTION public.update_feature_usage()
 RETURNS trigger AS $$
 BEGIN
@@ -96,6 +101,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix update_updated_at trigger function
+DROP FUNCTION IF EXISTS public.update_updated_at();
 CREATE OR REPLACE FUNCTION public.update_updated_at()
 RETURNS trigger AS $$
 BEGIN
