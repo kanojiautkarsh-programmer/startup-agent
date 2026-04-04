@@ -5,21 +5,21 @@
 @layer base {
   /* ── Light theme ─────────────────────────────────────── */
   :root {
-    --background: 34 38% 97%;        /* #FAF8F5 — warm cream */
-    --foreground: 220 15% 10%;       /* Near-black warm */
-    --card: 0 0% 100%;               /* pure white card */
-    --card-foreground: 220 15% 10%;
+    --background: 220 15% 98%;        /* #F8F9FA — Clean Ice White */
+    --foreground: 220 20% 10%;        /* Deep Zinc */
+    --card: 0 0% 100%;               /* Pure white card */
+    --card-foreground: 220 20% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 10%;
-
+    --popover-foreground: 220 20% 10%;
+ 
     --primary: 24 100% 50%;          /* #FF5A00 orange */
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 34 30% 90%;
-    --secondary-foreground: 220 15% 10%;
-
-    --muted: 34 20% 92%;             /* warm light grey */
-    --muted-foreground: 220 10% 45%;
+ 
+    --secondary: 220 12% 94%;
+    --secondary-foreground: 220 20% 10%;
+ 
+    --muted: 220 12% 95%;             /* soft light zinc */
+    --muted-foreground: 220 8% 45%;
 
     --accent: 24 100% 50% / 0.05;
     --accent-foreground: 24 100% 50%;
@@ -27,16 +27,25 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 34 20% 88%;
-    --input: 34 20% 88%;
+    --border: 220 12% 92%;
+    --input: 220 12% 92%;
     --ring: 24 100% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1.25rem;
+
+    /* Premium Foundations (Light) */
+    --emphasis: 24 100% 50%;
+    --emphasis-fg: 0 0% 100%;
+    --glow: 24 100% 50% / 0.1;
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 34 20% 88% / 0.5;
+    --bento-bg: 0 0% 100%;
+    --bento-hover-bg: 34 38% 95%;
 
     /* Sidebar tokens (Light) */
     --sidebar-bg: 0 0% 100%;
-    --sidebar-fg: 220 15% 10%;
-    --sidebar-border: 34 20% 88%;
+    --sidebar-fg: 220 20% 10%;
+    --sidebar-border: 220 12% 92%;
   }
 
   .dark {
@@ -71,9 +80,11 @@
     /* Premium Accents */
     --emphasis: 24 100% 50%;
     --emphasis-fg: 0 0% 100%;
-    --glow: 24 100% 50% / 0.15;
+    --glow: 24 100% 50% / 0.2;
     --glass-bg: 220 15% 6% / 0.6;
     --glass-border: 220 12% 14% / 0.8;
+    --bento-bg: 220 15% 6%;
+    --bento-hover-bg: 220 15% 8%;
   }
 }
 
@@ -189,18 +200,31 @@
 }
 
 .premium-glass {
-  @apply bg-[#111111]/60 backdrop-blur-xl border border-white/5 shadow-2xl;
-  background: radial-gradient(circle at top left, rgba(255, 90, 0, 0.05), transparent 40%),
-              rgba(17, 17, 17, 0.6);
+  @apply backdrop-blur-xl border transition-all duration-300;
+  background-color: hsl(var(--glass-bg));
+  border-color: hsl(var(--glass-border));
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
 }
 
 .bento-grid {
-  @apply grid gap-4;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  @apply grid gap-6;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .bento-item {
-  @apply premium-glass p-6 rounded-3xl transition-all duration-500 hover:scale-[1.01] hover:border-white/10;
+  @apply p-8 rounded-[2rem] transition-all duration-500 border border-transparent shadow-sm;
+  background-color: hsl(var(--bento-bg));
+}
+
+.dark .bento-item {
+  @apply premium-glass;
+}
+
+.bento-item:hover { 
+  @apply scale-[1.01];
+  background-color: hsl(var(--bento-hover-bg));
+  border-color: hsl(var(--primary) / 0.2);
+  box-shadow: 0 12px 40px -10px hsl(var(--primary) / 0.1);
 }
 
 .pulse-dot {

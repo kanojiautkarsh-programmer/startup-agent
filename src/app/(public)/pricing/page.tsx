@@ -88,10 +88,10 @@ export default function PricingPage() {
           {tiers.map((tier, idx) => (
             <div 
               key={idx} 
-              className={`glass-card rounded-[2.5rem] p-10 flex flex-col border transition-all duration-500 animate-slide-up ${
+              className={`rounded-[2.5rem] p-10 flex flex-col border transition-all duration-500 animate-slide-up ${
                 tier.popular 
-                  ? "border-primary/60 shadow-[0_0_80px_rgba(255,90,0,0.15)] scale-[1.05] relative z-10 bg-card/90" 
-                  : "border-border/40 bg-card/60"
+                  ? "border-primary/60 shadow-2xl shadow-primary/20 scale-[1.05] relative z-10 bg-card premium-glass" 
+                  : "border-border/40 bg-card/60 hover:bg-card/80"
               }`}
               style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
             >
@@ -122,7 +122,7 @@ export default function PricingPage() {
               <Button 
                 asChild 
                 className={`w-full h-14 rounded-full text-lg font-bold transition-all hover:scale-[1.02] active:scale-[0.98] ${
-                  tier.popular ? "bg-primary text-white hover:bg-primary/90 shadow-xl" : "bg-foreground text-background"
+                  tier.popular ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl" : "bg-foreground text-background"
                 }`}
               >
                 <Link href={tier.href}>{tier.buttonText}</Link>
