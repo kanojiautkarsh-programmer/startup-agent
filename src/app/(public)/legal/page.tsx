@@ -1,11 +1,11 @@
+import { Metadata } from "next"
+
 export const metadata: Metadata = {
   title: "Legal",
   description: "Learn more about TaskLyne's Legal."
 };
 
 export default function LegalPage() {
-import { Metadata } from "next"
-
   return (
     <main className="w-full flex-1">
       {/* Dynamic Gradient Hero */}
