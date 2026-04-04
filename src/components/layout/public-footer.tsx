@@ -10,8 +10,8 @@ export function PublicFooter() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-12 lg:gap-16 mb-20 animate-fade-in">
           <div className="lg:col-span-3 flex flex-col pr-0 md:pr-12">
-            <Link href="/" className="flex items-center gap-3 mb-8 group" aria-label="TaskLyne Home">
-              <span className="font-extrabold text-3xl md:text-4xl tracking-tighter text-white hover:opacity-80 transition-opacity">TaskLyne</span>
+            <Link href="/" className="flex items-center gap-3 mb-8 group" aria-label="Startup Agent Home">
+              <span className="font-extrabold text-3xl md:text-4xl tracking-tighter text-white hover:opacity-80 transition-opacity">Startup Agent</span>
             </Link>
             <p className="text-zinc-400 max-w-sm mb-12 text-lg font-medium leading-relaxed">
               Scale your startup intelligence with the only AI command center built for high-growth teams.

@@ -76,7 +76,7 @@ export default function SignupPage() {
           <span className="font-bold tracking-tight text-2xl tracking-tighter">TaskLyne</span>
         </Link>
         <Link href="/login" className="text-xs uppercase font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors">
-          Sign in instead
+          Log in instead
         </Link>
       </header>
 
@@ -93,7 +93,7 @@ export default function SignupPage() {
             </p>
           </div>
 
-          <div className="glass-card border border-border/40 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
+          <div className="premium-glass rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
             {error && (
               <div
                 role="alert"
@@ -191,7 +191,7 @@ export default function SignupPage() {
       {/* Footer */}
       <footer className="w-full py-8 text-center text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-bold z-10 animate-slide-up">
         <div className="flex justify-center space-x-8 mb-4">
-          <Link href="/login" className="hover:text-foreground transition-colors">Sign In Instead</Link>
+          <Link href="/login" className="hover:text-foreground transition-colors">Log in instead</Link>
           <Link href="/security" className="hover:text-foreground transition-colors">Security</Link>
         </div>
         <span>© {new Date().getFullYear()} TaskLyne Intelligence Systems</span>

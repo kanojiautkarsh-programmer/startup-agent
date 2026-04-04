@@ -233,7 +233,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             
             {/* Primary Status Card - Full Height */}
-            <div className="md:col-span-4 obsidian-card rounded-[2.5rem] p-8 flex flex-col justify-between group shadow-2xl">
+            <div className="md:col-span-4 bento-item p-8 flex flex-col justify-between group">
                <div className="space-y-6">
                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -272,7 +272,7 @@ export default function DashboardPage() {
 
             {/* Insight Grid Cards */}
             <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-               <div className="obsidian-card rounded-[2.5rem] p-8 group hover:shadow-xl transition-all cursor-pointer">
+               <div className="bento-item p-8 group cursor-pointer">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="size-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
                       <MessageSquare className="size-5" />
@@ -286,7 +286,7 @@ export default function DashboardPage() {
                   </div>
                </div>
 
-               <div className="obsidian-card rounded-[2.5rem] p-8 group hover:shadow-xl transition-all cursor-pointer">
+               <div className="bento-item p-8 group cursor-pointer">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="size-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
                       <Brain className="size-5" />
@@ -298,7 +298,7 @@ export default function DashboardPage() {
                </div>
 
                {/* Extended MRR Card */}
-               <div className="sm:col-span-2 obsidian-card rounded-[2.5rem] p-8 flex items-center justify-between group hover:shadow-xl transition-all cursor-pointer">
+               <div className="sm:col-span-2 bento-item p-8 flex items-center justify-between group cursor-pointer">
                   <div className="flex items-center gap-6">
                     <div className="size-14 rounded-[1.25rem] bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20">
                       <FileText className="size-7" />
@@ -325,7 +325,7 @@ export default function DashboardPage() {
                 <Link href="/chat" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4">Explore Flow →</Link>
               </div>
               
-              <div className="obsidian-card rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
+              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
                 {stats?.recentConversations && stats.recentConversations.length > 0 ? (
                   stats.recentConversations.map((conv) => (
                     <Link 
@@ -358,7 +358,7 @@ export default function DashboardPage() {
                 <Link href="/goals" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4">Strategic Map →</Link>
               </div>
               
-              <div className="obsidian-card rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
+              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
                 {stats?.upcomingGoals && stats.upcomingGoals.length > 0 ? (
                   stats.upcomingGoals.map((goal) => {
                     const deadline = getTimeUntilDeadline(goal.deadline)

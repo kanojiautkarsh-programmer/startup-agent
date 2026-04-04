@@ -77,11 +77,11 @@ export default function LoginPage() {
               Welcome <span className="text-muted-foreground text-muted-foreground/60">back</span>
             </h1>
             <p className="text-base text-muted-foreground font-medium">
-              Sign in to your account to continue
+              Log in to your account to continue
             </p>
           </div>
 
-          <div className="glass-card border border-border/40 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
+          <div className="premium-glass rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
             {error && (
               <div
                 role="alert"
@@ -153,7 +153,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-full rounded-full h-14 bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign in to TaskLyne"}
+                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Log in to TaskLyne"}
               </button>
             </form>
           </div>
@@ -164,8 +164,8 @@ export default function LoginPage() {
       {/* Footer */}
       <footer className="w-full py-8 text-center text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-bold z-10 animate-slide-up">
         <div className="flex justify-center space-x-8 mb-4">
-          <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
-          <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>
+          <Link href="/login" className="hover:text-foreground transition-colors">Log in instead</Link>
+          <Link href="/security" className="hover:text-foreground transition-colors">Security</Link>
         </div>
         <span>© {new Date().getFullYear()} TaskLyne Intelligence Systems</span>
       </footer>

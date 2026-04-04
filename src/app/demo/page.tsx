@@ -66,7 +66,7 @@ export default function DemoPage() {
             <span className="font-bold tracking-tight text-2xl tracking-tight">TaskLyne</span>
           </Link>
           <div className="flex items-center gap-6">
-            <Link href="/login" className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">Sign In</Link>
+            <Link href="/login" className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">Log in</Link>
             <Link 
               href="/signup" 
               className="rounded-full px-5 h-10 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors flex items-center justify-center text-xs shadow-sm"
@@ -114,7 +114,7 @@ export default function DemoPage() {
 
         {/* Demo Chat */}
         <div className="max-w-4xl mx-auto mb-32">
-          <div className="bg-background border border-border/60 rounded-[2.5rem] overflow-hidden shadow-xl flex flex-col h-[500px]">
+          <div className="premium-glass rounded-[2.5rem] overflow-hidden shadow-xl flex flex-col h-[500px]">
             <div className="px-6 py-4 border-b flex items-center justify-between bg-muted/10">
               <div className="flex items-center gap-4">
                 <div className="w-8 h-8 rounded-full bg-card flex items-center justify-center">

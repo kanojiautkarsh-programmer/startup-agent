@@ -58,7 +58,7 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
       <aside
         className={cn(
           "fixed left-0 top-0 z-40 h-dvh border-r transition-all duration-300 will-change-[width]",
-          "sidebar-bg",
+          "premium-glass border-r-border/40",
           collapsed ? "w-16" : "w-64"
         )}
         aria-label="Sidebar navigation"
@@ -78,8 +78,8 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               </div>
               {!collapsed && (
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-xs font-bold truncate">TaskLyne Hub</p>
-                  <p className="text-[10px] text-muted-foreground font-medium truncate">Personal Space</p>
+                  <p className="text-sm font-bold truncate tracking-tight text-foreground">TaskLyne</p>
+                  <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">Workspace</p>
                 </div>
               )}
               {!collapsed && <ChevronDown className="size-3 text-muted-foreground/60" />}

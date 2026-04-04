@@ -18,10 +18,10 @@ export function PublicHeader() {
             <Link href="/" className="flex items-center gap-3 group" aria-label="TaskLyne Home">
               <span className="font-extrabold text-3xl tracking-tighter hover:opacity-80 transition-opacity">TaskLyne</span>
             </Link>
-            
+
             <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
               <div className="relative group/product">
-                <button 
+                <button
                   className="flex items-center gap-1 hover:text-primary transition-colors h-20"
                   onMouseEnter={() => setProductOpen(true)}
                   aria-expanded={productOpen}
@@ -30,7 +30,7 @@ export function PublicHeader() {
                   <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${productOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </button>
                 {productOpen && (
-                  <div 
+                  <div
                     className="absolute top-full left-0 mt-0 w-80 bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-border/50 p-3 animate-slide-up"
                     onMouseLeave={() => setProductOpen(false)}
                   >
@@ -55,7 +55,7 @@ export function PublicHeader() {
                   </div>
                 )}
               </div>
-              
+
               <Link href="/about" className="hover:text-primary transition-colors flex items-center h-20">Company</Link>
               <Link href="/pricing" className="hover:text-primary transition-colors flex items-center h-20">Pricing</Link>
             </nav>
@@ -66,11 +66,11 @@ export function PublicHeader() {
             <Button variant="ghost" asChild className="hidden md:inline-flex rounded-full px-6 font-semibold hover:bg-muted">
               <Link href="/login">Log in</Link>
             </Button>
-            <Button asChild className="rounded-full px-8 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
+            <Button asChild className="hidden sm:inline-flex rounded-full px-8 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]">
               <Link href="/demo">Request demo <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
             </Button>
-            <button 
-              className="lg:hidden p-2.5 hover:bg-muted rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" 
+            <button
+              className="lg:hidden p-2.5 hover:bg-muted rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
@@ -82,7 +82,7 @@ export function PublicHeader() {
 
       {/* Mobile Menu Backdrop */}
       {mobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm lg:hidden transition-opacity duration-300"
           onClick={() => setMobileMenuOpen(false)}
         />
@@ -96,7 +96,7 @@ export function PublicHeader() {
               <span className="font-extrabold text-2xl tracking-tighter">TaskLyne</span>
               <ThemeToggle />
             </div>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 hover:bg-muted rounded-full transition-colors"
             >
