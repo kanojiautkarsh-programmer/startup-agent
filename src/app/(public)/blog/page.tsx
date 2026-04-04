@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Learn more about TaskLyne's Blog."
+  description: "Insights, guides, and stories on startup growth and AI productivity."
 };
 
 export default function BlogPage() {

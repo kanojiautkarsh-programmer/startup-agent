@@ -6,23 +6,23 @@
   /* ── Light theme ─────────────────────────────────────── */
   :root {
     --background: 34 38% 97%;        /* #FAF8F5 — warm cream */
-    --foreground: 20 14% 10%;        /* #1C1714 — near-black warm */
+    --foreground: 220 15% 10%;       /* Near-black warm */
     --card: 0 0% 100%;               /* pure white card */
-    --card-foreground: 20 14% 10%;
+    --card-foreground: 220 15% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 14% 10%;
+    --popover-foreground: 220 15% 10%;
 
     --primary: 24 100% 50%;          /* #FF5A00 orange */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 20 14% 10%;
-    --secondary-foreground: 34 38% 97%;
+    --secondary: 34 30% 90%;
+    --secondary-foreground: 220 15% 10%;
 
     --muted: 34 20% 92%;             /* warm light grey */
-    --muted-foreground: 20 10% 45%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 34 38% 90%;
-    --accent-foreground: 20 14% 10%;
+    --accent: 24 100% 50% / 0.05;
+    --accent-foreground: 24 100% 50%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -31,65 +31,42 @@
     --input: 34 20% 88%;
     --ring: 24 100% 50%;
 
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
-    /* ── Emphasis: warm charcoal in light, cream in dark ── */
-    --emphasis: 20 30% 20%;          /* #2D211B warm charcoal */
-    --emphasis-fg: 34 38% 97%;       /* warm cream text on it */
-
-    /* Sidebar tokens */
+    /* Sidebar tokens (Light) */
     --sidebar-bg: 0 0% 100%;
-    --sidebar-fg: 20 14% 10%;
+    --sidebar-fg: 220 15% 10%;
     --sidebar-border: 34 20% 88%;
-    --sidebar-item-active-bg: 20 30% 20%;
-    --sidebar-item-active-fg: 34 38% 97%;
-    --sidebar-item-hover-bg: 34 20% 92%;
-    --sidebar-item-fg: 20 10% 45%;
-
-    /* Layout tokens */
-    --sidebar-width: 15rem;
-    --sidebar-collapsed-width: 4rem;
   }
 
-  /* ── Dark theme ──────────────────────────────────────── */
   .dark {
-    --background: 20 14% 9%;
-    --foreground: 34 38% 94%;
-    --card: 20 14% 13%;
-    --card-foreground: 34 38% 94%;
-    --popover: 20 14% 13%;
-    --popover-foreground: 34 38% 94%;
+    --background: 220 15% 4%;        /* #0A0B0C — Pure Obsidian */
+    --foreground: 220 10% 85%;       /* #D9D9D9 — Soft Zinc Gray */
+    --card: 220 15% 6%;              /* #111111 — Midnight Card */
+    --card-foreground: 220 10% 85%;
+    --popover: 220 15% 6%;
+    --popover-foreground: 220 10% 85%;
 
-    --primary: 24 100% 55%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 24 100% 50%;          /* #FF5A00 Orange */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 34 38% 94%;
-    --secondary-foreground: 20 14% 9%;
+    --secondary: 220 15% 10%;
+    --secondary-foreground: 220 10% 85%;
 
-    --muted: 20 10% 18%;
-    --muted-foreground: 34 20% 60%;
+    --muted: 220 12% 12%;            /* Deep slate-grape muted */
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 20 10% 18%;
-    --accent-foreground: 34 38% 94%;
+    --accent: 24 100% 50% / 0.1;
+    --accent-foreground: 24 100% 50%;
 
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 34 38% 94%;
+    --border: 220 12% 14%;           /* Obsidian border */
+    --input: 220 12% 14%;
+    --ring: 24 100% 50%;
 
-    --border: 20 10% 20%;
-    --input: 20 10% 20%;
-    --ring: 24 100% 55%;
-
-    --emphasis: 34 38% 90%;
-    --emphasis-fg: 20 14% 9%;
-
-    /* Sidebar tokens */
-    --sidebar-bg: 20 14% 6%;
-    --sidebar-fg: 34 38% 85%;
-    --sidebar-border: 20 10% 14%;
-    --sidebar-item-active-bg: 34 38% 90%;
-    --sidebar-item-active-fg: 20 14% 9%;
-    --sidebar-item-hover-bg: 20 10% 14%;
-    --sidebar-item-fg: 34 20% 55%;
+    /* Sidebar tokens (Dark) */
+    --sidebar-bg: 220 15% 3%;
+    --sidebar-fg: 220 10% 80%;
+    --sidebar-border: 220 12% 10%;
   }
 }
 

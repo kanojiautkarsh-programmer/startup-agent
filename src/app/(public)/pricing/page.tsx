@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Learn more about TaskLyne's Pricing."
+  description: "Flexible plans for startups at every stage of growth."
 };
 
 export default function PricingPage() {

@@ -4,8 +4,8 @@ import { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Privacy",
-  description: "Learn more about TaskLyne's Privacy."
+  title: "Privacy Policy",
+  description: "How we protect and manage your startup's critical data."
 };
 
 export default function PrivacyPage() {

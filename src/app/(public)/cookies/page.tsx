@@ -4,8 +4,8 @@ import { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Cookies",
-  description: "Learn more about TaskLyne's Cookies."
+  title: "Cookie Policy",
+  description: "How we use cookies to improve your TaskLyne experience."
 };
 
 export default function CookiePage() {

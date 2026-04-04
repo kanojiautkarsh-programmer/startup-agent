@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   authors: [{ name: "TaskLyne Team" }],
   keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals", "chief of staff"],
   icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
-    apple: '/icon.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     type: 'website',
@@ -61,8 +61,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem={true}
           disableTransitionOnChange={false}
         >
           {children}

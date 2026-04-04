@@ -401,7 +401,7 @@ export function SecuritySettings() {
                   </div>
                   <div>
                      <h2 className="text-2xl font-bold tracking-tight font-medium tracking-tight">API Transport Layer</h2>
-                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B] mt-1 bg-green-500/10 px-3 py-1 rounded-full inline-block">AES-256-GCM Secure</p>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#FF5A00] mt-1 bg-green-500/10 px-3 py-1 rounded-full inline-block">AES-256-GCM Secure</p>
                   </div>
                </div>
             </div>
@@ -437,7 +437,7 @@ export function SecuritySettings() {
                               {ssoProviders.map((p) => (
                                  <div key={p.id} className="flex items-center justify-between p-5 rounded-2xl bg-card border border-border/60 hover:border-primary/40 transition-all shadow-sm group">
                                     <div className="flex items-center gap-4">
-                                       <div className="w-10 h-10 rounded-xl bg-card/5 border border-[#2D211B]/10 flex items-center justify-center text-[#2D211B] font-bold text-[10px]">
+                                       <div className="w-10 h-10 rounded-xl bg-card/5 border border-primary/10 flex items-center justify-center text-foreground font-bold text-[10px]">
                                           {p.provider.substring(0, 2).toUpperCase()}
                                        </div>
                                        <div>
@@ -603,7 +603,7 @@ export function SecuritySettings() {
                      <div className="p-8 rounded-[2rem] bg-card border border-border/60 hover:border-primary/40 transition-all shadow-sm">
                         <div className="flex items-center justify-between mb-6">
                            <div className="space-y-1">
-                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#2D211B]">Training Opt-Out</h4>
+                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-foreground">Training Opt-Out</h4>
                               <p className="text-[11px] text-muted-foreground/60">Global exclusion for all sub-nodes</p>
                            </div>
                            <button 

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   title: "Security",
-  description: "Learn more about TaskLyne's Security."
+  description: "Enterprise-grade protection for your high-velocity team."
 };
 
 export default function SecurityPage() {

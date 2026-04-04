@@ -5,7 +5,7 @@ import { ArrowLeft, Zap, Database, Slack, Github } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Integrations",
-  description: "Learn more about TaskLyne's Integrations."
+  description: "Connect TaskLyne with Notion, Slack, and your existing stack."
 };
 
 function NotionIcon({ className }: { className?: string }) {

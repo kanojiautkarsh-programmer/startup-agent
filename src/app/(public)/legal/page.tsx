@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Legal",
-  description: "Learn more about TaskLyne's Legal."
+  description: "TaskLyne legal documents and operational compliance."
 };
 
 export default function LegalPage() {

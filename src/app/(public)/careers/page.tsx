@@ -5,7 +5,7 @@ import { ArrowLeft, Rocket, Users, Heart } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Careers",
-  description: "Learn more about TaskLyne's Careers."
+  description: "Join TaskLyne and help us build the future of startup operations."
 };
 
 export default function CareersPage() {

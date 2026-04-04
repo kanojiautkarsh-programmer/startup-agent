@@ -4,8 +4,8 @@ import { Metadata } from "next"
 import { ArrowLeft, Mail, MapPin, MessageSquare } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Learn more about TaskLyne's Contact."
+  title: "Contact Support",
+  description: "Get in touch with the TaskLyne team for support or partnerships."
 };
 
 export default function ContactPage() {

@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, ArrowRight, Brain, Target, ChevronDown } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function PublicHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
@@ -61,6 +62,7 @@ export function PublicHeader() {
           </div>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Button variant="ghost" asChild className="hidden md:inline-flex rounded-full px-6 font-semibold hover:bg-muted">
               <Link href="/login">Log in</Link>
             </Button>

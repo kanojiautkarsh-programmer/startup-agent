@@ -162,7 +162,7 @@ export default function BillingPage() {
                       <div className="flex items-center gap-6 mb-8">
                         <div className={cn(
                             "w-14 h-14 rounded-[1.5rem] flex items-center justify-center shrink-0 border shadow-xl transition-all duration-500 group-hover:scale-110",
-                            isPro ? 'bg-card border-[#2D211B] text-white' : 'bg-white border-border text-[#2D211B]'
+                            isPro ? 'bg-card border-primary text-foreground' : 'bg-white border-border text-foreground'
                         )}>
                            <plan.icon className="h-6 w-6" />
                         </div>

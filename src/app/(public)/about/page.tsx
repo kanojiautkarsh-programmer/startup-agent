@@ -4,8 +4,8 @@ import { Metadata } from "next"
 import { Sparkles, Target, Zap, Brain, Quote, ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn more about TaskLyne's About."
+  title: "About Us",
+  description: "Meet the team behind TaskLyne and our mission to empower founders."
 };
 
 export default function AboutPage() {

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 "use client"
 
 import * as React from "react"
@@ -9,6 +10,12 @@ import { CommandPalette } from "@/components/command/command-palette"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
+
+export const metadata: Metadata = {
+  title: "Settings",
+  description: "Manage your TaskLyne account and team workspace."
+};
+
   User,
   Key,
   CreditCard,

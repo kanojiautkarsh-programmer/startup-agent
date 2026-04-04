@@ -1,4 +1,11 @@
+import { Metadata } from "next";
 "use client"
+
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Your AI Chief of Staff overview."
+};
 
 export const dynamic = 'force-dynamic'
 

@@ -4,8 +4,8 @@ import { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "DPA",
-  description: "Learn more about TaskLyne's DPA."
+  title: "Data Processing Agreement",
+  description: "Our commitment to data protection and GDPR compliance."
 };
 
 export default function DPAPage() {

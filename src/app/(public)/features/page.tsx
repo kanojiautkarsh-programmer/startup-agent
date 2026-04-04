@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   title: "Features",
-  description: "Learn more about TaskLyne's Features."
+  description: "Explore AI Memory, Goal Tracking, and the Decision Log."
 };
 
 export default function FeaturesPage() {

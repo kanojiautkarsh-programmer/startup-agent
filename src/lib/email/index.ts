@@ -97,7 +97,7 @@ export async function sendWelcomeEmail(email: string, name?: string): Promise<{ 
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #2D211B; margin: 0;">TaskLyne</h1>
+        <h1 style="color: hsl(var(--foreground)); margin: 0;">TaskLyne</h1>
       </div>
       
       <div style="background: #f9f9f9; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
@@ -114,7 +114,7 @@ export async function sendWelcomeEmail(email: string, name?: string): Promise<{ 
           <li>Enterprise-grade security and encryption</li>
         </ul>
         
-        <a href="${APP_URL}/dashboard" style="display: inline-block; background: #2D211B; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
+        <a href="${APP_URL}/dashboard" style="display: inline-block; background: hsl(var(--foreground)); color: hsl(var(--background)); padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           Get Started
         </a>
       </div>
@@ -152,7 +152,7 @@ export async function sendPasswordResetEmail(email: string, resetToken: string):
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #2D211B; margin: 0;">TaskLyne</h1>
+        <h1 style="color: hsl(var(--foreground)); margin: 0;">TaskLyne</h1>
       </div>
       
       <div style="background: #f9f9f9; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
@@ -198,7 +198,7 @@ export async function sendMagicLinkEmail(email: string, magicLink: string): Prom
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #2D211B; margin: 0;">TaskLyne</h1>
+        <h1 style="color: hsl(var(--foreground)); margin: 0;">TaskLyne</h1>
       </div>
       
       <div style="background: #f9f9f9; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
@@ -242,7 +242,7 @@ export async function sendDataExportEmail(email: string, exportUrl: string): Pro
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #2D211B; margin: 0;">TaskLyne</h1>
+        <h1 style="color: hsl(var(--foreground)); margin: 0;">TaskLyne</h1>
       </div>
       
       <div style="background: #f9f9f9; border-radius: 8px; padding: 30px; margin-bottom: 20px;">
@@ -284,7 +284,7 @@ export async function sendSecurityAlert(email: string, alertType: string, detail
     </head>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #2D211B; margin: 0;">TaskLyne</h1>
+        <h1 style="color: hsl(var(--foreground)); margin: 0;">TaskLyne</h1>
       </div>
       
       <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 30px; margin-bottom: 20px;">

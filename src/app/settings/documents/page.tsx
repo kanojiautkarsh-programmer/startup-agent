@@ -313,7 +313,7 @@ export default function DocumentsPage() {
                {/* Manual Ingestion */}
                <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl animate-slide-up" style={{ animationDelay: '0.1s' }}>
                   <div className="flex items-center gap-4 mb-10">
-                     <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-lg flex items-center justify-center text-[#2D211B]">
+                     <div className="w-12 h-12 rounded-2xl bg-card border border-border shadow-lg flex items-center justify-center text-foreground">
                         <FileText className="h-6 w-6" />
                      </div>
                      <div>

@@ -224,7 +224,7 @@ export default function StartupProfilePage() {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -mr-16 -mt-16 pointer-events-none" />
                 
                 <div className="flex items-center gap-6 mb-12">
-                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
+                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-foreground group-hover:scale-110 transition-transform duration-500">
                       <Building2 className="h-7 w-7" />
                    </div>
                    <div>
@@ -331,7 +331,7 @@ export default function StartupProfilePage() {
 
               <div className="glass-card border border-border/40 rounded-[3rem] p-10 md:p-12 hover:border-primary/20 transition-all shadow-xl relative group">
                 <div className="flex items-center gap-6 mb-12">
-                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-[#2D211B] group-hover:scale-110 transition-transform duration-500">
+                   <div className="w-14 h-14 rounded-2xl bg-card border border-border shadow-xl flex items-center justify-center text-foreground group-hover:scale-110 transition-transform duration-500">
                       <Target className="h-7 w-7" />
                    </div>
                    <div>

@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Learn more about TaskLyne's Terms of Service."
+  description: "The rules and guidelines for using the TaskLyne platform."
 };
 
 export default function TermsPage() {
