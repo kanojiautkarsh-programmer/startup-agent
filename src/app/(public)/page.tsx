@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ArrowUpRight, Upload, Search, CheckCircle2, Brain } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Upload, Search, CheckCircle2, Brain, Plus } from "lucide-react"
 
 export default function Home() {
   return (
@@ -38,7 +38,7 @@ export default function Home() {
                 href="/signup"
                 className="rounded-full px-12 h-16 border border-border bg-background hover:bg-muted font-medium transition-all flex items-center justify-center text-xl hover:scale-[1.02] active:scale-[0.98]"
               >
-                Get Started Free
+                Access Neural Workspace
               </Link>
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function Home() {
                 href="/demo"
                 className="rounded-full px-16 h-20 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all flex items-center justify-center text-2xl shadow-2xl hover:scale-[1.03] active:scale-[0.97] animate-slide-up"
               >
-                See the Demo <ArrowRight className="ml-4 h-8 w-8" />
+                Authorize Access <Plus className="ml-2 h-5 w-5" />
               </Link>
            </div>
         </section>
