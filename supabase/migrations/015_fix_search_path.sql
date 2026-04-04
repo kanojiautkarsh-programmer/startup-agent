@@ -25,6 +25,7 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix get_user_teams (from migration 014)
+DROP FUNCTION IF EXISTS public.get_user_teams(UUID);
 CREATE OR REPLACE FUNCTION public.get_user_teams(user_uuid UUID)
 RETURNS TABLE(id UUID, name TEXT, slug TEXT, role TEXT, member_count BIGINT) AS $$
 BEGIN

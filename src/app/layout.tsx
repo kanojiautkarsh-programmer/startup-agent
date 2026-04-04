@@ -11,9 +11,10 @@ const inter = Inter({
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-bold tracking-tight",
+  variable: "--font-serif",
   style: ["normal", "italic"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
