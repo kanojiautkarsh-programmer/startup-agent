@@ -85,7 +85,6 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix update_feature_usage (ensure consistent definition with search_path)
-DROP FUNCTION IF EXISTS public.update_feature_usage();
 CREATE OR REPLACE FUNCTION public.update_feature_usage()
 RETURNS trigger AS $$
 BEGIN
@@ -101,7 +100,6 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Fix update_updated_at trigger function
-DROP FUNCTION IF EXISTS public.update_updated_at();
 CREATE OR REPLACE FUNCTION public.update_updated_at()
 RETURNS trigger AS $$
 BEGIN
