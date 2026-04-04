@@ -1,10 +1,15 @@
 import { Metadata } from "next";
+import { DesktopOnly } from "@/components/layout/desktop-only";
 
 export const metadata: Metadata = {
-  title: "Goal Navigator | TaskLyne",
-  description: "Track your OKRs and strategic milestones with automated accountability loops."
+  title: "Strategic Goals | TaskLyne",
+  description: "Define, track, and achieve your startup's core objectives with AI-guided execution."
 };
 
 export default function GoalsLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <DesktopOnly>
+      {children}
+    </DesktopOnly>
+  );
 }
