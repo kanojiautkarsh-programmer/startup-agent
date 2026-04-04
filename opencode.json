@@ -8,6 +8,12 @@
       "headers": {
         "Authorization": "Bearer sbp_9bbba7345cfbf421bcfb18aa58e82898693ab22b"
       }
+    },
+    "ai-testing": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "cwd": "c:\\Users\\Admin\\Documents\\StartUp Agent\\ai-testing-mcp",
+      "enabled": true
     }
   }
 }

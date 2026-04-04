@@ -23,15 +23,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://startupagent.ai'),
+  metadataBase: new URL('https://tasklyne.com'),
   title: {
-    default: "TaskLyne | The command center for your startup",
+    default: "TaskLyne | AI Chief of Staff for your startup",
     template: "%s | TaskLyne"
   },
-  description: "The AI-powered command center for high-growth startups. Unifying goals, decisions, and knowledge.",
+  description: "The AI-powered command center for high-growth startups. Capture decisions, track goals, and surface context exactly when you need it.",
   applicationName: "TaskLyne",
   authors: [{ name: "TaskLyne Team" }],
-  keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals"],
+  keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals", "chief of staff"],
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',
@@ -40,14 +40,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://startupagent.ai',
-    title: "TaskLyne | The command center for your startup",
+    url: 'https://tasklyne.com',
+    title: "TaskLyne | AI Chief of Staff for your startup",
     description: "The AI-powered command center for high-growth startups.",
     siteName: 'TaskLyne',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "TaskLyne | The command center for your startup",
+    title: "TaskLyne | AI Chief of Staff for your startup",
     description: "The AI-powered command center for high-growth startups.",
   },
   robots: {

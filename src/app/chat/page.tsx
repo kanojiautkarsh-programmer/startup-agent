@@ -6,7 +6,7 @@ import * as React from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { CommandPalette } from "@/components/command/command-palette";
-import { Send, Brain, Settings, RefreshCw, Check, Copy, Sparkles, Wand2, ShieldCheck } from "lucide-react";
+import { Send, Brain, Settings, RefreshCw, Check, Copy, Sparkles, Wand2, ShieldCheck, BarChart2, BookOpen, AlertTriangle, FileText, DollarSign, Presentation } from "lucide-react";
 import Link from "next/link";
 import { useAnalytics } from "@/lib/analytics/useAnalytics";
 
@@ -18,18 +18,18 @@ interface Message {
 }
 
 const quickActions = [
-  "Strategic overview",
-  "Summarize memory",
-  "Commitment check",
-  "Risk assessment",
-  "Decision logging",
-  "Investor brief"
+  { label: "Strategic overview",  icon: BarChart2 },
+  { label: "Summarize memory",     icon: BookOpen },
+  { label: "Commitment check",     icon: Check },
+  { label: "Risk assessment",      icon: AlertTriangle },
+  { label: "Decision logging",     icon: FileText },
+  { label: "Investor brief",       icon: Presentation },
 ];
 
 const getWelcomeMessage = (): Message => ({
   id: "welcome",
   role: "assistant",
-  content: `Hello! I'm your TaskLyne assistant.\n\nI can help you with strategic planning, memory summaries, goal tracking, and more. What would you like to work on today?`,
+  content: `Hello! I'm your TaskLyne — your AI Chief of Staff.\n\nI can help you with strategic planning, decision logging, memory summaries, goal tracking, and more. What would you like to work on today?`,
   timestamp: new Date(),
 });
 
@@ -190,8 +190,8 @@ export default function ChatPage() {
                   <div
                     className={`size-10 rounded-2xl flex items-center justify-center shrink-0 border shadow-sm ${
                       message.role === "assistant"
-                        ? "bg-[#2D211B] border-[#2D211B] text-white"
-                        : "bg-white border-border/60 text-foreground"
+                        ? "bg-emphasis text-emphasis-fg border-transparent"
+                        : "bg-card border-border/60 text-foreground"
                     }`}
                     aria-hidden="true"
                   >
@@ -237,7 +237,7 @@ export default function ChatPage() {
                 </div>
               ))}
 
-              {/* Loading indicator — opacity animation, not bounce (layout) */}
+              {/* Loading indicator — wave animation, compositor-only */}
               {isLoading && (
                 <div className="flex gap-4 animate-fade-in" aria-busy="true" aria-label="Assistant is thinking">
                   <div className="size-10 rounded-2xl bg-emphasis text-emphasis-fg flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
@@ -245,10 +245,10 @@ export default function ChatPage() {
                   </div>
                   <div className="flex-1 max-w-[70%]">
                     <div className="rounded-3xl px-6 py-5 bg-card border border-border/40 flex items-center gap-3 w-fit shadow-sm">
-                      <div className="flex gap-1.5" aria-hidden="true">
-                        <span className="size-1.5 rounded-full bg-muted-foreground/30 animate-pulse" style={{ animationDelay: "0ms" }} />
-                        <span className="size-1.5 rounded-full bg-muted-foreground/30 animate-pulse" style={{ animationDelay: "150ms" }} />
-                        <span className="size-1.5 rounded-full bg-muted-foreground/30 animate-pulse" style={{ animationDelay: "300ms" }} />
+                      <div className="flex gap-1" aria-hidden="true">
+                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "0ms" }} />
+                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "180ms" }} />
+                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "360ms" }} />
                       </div>
                       <span className="text-xs font-medium text-muted-foreground/60">Thinking...</span>
                     </div>
@@ -268,13 +268,14 @@ export default function ChatPage() {
                     <p className="text-xs font-medium text-muted-foreground/60">Suggestions</p>
                   </div>
                   <div className="flex flex-wrap gap-2" role="group" aria-label="Quick action suggestions">
-                    {quickActions.map((action) => (
+                    {quickActions.map(({ label, icon: Icon }) => (
                       <button
-                        key={action}
-                        onClick={() => handleQuickAction(action)}
-                      className="text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
+                        key={label}
+                        onClick={() => handleQuickAction(label)}
+                        className="flex items-center gap-1.5 text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
                       >
-                        {action}
+                        <Icon className="size-3 shrink-0" aria-hidden="true" />
+                        {label}
                       </button>
                     ))}
                   </div>

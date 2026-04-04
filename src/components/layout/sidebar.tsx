@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Home, MessageSquare, Brain, Target, Settings, ChevronLeft, LogOut, Users, Rocket } from "lucide-react"
+import { Home, MessageSquare, Brain, Target, Settings, ChevronLeft, LogOut, Users, Rocket, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -12,16 +12,16 @@ import { createClient } from "@/lib/supabase/client"
 
 const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: Home },
-  { title: "Startup", href: "/startup", icon: Rocket },
-  { title: "Chat", href: "/chat", icon: MessageSquare },
-  { title: "Memory", href: "/memory", icon: Brain },
-  { title: "Goals", href: "/goals", icon: Target },
-  { title: "Clients", href: "/clients", icon: Users },
+  { title: "Startup",   href: "/startup",   icon: Rocket },
+  { title: "Chat",      href: "/chat",      icon: MessageSquare },
+  { title: "Memory",    href: "/memory",    icon: Brain },
+  { title: "Goals",     href: "/goals",     icon: Target },
+  { title: "Clients",   href: "/clients",   icon: Users },
 ]
 
 const settingsItems = [
   { title: "General", href: "/settings" },
-  { title: "Team", href: "/settings/team" },
+  { title: "Team",    href: "/settings/team" },
 ]
 
 interface SidebarProps {
@@ -32,7 +32,7 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
   const pathname = usePathname()
-  const router = useRouter()
+  const router   = useRouter()
   const supabase = createClient()
 
   const handleLogout = async () => {
@@ -49,30 +49,60 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-dvh border-r transition-all duration-200",
+          "fixed left-0 top-0 z-40 h-dvh border-r transition-all duration-200 will-change-[width]",
           "sidebar-bg",
           collapsed ? "w-16" : "w-60"
         )}
         aria-label="Sidebar navigation"
       >
         <div className="flex h-full flex-col">
-          {/* Logo */}
-          <div className="flex h-14 items-center border-b px-4 mb-2" style={{ borderColor: 'hsl(var(--sidebar-border))' }}>
+
+          {/* ── Logo / Brand ─────────────────────────────────── */}
+          <div
+            className="flex h-14 items-center border-b px-3 mb-1 shrink-0"
+            style={{ borderColor: 'hsl(var(--sidebar-border))' }}
+          >
             <Link
               href="/"
-              className="flex items-center gap-2 px-1 font-serif font-bold text-2xl tracking-tighter transition-opacity hover:opacity-70"
+              className={cn(
+                "flex items-center gap-2.5 rounded-xl px-2 py-1.5 font-bold transition-opacity hover:opacity-70",
+                collapsed ? "justify-center w-full" : ""
+              )}
               style={{ color: 'hsl(var(--sidebar-fg))' }}
               aria-label="TaskLyne home"
             >
-              {collapsed ? "T" : "TaskLyne"}
+              {/* Icon always visible */}
+              <span
+                className="flex size-7 items-center justify-center rounded-lg shrink-0"
+                style={{
+                  background: 'hsl(var(--sidebar-item-active-bg))',
+                  color: 'hsl(var(--sidebar-item-active-fg))'
+                }}
+                aria-hidden="true"
+              >
+                <Zap className="size-3.5" />
+              </span>
+              {/* Label only when expanded */}
+              {!collapsed && (
+                <span className="font-serif text-lg tracking-tight">
+                  TaskLyne
+                </span>
+              )}
             </Link>
           </div>
 
-          {/* Nav items */}
-          <nav className="flex-1 space-y-0.5 p-2" aria-label="Main navigation">
+          {/* ── Nav items ─────────────────────────────────────── */}
+          <nav className="flex-1 space-y-0.5 p-2 overflow-y-auto" aria-label="Main navigation">
+            {!collapsed && (
+              <p className="px-3 pt-2 pb-1.5 text-[9px] font-bold uppercase tracking-[0.18em] select-none"
+                style={{ color: 'hsl(var(--sidebar-item-fg) / 0.5)' }}>
+                Workspace
+              </p>
+            )}
+
             {navItems.map((item) => {
               const isActive = pathname === item.href
-              const NavIcon = item.icon
+              const NavIcon  = item.icon
               return collapsed ? (
                 <Tooltip key={item.href}>
                   <TooltipTrigger asChild>
@@ -81,10 +111,17 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                       aria-label={item.title}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "flex size-10 items-center justify-center rounded-xl transition-colors duration-150 mx-auto",
+                        "relative flex size-10 items-center justify-center rounded-xl transition-colors duration-150 mx-auto",
                         isActive ? "sidebar-item-active shadow-sm" : "sidebar-item"
                       )}
                     >
+                      {isActive && (
+                        <span
+                          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-0 w-0.5 h-5 rounded-r-full"
+                          style={{ background: 'hsl(var(--sidebar-item-active-fg))' }}
+                          aria-hidden="true"
+                        />
+                      )}
                       <NavIcon className="size-4" aria-hidden="true" />
                     </Link>
                   </TooltipTrigger>
@@ -98,10 +135,17 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150",
+                    "relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150 overflow-hidden",
                     isActive ? "sidebar-item-active font-semibold shadow-sm" : "sidebar-item font-medium"
                   )}
                 >
+                  {isActive && (
+                    <span
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full"
+                      style={{ background: 'hsl(var(--sidebar-item-active-fg))' }}
+                      aria-hidden="true"
+                    />
+                  )}
                   <NavIcon className="size-4 shrink-0" aria-hidden="true" />
                   {item.title}
                 </Link>
@@ -109,30 +153,45 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
             })}
           </nav>
 
-          {/* Bottom section */}
-          <div className="p-2 space-y-0.5 pb-4" style={{ borderTop: '1px solid hsl(var(--sidebar-border))' }}>
+          {/* ── Bottom section ────────────────────────────────── */}
+          <div className="p-2 space-y-0.5 pb-4 shrink-0" style={{ borderTop: '1px solid hsl(var(--sidebar-border))' }}>
+            {!collapsed && (
+              <p className="px-3 pt-2 pb-1.5 text-[9px] font-bold uppercase tracking-[0.18em] select-none"
+                style={{ color: 'hsl(var(--sidebar-item-fg) / 0.5)' }}>
+                Account
+              </p>
+            )}
+
             <Link
               href="/settings"
               aria-current={pathname.startsWith("/settings") ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150 mt-2",
+                "relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors duration-150 overflow-hidden",
+                collapsed ? "size-10 justify-center mx-auto" : "",
                 pathname.startsWith("/settings")
                   ? "sidebar-item-active font-semibold shadow-sm"
                   : "sidebar-item font-medium"
               )}
             >
+              {pathname.startsWith("/settings") && (
+                <span
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full"
+                  style={{ background: 'hsl(var(--sidebar-item-active-fg))' }}
+                  aria-hidden="true"
+                />
+              )}
               <Settings className="size-4 shrink-0" aria-hidden="true" />
               {!collapsed && "Settings"}
             </Link>
 
             {!collapsed && pathname.startsWith("/settings") && (
-              <div className="ml-3 space-y-0.5">
+              <div className="ml-4 space-y-0.5 border-l pl-3" style={{ borderColor: 'hsl(var(--sidebar-border))' }}>
                 {settingsItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-2 rounded-lg px-3 py-2 text-xs transition-colors duration-150",
+                      "flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs transition-colors duration-150",
                       pathname === item.href
                         ? "text-foreground font-semibold"
                         : "text-muted-foreground hover:text-foreground"
@@ -227,4 +286,3 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
     </TooltipProvider>
   )
 }
-

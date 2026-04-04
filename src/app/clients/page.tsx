@@ -30,8 +30,8 @@ interface Client {
 }
 
 const statusColors = {
-  active: "text-green-600 bg-green-500/10 border-green-500/20",
-  onboarding: "text-blue-600 bg-blue-500/10 border-blue-500/20",
+  active: "text-green-600 bg-green-500/10 border-green-500/20 dark:text-green-400 dark:bg-green-500/10 dark:border-green-500/20",
+  onboarding: "text-blue-600 bg-blue-500/10 border-blue-500/20 dark:text-blue-400 dark:bg-blue-500/10 dark:border-blue-500/20",
   at_risk: "text-destructive bg-destructive/10 border-destructive/20",
   inactive: "text-muted-foreground bg-muted border-border",
 }
@@ -126,40 +126,41 @@ export default function ClientsPage() {
             </button>
           </div>
 
-          <div className="relative mb-10">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="relative mb-10 group">
+            <div className="absolute inset-0 bg-[#2D211B]/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity rounded-full shadow-inner" />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-foreground transition-colors" />
             <input 
               placeholder="Search clients by name or company..." 
               value={searchQuery} 
               onChange={(e) => setSearchQuery(e.target.value)} 
-              className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-muted/10 text-sm focus:outline-none focus:border-foreground/30 transition-colors placeholder:text-muted-foreground/60"
+              className="w-full h-14 pl-14 pr-6 rounded-full border border-border/60 bg-card text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium relative z-10 shadow-sm"
             />
           </div>
 
-          <div className="bg-background border border-border/60 rounded-[2rem] overflow-hidden shadow-sm">
+          <div className="bg-background border border-border/60 rounded-[2.5rem] overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-border/40 bg-muted/10">
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Client Name</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Company</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Status</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Contract Value</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground"></th>
+                  <tr className="border-b border-border/40 bg-muted/30">
+                    <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Client Name</th>
+                    <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Company</th>
+                    <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Status</th>
+                    <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">Contract Value</th>
+                    <th className="px-8 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/40">
                   {filteredClients.map((client) => (
                     <tr key={client.id} className="hover:bg-muted/30 transition-colors group">
-                      <td className="px-6 py-5">
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-muted/50 border flex items-center justify-center font-serif text-sm font-medium">
+                      <td className="px-8 py-5">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-2xl bg-muted/50 border flex items-center justify-center font-serif text-sm font-medium shadow-sm">
                             {client.name[0]}
                           </div>
                           <div>
                             <p className="font-semibold text-sm tracking-tight">{client.name}</p>
-                            <p className="text-[10px] text-muted-foreground flex items-center gap-1 mt-0.5">
-                              <Mail className="h-2.5 w-2.5" /> {client.email}
+                            <p className="text-[10px] text-muted-foreground flex items-center gap-1.5 mt-1 font-medium">
+                              <Mail className="h-3 w-3" /> {client.email}
                             </p>
                           </div>
                         </div>
@@ -180,13 +181,13 @@ export default function ClientsPage() {
                           ${client.value.toLocaleString()}
                         </span>
                       </td>
-                      <td className="px-6 py-5 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors">
-                            <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                      <td className="px-8 py-5 text-right">
+                        <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                          <button className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-emphasis hover:text-emphasis-fg transition-all shadow-sm">
+                            <ExternalLink className="h-4 w-4" />
                           </button>
-                          <button className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors">
-                            <MoreVertical className="h-3.5 w-3.5 text-muted-foreground" />
+                          <button className="w-9 h-9 rounded-full border border-border/60 bg-card flex items-center justify-center hover:bg-muted transition-all shadow-sm">
+                            <MoreVertical className="h-4 w-4 text-foreground/70" />
                           </button>
                         </div>
                       </td>
@@ -196,11 +197,13 @@ export default function ClientsPage() {
               </table>
             </div>
 
-            {filteredClients.length === 0 && (
-              <div className="p-20 text-center">
-                 <Users className="h-10 w-10 text-muted-foreground/30 mx-auto mb-4" />
-                 <h3 className="font-serif text-xl font-medium mb-2">No clients found</h3>
-                 <p className="text-muted-foreground text-sm max-w-xs mx-auto">Try adjusting your search or add a new client to your portfolio.</p>
+             {filteredClients.length === 0 && (
+              <div className="py-24 text-center border-t border-dashed border-border/60 bg-muted/5 animate-slide-up">
+                <div className="w-20 h-20 rounded-[2rem] bg-card border border-border/40 mx-auto flex items-center justify-center mb-10 shadow-xl">
+                   <Users className="h-8 w-8 text-muted-foreground/20" />
+                </div>
+                <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">No clients found</h3>
+                <p className="text-muted-foreground text-sm max-w-sm mx-auto font-medium italic font-serif">Try adjusting your search criteria or register a new customer in your portal.</p>
               </div>
             )}
           </div>

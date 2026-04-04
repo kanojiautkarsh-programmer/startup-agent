@@ -22,6 +22,8 @@ import {
   Users,
   DollarSign,
   TrendingUp,
+  Plug,
+  X,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
@@ -58,8 +60,19 @@ export default function DashboardPage() {
   const [loading, setLoading] = React.useState(true)
   const [stats, setStats] = React.useState<Stats | null>(null)
   const [user, setUser] = React.useState<{ full_name?: string; email?: string } | null>(null)
+  const [nudgeDismissed, setNudgeDismissed] = React.useState(true) // default true to avoid flash
   const supabase = createClient()
   const { trackPageView } = useAnalytics()
+
+  React.useEffect(() => {
+    const dismissed = localStorage.getItem('sa_nudge_tools_dismissed')
+    if (!dismissed) setNudgeDismissed(false)
+  }, [])
+
+  const dismissNudge = () => {
+    localStorage.setItem('sa_nudge_tools_dismissed', '1')
+    setNudgeDismissed(true)
+  }
 
   React.useEffect(() => {
     trackPageView('/dashboard')
@@ -194,107 +207,115 @@ export default function DashboardPage() {
       <main className={`pt-14 transition-all duration-300 ${sidebarCollapsed ? "pl-16" : "pl-60"}`}>
         <div className="p-8 max-w-6xl mx-auto">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 animate-slide-up">
+          {/* Greeting */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 animate-slide-up">
             <div>
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+              <h1 className="text-3xl md:text-4xl font-serif text-foreground font-medium tracking-tight">
                 {getGreeting()}<span className="italic font-normal">{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''}</span>
               </h1>
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-4 bg-primary rounded-full" />
-                <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest tabular-nums">
-                  {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                </p>
-              </div>
+              <p className="text-xs font-semibold text-muted-foreground/60 mt-1.5 uppercase tracking-widest">
+                {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              </p>
             </div>
-            <Link 
+            <Link
               href="/chat"
-              className="group rounded-full px-8 h-14 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-2xl hover:scale-105 active:scale-95"
+              className="group rounded-full px-6 h-12 bg-emphasis text-emphasis-fg hover:bg-emphasis-hover font-bold transition-all flex items-center justify-center text-sm shadow-lg hover:scale-105 active:scale-95 shrink-0"
             >
-              <Plus className="h-5 w-5 mr-3 group-hover:rotate-90 transition-transform duration-300" />
-              New Intelligence Session
+              <Plus className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+              New Session
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              <div className="bg-emphasis rounded-[2rem] p-8 text-emphasis-fg shadow-2xl flex flex-col justify-between group hover:scale-[1.03] transition-all cursor-pointer relative overflow-hidden">
-                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <MessageSquare className="h-20 w-20" />
+          {/* First-run nudge banner */}
+          {!nudgeDismissed && (
+            <div className="flex items-center justify-between gap-4 mb-6 px-5 py-3.5 rounded-2xl bg-emphasis/8 border border-emphasis/15 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+              <div className="flex items-center gap-3">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emphasis text-emphasis-fg">
+                  <Plug className="size-3.5" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-foreground">Connect your tools to supercharge the AI</p>
+                  <p className="text-[10px] text-muted-foreground/70 font-medium">Link Slack, Notion, or GitHub so I can pull live context automatically.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href="/settings/integrations"
+                  className="text-[10px] font-bold uppercase tracking-widest text-emphasis hover:underline underline-offset-2 whitespace-nowrap"
+                >
+                  Set up →
+                </Link>
+                <button
+                  onClick={dismissNudge}
+                  aria-label="Dismiss"
+                  className="flex size-6 items-center justify-center rounded-full hover:bg-muted/60 text-muted-foreground/60 hover:text-foreground transition-colors"
+                >
+                  <X className="size-3" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Stat cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <div className="bg-emphasis rounded-3xl p-6 text-emphasis-fg shadow-lg flex flex-col justify-between group hover:scale-[1.02] transition-all cursor-pointer">
+                 <div className="flex items-center gap-2 mb-4">
+                    <MessageSquare className="h-4 w-4 opacity-60" aria-hidden="true" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Conversations</span>
                  </div>
-                 <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-6">
-                       <span className="w-2 h-2 rounded-full bg-primary" />
-                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-50">Total Conversations</span>
-                    </div>
-                    <div>
-                       <p className="text-5xl font-serif font-medium">{stats?.clientCount || 0}</p>
-                       <div className="flex items-center gap-2 mt-2">
-                          <TrendingUp className="h-3 w-3 text-green-400" />
-                          <span className="text-[10px] font-bold text-green-400 tracking-wider">+12% this week</span>
-                       </div>
+                 <div>
+                    <p className="text-4xl font-serif font-medium">{stats?.clientCount || 0}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                       <TrendingUp className="h-3 w-3 text-green-400" />
+                       <span className="text-[10px] font-bold text-green-400 tracking-wider">+12% this week</span>
                     </div>
                  </div>
               </div>
 
-              <div className="glass-card border border-border/40 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer relative overflow-hidden">
-                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <FileText className="h-20 w-20" />
+              <div className="glass-card border border-border/40 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer">
+                 <div className="flex items-center gap-2 mb-4 text-muted-foreground">
+                    <FileText className="h-4 w-4 opacity-60" aria-hidden="true" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Indexed Files</span>
                  </div>
-                 <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-6 text-muted-foreground">
-                       <span className="w-2 h-2 rounded-full bg-border" />
-                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">Indexed Files</span>
-                    </div>
-                    <div>
-                       <p className="text-5xl font-serif font-medium tabular-nums">{stats?.mrr || 0}</p>
-                       <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Across 14 categories</p>
-                    </div>
+                 <div>
+                    <p className="text-4xl font-serif font-medium tabular-nums">{stats?.mrr || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Across 14 categories</p>
                  </div>
               </div>
 
-              <div className="glass-card border border-border/40 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer shadow-sm relative overflow-hidden">
-                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Target className="h-20 w-20" />
+              <div className="glass-card border border-border/40 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer">
+                 <div className="flex items-center gap-2 mb-4 text-muted-foreground">
+                    <Target className="h-4 w-4 opacity-60" aria-hidden="true" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Active Goals</span>
                  </div>
-                 <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-6 text-muted-foreground">
-                       <span className="w-2 h-2 rounded-full bg-border" />
-                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">Active Commitments</span>
-                    </div>
-                    <div>
-                       <p className="text-5xl font-serif font-medium">{stats?.activeGoals || 0}</p>
-                       <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-destructive/80 font-bold">{stats?.dueToday || 0} Critical deadlines</p>
-                    </div>
+                 <div>
+                    <p className="text-4xl font-serif font-medium">{stats?.activeGoals || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-destructive/80">{stats?.dueToday || 0} critical deadlines</p>
                  </div>
               </div>
 
-              <div className="glass-card border border-border/40 rounded-[2rem] p-8 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer shadow-sm relative overflow-hidden">
-                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Brain className="h-20 w-20" />
+              <div className="glass-card border border-border/40 rounded-3xl p-6 flex flex-col justify-between group hover:border-foreground/10 transition-all cursor-pointer">
+                 <div className="flex items-center gap-2 mb-4 text-muted-foreground">
+                    <Brain className="h-4 w-4 opacity-60" aria-hidden="true" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Memory Assets</span>
                  </div>
-                 <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-6 text-muted-foreground">
-                       <span className="w-2 h-2 rounded-full bg-border" />
-                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/40">Memory Assets</span>
-                    </div>
-                    <div>
-                       <p className="text-5xl font-serif font-medium">{stats?.memoryCount || 0}</p>
-                       <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Distributed context</p>
-                    </div>
+                 <div>
+                    <p className="text-4xl font-serif font-medium">{stats?.memoryCount || 0}</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest mt-2 text-muted-foreground/60">Distributed context</p>
                  </div>
               </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 mb-16 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          {/* Recent Conversations + Upcoming Goals */}
+          <div className="grid lg:grid-cols-2 gap-6 mb-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between mb-6 px-4">
-                <div className="flex items-center gap-3">
-                  <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground/60">Recent Conversations</h2>
-                </div>
-                <Link href="/chat" className="text-[10px] font-bold uppercase tracking-[0.1em] text-foreground/40 hover:text-primary transition-colors flex items-center">
-                  Overview <ArrowRight className="h-3 w-3 ml-2" />
+              <div className="flex items-center justify-between mb-4 px-1">
+                <h2 className="text-xs font-bold tracking-widest uppercase text-muted-foreground/60">Recent Conversations</h2>
+                <Link href="/chat" className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 hover:text-primary transition-colors flex items-center gap-1">
+                  All <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
-              <div className="glass-card border border-border/40 rounded-[2.5rem] overflow-hidden flex-1">
+              <div className="glass-card border border-border/40 rounded-3xl overflow-hidden flex-1">
                 {stats?.recentConversations && stats.recentConversations.length > 0 ? (
                   <div className="divide-y divide-border/40">
                     {stats.recentConversations.map((conv) => (
@@ -322,13 +343,13 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between mb-6 px-4">
-                <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground/60">Upcoming Tracking</h2>
-                <Link href="/goals" className="text-[10px] font-bold uppercase tracking-[0.1em] text-foreground/40 hover:text-primary transition-colors flex items-center">
-                  Strategic View <ArrowRight className="h-3 w-3 ml-2" />
+              <div className="flex items-center justify-between mb-4 px-1">
+                <h2 className="text-xs font-bold tracking-widest uppercase text-muted-foreground/60">Upcoming Goals</h2>
+                <Link href="/goals" className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 hover:text-primary transition-colors flex items-center gap-1">
+                  All <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
-              <div className="glass-card border border-border/40 rounded-[2.5rem] overflow-hidden flex-1">
+              <div className="glass-card border border-border/40 rounded-3xl overflow-hidden flex-1">
                 {stats?.upcomingGoals && stats.upcomingGoals.length > 0 ? (
                   <div className="divide-y divide-border/40">
                     {stats.upcomingGoals.map((goal) => {
@@ -358,74 +379,43 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="mb-16 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <div className="flex items-center justify-between mb-6 px-4">
-              <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground/60">Key Intelligence Assets</h2>
-              <Link href="/memory" className="text-[10px] font-bold uppercase tracking-[0.1em] text-foreground/40 hover:text-primary transition-colors flex items-center">
-                Explore Index <ArrowRight className="h-3 w-3 ml-2" />
+          {/* Key Intelligence Assets */}
+          <div className="mb-10 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex items-center justify-between mb-4 px-1">
+              <h2 className="text-xs font-bold tracking-widest uppercase text-muted-foreground/60">Key Intelligence Assets</h2>
+              <Link href="/memory" className="text-[10px] font-bold uppercase tracking-widest text-foreground/40 hover:text-primary transition-colors flex items-center gap-1">
+                Explore <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
             {stats?.recentDecisions && stats.recentDecisions.length > 0 ? (
               <div className="grid md:grid-cols-2 gap-4">
                 {stats.recentDecisions.map((decision) => (
-                  <div key={decision.id} className="glass-card border border-border/40 rounded-[2.5rem] p-8 hover:border-primary/20 hover:shadow-2xl transition-all cursor-pointer group flex items-start gap-6">
-                     <div className="w-14 h-14 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-emphasis group-hover:text-emphasis-fg transition-all duration-300">
-                       <FileText className="h-6 w-6" />
+                  <div key={decision.id} className="glass-card border border-border/40 rounded-3xl p-6 hover:border-primary/20 hover:shadow-lg transition-all cursor-pointer group flex items-start gap-4">
+                     <div className="w-12 h-12 rounded-2xl border border-border/60 bg-muted/20 flex items-center justify-center shrink-0 group-hover:bg-emphasis group-hover:text-emphasis-fg group-hover:border-transparent transition-all duration-300">
+                       <FileText className="h-5 w-5" />
                      </div>
                      <div>
-                       <p className="font-bold text-lg tracking-tight mb-2 group-hover:text-primary transition-colors">{decision.title}</p>
-                       <div className="flex items-center gap-3">
-                         <span className="w-1 h-1 bg-border rounded-full" />
-                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold tabular-nums">
-                           Established {new Date(decision.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                         </p>
-                       </div>
+                       <p className="font-bold text-base tracking-tight mb-1 group-hover:text-primary transition-colors">{decision.title}</p>
+                       <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold tabular-nums">
+                         {new Date(decision.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                       </p>
                      </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="glass-card border border-border/40 border-dashed rounded-[2.5rem] p-16 text-center">
-                <p className="text-lg font-serif italic text-muted-foreground mb-8">No critical decisions recorded.</p>
-                <Link href="/memory" className="inline-flex items-center gap-2 rounded-full px-8 h-12 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-black">
+              <div className="glass-card border border-border/40 border-dashed rounded-3xl p-12 text-center">
+                <p className="text-base font-serif italic text-muted-foreground mb-6">No critical decisions recorded.</p>
+                <Link href="/memory" className="inline-flex items-center gap-2 rounded-full px-6 h-11 bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-muted transition-all text-foreground">
                   Archive Intelligence
                 </Link>
               </div>
             )}
           </div>
 
-          <div className="mb-16 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          {/* Analytics */}
+          <div className="mb-10 animate-slide-up" style={{ animationDelay: '0.4s' }}>
              <AnalyticsDashboard />
-          </div>
-
-          <div className="animate-slide-up" style={{ animationDelay: '0.5s' }}>
-            <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground/60 mb-8 px-4">Tactical Operations</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <Link href="/chat" className="group glass-card border border-border/40 h-40 rounded-[2rem] hover:border-primary/40 hover:shadow-2xl transition-all flex flex-col items-center justify-center text-center p-6">
-                <div className="w-12 h-12 rounded-xl bg-muted/30 border border-border/40 flex items-center justify-center mb-4 text-foreground group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:border-transparent transition-all duration-500">
-                  <MessageSquare className="h-5 w-5" />
-                </div>
-                <p className="font-bold text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-foreground transition-colors">Intelligence</p>
-              </Link>
-              <Link href="/memory" className="group glass-card border border-border/40 h-40 rounded-[2rem] hover:border-primary/40 hover:shadow-2xl transition-all flex flex-col items-center justify-center text-center p-6">
-                <div className="w-12 h-12 rounded-xl bg-muted/30 border border-border/40 flex items-center justify-center mb-4 text-foreground group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:border-transparent transition-all duration-500">
-                  <FileText className="h-5 w-5" />
-                </div>
-                <p className="font-bold text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-foreground transition-colors">Archive</p>
-              </Link>
-              <Link href="/goals" className="group glass-card border border-border/40 h-40 rounded-[2rem] hover:border-primary/40 hover:shadow-2xl transition-all flex flex-col items-center justify-center text-center p-6">
-                <div className="w-12 h-12 rounded-xl bg-muted/30 border border-border/40 flex items-center justify-center mb-4 text-foreground group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:border-transparent transition-all duration-500">
-                  <Target className="h-5 w-5" />
-                </div>
-                <p className="font-bold text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-foreground transition-colors">Strategy</p>
-              </Link>
-              <Link href="/settings" className="group glass-card border border-border/40 h-40 rounded-[2rem] hover:border-primary/40 hover:shadow-2xl transition-all flex flex-col items-center justify-center text-center p-6">
-                <div className="w-12 h-12 rounded-xl bg-muted/30 border border-border/40 flex items-center justify-center mb-4 text-foreground group-hover:scale-110 group-hover:bg-primary group-hover:text-white group-hover:border-transparent transition-all duration-500">
-                  <Brain className="h-5 w-5" />
-                </div>
-                <p className="font-bold text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-foreground transition-colors">Context</p>
-              </Link>
-            </div>
           </div>
         </div>
       </main>

@@ -31,32 +31,36 @@
     --input: 34 20% 88%;
     --ring: 24 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.625rem;
 
     /* ── Emphasis: warm charcoal in light, cream in dark ── */
     --emphasis: 20 30% 20%;          /* #2D211B warm charcoal */
     --emphasis-fg: 34 38% 97%;       /* warm cream text on it */
 
     /* Sidebar tokens */
-    --sidebar-bg: 0 0% 100%;         /* white sidebar in light mode */
+    --sidebar-bg: 0 0% 100%;
     --sidebar-fg: 20 14% 10%;
     --sidebar-border: 34 20% 88%;
-    --sidebar-item-active-bg: 20 30% 20%;  /* charcoal active pill */
+    --sidebar-item-active-bg: 20 30% 20%;
     --sidebar-item-active-fg: 34 38% 97%;
     --sidebar-item-hover-bg: 34 20% 92%;
     --sidebar-item-fg: 20 10% 45%;
+
+    /* Layout tokens */
+    --sidebar-width: 15rem;
+    --sidebar-collapsed-width: 4rem;
   }
 
   /* ── Dark theme ──────────────────────────────────────── */
   .dark {
-    --background: 20 14% 9%;         /* #18130F — deep warm dark */
-    --foreground: 34 38% 94%;        /* #F3EEE8 — warm cream */
-    --card: 20 14% 13%;              /* slightly lighter card */
+    --background: 20 14% 9%;
+    --foreground: 34 38% 94%;
+    --card: 20 14% 13%;
     --card-foreground: 34 38% 94%;
     --popover: 20 14% 13%;
     --popover-foreground: 34 38% 94%;
 
-    --primary: 24 100% 55%;          /* slightly lighter orange in dark */
+    --primary: 24 100% 55%;
     --primary-foreground: 0 0% 0%;
 
     --secondary: 34 38% 94%;
@@ -75,15 +79,14 @@
     --input: 20 10% 20%;
     --ring: 24 100% 55%;
 
-    /* ── Emphasis: flips to cream in dark mode ─────────── */
-    --emphasis: 34 38% 90%;          /* warm cream */
-    --emphasis-fg: 20 14% 9%;        /* dark text on it */
+    --emphasis: 34 38% 90%;
+    --emphasis-fg: 20 14% 9%;
 
     /* Sidebar tokens */
-    --sidebar-bg: 20 14% 6%;         /* darkest layer for sidebar in dark */
+    --sidebar-bg: 20 14% 6%;
     --sidebar-fg: 34 38% 85%;
     --sidebar-border: 20 10% 14%;
-    --sidebar-item-active-bg: 34 38% 90%;  /* cream active pill */
+    --sidebar-item-active-bg: 34 38% 90%;
     --sidebar-item-active-fg: 20 14% 9%;
     --sidebar-item-hover-bg: 20 10% 14%;
     --sidebar-item-fg: 34 20% 55%;
@@ -117,25 +120,24 @@
 /* ── Animations — compositor-only ───────────────────── */
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.2s ease-out forwards;
+/* Staggered wave for AI typing indicator */
+@keyframes wave {
+  0%, 60%, 100% { transform: translateY(0);    opacity: 0.35; }
+  30%            { transform: translateY(-5px); opacity: 1; }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.3s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: fade-in-up 0.35s ease-out forwards;
-}
+.animate-fade-in    { animation: fade-in    0.2s ease-out forwards; }
+.animate-fade-in-up { animation: fade-in-up 0.3s ease-out forwards; }
+.animate-slide-up   { animation: fade-in-up 0.35s ease-out forwards; }
+.animate-wave       { animation: wave 1.3s ease-in-out infinite; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -150,10 +152,7 @@
 .glass-card {
   @apply bg-card border border-border shadow-sm transition-shadow duration-200;
 }
-
-.glass-card:hover {
-  @apply shadow-md;
-}
+.glass-card:hover { @apply shadow-md; }
 
 /* ── Focus ring ──────────────────────────────────────── */
 :focus-visible {
@@ -163,38 +162,27 @@
 }
 
 /* ── Emphasis utility — theme-aware CTA colour ───────── */
-/* Light: warm charcoal (#2D211B) / Dark: warm cream (#F0EBE4) */
-.bg-emphasis {
-  background-color: hsl(var(--emphasis));
-}
-
-.text-emphasis-fg {
-  color: hsl(var(--emphasis-fg));
-}
-
-.hover\:bg-emphasis-hover:hover {
-  background-color: hsl(var(--emphasis) / 0.85);
-}
+.bg-emphasis            { background-color: hsl(var(--emphasis)); }
+.text-emphasis-fg       { color: hsl(var(--emphasis-fg)); }
+.hover\:bg-emphasis-hover:hover { background-color: hsl(var(--emphasis) / 0.85); }
 
 /* ── Sidebar CSS-variable utilities ─────────────────── */
 .sidebar-bg {
   background-color: hsl(var(--sidebar-bg));
-  border-color: hsl(var(--sidebar-border));
-  color: hsl(var(--sidebar-fg));
+  border-color:     hsl(var(--sidebar-border));
+  color:            hsl(var(--sidebar-fg));
 }
 
-.sidebar-item {
-  color: hsl(var(--sidebar-item-fg));
-}
+.sidebar-item { color: hsl(var(--sidebar-item-fg)); }
 
 .sidebar-item:hover {
   background-color: hsl(var(--sidebar-item-hover-bg));
-  color: hsl(var(--sidebar-fg));
+  color:            hsl(var(--sidebar-fg));
 }
 
 .sidebar-item-active {
   background-color: hsl(var(--sidebar-item-active-bg));
-  color: hsl(var(--sidebar-item-active-fg));
+  color:            hsl(var(--sidebar-item-active-fg));
 }
 
 /* Typography */

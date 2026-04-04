@@ -50,10 +50,17 @@ const typeIcons = {
 }
 
 const typeColors = {
-  decision: "bg-emphasis text-emphasis-fg border-transparent shadow-lg",
+  decision:   "bg-emphasis text-emphasis-fg border-transparent shadow-md",
   commitment: "bg-primary/10 text-primary border-primary/20",
-  context: "bg-muted text-muted-foreground border-border",
-  note: "bg-muted text-muted-foreground border-border",
+  context:    "bg-muted text-muted-foreground border-border",
+  note:       "bg-muted text-muted-foreground border-border",
+}
+
+const typeBadgeColors = {
+  decision:   "bg-emphasis/10 text-emphasis border-transparent",
+  commitment: "bg-primary/10 text-primary border-primary/20",
+  context:    "bg-muted-foreground/10 text-muted-foreground border-transparent",
+  note:       "bg-muted-foreground/10 text-muted-foreground border-transparent",
 }
 
 function Section({ title, icon: Icon, children, defaultOpen = true, count }: {
@@ -211,7 +218,7 @@ export default function MemoryPage() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 animate-slide-up">
             <div>
-              <h1 className="text-5xl md:text-6xl font-serif text-foreground font-medium tracking-tight mb-4">
+              <h1 className="text-4xl md:text-5xl font-serif text-foreground font-medium tracking-tight mb-4">
                 Memory <span className="italic font-normal text-muted-foreground/60">& Index</span>
               </h1>
               <div className="flex items-center gap-3">
@@ -288,7 +295,10 @@ export default function MemoryPage() {
                         </div>
                       </div>
                       <p className="text-sm md:text-base text-muted-foreground/80 leading-[1.7] mb-6 line-clamp-3 group-hover:line-clamp-none transition-all duration-500 font-medium">{memory.content}</p>
-                      <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 mt-3">
+                        <span className={cn("px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest border", typeBadgeColors[memory.type])}>
+                          {memory.type}
+                        </span>
                         <span className="w-1 h-1 bg-border rounded-full" />
                         <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground/30 tabular-nums">
                           {new Date(memory.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -351,11 +361,11 @@ export default function MemoryPage() {
                 </div>
                 <h3 className="text-3xl font-serif font-medium mb-4 tracking-tight">Index is empty</h3>
                 <p className="text-muted-foreground text-sm mb-12 max-w-sm mx-auto font-medium italic font-serif">Capture your startup's evolution. Begin archiving decisions and strategic commitments.</p>
-                <button 
+                <button
                   onClick={() => { setEditingMemory(null); setAddModalOpen(true) }}
-                  className="rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-10 h-14 bg-emphasis text-emphasis-fg hover:bg-primary transition-all font-bold text-xs uppercase tracking-widest shadow-2xl active:scale-95"
                 >
-                  <Plus className="h-5 w-5 mr-3" />
+                  <Plus className="h-5 w-5" />
                   Initial Archive Entry
                 </button>
               </div>
@@ -365,7 +375,7 @@ export default function MemoryPage() {
       </main>
 
       <Dialog open={addModalOpen} onOpenChange={setAddModalOpen}>
-        <DialogContent className="rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 border-border/40 shadow-2xl bg-white/95 backdrop-blur-xl max-w-2xl">
+        <DialogContent className="rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 border-border/40 shadow-2xl bg-popover max-w-2xl">
           <DialogHeader className="mb-10">
             <DialogTitle className="font-serif text-4xl font-medium tracking-tight">
               {editingMemory ? 'Refine Memory' : 'Archive Intelligence'}
