@@ -37,7 +37,8 @@ export default function PricingPage() {
         "Shared Intelligence Indexing",
         "Infinite Autonomous Flow Matrix",
         "Venture Core Model Tuning",
-        "Advanced Security Protocol"
+        "Advanced Security Protocol",
+        "Personalized Team Onboarding"
       ],
       buttonText: "Authorize Workspace",
       href: "/signup",
@@ -53,7 +54,8 @@ export default function PricingPage() {
         "Dedicated Compute Nodes",
         "SAML / SSO Identity Flow",
         "SOC 2 Type II Certification",
-        "Air-Gapped Privacy Options"
+        "Air-Gapped Privacy Options",
+        "White-Glove Implementation"
       ],
       buttonText: "Scale Intelligence",
       href: "/demo",
