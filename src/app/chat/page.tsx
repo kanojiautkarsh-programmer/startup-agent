@@ -6,9 +6,10 @@ import * as React from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { CommandPalette } from "@/components/command/command-palette";
-import { Send, Brain, Settings, RefreshCw, Check, Copy, Sparkles, Wand2, ShieldCheck, BarChart2, BookOpen, AlertTriangle, FileText, DollarSign, Presentation } from "lucide-react";
+import { Send, Brain, Settings, RefreshCw, Check, Copy, Sparkles, Wand2, ShieldCheck, BarChart2, BookOpen, AlertTriangle, FileText, DollarSign, Presentation, Plus } from "lucide-react";
 import Link from "next/link";
 import { useAnalytics } from "@/lib/analytics/useAnalytics";
+import { cn } from "@/lib/utils";
 
 interface Message {
   id: string;
@@ -29,7 +30,7 @@ const quickActions = [
 const getWelcomeMessage = (): Message => ({
   id: "welcome",
   role: "assistant",
-  content: `Hello! I'm your TaskLyne — your AI Chief of Staff.\n\nI can help you with strategic planning, decision logging, memory summaries, goal tracking, and more. What would you like to work on today?`,
+  content: `Hello! I'm TaskLyne — your AI Chief of Staff.\n\nI can help you with strategic planning, decision logging, memory summaries, goal tracking, and more. What would you like to work on today?`,
   timestamp: new Date(),
 });
 
@@ -126,109 +127,139 @@ export default function ChatPage() {
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        user={null}
       />
       <Header
         onOpenCommand={() => setCommandOpen(true)}
         sidebarCollapsed={sidebarCollapsed}
+        user={null}
       />
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
 
       <main
-        className={`pt-14 h-dvh flex flex-col transition-all duration-200 ${
-          sidebarCollapsed ? "pl-16" : "pl-60"
-        }`}
+        className={cn(
+          "pt-16 h-dvh flex flex-col transition-all duration-500",
+          sidebarCollapsed ? "pl-16" : "pl-64"
+        )}
       >
-        <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full p-2 md:p-8 overflow-hidden">
+        <div className="flex-1 flex flex-col max-w-6xl mx-auto w-full p-4 md:p-8 overflow-hidden">
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 md:mb-8 px-2 pt-4 animate-slide-up">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight tracking-tight font-medium text-balance">
-                Chat <span className="text-muted-foreground text-muted-foreground/60">&amp; Intelligence</span>
-              </h1>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="size-1.5 rounded-full bg-green-500" aria-hidden="true" />
-                <p className="text-xs font-medium text-muted-foreground">AI assistant active</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 px-2 animate-slide-up">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
+                <Brain className="size-3" />
+                Intelligence Stream
               </div>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Neural <span className="text-muted-foreground/40 font-medium">Workspace</span>
+              </h1>
+              <p className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                  <Sparkles className="size-3.5 text-primary" />
+                  TaskLyne context is synchronized and active.
+              </p>
             </div>
-            <Link
-              href="/settings/api-keys"
-              className="group h-10 px-5 rounded-full border border-border/60 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 flex items-center gap-2 text-xs font-medium shadow-sm"
-            >
-              <Settings className="size-3.5 transition-transform duration-150 group-hover:rotate-45" aria-hidden="true" />
-              Configure
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setMessages([getWelcomeMessage()])}
+                className="group h-12 px-6 rounded-2xl border border-border/40 hover:bg-muted/20 transition-all flex items-center gap-2 text-xs font-bold tracking-tight shadow-sm"
+              >
+                <Plus className="size-4 group-hover:rotate-90 transition-transform" />
+                New Session
+              </button>
+              <Link
+                href="/settings/api-keys"
+                className="group h-12 px-6 rounded-2xl bg-primary text-primary-foreground hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 text-xs font-bold tracking-tight shadow-xl shadow-primary/20"
+              >
+                <Settings className="size-4 group-hover:rotate-45 transition-transform" />
+                Configure
+              </Link>
+            </div>
           </div>
 
           {/* Chat container */}
-          <div className="flex-1 flex flex-col bg-background border border-border/40 rounded-3xl overflow-hidden mb-6 shadow-sm">
-            {/* Chat header strip */}
-            <div className="px-6 py-4 border-b border-border/30 flex items-center gap-3 bg-muted/30">
-              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border/40 text-[10px] font-bold text-foreground shadow-sm">
-                <Sparkles className="size-3 text-primary" aria-hidden="true" />
-                context_01
-              </span>
-              <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border/40 text-[10px] font-bold text-muted-foreground shadow-sm">
-                <ShieldCheck className="size-3 text-green-500" aria-hidden="true" />
-                secure
-              </span>
+          <div className="flex-1 flex flex-col premium-glass border border-border/40 rounded-[2.5rem] overflow-hidden mb-6 shadow-2xl relative">
+            
+            {/* Header Strip */}
+            <div className="px-8 py-5 border-b border-border/20 flex items-center justify-between bg-muted/5 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                 <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-bold text-primary tracking-widest uppercase">
+                  <Sparkles className="size-3" />
+                  context_active
+                </span>
+                <span className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-bold text-green-500 tracking-widest uppercase">
+                  <ShieldCheck className="size-3" />
+                  encrypted
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                 <div className="size-2 rounded-full bg-green-500 animate-pulse" />
+                 <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Protocol 4.0</span>
+              </div>
             </div>
 
             <div
               role="log"
               aria-live="polite"
               aria-label="Conversation"
-              className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8"
+              className="flex-1 overflow-y-auto p-8 md:p-12 space-y-10 custom-scrollbar"
             >
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex gap-4 animate-fade-in-up ${
+                  className={cn(
+                    "flex gap-6 animate-slide-up",
                     message.role === "user" ? "flex-row-reverse" : ""
-                  }`}
+                  )}
                 >
                   {/* Avatar */}
                   <div
-                    className={`size-10 rounded-2xl flex items-center justify-center shrink-0 border shadow-sm ${
+                    className={cn(
+                      "size-12 rounded-2xl flex items-center justify-center shrink-0 border shadow-xl transition-all duration-300",
                       message.role === "assistant"
-                        ? "bg-emphasis text-emphasis-fg border-transparent"
-                        : "bg-card border-border/60 text-foreground"
-                    }`}
-                    aria-hidden="true"
+                        ? "bg-primary text-primary-foreground border-transparent shadow-primary/20"
+                        : "bg-muted/20 border-border/40 text-foreground"
+                    )}
                   >
                     {message.role === "assistant" ? (
-                      <Brain className="size-4" />
+                      <Brain className="size-5" />
                     ) : (
-                      <span className="text-[10px] font-bold">You</span>
+                      <span className="text-[10px] font-bold">YOU</span>
                     )}
                   </div>
 
                   {/* Bubble */}
-                  <div className={`flex flex-col flex-1 max-w-[85%] md:max-w-[70%] ${message.role === "user" ? "items-end" : "items-start"}`}>
+                  <div className={cn(
+                    "flex flex-col flex-1 max-w-[85%] md:max-w-[75%]",
+                    message.role === "user" ? "items-end" : "items-start"
+                  )}>
                     <div
-                      className={`rounded-3xl px-5 py-4 border ${
+                      className={cn(
+                        "rounded-[2rem] px-8 py-6 border transition-all duration-300 shadow-sm",
                         message.role === "assistant"
-                          ? "bg-card border-border/40"
-                          : "bg-muted border-border/40"
-                      }`}
+                          ? "bg-card/40 border-border/40 hover:border-primary/20"
+                          : "bg-primary/5 border-primary/20"
+                      )}
                     >
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium text-pretty">
+                      <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap font-medium tracking-tight">
                         {message.content}
                       </p>
                     </div>
-                    <div className={`flex items-center gap-4 mt-2 px-2 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
-                      <span className="text-[10px] font-medium text-muted-foreground/50 tabular-nums">
+                    <div className={cn(
+                      "flex items-center gap-6 mt-3 px-4",
+                      message.role === "user" ? "flex-row-reverse" : ""
+                    )}>
+                      <span className="text-[10px] font-bold text-muted-foreground/40 tabular-nums tracking-widest uppercase">
                         {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                       </span>
                       {message.role === "assistant" && (
                         <button
                           onClick={() => copyToClipboard(message.content, message.id)}
-                          aria-label={copiedId === message.id ? "Copied" : "Copy message"}
-                          className="text-[10px] font-medium text-muted-foreground/40 hover:text-foreground flex items-center gap-1.5 transition-colors duration-150"
+                          className="group flex items-center gap-2 text-[10px] font-bold text-muted-foreground/30 hover:text-primary transition-colors tracking-widest uppercase"
                         >
                           {copiedId === message.id ? (
-                            <><Check className="size-3 text-green-500" aria-hidden="true" /> Copied</>
+                            <><Check className="size-3 text-green-500" /> Copied</>
                           ) : (
-                            <><Copy className="size-3" aria-hidden="true" /> Copy</>
+                            <><Copy className="size-3" /> Copy Context</>
                           )}
                         </button>
                       )}
@@ -237,20 +268,19 @@ export default function ChatPage() {
                 </div>
               ))}
 
-              {/* Loading indicator — wave animation, compositor-only */}
               {isLoading && (
-                <div className="flex gap-4 animate-fade-in" aria-busy="true" aria-label="Assistant is thinking">
-                  <div className="size-10 rounded-2xl bg-emphasis text-emphasis-fg flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
-                    <Brain className="size-4" />
+                <div className="flex gap-6 animate-slide-up">
+                  <div className="size-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shrink-0 shadow-xl shadow-primary/10">
+                    <Brain className="size-5" />
                   </div>
-                  <div className="flex-1 max-w-[70%]">
-                    <div className="rounded-3xl px-6 py-5 bg-card border border-border/40 flex items-center gap-3 w-fit shadow-sm">
-                      <div className="flex gap-1" aria-hidden="true">
-                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "0ms" }} />
-                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "180ms" }} />
-                        <span className="size-2 rounded-full bg-primary/60 animate-wave" style={{ animationDelay: "360ms" }} />
+                  <div className="flex-1">
+                    <div className="rounded-[2rem] px-8 py-6 bg-card/40 border border-border/40 flex items-center gap-4 w-fit shadow-sm">
+                      <div className="flex gap-1.5">
+                        <span className="size-2 rounded-full bg-primary animate-bounce-slow" />
+                        <span className="size-2 rounded-full bg-primary animate-bounce-slow [animation-delay:200ms]" />
+                        <span className="size-2 rounded-full bg-primary animate-bounce-slow [animation-delay:400ms]" />
                       </div>
-                      <span className="text-xs font-medium text-muted-foreground/60">Thinking...</span>
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Synthesizing...</span>
                     </div>
                   </div>
                 </div>
@@ -260,21 +290,21 @@ export default function ChatPage() {
             </div>
 
             {/* Input area */}
-            <div className="px-6 pb-6 md:px-10 md:pb-8 pt-3 bg-muted/10 border-t border-border/30">
+            <div className="px-8 pb-8 md:px-12 md:pb-10 pt-4 bg-muted/5 border-t border-border/20 backdrop-blur-xl">
               {messages.length === 1 && !isLoading && (
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-3 px-1" aria-hidden="true">
-                    <Wand2 className="size-3 text-muted-foreground/40" />
-                    <p className="text-xs font-medium text-muted-foreground/60">Suggestions</p>
+                <div className="mb-6 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                  <div className="flex items-center gap-2 mb-4 px-2">
+                    <Wand2 className="size-3 text-primary/60" />
+                    <p className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-[0.2em]">Operational Protocols</p>
                   </div>
-                  <div className="flex flex-wrap gap-2" role="group" aria-label="Quick action suggestions">
+                  <div className="flex flex-wrap gap-3">
                     {quickActions.map(({ label, icon: Icon }) => (
                       <button
                         key={label}
                         onClick={() => handleQuickAction(label)}
-                        className="flex items-center gap-1.5 text-xs rounded-full border border-border/60 bg-card px-4 py-2 hover:bg-emphasis hover:text-emphasis-fg transition-colors duration-150 font-medium text-foreground/70 shadow-sm"
+                        className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest rounded-full border border-border/40 bg-card/40 px-5 py-3 hover:bg-primary hover:text-primary-foreground hover:border-transparent transition-all shadow-sm active:scale-95"
                       >
-                        <Icon className="size-3 shrink-0" aria-hidden="true" />
+                        <Icon className="size-3.5 shrink-0" />
                         {label}
                       </button>
                     ))}
@@ -282,36 +312,40 @@ export default function ChatPage() {
                 </div>
               )}
 
-              {/* Textarea — removed blur-2xl glow (large surface paint) */}
-              <div className="relative">
-                <textarea
-                  ref={textareaRef}
-                  id="chat-input"
-                  placeholder="Ask me anything..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  aria-label="Message input"
-                  aria-multiline="true"
-                  className="w-full min-h-[64px] max-h-[200px] resize-none rounded-2xl border border-border/60 bg-card px-6 py-4 pr-16 text-sm focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-colors duration-150 placeholder:text-muted-foreground/40 font-medium shadow-sm"
-                  rows={1}
-                />
-                <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 size-10 flex items-center justify-center rounded-xl bg-emphasis text-emphasis-fg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary transition-colors duration-150 shadow-sm active:scale-95"
-                  onClick={handleSend}
-                  disabled={!input.trim() || isLoading}
-                  aria-label="Send message"
-                >
-                  {isLoading ? (
-                    <RefreshCw className="size-4 animate-spin" aria-hidden="true" />
-                  ) : (
-                    <Send className="size-4 ml-0.5" aria-hidden="true" />
-                  )}
-                </button>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-primary/5 rounded-[2rem] blur opacity-0 group-focus-within:opacity-100 transition duration-500" />
+                <div className="relative">
+                  <textarea
+                    ref={textareaRef}
+                    id="chat-input"
+                    placeholder="Brief TaskLyne about your next move..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="w-full min-h-[72px] max-h-[240px] resize-none rounded-[1.5rem] border border-border/40 bg-card/60 px-8 py-5 pr-20 text-sm md:text-base focus:outline-none focus:border-primary/40 focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-muted-foreground/30 font-medium shadow-inner custom-scrollbar"
+                    rows={1}
+                  />
+                  <button
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 size-12 flex items-center justify-center rounded-2xl bg-primary text-primary-foreground disabled:opacity-20 disabled:grayscale hover:scale-[1.05] active:scale-[0.95] transition-all shadow-xl shadow-primary/20 overflow-hidden"
+                    onClick={handleSend}
+                    disabled={!input.trim() || isLoading}
+                  >
+                    {isLoading ? (
+                      <RefreshCw className="size-5 animate-spin" />
+                    ) : (
+                      <Send className="size-5 ml-0.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    )}
+                  </button>
+                </div>
               </div>
-              <p className="text-[10px] text-muted-foreground/40 font-medium mt-2 px-2">
-                Enter to send · Shift+Enter for new line
-              </p>
+              <div className="flex items-center justify-between mt-4 px-4">
+                 <p className="text-[10px] text-muted-foreground/30 font-bold uppercase tracking-widest">
+                  Secure Intelligence Session
+                </p>
+                <p className="text-[10px] text-muted-foreground/30 font-bold uppercase tracking-widest tabular-nums">
+                  {input.length} characters
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -319,7 +353,3 @@ export default function ChatPage() {
     </div>
   );
 }
-
-
-
-

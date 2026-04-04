@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   authors: [{ name: "TaskLyne Team" }],
   keywords: ["startup", "AI", "agent", "productivity", "knowledge management", "goals", "chief of staff"],
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   openGraph: {
     type: 'website',
