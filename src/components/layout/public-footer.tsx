@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Brain, Twitter, Linkedin, Github } from "lucide-react"
+import { Brain, Twitter, Linkedin, Github, Instagram } from "lucide-react"
 
 export function PublicFooter() {
   return (
@@ -10,21 +10,24 @@ export function PublicFooter() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-12 lg:gap-16 mb-20 animate-fade-in">
           <div className="lg:col-span-3 flex flex-col pr-0 md:pr-12">
-            <Link href="/" className="flex items-center gap-3 mb-8 group" aria-label="Startup Agent Home">
-              <span className="font-extrabold text-3xl md:text-4xl tracking-tighter text-white hover:opacity-80 transition-opacity">Startup Agent</span>
+            <Link href="/" className="flex items-center gap-3 mb-8 group" aria-label="TaskLyne Home">
+              <span className="font-extrabold text-3xl md:text-4xl tracking-tighter text-white hover:opacity-80 transition-opacity">TaskLyne</span>
             </Link>
             <p className="text-zinc-400 max-w-sm mb-12 text-lg font-medium leading-relaxed">
               Scale your startup intelligence with the only AI command center built for high-growth teams.
             </p>
             <div className="flex gap-4">
               {[
-                { icon: Twitter, label: 'Twitter' },
-                { icon: Linkedin, label: 'LinkedIn' },
-                { icon: Github, label: 'GitHub' }
+                { icon: Twitter, label: 'Twitter', href: '#' },
+                { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/company/tasklyne/' },
+                { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/task.lyne/' },
+                { icon: Github, label: 'GitHub', href: '#' }
               ].map((social, i) => (
                 <a 
                   key={i}
-                  href="#" 
+                  href={social.href} 
+                  target={social.href !== '#' ? "_blank" : undefined}
+                  rel={social.href !== '#' ? "noopener noreferrer" : undefined}
                   className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center hover:bg-primary/20 hover:border-primary/40 transition-all cursor-pointer group/icon shadow-xl backdrop-blur-sm"
                   aria-label={social.label}
                 >

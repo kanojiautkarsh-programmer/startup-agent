@@ -13,10 +13,10 @@ export function PublicHeader() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-6 md:gap-10">
             <Link href="/" className="flex items-center gap-3 group" aria-label="TaskLyne Home">
-              <span className="font-extrabold text-3xl tracking-tighter hover:opacity-80 transition-opacity">TaskLyne</span>
+              <span className="font-extrabold text-2xl md:text-3xl tracking-tighter hover:opacity-80 transition-opacity">TaskLyne</span>
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">

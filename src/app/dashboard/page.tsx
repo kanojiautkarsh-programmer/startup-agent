@@ -212,7 +212,7 @@ export default function DashboardPage() {
                 </h1>
                 <p className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                   <Sparkles className="size-3.5 text-primary" />
-                  Your workspace intelligence is synchronized and up to date.
+                  TaskLyne intelligence is synchronized and up to date.
                 </p>
               </div>
               
@@ -233,7 +233,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             
             {/* Primary Status Card - Full Height */}
-            <div className="md:col-span-4 bento-item p-8 flex flex-col justify-between group">
+            <div className="md:col-span-4 bento-item p-8 flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300">
                <div className="space-y-6">
                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -272,7 +272,7 @@ export default function DashboardPage() {
 
             {/* Insight Grid Cards */}
             <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-               <div className="bento-item p-8 group cursor-pointer">
+               <div className="bento-item p-8 group cursor-pointer hover:-translate-y-1 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="size-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
                       <MessageSquare className="size-5" />
@@ -286,7 +286,7 @@ export default function DashboardPage() {
                   </div>
                </div>
 
-               <div className="bento-item p-8 group cursor-pointer">
+               <div className="bento-item p-8 group cursor-pointer hover:-translate-y-1 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="size-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
                       <Brain className="size-5" />
@@ -294,11 +294,11 @@ export default function DashboardPage() {
                     <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground/60">Intelligence</span>
                   </div>
                   <p className="text-4xl font-bold tracking-tight mb-2 tabular-nums">{stats?.memoryCount || 0}</p>
-                  <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">Contextized assets</span>
+                  <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">Contextual assets</span>
                </div>
 
                {/* Extended MRR Card */}
-               <div className="sm:col-span-2 bento-item p-8 flex items-center justify-between group cursor-pointer">
+               <div className="sm:col-span-2 bento-item p-8 flex items-center justify-between group cursor-pointer hover:-translate-y-1 transition-all duration-300">
                   <div className="flex items-center gap-6">
                     <div className="size-14 rounded-[1.25rem] bg-indigo-500/10 flex items-center justify-center text-indigo-500 border border-indigo-500/20">
                       <FileText className="size-7" />
@@ -308,7 +308,7 @@ export default function DashboardPage() {
                       <p className="text-3xl font-bold tracking-tight tabular-nums">{stats?.mrr || 0} <span className="text-sm font-medium text-muted-foreground/40 font-sans tracking-normal">indexed nodes</span></p>
                     </div>
                   </div>
-                  <button className="size-12 rounded-2xl bg-muted/40 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all shadow-sm">
+                  <button className="size-12 rounded-2xl bg-muted/40 flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
                     <ArrowRight className="size-5" />
                   </button>
                </div>
@@ -325,7 +325,7 @@ export default function DashboardPage() {
                 <Link href="/chat" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4">Explore Flow →</Link>
               </div>
               
-              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
+              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden shadow-2xl">
                 {stats?.recentConversations && stats.recentConversations.length > 0 ? (
                   stats.recentConversations.map((conv) => (
                     <Link 
@@ -358,22 +358,22 @@ export default function DashboardPage() {
                 <Link href="/goals" className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline underline-offset-4">Strategic Map →</Link>
               </div>
               
-              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden">
+              <div className="premium-glass rounded-[2.5rem] divide-y divide-border/40 overflow-hidden shadow-2xl">
                 {stats?.upcomingGoals && stats.upcomingGoals.length > 0 ? (
                   stats.upcomingGoals.map((goal) => {
                     const deadline = getTimeUntilDeadline(goal.deadline)
                     return (
-                      <div key={goal.id} className="flex items-center justify-between p-6 hover:bg-muted/30 transition-all">
+                      <div key={goal.id} className="flex items-center justify-between p-6 hover:bg-muted/30 transition-all group">
                         <div className="flex items-center gap-5 min-w-0">
                            <div className={cn(
                              "size-2.5 rounded-full ring-4 ring-muted/20 shrink-0",
                              deadline?.urgent ? "bg-destructive animate-pulse-subtle" : "bg-green-500"
                            )} />
-                          <span className="font-bold text-sm tracking-tight truncate">{goal.title}</span>
+                          <span className="font-bold text-sm tracking-tight truncate group-hover:text-primary transition-colors">{goal.title}</span>
                         </div>
                         <span className={cn(
-                          "text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shrink-0",
-                          deadline?.urgent ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground/60"
+                           "text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shrink-0 transition-colors",
+                           deadline?.urgent ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground/60 group-hover:bg-primary/10 group-hover:text-primary"
                         )}>
                           {deadline?.text}
                         </span>
@@ -400,8 +400,3 @@ export default function DashboardPage() {
     </div>
   )
 }
-
-
-
-
-
