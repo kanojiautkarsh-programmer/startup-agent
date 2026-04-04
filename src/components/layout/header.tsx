@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
-import { Search, Bell, Sun, Moon, Command, ChevronDown, BellOff } from "lucide-react";
+import { Search, Bell, Sun, Moon, Command, ChevronDown, BellOff, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { createClient } from "@/lib/supabase/client";
@@ -26,15 +26,15 @@ interface HeaderProps {
 
 /** Maps pathname prefixes to human-readable page titles */
 const PAGE_TITLES: [string, string][] = [
-  ["/dashboard", "Dashboard"],
-  ["/startup",   "Startup Overview"],
-  ["/chat",      "Chat & Intelligence"],
-  ["/memory",    "Memory & Index"],
-  ["/goals",     "Goals & Tracking"],
-  ["/clients",   "Clients"],
-  ["/settings/team", "Team Settings"],
-  ["/settings",  "Settings"],
-  ["/onboarding","Onboarding"],
+  ["/dashboard", "Overview"],
+  ["/startup",   "Venture Lab"],
+  ["/chat",      "Intelligence"],
+  ["/memory",    "Knowledge Base"],
+  ["/goals",     "Strategic Map"],
+  ["/clients",   "Network"],
+  ["/settings/team", "Team Hub"],
+  ["/settings",  "Preferences"],
+  ["/onboarding","Initialization"],
 ];
 
 function usePageTitle(pathname: string): string {
@@ -80,76 +80,70 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
   return (
     <header
       className={cn(
-        "fixed right-0 top-0 z-30 flex h-14 items-center justify-between border-b border-border/50 bg-background/95 backdrop-blur-sm px-4 transition-all duration-200",
-        sidebarCollapsed ? "left-16" : "left-60"
+        "fixed right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border/40 bg-background/80 backdrop-blur-md px-6 transition-all duration-500",
+        sidebarCollapsed ? "left-16" : "left-64"
       )}
       role="banner"
     >
-      {/* Left: page breadcrumb + search */}
-      <div className="flex items-center gap-3 flex-1 min-w-0">
-        {/* Page title breadcrumb */}
-        <span
-          className="hidden md:block text-xs font-semibold text-muted-foreground/60 whitespace-nowrap select-none"
-          aria-label={`Current page: ${pageTitle}`}
-        >
+      {/* Left: Breadcrumb + Status */}
+      <div className="flex items-center gap-4 flex-1 min-w-0">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/40 border border-border/40 shadow-sm">
+          <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60 select-none">
+            Live
+          </span>
+        </div>
+
+        <span className="text-muted-foreground/20 text-lg font-light select-none">/</span>
+
+        <h2 className="text-sm font-bold tracking-tight text-foreground/80 truncate select-none">
           {pageTitle}
-        </span>
+        </h2>
+      </div>
 
-        <span className="hidden md:block w-px h-4 bg-border/60" aria-hidden="true" />
-
-        {/* Search trigger */}
+      {/* Center: Global Actions */}
+      <div className="hidden lg:flex flex-1 justify-center max-w-md mx-4">
         <button
-          className="flex items-center gap-3 px-4 h-9 min-w-[180px] md:min-w-[220px] rounded-full bg-muted/50 border border-border/60 text-muted-foreground hover:bg-muted hover:border-border transition-colors duration-150"
           onClick={onOpenCommand}
-          aria-label="Search (⌘K)"
-          aria-keyshortcuts="Meta+K"
+          className="w-full flex items-center gap-3 px-4 h-10 rounded-2xl bg-muted/30 border border-border/40 text-muted-foreground hover:bg-muted/50 hover:border-border transition-all group"
         >
-          <Search className="size-3.5 shrink-0" aria-hidden="true" />
-          <span className="text-xs font-medium">Search...</span>
-          <div
-            className="ml-auto flex items-center gap-1 border border-border/60 bg-background px-1.5 py-0.5 rounded-md"
-            aria-hidden="true"
-          >
-            <Command className="size-2.5" />
-            <span className="text-[9px] font-bold font-mono">K</span>
-          </div>
+          <Search className="size-4 shrink-0 transition-transform group-hover:scale-110" />
+          <span className="text-xs font-bold uppercase tracking-widest text-left flex-1">Search Terminal</span>
+          <kbd className="inline-flex h-6 items-center gap-1 rounded-[6px] border border-border/60 bg-background px-2 font-sans text-[10px] font-bold text-muted-foreground shadow-sm">
+            ⌘K
+          </kbd>
         </button>
       </div>
 
       {/* Right: theme, notifications, avatar */}
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center gap-3 shrink-0">
         {/* Theme toggle */}
         {mounted && (
           <div
-            className="flex items-center gap-0.5 bg-muted/50 p-1 rounded-full border border-border/40"
+            className="flex items-center gap-1 bg-muted/30 p-1.5 rounded-2xl border border-border/40"
             role="group"
-            aria-label="Color theme"
           >
             <Button
               variant="ghost"
               size="icon"
               className={cn(
-                "size-7 rounded-full transition-colors duration-150",
-                !isDark ? "bg-background text-foreground shadow-sm border border-border/60" : "text-muted-foreground"
+                "size-8 rounded-xl transition-all duration-300",
+                !isDark ? "bg-background text-foreground shadow-lg shadow-black/5 ring-1 ring-border/60" : "text-muted-foreground/60 hover:text-foreground"
               )}
               onClick={() => setTheme("light")}
-              aria-label="Light mode"
-              aria-pressed={!isDark}
             >
-              <Sun className="size-3.5" aria-hidden="true" />
+              <Sun className="size-4" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               className={cn(
-                "size-7 rounded-full transition-colors duration-150",
-                isDark ? "bg-emphasis text-emphasis-fg shadow-sm" : "text-muted-foreground"
+                "size-8 rounded-xl transition-all duration-300",
+                isDark ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20" : "text-muted-foreground/60 hover:text-foreground"
               )}
               onClick={() => setTheme("dark")}
-              aria-label="Dark mode"
-              aria-pressed={isDark}
             >
-              <Moon className="size-3.5" aria-hidden="true" />
+              <Moon className="size-4" />
             </Button>
           </div>
         )}
@@ -160,64 +154,72 @@ export function Header({ onOpenCommand, sidebarCollapsed, user: userProp }: Head
             <Button
               variant="ghost"
               size="icon"
-              className="size-9 rounded-full hover:bg-muted border border-transparent hover:border-border/40 transition-colors duration-150"
-              aria-label="Notifications"
+              className="size-10 rounded-2xl bg-muted/30 hover:bg-muted/50 border border-border/40 transition-all group relative"
             >
-              <Bell className="size-4 text-muted-foreground" aria-hidden="true" />
+              <Bell className="size-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+              <div className="absolute top-2 right-2.5 size-2 rounded-full border-2 border-background bg-primary" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80 rounded-2xl p-2 shadow-lg">
-            <DropdownMenuLabel className="font-bold tracking-tight px-3 py-2 text-base">
-              Notifications
+          <DropdownMenuContent align="end" className="w-[320px] rounded-[2rem] p-3 shadow-2xl obsidian-card">
+            <DropdownMenuLabel className="font-bold tracking-tight px-4 py-3 text-lg flex items-center justify-between">
+              Update Stream
+              <span className="text-[10px] uppercase tracking-widest text-primary font-bold">1 New</span>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator className="opacity-40" />
-            {/* Proper empty state */}
-            <div className="flex flex-col items-center gap-2 py-8 text-center">
-              <BellOff className="size-8 text-muted-foreground/25" aria-hidden="true" />
-              <p className="text-xs font-semibold text-muted-foreground">All caught up</p>
-              <p className="text-[10px] text-muted-foreground/60 font-medium">No new notifications right now.</p>
+            <DropdownMenuSeparator className="opacity-10 mx-2" />
+            <div className="flex flex-col items-center gap-3 py-10 text-center px-4">
+              <div className="size-12 rounded-2xl bg-muted/50 flex items-center justify-center text-muted-foreground/20">
+                <BellOff className="size-6" />
+              </div>
+              <p className="text-sm font-bold tracking-tight text-foreground">Cognitive Silence</p>
+              <p className="text-xs text-muted-foreground/60 font-medium">No critical updates require your attention at this cycle.</p>
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="h-5 w-px bg-border/60" aria-hidden="true" />
+        <div className="hidden sm:block h-6 w-px bg-border/40" />
 
         {/* Profile menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button
-              className="flex items-center gap-2 p-1 pr-2.5 rounded-full hover:bg-muted transition-colors duration-150 border border-transparent hover:border-border/40"
-              aria-label="Open profile menu"
-            >
-              <Avatar className="size-8 ring-1 ring-border/60">
-                <AvatarFallback className="bg-emphasis text-emphasis-fg font-bold text-[10px]">
-                  {initials}
-                </AvatarFallback>
-              </Avatar>
-              <div className="hidden sm:flex flex-col items-start text-left">
-                <span className="text-xs font-semibold leading-none">
-                  {user?.full_name?.split(" ")[0] || "User"}
+            <button className="flex items-center gap-2 group p-1 pr-3 rounded-2xl hover:bg-muted/50 transition-all border border-transparent hover:border-border/40">
+              <div className="relative">
+                <Avatar className="size-9 ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-300">
+                  <AvatarFallback className="bg-primary/10 text-primary font-bold text-xs">
+                    {initials}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-background bg-green-500" />
+              </div>
+              <div className="hidden xl:flex flex-col items-start text-left">
+                <span className="text-xs font-bold leading-none group-hover:text-primary transition-colors">
+                  {user?.full_name || "User"}
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                  Pro
                 </span>
               </div>
-              <ChevronDown className="size-3 text-muted-foreground/60" aria-hidden="true" />
+              <ChevronDown className="size-3 text-muted-foreground/40 group-hover:text-primary transition-all" />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 rounded-2xl p-2 shadow-lg" align="end" forceMount>
-            <div className="px-3 py-3 mb-1 bg-muted/50 rounded-xl border border-border/40">
-              <p className="text-xs font-bold truncate">{user?.full_name || "User"}</p>
-              <p className="text-[10px] font-medium text-muted-foreground truncate">
-                {user?.email || "No email"}
-              </p>
-            </div>
-            <DropdownMenuItem className="rounded-lg font-medium text-sm cursor-pointer">
-              <Link href="/settings" className="w-full">Profile</Link>
+          <DropdownMenuContent className="w-64 rounded-[2rem] p-3 shadow-2xl obsidian-card" align="end">
+             <div className="p-4 mb-2 bg-primary/5 rounded-2xl border border-primary/10">
+               <div className="flex items-center gap-3 mb-1">
+                 <Sparkles className="size-3.5 text-primary" />
+                 <p className="text-xs font-bold truncate">{user?.full_name || "User"}</p>
+               </div>
+               <p className="text-[10px] font-medium text-muted-foreground truncate uppercase tracking-tighter ml-6">
+                 {user?.email || "No email linked"}
+               </p>
+             </div>
+            <DropdownMenuItem className="rounded-xl font-bold text-xs uppercase tracking-widest p-3 cursor-pointer focus:bg-primary/10 focus:text-primary">
+              Control Panel
             </DropdownMenuItem>
-            <DropdownMenuItem className="rounded-lg font-medium text-sm cursor-pointer">
-              <Link href="/settings" className="w-full">Settings</Link>
+            <DropdownMenuItem className="rounded-xl font-bold text-xs uppercase tracking-widest p-3 cursor-pointer focus:bg-primary/10 focus:text-primary">
+              Security Layers
             </DropdownMenuItem>
-            <DropdownMenuSeparator className="opacity-40" />
-            <DropdownMenuItem className="rounded-lg font-medium text-sm text-destructive cursor-pointer">
-              Log out
+            <DropdownMenuSeparator className="opacity-10 mx-2" />
+            <DropdownMenuItem className="rounded-xl font-bold text-xs uppercase tracking-widest p-3 text-destructive cursor-pointer focus:bg-destructive/10 focus:text-destructive">
+              Terminate Session
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -1,11 +1,6 @@
-import { Metadata } from "next";
 "use client"
 
 
-export const metadata: Metadata = {
-  title: "Sign Up",
-  description: "Start scaling your startup intelligence today for free."
-};
 
 export const dynamic = 'force-dynamic'
 

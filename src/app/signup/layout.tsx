@@ -1,10 +1,10 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign up",
-  description: "Create a TaskLyne account and start building your startup's memory."
-}
+  title: "Sign Up | TaskLyne",
+  description: "Start scaling your startup intelligence today for free."
+};
 
 export default function SignupLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return <>{children}</>;
 }

@@ -1,11 +1,6 @@
-import { Metadata } from "next";
 "use client"
 
 
-export const metadata: Metadata = {
-  title: "Log In",
-  description: "Securely access your TaskLyne command center."
-};
 
 export const dynamic = 'force-dynamic'
 

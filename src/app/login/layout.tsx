@@ -1,10 +1,10 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Log in",
-  description: "Sign in to your TaskLyne account to access your startup's command center."
-}
+  title: "Log In | TaskLyne",
+  description: "Securely access your AI-powered command center."
+};
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return <>{children}</>;
 }

@@ -92,7 +92,10 @@ export function PublicHeader() {
       <div className={`fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-background border-l border-border/40 lg:hidden transform transition-transform duration-500 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full p-8">
           <div className="flex items-center justify-between mb-12">
-            <span className="font-extrabold text-2xl tracking-tighter">TaskLyne</span>
+            <div className="flex items-center gap-3">
+              <span className="font-extrabold text-2xl tracking-tighter">TaskLyne</span>
+              <ThemeToggle />
+            </div>
             <button 
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 hover:bg-muted rounded-full transition-colors"
