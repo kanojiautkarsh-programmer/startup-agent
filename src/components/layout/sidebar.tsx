@@ -19,6 +19,11 @@ const navItems = [
   { title: "Clients", href: "/clients", icon: Users },
 ]
 
+const settingsItems = [
+  { title: "General", href: "/settings" },
+  { title: "Team", href: "/settings/team" },
+]
+
 interface SidebarProps {
   collapsed: boolean
   onToggle: () => void
@@ -119,6 +124,25 @@ export function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
               <Settings className="size-4 shrink-0" aria-hidden="true" />
               {!collapsed && "Settings"}
             </Link>
+
+            {!collapsed && pathname.startsWith("/settings") && (
+              <div className="ml-3 space-y-0.5">
+                {settingsItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-2 rounded-lg px-3 py-2 text-xs transition-colors duration-150",
+                      pathname === item.href
+                        ? "text-foreground font-semibold"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
 
             {!collapsed && user && (
               <div

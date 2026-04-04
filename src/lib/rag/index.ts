@@ -1,9 +1,23 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const DUMMY_URL = 'https://placeholder.supabase.co';
+const DUMMY_KEY = 'placeholder-key';
 
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+let _supabaseAdmin: SupabaseClient | null = null;
+
+function getSupabaseAdmin(): SupabaseClient {
+  if (!_supabaseAdmin) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || DUMMY_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || DUMMY_KEY;
+    _supabaseAdmin = createClient(supabaseUrl, supabaseKey);
+  }
+  return _supabaseAdmin;
+}
+
+export const supabaseAdmin = {
+  from: (table: string) => getSupabaseAdmin().from(table),
+  rpc: (fn: string, params?: Record<string, unknown>) => getSupabaseAdmin().rpc(fn, params as any),
+};
 
 export interface Document {
   id: string;
