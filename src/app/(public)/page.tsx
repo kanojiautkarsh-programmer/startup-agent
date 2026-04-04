@@ -45,7 +45,7 @@ export default function Home() {
         </section>
 
         {/* Bento Grid Features */}
-        <section className="py-32 px-6 bg-muted/10/50 relative">
+        <section className="py-32 px-6 bg-muted/10 relative">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 pb-12">
             
             {/* Bento Block 1 - Large */}
